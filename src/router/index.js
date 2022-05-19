@@ -15,6 +15,7 @@ import EmailVerify from "../views/EmailVerify.vue";
 //User Auth
 import Login from "../views/userAuth/Login.vue";
 import ForgotPassword from "../views/userAuth/ForgotPassword.vue";
+import ResetPassword from "../views/userAuth/ResetPassword.vue";
 import Supplier from "../views/userAuth/Supplier.vue";
 import Buyer from "../views/userAuth/Buyer.vue";
 //Admin Login
@@ -149,6 +150,11 @@ const routes = [
     path: "/forgot-password",
     name: "ForgotPassword",
     component: ForgotPassword,
+  },
+  {
+    path: "/reset-password",
+    name: "ResetPassword",
+    component: ResetPassword,
   },
   { path: "/supplier-registration", name: "Supplier", component: Supplier },
   { path: "/buyer-registration", name: "Buyer", component: Buyer },
