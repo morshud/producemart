@@ -1,0 +1,409 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+html, body {
+    font-family: 'Poppins', sans-serif !important; 
+}
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif !important; 
+}
+::-moz-selection {
+  color: #000;
+  background: #74ce7c;
+}
+::selection {
+  color: #000;
+  background: #74ce7c;
+}
+.route-link{
+  color: #000;
+  text-decoration: none;
+}
+.route-link:hover{
+  color: #000;
+}
+label{
+  display: block;
+  font-size: 14px;
+  color: #000;
+  font-weight: 400;
+}
+form i{
+  position: absolute;
+  margin-top: 8px;
+  margin-left: 15px;
+  font-size: 19px;
+  padding-right: 15px;
+  padding-top: 2px;
+  border-right: 1px solid #aaaaaa;
+  color: #aaaaaa;
+}
+.input{
+  display: block;
+  width: 100%;
+  padding: 10px 5px 10px 60px;
+  border-radius: 5px;
+  border: 1px solid #97F29F;
+  letter-spacing: 0.8px;
+  background-color: #fff;
+  font-size: 16px;
+}
+.input:focus{
+  outline: none;
+  border: 2px solid #000;
+}
+.col-lg-12:focus-within i{
+  border-right: 1px solid #000 !important;
+  color: #000;
+}
+.input::-webkit-input-placeholder{
+  font-size: 13px;
+  font-weight: 300;
+  color: #8d8d8d;
+  letter-spacing: 0.9px;
+}
+.input:-ms-input-placeholder{
+  font-size: 13px;
+  font-weight: 300;
+  color: #8d8d8d;
+  letter-spacing: 0.9px;
+}
+.input::placeholder {
+  font-size: 13px;
+  font-weight: 300;
+  color: #8d8d8d;
+  letter-spacing: 0.9px;
+}
+.submit{
+  background-color: #000;
+  color: #fff;
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px 5px;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.9px;
+}
+@media(max-width: 415px){
+  .submit{
+    font-size: 16px;
+  }
+}
+
+main{
+  width: 100%;
+  height: 100vh;
+  background-color: #F2FDF3;
+  background-image: url('../img/adminImg/authLogin.png');
+  background-position: center left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 60px 10px;
+}
+.forgotMain{
+  background-image: none;
+}
+.forgotMain .agreement{
+  font-size: 14px;
+  color: rgb(54, 54, 54);
+}
+main .loginDiv{
+  background-color: #fff;
+  box-shadow: 0px 0px 20px rgba(136, 136, 136, 0.219);
+  border-radius: 10px;
+  width: 100%;
+  padding: 20px 50px;
+  position: relative;
+}
+main .loginDiv .headLogin h3 img{
+    width: 110px;
+    padding-right: 20px;
+}
+main .loginDiv .headLogin h3 span{
+  font-size: 23px;
+  font-weight: 600;
+  color: #000;
+}
+main .loginDiv form{
+  margin-top: 40px;
+}
+main .loginDiv .forgot{
+    float: right;
+    margin-top: 10px;
+    font-size: 14px;
+}
+main .loginDiv form .checkbox {
+    --border-default: #000;
+    --border-hover: #9898a3;
+    --active: #000;
+    --active-tick: #ffffff;
+    display: block;
+    cursor: pointer;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+}
+main .loginDiv form .checkbox svg {
+    display: block;
+    position: absolute;
+}
+main .loginDiv form .checkbox input {
+    outline: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 20%/20%;
+    box-shadow: inset 0 0 0 1.5px var(--border, var(--border-default));
+    background: var(--background, transparent);
+    transition: background 0.25s linear, box-shadow 0.25s linear;
+    margin-bottom: -3px;
+    margin-right: 5px;
+}
+main .loginDiv form .checkbox input + svg {
+    width: 21px;
+    height: 18px;
+    left: 0;
+    top: 1px;
+    color: var(--active);
+}
+main .loginDiv form .checkbox input + svg .tick {
+    stroke-dasharray: 20;
+    stroke-dashoffset: var(--stroke-dashoffset, 20);
+    transition: stroke-dashoffset 0.2s;
+}
+main .loginDiv form .checkbox input + svg .tick.mask {
+    stroke: var(--active-tick);
+}
+main .loginDiv form .checkbox input + svg + svg {
+    width: 11px;
+    height: 11px;
+    fill: none;
+    stroke: var(--active);
+    stroke-width: 1.25;
+    stroke-linecap: round;
+    top: -6px;
+    right: -10px;
+    stroke-dasharray: 4.5px;
+    stroke-dashoffset: 13.5px;
+    pointer-events: none;
+    -webkit-animation: var(--animation, none) 0.2s ease 0.175s;
+            animation: var(--animation, none) 0.2s ease 0.175s;
+}
+main .loginDiv form .checkbox input:checked {
+    --background: var(--active);
+    --border: var(--active);
+}
+main .loginDiv form .checkbox input:checked + svg {
+    --stroke-dashoffset: 0;
+}
+main .loginDiv form.checkbox input:checked + svg + svg {
+    --animation: check;
+}
+main .loginDiv form .checkbox:hover input:not(:checked) {
+    --border: var(--border-hover);
+}
+@-webkit-keyframes check {
+    100% {
+      stroke-dashoffset: 4.5px;
+    }
+}
+@keyframes check {
+    100% {
+      stroke-dashoffset: 4.5px;
+    }
+}
+main .loginDiv form .optionBelow p{
+    font-size: 15px;
+    color: #000;
+}
+main .loginDiv form .optionBelow p span{
+    font-weight: 700;
+}
+main .loginDiv form .optionBelow2 a{
+  background-color: hsl(125, 78%, 77%);
+  color: #000;
+  font-size: 15px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 10px;
+}
+@media(max-width: 1560px){
+  main{
+    padding: 40px 10px 100px 10px;
+    height: auto;
+  }
+  .forgotMain{
+    height: 100vh;
+  }
+}
+@media(max-width: 1199px){
+  main .loginDiv form .optionBelow2 a{
+    padding: 10px 10px;
+  }
+}
+@media(max-width: 991px){
+  main{
+    padding: 40px 10px;
+  }
+  main .snippet, main .snippet2{
+    display: none;
+  }
+}
+@media(max-width: 590px){
+  main .loginDiv{
+    padding: 20px 30px;
+  }
+}
+@media(max-width: 415px){
+  main .loginDiv{
+    padding: 20px 20px;
+  }
+  main{
+    padding: 40px 5px 70px 5px;
+  }
+  main .loginDiv .headLogin h3 img{
+    width: 90px;
+    padding-right: 15px;
+}
+  main .loginDiv .headLogin h3 span{
+    font-size: 18px;
+  }
+}
+@media(max-width: 371px){
+  main .loginDiv form .optionBelow2 a{
+    padding: 10px 10px;
+    margin: 10px 5px 10px 5px;
+  }
+}
+
+/********************/
+/***Registration*****/
+/********************/
+.reg{
+  background-color: #F2FDF3;
+  padding: 20px 10px 50px 10px;
+  height: 100%;
+}
+.reg .headLogin h3 img{
+  width: 110px;
+  padding-right: 20px;
+}
+.reg .headLogin h3 span{
+  font-size: 23px;
+  font-weight: 600;
+  color: #000;
+}
+.reg .headLogin .line-rule{
+  width: 100px;
+  height: 2px;
+  background-color: #97F29F;
+  margin: auto;
+  position: relative;
+  top: -20px;
+  left: 40px
+}
+.reg .imageArea{
+  width: 100%;
+  margin-top: 50px;
+}
+.reg .imageArea .image1{
+  width: 250px;
+}
+.reg .imageArea .image2{
+  width: 350px;
+  position: relative;
+  top: -90px;
+  left: 110px;
+  z-index: 999;
+}
+.reg .imageArea .image3{
+  width: 200px;
+  position: relative;
+  top: -140px;
+  left: 70px;
+}
+.reg .imageBuyer .image11{
+  width: 250px;
+}
+.reg .imageArea .image22{
+  width: 300px;
+  position: relative;
+  top: -90px;
+  left: 110px;
+  z-index: 999;
+}
+.reg .imageArea .image33{
+  width: 230px;
+  position: relative;
+  top: -140px;
+  left: 30px;
+}
+.reg .signupDiv{
+  background-color: #fff;
+  box-shadow: 0px 0px 20px rgba(136, 136, 136, 0.219);
+  border-radius: 10px;
+  width: 100%;
+  padding: 30px 50px;
+  margin-top: 20px;
+}
+.reg .signupDiv form .agreement{
+  font-size: 14px;
+  color: #000;
+}
+.reg .signupDiv form .agreement .route-link{
+  font-weight: 600;
+}
+.reg .signuas .route-link{
+  font-size: 16px;
+  font-weight: 600;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #000;
+  transition: 0.5s;
+}
+.reg .signuas .route-link:hover{
+  padding-bottom: 3px;
+  border-bottom: 2px solid #6fc776;
+  text-decoration: none
+}
+.reg .optionBelow{
+  margin-top: 30px;
+}
+.reg .optionBelow p{
+  font-size: 15px;
+  color: #000;
+}
+.reg .optionBelow p span{
+  font-weight: 600;
+}
+@media(max-width: 1199px){
+  .reg .imageArea .image2{
+    width: 320px;
+  }
+}
+@media(max-width: 991px){
+  .reg .imageArea{
+    display: none;
+  }
+}
+@media(max-width: 580px){
+  .reg .signupDiv{
+    padding: 30px 30px;
+  }
+}
+@media(max-width: 435px){
+  .reg{
+    padding: 20px 5px 50px 5px;
+  }
+}
+@media(max-width: 415px){
+  .reg .headLogin h3 span{
+    font-size: 17px;
+  }
+  .reg .headLogin h3 img{
+    width: 90px;
+  }
+}
