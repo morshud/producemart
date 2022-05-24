@@ -127,7 +127,8 @@
             </div>
             <!--Profile-->
             <div class="profile_info">
-              <img src="@/assets/img/client_img.png" alt="#" />
+              <img :src="user.img_url" alt="#" v-if="user.img_url" />
+              <img src="@/assets/img/client_img.png" alt="#" v-else />
               <div class="profile_info_iner">
                 <div class="profile_author_name">
                   <p>Buyer</p>

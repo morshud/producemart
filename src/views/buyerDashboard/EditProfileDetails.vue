@@ -38,19 +38,26 @@
           <!--Main-->
           <div class="col-md-9 white_box editProfileDetail">
             <div class="row">
-              <form @submit.prevent="handleUpdate">
+              <form
+                @submit.prevent="handleUpdate"
+                enctype="multipart/form-data"
+              >
                 <div class="col-lg-12">
                   <div class="row text-center">
                     <div class="col-lg-12">
                       <h4>Change Profile Picture</h4>
                       <div class="profile-img-area">
-                        <img src="@/assets/img/dashboard-img/default-dp.jpg" />
+                        <img
+                          src="@/assets/img/dashboard-img/default-dp.jpg"
+                          v-if="!image"
+                        />
+                        <img :src="image" v-else />
                       </div>
                       <label
                         class="custom-file-upload"
                         title="Upload Profile Picture"
                       >
-                        <input type="file" />
+                        <input type="file" @change="onFileChange" />
                         <i class="bi bi-upload"></i>
                       </label>
                       <button class="deleteProfilePic" type="submit">
@@ -100,6 +107,12 @@
                       />
                     </div>
                   </div>
+                  <div
+                    class="col-lg-12 mb-4 mt-2 text-center signuas"
+                    v-show="loading"
+                  >
+                    <span class="spinner-border spinner-border-sm"></span>
+                  </div>
                 </div>
               </form>
             </div>
@@ -143,31 +156,32 @@ export default {
       phone: JSON.parse(localStorage.getItem("user")).phone_no,
       company: JSON.parse(localStorage.getItem("user")).company_name,
       token: JSON.parse(localStorage.getItem("user")).token,
+      image: JSON.parse(localStorage.getItem("user")).img_url,
       loading: false,
     };
   },
   methods: {
     async handleUpdate() {
       this.loading = !this.loading;
-      const update = {
-        firstname: this.firstname,
-        lastname: this.lastname,
-        phone_no: this.phone,
-        company_name: this.company,
-      };
-      // console.log(update);
+      const fd = new FormData();
+      fd.append("image", this.image);
+      fd.append("firstname", this.firstname);
+      fd.append("lastname", this.lastname);
+      fd.append("phone_no", this.phone);
+      fd.append("company_name", this.company);
+
       const res = await fetch(
         `https://producemart.herokuapp.com/${this.user._id}/update`,
         {
           method: "PATCH",
           headers: {
-            "Content-Type": "application/json",
             Authorization: this.token,
           },
-          body: JSON.stringify(update),
+          body: fd,
         }
       );
       const data = await res.json();
+      console.log(data);
       {
         data.data &&
           localStorage.setItem(
@@ -176,6 +190,9 @@ export default {
           );
       }
       this.$router.push("/buyer-dashboard/profile");
+    },
+    onFileChange(e) {
+      this.image = e.target.files[0];
     },
   },
 };
