@@ -1,5 +1,5 @@
 <template>
-    <title>Draft Products - Supplier Dashboard | Produce Mart</title>
+    <title>View Blog - Super Admin Dashboard | Produce Mart</title>
     <dash-sidebar/>
 
     <section class="main_content dashboard_part large_header_bg">
@@ -14,13 +14,13 @@
                             <div class="row">
                                 <div class="col-lg-8">
                                     <div class="dashboard_header_title">
-                                    <h3>Draft Products</h3>
+                                    <h3>View Blog</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="dashboard_breadcam text-right">
                                         <p>
-                                            <router-link to="/supplier-dashboard/home"><a>Dashboard</a></router-link> <i class="fas fa-caret-right"></i> Draft Products
+                                            <router-link to="/dashboard/home"><a>Dashboard</a></router-link> <i class="fas fa-caret-right"></i> View Blog
                                         </p>
                                     </div>
                                 </div>
@@ -34,13 +34,13 @@
                             <div class="white_card_body">
                                 <div class="QA_section">
                                     <div class="white_box_tittle list_header">
-                                        <h4>Draft Products List </h4>
+                                        <h4>All Blogs</h4>
                                         <div class="box_right d-flex lms_block">
                                             <div class="serach_field_2">
                                             <div class="search_inner">
                                                 <form Active="#">
                                                     <div class="search_field">
-                                                        <input type="text" placeholder="Search products here...">
+                                                        <input type="text" placeholder="Search here...">
                                                     </div>
                                                     <button type="submit"> <i class="bi bi-search"></i> </button>
                                                 </form>
@@ -56,31 +56,24 @@
                                         <table class="table lms_table_active ">
                                             <thead>
                                             <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Product Name</th>
-                                                <th scope="col">Last Edit</th>
+                                                <th scope="col">S/N</th>
+                                                <th scope="col">Blog Title</th>
+                                                <th scope="col">Blog Content</th>
+                                                <th scope="col">Blog Image</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
                                                 <th scope="row">1</th>
-                                                <td>Cocoa- QBL-18L40</td>
-                                                <td>22 Jan 2021</td>
+                                                <td>New Blog</td>
+                                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id maiores aspernatur natus, reiciendis provident voluptates autem tempora vitae. Inventore a quae sapiente nemo quas modi magni velit, voluptas laboriosam praesentium sequi aperiam excepturi beatae impedit quo non alias quis architecto voluptates ex? Modi quas odit tenetur ducimus aliquam consectetur, voluptatum deserunt quasi vitae corporis, tempore, hic saepe delectus sunt nesciunt fuga nihil! A facere sint consectetur, exercitationem veritatis dolorem deserunt totam porro, vel voluptates debitis ex dolores corrupti praesentium! Nobis quae fugiat, in itaque exercitationem eum aperiam ut ratione, repudiandae, pariatur laboriosam sapiente inventore. Provident, molestias. Ut facere expedita tempore!</td>
                                                 <td>
-                                                    <div class="action_btns d-flex">
-                                                        <router-link to="/supplier-dashboard/continue-product-upload"><a title="View & Edit" class="action_btn mr_10"> <i class="far fa-edit"></i> </a></router-link>
-                                                        <a href="#" title="Delete" class="action_btn"> <i class="fas fa-trash"></i> </a>
-                                                    </div>
+                                                    <img src="@/assets/img/blogImg.jpg">
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Cocoa- QBL-18L40</td>
-                                                <td>22 Jan 2021</td>
                                                 <td>
                                                     <div class="action_btns d-flex">
-                                                        <router-link to="/supplier-dashboard/continue-product-upload"><a title="View & Edit" class="action_btn mr_10"> <i class="far fa-edit"></i> </a></router-link>
+                                                        <router-link to="/dashboard/edit-blog-content"><a title="View & Edit" class="action_btn mr_10"> <i class="far fa-edit"></i> </a></router-link>
                                                         <a href="#" title="Delete" class="action_btn"> <i class="fas fa-trash"></i> </a>
                                                     </div>
                                                 </td>

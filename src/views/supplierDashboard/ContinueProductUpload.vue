@@ -1,5 +1,5 @@
 <template>
-  <title>Upload Products - Supplier Dashboard | Produce Mart</title>
+  <title>Continue Product Upload - Supplier Dashboard | Produce Mart</title>
   <dash-sidebar />
 
   <section class="main_content dashboard_part large_header_bg">
@@ -14,7 +14,7 @@
               <div class="row">
                 <div class="col-lg-8">
                   <div class="dashboard_header_title">
-                    <h3>Upload Products</h3>
+                    <h3>Continue Product Upload</h3>
                   </div>
                 </div>
                 <div class="col-lg-4">
@@ -23,7 +23,7 @@
                       <router-link to="/supplier-dashboard/home"
                         ><a>Dashboard</a></router-link
                       >
-                      <i class="fas fa-caret-right"></i> Upload Products
+                      <i class="fas fa-caret-right"></i> Continue Product Upload
                     </p>
                   </div>
                 </div>

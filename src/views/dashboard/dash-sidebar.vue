@@ -164,6 +164,23 @@
                     <li><router-link to="/dashboard/view-quotes"><a>View Quotes</a></router-link></li>
                 </ul>
             </li>
+            <!--Blogs-->
+            <li class="">
+                <router-link to="#" class="has-arrow">
+                    <a aria-expanded="false">
+                        <div class="nav_icon_small">
+                            <img src="@/assets/img/menu-icon/access-level.png">
+                        </div>
+                        <div class="nav_title">
+                            <span>Blog</span>
+                        </div>
+                    </a>
+                </router-link>
+                <ul>
+                    <li><router-link to="/dashboard/write-blog"><a>Write Blog</a></router-link></li>
+                    <li><router-link to="/dashboard/view-blog"><a>View Blog</a></router-link></li>
+                </ul>
+            </li>
             <!--Access Level-->
             <li class="">
                 <router-link to="#" class="has-arrow">
