@@ -115,6 +115,7 @@ import DashBuyerReports from "../views/dashboard/BuyerReports.vue";
 import DashBuyer001 from "../views/dashboard/Buyer001.vue";
 import DashSupplierReports from "../views/dashboard/SupplierReports.vue";
 import DashSupplier001 from "../views/dashboard/Supplier001.vue";
+import AddBlog from "../views/dashboard/addBlog.vue";
 //settings
 import DashEditProfileDetails from "../views/dashboard/EditProfileDetails.vue";
 import DashChangePassword from "../views/dashboard/ChangePassword.vue";
@@ -530,6 +531,12 @@ const routes = [
     path: "/dashboard/supplier001",
     name: "DashSupplier001",
     component: DashSupplier001,
+  },
+  //Blog
+  {
+    path: "/dashboard/add-blog",
+    name: "AddBlog",
+    component: AddBlog,
   },
   //settings
   {
