@@ -476,7 +476,7 @@ const routes = [
     component: DashWriteBlog,
   },
   {
-    path: "/dashboard/edit-blog-content",
+    path: "/dashboard/edit-blog-content/:id",
     name: "DashEditBlogContent",
     component: DashEditBlogContent,
   },
