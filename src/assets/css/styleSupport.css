@@ -103,7 +103,7 @@
 .uploadMore{
     margin: 20px 0px 20px 0px;
 }
-.uploadMore a{
+.uploadMore span{
     background-color: #0044ff;
     color: #fff;
     border-radius: 5px;
@@ -112,13 +112,15 @@
     font-weight: 400;
     cursor: pointer;
 }
-.remove-field .btn-remove-field{
+.removeField{
     background-color: #e70000;
     color: #fff;
     border-radius: 5px;
     padding: 8px 15px;
     font-size: 14px;
     font-weight: 400;
+    cursor: pointer;
+    width: 250px;
 }
 
 

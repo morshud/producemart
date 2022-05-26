@@ -61,6 +61,7 @@ import DashSupplierProductPublished from "../views/supplierDashboard/ProductPubl
 import DashSupplierProductPending from "../views/supplierDashboard/ProductPending.vue";
 import DashSupplierProductDisable from "../views/supplierDashboard/ProductDisable.vue";
 import DashSupplierProductDraft from "../views/supplierDashboard/ProductDraft.vue";
+import DashSupplierProductDraftContinue from "../views/supplierDashboard/ContinueProductUpload.vue";
 import DashSupplierProductViewPublished from "../views/supplierDashboard/ProductViewPublished.vue";
 //certifications
 import DashSupplierRequestAudit from "../views/supplierDashboard/RequestAudit.vue";
@@ -98,6 +99,10 @@ import DashViewInspector from "../views/dashboard/ViewInspector.vue";
 //quotes
 import DashViewQuotes from "../views/dashboard/ViewQuotes.vue";
 import DashQuotes0001 from "../views/dashboard/Quotes0001.vue";
+//blogs
+import DashWriteBlog from "../views/dashboard/WriteBlog.vue";
+import DashEditBlogContent from "../views/dashboard/EditBlogContent.vue";
+import DashViewBlog from "../views/dashboard/ViewBlog.vue";
 //emails
 import DashEmailBuyer from "../views/dashboard/EmailBuyer.vue";
 import DashEmailSupplier from "../views/dashboard/EmailSupplier.vue";
@@ -330,6 +335,11 @@ const routes = [
     component: DashSupplierProductDraft,
   },
   {
+    path: "/supplier-dashboard/continue-product-upload",
+    name: "DashSupplierProductDraftContinue",
+    component: DashSupplierProductDraftContinue,
+  },
+  {
     path: "/supplier-dashboard/view-products",
     name: "DashSupplierProductViewPublished",
     component: DashSupplierProductViewPublished,
@@ -458,6 +468,22 @@ const routes = [
     path: "/dashboard/quotes/quotes0001",
     name: "DashQuotes0001",
     component: DashQuotes0001,
+  },
+  //blogs
+  {
+    path: "/dashboard/write-blog",
+    name: "DashWriteBlog",
+    component: DashWriteBlog,
+  },
+  {
+    path: "/dashboard/edit-blog-content",
+    name: "DashEditBlogContent",
+    component: DashEditBlogContent,
+  },
+  {
+    path: "/dashboard/view-blog",
+    name: "DashViewBlog",
+    component: DashViewBlog,
   },
   //emails
   {

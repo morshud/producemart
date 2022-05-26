@@ -56,7 +56,7 @@
 @media(max-width:705px){
     .progress-step::after {
         font-size: 0.70rem;
-        color: #fff;
+        color: #F6F7FB;
     }
 }
 .progress-step-active {
@@ -96,6 +96,11 @@
 .form .radioSpan{
     padding-right: 20px;
     padding-bottom: 1px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+.radioDiv input{
+    cursor: pointer;
 }
 @media(max-width: 1299px){
     .form .radioSpan{
@@ -241,9 +246,27 @@
     width: 50%;
     float: left;
 }
+.categoryInnerDiv label{
+    display: block !important;
+}
+.categoryInnerDiv .inputSize{
+    width: 70% !important;
+}
+.categoryInnerDiv .selectSize{
+    width: 30% !important;
+}
 .categoryInnerDivLarge{
     clear: both;
     width: 100%;
+}
+.categoryInnerDivLarge label{
+    display: block !important;
+}
+.categoryInnerDivLarge .inputSize{
+    width: 70% !important;
+}
+.categoryInnerDivLarge .selectSize{
+    width: 30% !important;
 }
 .uploadSmallPicture{
     color: red;
@@ -263,4 +286,50 @@
         width: 100%;
         float: none;
     }
+}
+
+
+.file-upload .image-box {
+    height: 10em;
+    width: 270px;
+    cursor: pointer;
+    overflow: hidden;
+    border: 3px dotted #000;
+}
+@media(max-width: 375px){
+    .file-upload .image-box {
+        width: 100%;
+    }
+}
+.file-upload .image-box img {
+    height: 100%;
+    display: none;
+}
+.file-upload .image-box p {
+    position: relative;
+    top: 45%;
+    color: #000;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+
+
+.certificateTable{
+    border-collapse: collapse !important;
+    width: 100%;
+    color: #000000;
+    border: 1px solid #696969;
+}
+.certificateTable .headingTable td{
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 600;
+}
+.certificateTable tr{
+    border-bottom: 1px solid #696969;
+}
+.certificateTable td{
+    padding: 10px 5px;
+    border: 1px solid #696969;
 }
