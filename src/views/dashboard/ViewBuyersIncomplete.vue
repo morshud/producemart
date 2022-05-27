@@ -94,7 +94,7 @@
                           <td>{{ user.createdAt }}</td>
                           <td>{{ user.updatedAt }}</td>
                           <td></td>
-                          <td><a href="#" class="status_btn">Active</a></td>
+                          <td><a href="#" class="status_btn">Incomplete</a></td>
                           <td>
                             <div class="action_btns d-flex">
                               <a href="#" title="Edit" class="action_btn mr_10">
@@ -166,7 +166,7 @@ export default {
       );
       const { data } = await res.json();
 
-      this.users = data;
+      this.users = data.filter((user) => !user.emailVerified);
       console.log("users", this.users);
     },
   },

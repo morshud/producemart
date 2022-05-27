@@ -177,7 +177,7 @@ export default {
       );
       const { data } = await res.json();
 
-      this.users = data;
+      this.users = data.filter((user) => user.emailVerified);
       console.log("users", this.users);
     },
   },

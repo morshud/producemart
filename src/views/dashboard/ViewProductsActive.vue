@@ -82,6 +82,7 @@
                           <th scope="col">Certification</th>
                           <th scope="col">Packaging</th>
                           <th scope="col">Minimum Order Quantity</th>
+                          <th scope="col">State</th>
                           <th scope="col">Status</th>
                           <th scope="col">Action</th>
                         </tr>
@@ -97,9 +98,17 @@
                           <td>{{ product.price }}</td>
                           <td>{{ product.category }}</td>
                           <th scope="row">{{ product.farmMethod }}</th>
-                          <th scope="row">{{ product.image }}</th>
                           <td>{{ product.description }}</td>
-                          <td>{{ product.certification }}</td>
+                          <th scope="row">
+                            <img width="80" :src="product.img_url[0]" alt="" />
+                          </th>
+                          <td>
+                            <a
+                              :href="product.certification[0].file_url"
+                              target="_blank"
+                              >View Certificate</a
+                            >
+                          </td>
                           <td>{{ product.packaging }}</td>
                           <td>{{ product.qty }}</td>
                           <td>{{ product.status }}</td>
