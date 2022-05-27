@@ -86,13 +86,16 @@ export default {
   methods: {
     async handleLogin() {
       this.loading = true;
-      const res = await fetch("https://producemart.herokuapp.com/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: this.email, password: this.password }),
-      });
+      const res = await fetch(
+        "https://producemart.herokuapp.com/signin-admin",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: this.email, password: this.password }),
+        }
+      );
       const data = await res.json();
       if (data.status == false) {
         this.loading = false;
