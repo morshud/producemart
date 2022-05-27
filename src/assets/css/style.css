@@ -2246,7 +2246,7 @@ p a:hover {
 }
 
 .common_input input,
-.common_input textarea {
+.common_input textarea, .common_input select {
   background-color: #fff;
   border: 0;
   padding: 12px 10px;
@@ -2256,12 +2256,12 @@ p a:hover {
   width: 100%;
   display: block;
   border-radius: 10px;
-  border: 1px solid #969696;
+  border: 1px solid #444444;
 }
 
 .common_input input,
-.common_input textarea::placeholder {
-  color: #81879f;
+.common_input textarea::placeholder{
+  color: #444444;
   font-weight: 400;
   font-size: 14px;
   opacity: 1;

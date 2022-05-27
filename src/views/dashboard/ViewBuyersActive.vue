@@ -87,7 +87,7 @@
                                                 <td><a href="#" class="status_btn">Active</a></td>
                                                 <td>
                                                     <div class="action_btns d-flex">
-                                                        <a href="#" title="Edit" class="action_btn mr_10"> <i class="far fa-edit"></i> </a>
+                                                        <router-link to="/dashboard/edit-buyer-content"><a title="Edit" class="action_btn mr_10"> <i class="far fa-edit"></i> </a></router-link>
                                                         <a href="#" title="Delete" class="action_btn"> <i class="fas fa-trash"></i> </a>
                                                     </div>
                                                 </td>
