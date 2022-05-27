@@ -127,7 +127,9 @@
                     <p class="card-text">
                       {{ blog.description.slice(0, 150) }}...
                     </p>
-                    <router-link to="/blog-content" class="linkRead"
+                    <router-link
+                      :to="'/blog-content/' + blog.title"
+                      class="linkRead"
                       >Read More <i class="bi bi-arrow-right-short"></i
                     ></router-link>
                     <p class="card-text">
@@ -178,9 +180,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.imgHouse {
-  height: 200px;
-}
-</style>

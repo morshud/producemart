@@ -148,7 +148,7 @@ const routes = [
   },
   { path: "/faq", name: "Faq", component: Faq },
   { path: "/blog", name: "Blog", component: Blog },
-  { path: "/blog-content", name: "BlogContent", component: BlogContent },
+  { path: "/blog-content/:title", name: "BlogContent", component: BlogContent },
   { path: "/contact", name: "Contact", component: Contact },
   { path: "/terms", name: "Terms", component: Terms },
   { path: "/privacy", name: "Privacy", component: Privacy },
