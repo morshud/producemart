@@ -83,10 +83,12 @@ import DashViewProductsDisable from "../views/dashboard/ViewProductsDisable.vue"
 import DashViewOrders from "../views/dashboard/ViewOrders.vue";
 //buyers
 import DashViewBuyersActive from "../views/dashboard/ViewBuyersActive.vue";
+import DashEditBuyerContent from "../views/dashboard/EditBuyerContent.vue";
 import DashViewBuyersIncomplete from "../views/dashboard/ViewBuyersIncomplete.vue";
 import DashViewBuyersDisable from "../views/dashboard/ViewBuyersDisable.vue";
 //suppliers
 import DashViewSuppliersActive from "../views/dashboard/ViewSuppliersActive.vue";
+import DashEditSupplierContent from "../views/dashboard/EditSupplierContent.vue";
 import DashViewSuppliersPending from "../views/dashboard/ViewSuppliersPending.vue";
 import DashViewSuppliersIncomplete from "../views/dashboard/ViewSuppliersIncomplete.vue";
 import DashViewSuppliersDisable from "../views/dashboard/ViewSuppliersDisable.vue";
@@ -408,6 +410,11 @@ const routes = [
     component: DashViewBuyersActive,
   },
   {
+    path: "/dashboard/edit-buyer-content",
+    name: "DashEditBuyerContent",
+    component: DashEditBuyerContent,
+  },
+  {
     path: "/dashboard/incomplete-buyers",
     name: "DashViewBuyersIncomplete",
     component: DashViewBuyersIncomplete,
@@ -422,6 +429,11 @@ const routes = [
     path: "/dashboard/active-suppliers",
     name: "DashViewSuppliersActive",
     component: DashViewSuppliersActive,
+  },
+  {
+    path: "/dashboard/edit-supplier-content",
+    name: "DashEditSupplierContent",
+    component: DashEditSupplierContent,
   },
   {
     path: "/dashboard/pending-suppliers",
