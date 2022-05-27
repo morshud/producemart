@@ -93,9 +93,11 @@ import DashViewSuppliersDisable from "../views/dashboard/ViewSuppliersDisable.vu
 //shipper
 import DashAddShipper from "../views/dashboard/AddShipper.vue";
 import DashViewShipper from "../views/dashboard/ViewShipper.vue";
+import DashEditShipperContent from "../views/dashboard/EditShipperContent.vue";
 //inspector
 import DashAddInspector from "../views/dashboard/AddInspector.vue";
 import DashViewInspector from "../views/dashboard/ViewInspector.vue";
+import DashEditInspectorContent from "../views/dashboard/EditInspectorContent.vue";
 //quotes
 import DashViewQuotes from "../views/dashboard/ViewQuotes.vue";
 import DashQuotes0001 from "../views/dashboard/Quotes0001.vue";
@@ -447,6 +449,11 @@ const routes = [
     name: "DashViewShipper",
     component: DashViewShipper,
   },
+  {
+    path: "/dashboard/edit-shipper-content",
+    name: "DashEditShipperContent",
+    component: DashEditShipperContent,
+  },
   //inspector
   {
     path: "/dashboard/add-inspector",
@@ -457,6 +464,11 @@ const routes = [
     path: "/dashboard/view-inspectors",
     name: "DashViewInspector",
     component: DashViewInspector,
+  },
+  {
+    path: "/dashboard/edit-inspector-content",
+    name: "DashEditInspectorContent",
+    component: DashEditInspectorContent,
   },
   //quotes
   {
