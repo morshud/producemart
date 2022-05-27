@@ -158,31 +158,31 @@ export default {
   },
   methods: {
     async saveInspector() {
-      //   const body = {
-      //     companyName: this.companyName,
-      //     firstName: this.firstName,
-      //     lastName: this.lastName,
-      //     email: this.email,
-      //     phone_no: this.phone_no,
-      //     address: this.address,
-      //   };
-      //   console.log(body);
-      const fd = new FormData();
-      fd.append("companyName", this.companyName);
-      fd.append("firstName", this.firstName);
-      fd.append("lastName", this.lastName);
-      fd.append("email", this.email);
-      fd.append("phone_no", this.phone_no);
-      fd.append("address", this.address);
+      const body = {
+        companyName: this.companyName,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        phone_no: this.phone_no,
+        address: this.address,
+      };
+      console.log(body);
+      // const fd = new FormData();
+      // fd.append("companyName", this.companyName);
+      // fd.append("firstName", this.firstName);
+      // fd.append("lastName", this.lastName);
+      // fd.append("email", this.email);
+      // fd.append("phone_no", this.phone_no);
+      // fd.append("address", this.address);
       const res = await fetch(
         "https://producemart.herokuapp.com/addInspector",
         {
           method: "POST",
           headers: {
-            // "Content-Type": "applicaiton/json",
+            "Content-Type": "application/json",
             Authorization: this.token,
           },
-          body: fd,
+          body: JSON.stringify(body),
         }
       );
       const data = await res.json();

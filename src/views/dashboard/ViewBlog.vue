@@ -75,7 +75,9 @@
                       <tbody>
                         <tr v-for="(blog, i) in blogs" :key="blog._id">
                           <th scope="row">{{ i + 1 }}</th>
-                          <td>{{ blog.title }}</td>
+                          <td>
+                            <h5>{{ blog.title }}</h5>
+                          </td>
                           <td>
                             {{
                               blog.description.length < 300

@@ -177,7 +177,7 @@ export default {
       const res = await fetch("https://producemart.herokuapp.com/addShipper", {
         method: "POST",
         headers: {
-          "Content-Type": "applicaiton/json",
+          "Content-Type": "application/json",
           Authorization: this.token,
         },
         body: JSON.stringify({

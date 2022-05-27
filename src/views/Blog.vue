@@ -115,7 +115,7 @@
                 <div class="col-md-5">
                   <div class="imgHouse">
                     <img
-                      src="@/assets/img/blogImg.jpg"
+                      :src="blog.img_url"
                       class="img-fluid rounded-start"
                       draggable="false"
                     />
@@ -178,3 +178,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.imgHouse {
+  height: 200px;
+}
+</style>
