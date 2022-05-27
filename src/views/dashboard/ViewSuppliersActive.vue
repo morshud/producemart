@@ -82,7 +82,9 @@
                       </thead>
                       <tbody>
                         <tr v-for="(user, i) in users" :key="i">
-                          <th scope="row">{{ user.supplierVerification }}</th>
+                          <th scope="row">
+                            {{ user.supplierVerification._id }}
+                          </th>
                           <td>{{ user.firstname }}</td>
                           <td>{{ user.lastname }}</td>
                           <td>{{ user.username }}</td>
@@ -142,19 +144,32 @@ export default {
       "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
     );
     document.head.appendChild(externalScriptCustom);
-    this.fetchUsers();
+    this.fetchSuppliers();
   },
   data() {
     return {
       users: null,
+      token: JSON.parse(localStorage.getItem("user")).token,
     };
   },
   methods: {
-    async fetchUsers() {
+    async fetchSuppliers() {
       this.users = null;
-      const res = await fetch("https://producemart.herokuapp.com/getAllUsers");
+      const res = await fetch(
+        "https://producemart.herokuapp.com/getUsersByRole?role=supplier",
+        {
+          method: "GET",
+          headers: {
+            Authorization: this.token,
+          },
+        }
+      );
       const { data } = await res.json();
-      this.users = data.filter((user) => user.role == "supplier");
+      const active = data.filter(
+        (user) => user.supplierVerification.status == "active"
+      );
+      this.users = active;
+      console.log("users", this.users);
     },
   },
 };

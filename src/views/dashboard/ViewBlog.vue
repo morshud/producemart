@@ -76,7 +76,13 @@
                         <tr v-for="(blog, i) in blogs" :key="blog._id">
                           <th scope="row">{{ i + 1 }}</th>
                           <td>{{ blog.title }}</td>
-                          <td>{{ blog.description }}</td>
+                          <td>
+                            {{
+                              blog.description.length < 300
+                                ? blog.description
+                                : blog.description.slice(0, 300) + "..."
+                            }}
+                          </td>
                           <td>
                             <img :src="blog.img_url" />
                           </td>
