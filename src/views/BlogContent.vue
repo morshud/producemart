@@ -8,14 +8,14 @@
       <div class="row justify-content-center">
         <div class="col-lg-11 details">
           <div class="blog-title text-center">
-            <h1>{{ blog ? blog.title : "Title" }}</h1>
+            <h1>{{ blog && blog.title }}</h1>
             <p>June 27, 2022 | By Produce Mart</p>
           </div>
           <div class="blog-image">
             <img :src="blog && blog.img_url" ondragstart="return false;" />
           </div>
           <div class="note">
-            <p>{{ blog ? blog.description : "Body" }}</p>
+            <p>{{ blog && blog.description }}</p>
           </div>
           <div class="share-post text-center">
             <h4>Share Article</h4>

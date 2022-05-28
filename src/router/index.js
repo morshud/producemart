@@ -462,7 +462,7 @@ const routes = [
     component: DashViewShipper,
   },
   {
-    path: "/dashboard/edit-shipper-content",
+    path: "/dashboard/edit-shipper-content/:id",
     name: "DashEditShipperContent",
     component: DashEditShipperContent,
   },
@@ -478,7 +478,7 @@ const routes = [
     component: DashViewInspector,
   },
   {
-    path: "/dashboard/edit-inspector-content",
+    path: "/dashboard/edit-inspector-content/:id",
     name: "DashEditInspectorContent",
     component: DashEditInspectorContent,
   },

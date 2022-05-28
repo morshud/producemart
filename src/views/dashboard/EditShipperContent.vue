@@ -42,12 +42,12 @@
                 </div>
               </div>
               <div class="white_card_body">
-                <form @submit.prevent="saveShipper">
+                <form @submit.prevent="updateShipper" v-if="shipper">
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="common_input mb_15">
                         <input
-                          v-model="companyName"
+                          v-model="shipper.companyName"
                           type="text"
                           placeholder="Company Name"
                         />
@@ -56,7 +56,7 @@
                     <div class="col-lg-6">
                       <div class="common_input mb_15">
                         <input
-                          v-model="firstName"
+                          v-model="shipper.firstName"
                           type="text"
                           placeholder="First Name"
                         />
@@ -65,7 +65,7 @@
                     <div class="col-lg-6">
                       <div class="common_input mb_15">
                         <input
-                          v-model="lastName"
+                          v-model="shipper.lastName"
                           type="text"
                           placeholder="Last Name"
                         />
@@ -74,7 +74,7 @@
                     <div class="col-lg-6">
                       <div class="common_input mb_15">
                         <input
-                          v-model="email"
+                          v-model="shipper.email"
                           type="text"
                           placeholder="Email Address"
                         />
@@ -83,7 +83,7 @@
                     <div class="col-lg-6">
                       <div class="common_input mb_15">
                         <input
-                          v-model="phone_no"
+                          v-model="shipper.phone_no"
                           type="text"
                           placeholder="Mobile No"
                         />
@@ -92,7 +92,7 @@
                     <div class="col-lg-12">
                       <div class="common_input mb_15">
                         <textarea
-                          v-model="address"
+                          v-model="shipper.address"
                           cols="30"
                           rows="4"
                           placeholder="Address"
@@ -144,46 +144,70 @@ export default {
       "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
     );
     document.head.appendChild(externalScriptCustom);
+    this.getShipper();
   },
+  // computed: {
+  //   shipper() {
+  //     if (this.shipper) return this.shipper;
+  //     return null;
+  //   },
+  // },
   data() {
     return {
-      companyName: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone_no: "",
-      address: "",
+      id: this.$route.params.id,
+      shipper: null,
       token: JSON.parse(localStorage.getItem("user")).token,
     };
   },
   methods: {
-    async saveShipper() {
-      //   const body = {
-      //     companyName: this.companyName,
-      //     firstName: this.firstName,
-      //     lastName: this.lastName,
-      //     email: this.email,
-      //     phone_no: this.phone_no,
-      //     address: this.address,
-      //   };
-      //   console.log(body);
-      const fd = new FormData();
-      fd.append("companyName", this.companyName);
-      fd.append("firstName", this.firstName);
-      fd.append("lastName", this.lastName);
-      fd.append("email", this.email);
-      fd.append("phone_no", this.phone_no);
-      fd.append("address", this.address);
-      const res = await fetch("https://producemart.herokuapp.com/addShipper", {
-        method: "POST",
-        headers: {
-          //   "Content-Type": "applicaiton/json",
-          Authorization: this.token,
-        },
-        body: fd,
-      });
+    async getShipper() {
+      this.shipper = null;
+
+      const res = await fetch(
+        "https://producemart.herokuapp.com/getShipper/" + this.id,
+        {
+          headers: {
+            Authorization: this.token,
+          },
+        }
+      );
+      const { data } = await res.json();
+      this.shipper = data;
+      console.log(this.shipper);
+    },
+    async updateShipper() {
+      const body = {
+        companyName: this.shipper.companyName,
+        firstName: this.shipper.firstName,
+        lastName: this.shipper.lastName,
+        email: this.shipper.email,
+        phone_no: this.shipper.phone_no,
+        address: this.shipper.address,
+      };
+      console.log(body);
+      // const fd = new FormData();
+      // fd.append("companyName", this.companyName);
+      // fd.append("firstName", this.firstName);
+      // fd.append("lastName", this.lastName);
+      // fd.append("email", this.email);
+      // fd.append("phone_no", this.phone_no);
+      // fd.append("address", this.address);
+      const res = await fetch(
+        "https://producemart.herokuapp.com/updateShipper/" + this.id,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: this.token,
+          },
+          body: JSON.stringify(body),
+        }
+      );
       const data = await res.json();
       console.log(data);
+      if ((data.status = true)) {
+        this.$router.push("/dashboard/view-shipper");
+      }
     },
   },
 };

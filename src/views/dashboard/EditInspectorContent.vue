@@ -42,12 +42,12 @@
                 </div>
               </div>
               <div class="white_card_body">
-                <form @submit.prevent="saveInspector">
+                <form @submit.prevent="updateInspector" v-if="inspector">
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="common_input mb_15">
                         <input
-                          v-model="companyName"
+                          v-model="inspector.companyName"
                           type="text"
                           placeholder="Company Name"
                         />
@@ -56,7 +56,7 @@
                     <div class="col-lg-6">
                       <div class="common_input mb_15">
                         <input
-                          v-model="firstName"
+                          v-model="inspector.firstName"
                           type="text"
                           placeholder="First Name"
                         />
@@ -65,7 +65,7 @@
                     <div class="col-lg-6">
                       <div class="common_input mb_15">
                         <input
-                          v-model="lastName"
+                          v-model="inspector.lastName"
                           type="text"
                           placeholder="Last Name"
                         />
@@ -74,7 +74,7 @@
                     <div class="col-lg-6">
                       <div class="common_input mb_15">
                         <input
-                          v-model="email"
+                          v-model="inspector.email"
                           type="text"
                           placeholder="Email Address"
                         />
@@ -83,7 +83,7 @@
                     <div class="col-lg-6">
                       <div class="common_input mb_15">
                         <input
-                          v-model="phone_no"
+                          v-model="inspector.phone_no"
                           type="text"
                           placeholder="Mobile No"
                         />
@@ -92,7 +92,7 @@
                     <div class="col-lg-12">
                       <div class="common_input mb_15">
                         <textarea
-                          v-model="address"
+                          v-model="inspector.address"
                           cols="30"
                           rows="4"
                           placeholder="Address"
@@ -144,49 +144,64 @@ export default {
       "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
     );
     document.head.appendChild(externalScriptCustom);
+    this.getInspector();
   },
   data() {
     return {
-      companyName: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone_no: "",
-      address: "",
+      id: this.$route.params.id,
+      inspector: null,
       token: JSON.parse(localStorage.getItem("user")).token,
     };
   },
   methods: {
-    async saveInspector() {
-      //   const body = {
-      //     companyName: this.companyName,
-      //     firstName: this.firstName,
-      //     lastName: this.lastName,
-      //     email: this.email,
-      //     phone_no: this.phone_no,
-      //     address: this.address,
-      //   };
-      //   console.log(body);
-      const fd = new FormData();
-      fd.append("companyName", this.companyName);
-      fd.append("firstName", this.firstName);
-      fd.append("lastName", this.lastName);
-      fd.append("email", this.email);
-      fd.append("phone_no", this.phone_no);
-      fd.append("address", this.address);
+    async getInspector() {
+      this.inspector = null;
+
       const res = await fetch(
-        "https://producemart.herokuapp.com/addInspector",
+        "https://producemart.herokuapp.com/getInspector/" + this.id,
         {
-          method: "POST",
           headers: {
-            // "Content-Type": "applicaiton/json",
             Authorization: this.token,
           },
-          body: fd,
+        }
+      );
+      const { data } = await res.json();
+      this.inspector = data;
+      console.log(this.inspector);
+    },
+    async updateInspector() {
+      const body = {
+        companyName: this.inspector.companyName,
+        firstName: this.inspector.firstName,
+        lastName: this.inspector.lastName,
+        email: this.inspector.email,
+        phone_no: this.inspector.phone_no,
+        address: this.inspector.address,
+      };
+      console.log(body);
+      // const fd = new FormData();
+      // fd.append("companyName", this.companyName);
+      // fd.append("firstName", this.firstName);
+      // fd.append("lastName", this.lastName);
+      // fd.append("email", this.email);
+      // fd.append("phone_no", this.phone_no);
+      // fd.append("address", this.address);
+      const res = await fetch(
+        "https://producemart.herokuapp.com/updateInspector/" + this.id,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: this.token,
+          },
+          body: JSON.stringify(this.inspector),
         }
       );
       const data = await res.json();
       console.log(data);
+      if ((data.status = true)) {
+        this.$router.push("/dashboard/view-inspectors");
+      }
     },
   },
 };

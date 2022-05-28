@@ -92,8 +92,21 @@
                           <td><a href="#" class="status_btn">Active</a></td>
                           <td>
                             <div class="action_btns d-flex">
-                                <router-link to="/dashboard/edit-shipper-content"><a title="Edit" class="action_btn mr_10"> <i class="far fa-edit"></i> </a></router-link>
-                                <a href="#" title="Delete" class="action_btn"> <i class="fas fa-trash"></i> </a>
+                              <router-link
+                                :to="
+                                  '/dashboard/edit-shipper-content/' +
+                                  shipper._id
+                                "
+                                ><a title="Edit" class="action_btn mr_10">
+                                  <i class="far fa-edit"></i> </a
+                              ></router-link>
+                              <span
+                                @click="deleteShipper(shipper._id)"
+                                title="Delete"
+                                class="action_btn"
+                              >
+                                <i class="fas fa-trash"></i>
+                              </span>
                             </div>
                           </td>
                         </tr>
@@ -158,6 +171,20 @@ export default {
       );
       const { data } = await res.json();
       this.shippers = data;
+    },
+    async deleteShipper(id) {
+      const res = await fetch(
+        "https://producemart.herokuapp.com/deleteShipper/" + id,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: this.token,
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+      this.fetchShippers();
     },
   },
 };

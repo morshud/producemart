@@ -187,6 +187,9 @@ export default {
       );
       const data = await res.json();
       console.log(data);
+      if ((data.status = true)) {
+        this.$router.push("/dashboard/view-inspectors");
+      }
     },
   },
 };
