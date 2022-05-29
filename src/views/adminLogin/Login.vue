@@ -106,7 +106,7 @@ export default {
       {
         data.user && localStorage.setItem("user", JSON.stringify(data.user));
       }
-      if (data.user.role == "admin") {
+      if (data.user.role == "admin" || data.user.role == "superadmin") {
         this.$router.push("/dashboard/home");
       } else if (data.user.role == "buyer") {
         this.$router.push("/buyer-dashboard/home");
