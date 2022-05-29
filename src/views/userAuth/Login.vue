@@ -169,12 +169,13 @@ export default {
       {
         data.user && localStorage.setItem("user", JSON.stringify(data.user));
       }
-      if (data.user.role == "admin") {
-        this.$router.push("/dashboard/home");
-      } else if (data.user.role == "buyer") {
+      if (data.user.role == "buyer") {
         this.$router.push("/buyer-dashboard/home");
       } else if (data.user.role == "supplier") {
         this.$router.push("/supplier-dashboard/home");
+      } else {
+        this.loading = false;
+        this.message = "Please check your details and try again";
       }
 
       // if (this.user.email && this.user.password) {

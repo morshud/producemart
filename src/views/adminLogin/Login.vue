@@ -108,10 +108,9 @@ export default {
       }
       if (data.user.role == "admin" || data.user.role == "superadmin") {
         this.$router.push("/dashboard/home");
-      } else if (data.user.role == "buyer") {
-        this.$router.push("/buyer-dashboard/home");
-      } else if (data.user.role == "supplier") {
-        this.$router.push("/supplier-dashboard/home");
+      } else {
+        this.loading = false;
+        this.message = "You're not authorized to signin as an admin";
       }
     },
   },
