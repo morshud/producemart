@@ -63,6 +63,7 @@
                                                 <th scope="col">Email Address</th>
                                                 <th scope="col">Password</th>
                                                 <th scope="col">Role</th>
+                                                <th scope="col">Action</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -74,9 +75,29 @@
                                                 <td>myemail@email.com</td>
                                                 <td>1234567890</td>
                                                 <td>Reporting Admin</td>
+                                                <td>
+                                                    <div class="action_btns d-flex">
+                                                        <a title="View & Edit" class="action_btn mr_10">
+                                                            <i class="far fa-edit"></i> </a>
+                                                        <a title="Delete" class="action_btn popup-btn">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
+                                        <!-- Popup Box Delete -->
+                                        <div class="popup-wrap">
+                                            <div class="popup-box">
+                                                <i class="bi bi-exclamation-triangle"></i>
+                                                <h2>Are You Sure?</h2>
+                                                <p>You won't be able to revert this.</p>
+                                                <a class="popBtnCancel popBtn popup-close">No, Cancel</a>
+                                                <a class="popBtnDelete popBtn">Yes, Delete!</a>
+                                                <a class="close-btn popup-close" href="#">x</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -92,6 +113,7 @@
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>
 <style scoped src="@/assets/css/style.css"></style>
+<style scoped src="@/assets/css/styleSupport.css"></style>
 <script>
     import DashSidebar from './dash-sidebar.vue'
     import DashNavbar from './dash-navbar.vue'
@@ -104,6 +126,22 @@
       'dash-footer': DashFooter,
       },
       mounted(){
+          $(document).ready(function() {
+            $('.popup-btn').click(function(e) {
+                $('.popup-wrap').fadeIn(500);
+                $('.popup-box').removeClass('transform-out').addClass('transform-in');
+
+                e.preventDefault();
+            });
+
+            $('.popup-close').click(function(e) {
+                $('.popup-wrap').fadeOut(500);
+                $('.popup-box').removeClass('transform-in').addClass('transform-out');
+
+                e.preventDefault();
+            });
+            });
+
         window.scrollTo(0,0)
 
         let externalScriptCustom = document.createElement('script')

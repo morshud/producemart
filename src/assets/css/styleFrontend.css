@@ -2154,6 +2154,9 @@ p{
 /**BLOG PAGE**/
 /*************************/
 /*************************/
+.cardHeight{
+    height: 17.7em;
+}
 .blogPageBread{
     background-image: linear-gradient(90deg,  #00000098, #4e793b91), url('../img/breadcrumbBlog.jpg');
 }
@@ -2162,7 +2165,8 @@ p{
 }
 .blogContent .blogs .imgHouse{
     width: 100%;
-    height: 100%;
+    height: 17.7em;
+    border-right: 2px solid #74ce7c;
 }
 .blogContent .blogs .imgHouse img{
     width: 100%;
@@ -2191,10 +2195,22 @@ p{
     font-size: 13px;
     font-weight: 400;
 }
-@media(max-width: 767px){
+@media(max-width: 1199px){
+    .cardHeight{
+        height: 20.2em;
+    }
     .blogContent .blogs .imgHouse{
-        width: 100%;
+        height: 20.2em;
+    }
+}
+@media(max-width: 991px){
+    .blogContent .blogs .imgHouse{
         height: 250px;
+        border-right: none !important;
+        border-bottom: 2px solid #74ce7c;
+    }
+    .cardHeight{
+        height: auto;
     }
 }
 /*************************/

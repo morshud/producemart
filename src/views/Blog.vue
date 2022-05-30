@@ -109,10 +109,10 @@
     <section class="blogs">
       <div class="container">
         <div class="row">
-          <div class="col-md-6 mb-1" v-for="(blog, i) in blogs" :key="i">
+          <div class="col-lg-6 mb-1" v-for="(blog, i) in blogs" :key="i">
             <div class="card mb-3">
               <div class="row g-0">
-                <div class="col-md-5">
+                <div class="col-lg-5">
                   <div class="imgHouse">
                     <img
                       :src="blog.img_url"
@@ -121,7 +121,7 @@
                     />
                   </div>
                 </div>
-                <div class="col-md-7">
+                <div class="col-lg-7">
                   <div class="card-body">
                     <h5 class="card-title">{{ blog.title }}</h5>
                     <p class="card-text">
