@@ -2007,7 +2007,9 @@ export default {
       this.min_quantity && fd.append("min_quantity", this.min_quantity);
       this.supply_ability &&
         fd.append("supply_ability", JSON.stringify(this.supply_ability));
-      this.status && fd.append("status", "pending");
+      uploadOrSave == "upload"
+        ? fd.append("status", "pending")
+        : fd.append("status", "incomplete");
 
       const res = await fetch(
         "https://producemart.herokuapp.com/createProduct",

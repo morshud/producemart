@@ -52,7 +52,7 @@
               </div>
               <div class="col-lg-3">
                 <div class="productImgDiv">
-                  <img :src="product[0].img_url[0]" />
+                  <img :src="product.img_url[0]" />
                 </div>
               </div>
               <div class="col-lg-4">
@@ -60,20 +60,20 @@
                   <tr>
                     <td class="mainText">Product Name:</td>
                     <td class="contentText">
-                      <span class="statustable">{{ product[0].name }}</span>
+                      <span class="statustable">{{ product.name }}</span>
                     </td>
                   </tr>
                   <tr>
                     <td class="mainText">Product Category:</td>
-                    <td class="contentText">{{ product[0].category }}</td>
+                    <td class="contentText">{{ product.category }}</td>
                   </tr>
                   <tr>
                     <td class="mainText">farming method:</td>
-                    <td class="contentText">{{ product[0].farmMethod }}</td>
+                    <td class="contentText">{{ product.farmMethod }}</td>
                   </tr>
                   <tr>
                     <td class="mainText">country of origin:</td>
-                    <td class="contentText">{{ product[0].country }}</td>
+                    <td class="contentText">{{ product.country }}</td>
                   </tr>
                 </table>
               </div>
@@ -81,18 +81,18 @@
                 <table>
                   <tr>
                     <td class="mainText">GMO:</td>
-                    <td class="contentText">{{ product[0].GMO }}</td>
+                    <td class="contentText">{{ product.GMO }}</td>
                   </tr>
                   <tr>
                     <td class="mainText">weight of packaging:</td>
                     <td class="contentText">
-                      {{ product[0].packages && product[0].packages.pckWgt }}
+                      {{ product.packages && product.packages.pckWgt }}
                     </td>
                   </tr>
                   <tr>
                     <td class="mainText">price of packaging:</td>
                     <td class="contentText">
-                      ${{ product[0].packages && product[0].packages.pckPrice }}
+                      ${{ product.packages && product.packages.pckPrice }}
                     </td>
                   </tr>
                 </table>
@@ -132,7 +132,11 @@
 
           <!--Product Details-->
           <div class="col-md-12 mt-5" id="aLink">
-            <form class="form">
+            <form
+              class="form"
+              @submit.prevent="updateProduct('upload')"
+              enctype="multipart/form-data"
+            >
               <!-- Progress bar -->
               <div class="progressbar">
                 <div class="progress" id="progress"></div>
@@ -148,6 +152,19 @@
                 <div class="progress-step" data-title="Certifications"></div>
                 <div class="progress-step" data-title="Packaging"></div>
                 <div class="progress-step" data-title="Minimum Order"></div>
+              </div>
+              <div
+                class="alert alert-warning alert-dismissible fade show"
+                role="alert"
+                v-if="message"
+              >
+                {{ message }}
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
               </div>
 
               <!-- Step 1 - Product Details -->
@@ -168,11 +185,16 @@
                 <div class="row mt-4 mb-3">
                   <div class="col-lg-6 mb-3">
                     <label>Product Name <span>*</span></label>
-                    <input type="text" class="input" required />
+                    <input type="text" class="input" v-model="name" required />
                   </div>
                   <div class="col-lg-6 mb-3">
                     <label>Product Variety <span>*</span></label>
-                    <input type="text" class="input" required />
+                    <input
+                      type="text"
+                      class="input"
+                      v-model="variety"
+                      required
+                    />
                   </div>
                   <div class="col-lg-12 mb-3">
                     <label>Product Description <span>*</span></label>
@@ -181,11 +203,12 @@
                       rows="4"
                       class="input"
                       required
+                      v-model="description"
                     ></textarea>
                   </div>
                   <div class="col-lg-6 mb-3">
                     <label>Farming Method <span>*</span></label>
-                    <select class="input" required>
+                    <select class="input" v-model="farmMethod" required>
                       <option hidden>Select Method</option>
                       <option>Organic</option>
                       <option>Integrated</option>
@@ -194,7 +217,7 @@
                   </div>
                   <div class="col-lg-6 mb-3">
                     <label>GMO <span>*</span></label>
-                    <select class="input" required>
+                    <select class="input" v-model="gmo" required>
                       <option hidden>Select</option>
                       <option>Yes</option>
                       <option>No</option>
@@ -202,7 +225,7 @@
                   </div>
                   <div class="col-lg-12 mb-3">
                     <label>Country of origin <span>*</span></label>
-                    <select class="input" required>
+                    <select class="input" v-model="country" required>
                       <option value="Country" hidden>Select Country</option>
                       <option
                         v-for="(country, i) in countries"
@@ -220,17 +243,20 @@
                       rows="4"
                       class="input"
                       placeholder="Address"
+                      v-model="location"
                       required
                     ></textarea>
                   </div>
-                  <div class="col-lg-12 mb-3">
-                    <label>intercoms <span>*</span></label>
-                    <select class="input" required>
-                      <option hidden>Select</option>
-                      <option>Option 1</option>
-                      <option>Option 2</option>
-                    </select>
-                  </div>
+                  <!-- <div class="col-lg-12 mb-3">
+                    <label>intercoms</label>
+                    <input
+                      type="text"
+                      class="input"
+                      v-model="intercom"
+                      disabled
+                      placeholder="EXW - Ex Works"
+                    />
+                  </div> -->
                   <div class="col-lg-12 mb-3">
                     <label
                       >Is produce available all year round?
@@ -239,27 +265,41 @@
                     <fieldset>
                       <input
                         type="radio"
-                        @click="yesnoAvailable()"
+                        @click="available = false"
+                        value="yes"
                         name="available"
                         id="yesAvailable"
-                        checked
+                        v-model="yearRoundAvailableStatus"
                       />
                       <label for="yesAvailable" class="radioSpan"
                         >YES, available year round</label
                       >
                       <input
                         type="radio"
-                        @click="yesnoAvailable()"
+                        @click="available = true"
+                        value="No"
                         name="available"
                         id="noAvailable"
+                        v-model="yearRoundAvailableStatus"
                       />
                       <label for="noAvailable" class="radioSpan"
                         >NO, only available from</label
                       >
                     </fieldset>
-                    <div id="ifNoAvailable">
-                      From: <input type="date" class="inputShow" /> To:
-                      <input type="date" class="inputShow" />
+                    <div v-if="available">
+                      From:
+                      <input
+                        type="date"
+                        class="inputShow"
+                        v-model="yearRoundAvailableFrom"
+                      />
+
+                      To:
+                      <input
+                        type="date"
+                        class="inputShow"
+                        v-model="yearRoundAvailableTo"
+                      />
                     </div>
                   </div>
                   <div class="col-lg-12 mb-3">
@@ -267,26 +307,31 @@
                     <fieldset>
                       <input
                         type="radio"
-                        @click="yesnoStorage()"
+                        @click="storage = false"
                         name="storage"
                         id="noStorage"
-                        checked
+                        value="No"
+                        v-model="specialStorageConditionStatus"
                       />
                       <label for="noStorage" class="radioSpan">NO</label>
+
                       <input
                         type="radio"
-                        @click="yesnoStorage()"
+                        @click="storage = true"
                         name="storage"
+                        value="Yes"
                         id="yesStorage"
+                        v-model="specialStorageConditionStatus"
                       />
                       <label for="yesStorage" class="radioSpan">YES</label>
                     </fieldset>
-                    <div id="ifYesStorage">
+                    <div v-if="storage">
                       <textarea
                         cols="30"
                         rows="3"
                         class="textareaShow"
                         placeholder="Enter storage requirements..."
+                        v-model="specialStorageConditionDetails"
                       ></textarea>
                     </div>
                   </div>
@@ -298,26 +343,30 @@
                     <fieldset>
                       <input
                         type="radio"
-                        @click="yesnoTemperature()"
+                        @click="temperature = false"
                         name="temperature"
                         id="noTemperature"
-                        checked
+                        value="No"
+                        v-model="temperatureControlledStatus"
                       />
                       <label for="noTemperature" class="radioSpan">NO</label>
                       <input
                         type="radio"
-                        @click="yesnoTemperature()"
+                        @click="temperature = true"
                         name="temperature"
                         id="yesTemperature"
+                        value="Yes"
+                        v-model="temperatureControlledStatus"
                       />
                       <label for="yesTemperature" class="radioSpan">YES</label>
                     </fieldset>
-                    <div id="ifYesTemperature">
+                    <div v-if="temperature">
                       <textarea
                         cols="30"
                         rows="3"
                         class="textareaShow"
                         placeholder="Enter details..."
+                        v-model="temperatureControlledDetails"
                       ></textarea>
                     </div>
                   </div>
@@ -333,7 +382,9 @@
                     </button>
                   </div>
                   <div class="col-sm-12">
-                    <p class="saveAndContinue"><a>Save & Continue Later</a></p>
+                    <p class="saveAndContinue" @click="updateProduct('save')">
+                      <a>Save & Continue Later</a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -358,27 +409,30 @@
                       <div class="col-lg-4 radioDiv mb-2">
                         <input
                           type="checkbox"
-                          @click="productOil()"
+                          @click="setCategory('oil')"
                           name="category"
                           id="idOil"
+                          v-model="items.oil.check"
                         />
                         <label for="idOil" class="radioSpan">Oils</label>
                       </div>
                       <div class="col-lg-4 radioDiv mb-2">
                         <input
                           type="checkbox"
-                          @click="productFruit()"
+                          @click="setCategory('fruit')"
                           name="category"
                           id="idFruit"
+                          v-model="items.fruit.check"
                         />
                         <label class="radioSpan" for="idFruit">Fruits</label>
                       </div>
                       <div class="col-lg-4 radioDiv mb-2">
                         <input
                           type="checkbox"
-                          @click="productVegetable()"
+                          @click="setCategory('vegetable')"
                           name="category"
                           id="idVegetable"
+                          v-model="items.vegetable.check"
                         />
                         <label class="radioSpan" for="idVegetable"
                           >Vegetables</label
@@ -387,9 +441,10 @@
                       <div class="col-lg-4 radioDiv mb-2">
                         <input
                           type="checkbox"
-                          @click="productGrain()"
+                          @click="setCategory('grain')"
                           name="category"
                           id="idGrain"
+                          v-model="items.grain.check"
                         />
                         <label class="radioSpan" for="idGrain"
                           >Grains/Beans/Pulses</label
@@ -398,36 +453,40 @@
                       <div class="col-lg-4 radioDiv mb-2">
                         <input
                           type="checkbox"
-                          @click="productNut()"
+                          @click="setCategory('nut')"
                           name="category"
                           id="idNut"
+                          v-model="items.nut.check"
                         />
                         <label class="radioSpan" for="idNut">Nuts/Seeds</label>
                       </div>
                       <div class="col-lg-4 radioDiv mb-2">
                         <input
                           type="checkbox"
-                          @click="productCoffee()"
+                          @click="setCategory('coffee')"
                           name="category"
                           id="idCoffee"
+                          v-model="items.coffee.check"
                         />
                         <label class="radioSpan" for="idCoffee">Coffee</label>
                       </div>
                       <div class="col-lg-4 radioDiv mb-2">
                         <input
                           type="checkbox"
-                          @click="productFlower()"
+                          @click="setCategory('flower')"
                           name="category"
                           id="idFlower"
+                          v-model="items.flower.check"
                         />
                         <label class="radioSpan" for="idFlower">Flower</label>
                       </div>
                       <div class="col-lg-4 radioDiv mb-2">
                         <input
                           type="checkbox"
-                          @click="productAnimalFeed()"
+                          @click="setCategory('animalFeed')"
                           name="category"
                           id="idAnimalFeed"
+                          v-model="items.animalFeed.check"
                         />
                         <label class="radioSpan" for="idAnimalFeed"
                           >Animal Feeds</label
@@ -436,47 +495,81 @@
                       <div class="col-lg-4 radioDiv mb-2">
                         <input
                           type="checkbox"
-                          @click="productOther()"
+                          @click="setCategory('others')"
                           name="category"
                           id="idOther"
+                          v-model="items.others.check"
                         />
                         <label class="radioSpan" for="idOther">Others</label>
                       </div>
                     </div>
                   </div>
                   <!--Oil Category-->
-                  <div class="row mt-1 categoryDiv" id="ifOil">
+                  <div class="row mt-1 categoryDiv" v-if="items.oil.check">
                     <div class="col-lg-12 mb-2">
                       <h3>Oil category</h3>
                       <div class="lineHr"></div>
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>processing Type</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.processType"
+                        placeholder="e.g. Cold Pressed, Refined"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>Grade</label>
-                      <input type="text" class="input" />
+                      <label>Grade, Style or Quality</label>
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.grade"
+                        placeholder="e.g. Extra Virgin, Premium, Extra etc"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>Purity(%)</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.purity"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>Acidity(%)</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.acidity"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>Taste</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.taste"
+                        placeholder="e.g. Sweet Fruity"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>smell</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.smell"
+                        placeholder="e.g. notes of almond"
+                      />
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Use</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.use"
+                        placeholder="e.g. Human Food, Animal Feed"
+                      />
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Additional comment</label>
@@ -484,39 +577,73 @@
                         cols="30"
                         rows="4"
                         class="input"
-                        placeholder="E.G extra specifications"
+                        placeholder="e.g. Extra Specifications"
+                        v-model="character.comment"
                       ></textarea>
                     </div>
                   </div>
                   <!--Fruit Category-->
-                  <div class="row mt-1 categoryDiv" id="ifFruit">
+                  <div class="row mt-1 categoryDiv" v-if="items.fruit.check">
                     <div class="col-lg-12 mb-2">
                       <h3>Fruit Category</h3>
                       <div class="lineHr"></div>
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>color</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.color"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>Grade, style or quality</label>
-                      <input type="text" class="input" />
+                      <label>Grade, Style or Quality</label>
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.grade"
+                        placeholder="e.g. Fresh, Dried"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>maturity</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.maturity"
+                        placeholder="e.g. 100%"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>size (cm)</label>
-                      <input type="text" class="input" />
+                      <label>size</label>
+                      <input
+                        type="text"
+                        class="input inputSize"
+                        v-model="character.size"
+                      />
+                      <select class="input selectSize">
+                        <option>cm</option>
+                        <option>mm</option>
+                        <option>inches</option>
+                      </select>
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>Taste</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.taste"
+                        placeholder="e.g. Sweet, Crisp"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>Weight (kg)</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.weight"
+                        placeholder="e.g. 0.38 KG"
+                      />
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Additional comment</label>
@@ -524,39 +651,71 @@
                         cols="30"
                         rows="4"
                         class="input"
-                        placeholder="E.G extra specifications"
+                        placeholder="e.g. Extra Specifications"
+                        v-model="character.comment"
                       ></textarea>
                     </div>
                   </div>
                   <!--Vegetable Category-->
-                  <div class="row mt-1 categoryDiv" id="ifVegetable">
+                  <div
+                    class="row mt-1 categoryDiv"
+                    v-if="items.vegetable.check"
+                  >
                     <div class="col-lg-12 mb-2">
                       <h3>Vegetable Category</h3>
                       <div class="lineHr"></div>
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>processing type</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.gradeprocessType"
+                        placeholder="e.g. Blanching"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>Grade, style or quality</label>
-                      <input type="text" class="input" />
+                      <label>Grade, Style or Quality</label>
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.tyle"
+                        placeholder="e.g. Dried, Frozen, Fresh"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>color</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.color"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>freezing process</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.freezingProcess"
+                        placeholder="e.g. IQF"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>Taste</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.taste"
+                        placeholder="e.g. Natural, Fresh"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>shape</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.shape"
+                      />
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Additional comment</label>
@@ -564,51 +723,96 @@
                         cols="30"
                         rows="4"
                         class="input"
-                        placeholder="E.G extra specifications"
+                        placeholder="e.g. Extra Specifications"
+                        v-model="character.comment"
                       ></textarea>
                     </div>
                   </div>
                   <!--Grains/Beans/Pulses Category-->
-                  <div class="row mt-1 categoryDiv" id="ifGrain">
+                  <div class="row mt-1 categoryDiv" v-if="items.grain.check">
                     <div class="col-lg-12 mb-2">
                       <h3>Grains/Beans/Pulses Category</h3>
                       <div class="lineHr"></div>
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>color</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.color"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>Grade, style or quality</label>
-                      <input type="text" class="input" />
+                      <label>Grade, Style or Quality</label>
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.grade"
+                        placeholder="e.g. Dried"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>drying process</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.dryProcess"
+                        placeholder="e.g. Air Dried"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>moisture</label>
-                      <input type="text" class="input" />
+                      <label>moisture (max %)</label>
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.moisture"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>admixture</label>
-                      <input type="text" class="input" />
+                      <label>admixture (max %)</label>
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.admixture"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>broken</label>
-                      <input type="text" class="input" />
+                      <label>broken (max %)</label>
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.broken"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>use</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.use"
+                        placeholder="e.g. Human Food, Animal Feed"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>imperfect rate</label>
-                      <input type="text" class="input" />
+                      <label>imperfect rate (max %)</label>
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.imperfectRate"
+                      />
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
-                      <label>size (cm)</label>
-                      <input type="text" class="input" />
+                      <label>size</label>
+                      <input
+                        type="text"
+                        class="input inputSize"
+                        v-model="character.size"
+                      />
+                      <select class="input selectSize">
+                        <option>cm</option>
+                        <option>mm</option>
+                        <option>inches</option>
+                      </select>
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Additional comment</label>
@@ -616,55 +820,115 @@
                         cols="30"
                         rows="4"
                         class="input"
-                        placeholder="E.G extra specifications"
+                        placeholder="e.g. Extra Specifications"
+                        v-model="character.comment"
                       ></textarea>
                     </div>
                   </div>
                   <!--Nuts/Seeds Category-->
-                  <div class="row mt-1 categoryDiv" id="ifNut">
+                  <div class="row mt-1 categoryDiv" v-if="items.nut.check">
                     <div class="col-lg-12 mb-2">
                       <h3>Nuts/Seeds Category</h3>
                       <div class="lineHr"></div>
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>color</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.color"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>style</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.style"
+                        placeholder="e.g. InShell, Dried"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>shell type</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.shellType"
+                        placeholder="e.g. Hard, soft, Semi-Hard, Natural, Bleached"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>grade or quality</label>
-                      <input type="text" class="input" />
+                      <label>Grade or Quality</label>
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.grade"
+                        placeholder="e.g. WW240, SW, LBW, DW, WS, LP, SP, JQ, K-SPEC"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>USDA Grade</label>
-                      <input type="text" class="input" />
+                      <label>USDA Grade (Applies to Almonds)</label>
+                      <select
+                        class="input"
+                        v-model="character.usdaGrade"
+                        required
+                      >
+                        <option hidden>Select</option>
+                        <option>US Fancy</option>
+                        <option>US Extra N.1</option>
+                        <option>US N.1 (Supreme)</option>
+                        <option>US Select Shelter Run</option>
+                        <option>US Standard Shelter Run</option>
+                        <option>US No. 1 Whole & Broken</option>
+                        <option>US No. 1 Pieces</option>
+                      </select>
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>size</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input inputSize"
+                        v-model="character.size"
+                      />
+                      <select class="input selectSize">
+                        <option>p.oz</option>
+                        <option>cm</option>
+                        <option>mm</option>
+                        <option>inches</option>
+                      </select>
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>form</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.form"
+                        placeholder="e.g. Whole, Nuggets, Slices, Crushed, Diced, Flour, Roasted, Granules"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>moisture</label>
-                      <input type="text" class="input" />
+                      <label>moisture (max %)</label>
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.moisture"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>Kernels per KG</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.kernelsPerKg"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>Defects</label>
-                      <input type="text" class="input" />
+                      <label>Defects (max %)</label>
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.defects"
+                      />
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Additional comment</label>
@@ -672,51 +936,98 @@
                         cols="30"
                         rows="4"
                         class="input"
-                        placeholder="E.G extra specifications"
+                        placeholder="e.g. Extra Specifications"
+                        v-model="character.comment"
                       ></textarea>
                     </div>
                   </div>
                   <!--Coffee Category-->
-                  <div class="row mt-1 categoryDiv" id="ifCoffee">
+                  <div class="row mt-1 categoryDiv" v-if="items.coffee.check">
                     <div class="col-lg-12 mb-2">
                       <h3>Coffee Category</h3>
                       <div class="lineHr"></div>
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>color</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.color"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>grade</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.grade"
+                        placeholder="e.g. Grade 1"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>coffee type</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.coffeeType"
+                        placeholder="e.g 100% Robusta Blend Coffee Bean"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>Defects</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.defects"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>processing type</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.processType"
+                        placeholder="e.g. Roasted, Washed"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>bean size (cm)</label>
-                      <input type="text" class="input" />
+                      <label>bean size</label>
+                      <input
+                        type="text"
+                        class="input inputSize"
+                        v-model="character.beanSize"
+                      />
+                      <select class="input selectSize">
+                        <option>cm</option>
+                        <option>mm</option>
+                        <option>inches</option>
+                      </select>
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>maturity</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.maturity"
+                        placeholder="e.g. 100%"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>Taste</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.taste"
+                        placeholder="e.g. Sweet Fruity"
+                      />
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
-                      <label>moisture</label>
-                      <input type="text" class="input" />
+                      <label>moisture (max %)</label>
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.moisture"
+                      />
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Additional comment</label>
@@ -724,47 +1035,101 @@
                         cols="30"
                         rows="4"
                         class="input"
-                        placeholder="E.G extra specifications"
+                        placeholder="e.g. Extra Specifications"
+                        v-model="character.comment"
                       ></textarea>
                     </div>
                   </div>
                   <!--Flower Category-->
-                  <div class="row mt-1 categoryDiv" id="ifFlower">
+                  <div class="row mt-1 categoryDiv" v-if="items.flower.check">
                     <div class="col-lg-12 mb-2">
                       <h3>Flower Category</h3>
                       <div class="lineHr"></div>
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>color</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.color"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>style, grade or quality</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.style"
+                        placeholder="e.g. Silk, Fresh"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>number of petals</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.noOfPetals"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>petals size (cm)</label>
-                      <input type="text" class="input" />
+                      <label>petals size</label>
+                      <input
+                        type="text"
+                        class="input inputSize"
+                        v-model="character.petalSize"
+                      />
+                      <select class="input selectSize">
+                        <option>cm</option>
+                        <option>mm</option>
+                        <option>inches</option>
+                      </select>
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>bud size (cm)</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input inputSize"
+                        v-model="character.budSize"
+                      />
+                      <select class="input selectSize">
+                        <option>cm</option>
+                        <option>mm</option>
+                        <option>inches</option>
+                      </select>
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>head size (cm)</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input inputSize"
+                        v-model="character.headSize"
+                      />
+                      <select class="input selectSize">
+                        <option>cm</option>
+                        <option>mm</option>
+                        <option>inches</option>
+                      </select>
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>sterm lenght (cm)</label>
-                      <input type="text" class="input" />
+                      <label>sterm lenght</label>
+                      <input
+                        type="text"
+                        class="input inputSize"
+                        v-model="character.stermLen"
+                      />
+                      <select class="input selectSize">
+                        <option>cm</option>
+                        <option>mm</option>
+                        <option>inches</option>
+                      </select>
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>stem per bunch</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.stemPerBunch"
+                      />
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Additional comment</label>
@@ -772,47 +1137,89 @@
                         cols="30"
                         rows="4"
                         class="input"
-                        placeholder="E.G extra specifications"
+                        placeholder="e.g. Extra Specifications"
+                        v-model="character.comment"
                       ></textarea>
                     </div>
                   </div>
                   <!--Animal Feeds Category-->
-                  <div class="row mt-1 categoryDiv" id="ifAnimalFeed">
+                  <div
+                    class="row mt-1 categoryDiv"
+                    v-if="items.animalFeed.check"
+                  >
                     <div class="col-lg-12 mb-2">
                       <h3>Animal Feeds Category</h3>
                       <div class="lineHr"></div>
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>color</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.color"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>style, grade or quality</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.style"
+                        placeholder="e.g. Silk, Fresh"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>drying process</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.dryProcess"
+                        placeholder="e.g. Air Dried"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>Taste</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.taste"
+                        placeholder="e.g. Bland"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>smell</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.smell"
+                        placeholder="e.g. notes of almond"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>moisture</label>
-                      <input type="text" class="input" />
+                      <label>moisture (max %)</label>
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.mositure"
+                        placeholder="e.g. Custom"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>admixture</label>
-                      <input type="text" class="input" />
+                      <label>admixture (max %)</label>
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.admixture"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>use</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.use"
+                        placeholder="e.g. Human Food, Animal Feed"
+                      />
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Additional comment</label>
@@ -820,43 +1227,78 @@
                         cols="30"
                         rows="4"
                         class="input"
-                        placeholder="E.G extra specifications"
+                        placeholder="e.g. Extra Specifications"
+                        v-model="character.comment"
                       ></textarea>
                     </div>
                   </div>
                   <!--Others Category-->
-                  <div class="row mt-1 categoryDiv" id="ifOther">
+                  <div class="row mt-1 categoryDiv" v-if="items.others.check">
                     <div class="col-lg-12 mb-2">
                       <h3>Others</h3>
                       <div class="lineHr"></div>
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>color</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.color"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>style, grade or quality</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.style"
+                        placeholder="e.g. Dried, Frozen"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>processing type</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.processType"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>Taste</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.taste"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>shape</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.shape"
+                      />
                     </div>
                     <div class="categoryInnerDiv mb-3">
-                      <label>size (CM)</label>
-                      <input type="text" class="input" />
+                      <label>size</label>
+                      <input
+                        type="text"
+                        class="input inputSize"
+                        v-model="character.size"
+                      />
+                      <select class="input selectSize">
+                        <option>cm</option>
+                        <option>mm</option>
+                        <option>inches</option>
+                      </select>
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Defects</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="character.defects"
+                      />
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Additional comment</label>
@@ -864,7 +1306,8 @@
                         cols="30"
                         rows="4"
                         class="input"
-                        placeholder="E.G extra specifications"
+                        placeholder="e.g. Extra Specifications"
+                        v-model="character.comment"
                       ></textarea>
                     </div>
                   </div>
@@ -881,7 +1324,9 @@
                     </button>
                   </div>
                   <div class="col-sm-12">
-                    <p class="saveAndContinue"><a>Save & Continue Later</a></p>
+                    <p class="saveAndContinue" @click="updateProduct('save')">
+                      <a>Save & Continue Later</a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -900,32 +1345,88 @@
                 </div>
                 <div class="lineHR"></div>
                 <div class="col-lg-12 mt-4 mb-3">
-                  <label>Upload Primary Image <span>*</span></label>
-                  <input
-                    type="file"
-                    class="input"
-                    accept=".jpg, .jpeg, .png, .webp"
-                    required
-                  />
+                  <label>Upload more Images <span>*</span></label>
+                  <div class="col-ting">
+                    <div class="control-group file-upload" id="file-upload1">
+                      <div class="image-box text-center">
+                        <p>Upload Image</p>
+                        <img src="" alt="" />
+                      </div>
+                      <div class="controls" style="display: none">
+                        <input
+                          type="file"
+                          name="contact_image_1"
+                          accept=".jpg, .jpeg, .png, .webp"
+                          @change="onFieldChange(1)"
+                        />
+                      </div>
+                    </div>
+                  </div>
                   <small class="uploadSmallPicture"
                     >(accepted image format: jpeg, jpg, png, webp)</small
                   >
                 </div>
-                <div class="col-lg-12 mt-2 mb-3 upload-more-image">
+
+                <div class="col-lg-6 mt-2 mb-3 upload-more-image">
                   <label>Upload Additional Image</label>
-                  <input
-                    type="file"
-                    class="input"
-                    accept=".jpg, .jpeg, .png, .webp"
-                  />
+                  <div class="col-ting">
+                    <div class="control-group file-upload" id="file-upload1">
+                      <div class="image-box text-center">
+                        <p>Upload Image</p>
+                        <img src="" alt="" />
+                      </div>
+                      <div class="controls" style="display: none">
+                        <input
+                          type="file"
+                          name="contact_image_1"
+                          accept=".jpg, .jpeg, .png, .webp"
+                          @change="onFieldChange(2)"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div v-if="addImg.length">
+                  <div
+                    class="col-lg-6 mt-2 mb-3 upload-more-image"
+                    v-for="(newImg, i) in addImg"
+                    :key="i"
+                  >
+                    <label>Upload Additional Image</label>
+                    <input type="file" />
+                    <div class="col-ting">
+                      <div class="control-group file-upload" id="file-upload1">
+                        <div class="image-box text-center">
+                          <p>Upload Image {{ newImg }}</p>
+                          <img src="" alt="" />
+                        </div>
+                        <div class="controls" style="display: none">
+                          <input
+                            type="file"
+                            name="contact_image_1"
+                            accept=".jpg, .jpeg, .png, .webp"
+                            @change="onFieldChange(newImg)"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <span
+                      @click="addImg.pop()"
+                      remove-field
+                      btn-remove-field
+                      class="removeField"
+                      >Remove Field</span
+                    >
+                  </div>
                 </div>
                 <div class="row mt-3">
                   <div class="upload-dynamic"></div>
                 </div>
-                <div class="uploadMore">
-                  <a class="add-extra-field"
+                <div class="uploadMore" v-if="addImg.length < 2">
+                  <span @click="addImg.push(addImg.length + 3)"
                     >Upload More <i class="bi bi-plus-circle"></i
-                  ></a>
+                  ></span>
                 </div>
                 <div class="row">
                   <div class="col-sm-6">
@@ -939,7 +1440,9 @@
                     </button>
                   </div>
                   <div class="col-sm-12">
-                    <p class="saveAndContinue"><a>Save & Continue Later</a></p>
+                    <p class="saveAndContinue" @click="updateProduct('save')">
+                      <a>Save & Continue Later</a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -960,21 +1463,132 @@
                 <div class="row add-more-certi">
                   <div class="col-lg-12 mt-4 mb-3">
                     <label>Certification Name</label>
+                    <select class="input" v-model="file[1].name">
+                      <option hidden>Select Certificate</option>
+                      <option>option 1</option>
+                      <option>option 2</option>
+                      <option>option 3</option>
+                      <option>others</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-6 mb-3">
+                    <label>Certificate Number</label>
                     <input type="text" class="input" />
+                  </div>
+                  <div class="col-lg-6 mb-3">
+                    <label>Date of Issue</label>
+                    <input type="date" class="input" />
+                  </div>
+                  <div class="col-lg-12 mb-3">
+                    <label>Name of Issuing Body</label>
+                    <input type="text" class="input" />
+                  </div>
+                  <div class="col-lg-12 mb-3">
+                    <label>Validity Period</label>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <span>From:</span>
+                        <input type="date" class="input" />
+                      </div>
+                      <div class="col-lg-6">
+                        <span>To:</span>
+                        <input type="date" class="input" />
+                      </div>
+                    </div>
                   </div>
                   <div class="col-lg-12">
                     <label>Upload Certification</label>
-                    <input type="file" class="input" />
+                    <input
+                      type="file"
+                      class="input"
+                      @change="onFileChange(1)"
+                    />
+                  </div>
+                </div>
+                <div v-if="addFile.length">
+                  <div
+                    class="row add-more-certi"
+                    v-for="(newFile, i) in addFile"
+                    :key="i"
+                  >
+                    <div class="col-lg-12 mt-4 mb-3">
+                      <label>Certification Name{{ newFile }}</label>
+                      <select class="input" v-model="file[newFile].name">
+                        <option>Select Certificate</option>
+                        <option>option 1</option>
+                        <option>option 2</option>
+                        <option>option 3</option>
+                        <option>others</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                      <label>Certificte Number</label>
+                      <input type="text" class="input" />
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                      <label>Date of Issue</label>
+                      <input type="date" class="input" />
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                      <label>Name of Issuing Body</label>
+                      <input type="text" class="input" />
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                      <label>Validity Period</label>
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <span>From:</span>
+                          <input type="date" class="input" />
+                        </div>
+                        <div class="col-lg-6">
+                          <span>To:</span>
+                          <input type="date" class="input" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <label>Upload Certification</label>
+                      <input
+                        type="file"
+                        class="input"
+                        @change="onFileChange(newFile)"
+                      />
+                    </div>
+                    <span @click="removeFile(newFile)" class="removeField"
+                      >Remove Field</span
+                    >
                   </div>
                 </div>
                 <div class="row mt-3">
                   <div class="upload-certi-dynamic"></div>
                 </div>
                 <div class="uploadMore">
-                  <a class="add-certi"
+                  <span @click="addMoreCert"
                     >Upload More <i class="bi bi-plus-circle"></i
-                  ></a>
+                  ></span>
                 </div>
+
+                <!--Table Display-->
+                <div
+                  class="row justify-content-center mb-4 mt-4"
+                  v-if="file[1].img"
+                >
+                  <div class="col-lg-10">
+                    <table class="certificateTable">
+                      <tr class="headingTable">
+                        <td>S/N</td>
+                        <td>Certificate Name</td>
+                        <td>Certificate File</td>
+                      </tr>
+                      <tr v-for="(newCert, i) in file" :key="i">
+                        <td>{{ i }}</td>
+                        <td>{{ newCert.name }}</td>
+                        <td>{{ newCert.img.name }}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+
                 <div class="row">
                   <div class="col-sm-6">
                     <button type="button" class="btn btn-prev width-100">
@@ -987,7 +1601,9 @@
                     </button>
                   </div>
                   <div class="col-sm-12">
-                    <p class="saveAndContinue"><a>Save & Continue Later</a></p>
+                    <p class="saveAndContinue" @click="updateProduct('save')">
+                      <a>Save & Continue Later</a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1006,25 +1622,64 @@
                 </div>
                 <div class="lineHR"></div>
                 <div class="row">
+                  <div class="col-lg-4 radioDiv mb-2">
+                    <input
+                      type="checkbox"
+                      @click="setShipping('fluid')"
+                      name="category"
+                      id="idOil"
+                      v-model="shipping.fluid.check"
+                    />
+                    <label for="idOil" class="radioSpan">Fluid (Liquid)</label>
+                  </div>
+                  <div class="col-lg-4 radioDiv mb-2">
+                    <input
+                      type="checkbox"
+                      @click="setShipping('others')"
+                      name="category"
+                      id="idFruit"
+                      v-model="shipping.others.check"
+                    />
+                    <label class="radioSpan" for="idFruit">Others</label>
+                  </div>
+                </div>
+                <div class="row">
                   <div class="col-lg-6 mt-4 mb-3">
                     <label>Packaging Unit</label>
-                    <input type="text" class="input" />
+                    <input
+                      type="text"
+                      class="input"
+                      v-model="packages.unit"
+                      placeholder="e.g. Bag, Box,Vacuum Pack, Sack, Other"
+                    />
                   </div>
-                  <div class="col-lg-6 mt-4 mb-3">
+                  <div class="col-lg-6 mt-4 mb-3" v-if="shipping.fluid.check">
                     <label>Volume of Packaging (litre)</label>
-                    <input type="text" class="input" />
+                    <input
+                      type="text"
+                      class="input"
+                      v-model="packages.pckVol"
+                    />
                   </div>
-                  <div class="col-lg-6 mt-4 mb-3">
+                  <div class="col-lg-6 mt-4 mb-3 categoryInnerDiv">
                     <label>Weight of Packaging</label>
-                    <select class="input">
-                      <option hidden>Select Weight</option>
-                      <option>KG</option>
-                      <option>LB</option>
+                    <input
+                      type="text"
+                      class="input inputSize"
+                      v-model="packages.pckWgt"
+                    />
+                    <select class="input selectSize">
+                      <option>kg</option>
+                      <option>lb</option>
                     </select>
                   </div>
                   <div class="col-lg-6 mt-4 mb-3">
                     <label>Price of Packaging ($)</label>
-                    <input type="text" class="input" />
+                    <input
+                      type="text"
+                      class="input"
+                      v-model="packages.pckPrice"
+                    />
                   </div>
                 </div>
                 <div class="lineHR"></div>
@@ -1034,7 +1689,7 @@
                 <div class="row">
                   <div class="col-lg-6 mt-4 mb-3">
                     <label>Shipment Packaging</label>
-                    <select class="input">
+                    <select class="input" v-model="shipment.shipPckng">
                       <option hidden>Select</option>
                       <option>Crate</option>
                       <option>Box</option>
@@ -1042,16 +1697,23 @@
                       <option>Pack</option>
                       <option>Pallet</option>
                       <option>Carton</option>
-                      <option>Container</option>
                     </select>
                   </div>
                   <div class="col-lg-6 mt-4 mb-3">
                     <label>Weight of Shipment package</label>
-                    <input type="text" class="input" />
+                    <input
+                      type="text"
+                      class="input"
+                      v-model="shipment.ShipWgt"
+                    />
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
                     <label>Price of shipment ($)</label>
-                    <input type="text" class="input" />
+                    <input
+                      type="text"
+                      class="input"
+                      v-model="shipment.shipPrice"
+                    />
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
                     <label>Number Of Units Per Shipment Package</label>
@@ -1059,11 +1721,13 @@
                       type="text"
                       class="input"
                       placeholder="e.g. 12 x 1Ltr bottle in a box"
+                      v-model="shipment.noOfUnits"
                     />
                     <input
                       type="text"
                       class="input"
                       placeholder="e.g. 40 boxes per pallet"
+                      v-model="shipment.noOfUnits"
                     />
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
@@ -1073,7 +1737,11 @@
                       This is useful information for the buyer to see the size
                       of the shipment</small
                     >
-                    <input type="text" class="input" />
+                    <input
+                      type="text"
+                      class="input"
+                      v-model="shipment.shipContainer"
+                    />
                   </div>
                 </div>
                 <div class="row">
@@ -1113,7 +1781,7 @@
                       >Minimum number of units customers can request to buy for
                       this product</small
                     >
-                    <input type="text" class="input" />
+                    <input type="text" class="input" v-model="min_quantity" />
                   </div>
                   <div class="col-lg-12 text-center">
                     <label>Supply Ability</label>
@@ -1125,11 +1793,15 @@
                     <div class="row mt-2">
                       <div class="col-lg-6 mb-3">
                         <label>Quantity</label>
-                        <input type="text" class="input" />
+                        <input
+                          type="text"
+                          class="input"
+                          v-model="supply_ability.qty"
+                        />
                       </div>
                       <div class="col-lg-6 mb-3">
                         <label>frequency</label>
-                        <select class="input">
+                        <select class="input" v-model="supply_ability.freq">
                           <option>Week</option>
                           <option>Month</option>
                           <option>Quarter</option>
@@ -1139,7 +1811,12 @@
                     </div>
                   </div>
                   <div class="col-lg-12 mt-3 mb-3">
-                    <input type="checkbox" id="acceptTerms" required />
+                    <input
+                      type="checkbox"
+                      id="acceptTerms"
+                      required
+                      v-model="status"
+                    />
                     <label for="acceptTerms" class="labelTerms"
                       >By submitting this product, you agree to our
                       <a href="/terms" target="_blank">Terms & conditions</a>
@@ -1152,7 +1829,18 @@
                 </div>
                 <div class="btns-group">
                   <a href="#" class="btn btn-prev">Previous</a>
-                  <input type="submit" value="Submit" class="btn" />
+                  <input
+                    type="submit"
+                    value="Submit"
+                    class="btn"
+                    :disabled="!status"
+                  />
+                </div>
+                <div
+                  class="col-lg-12 mb-4 mt-2 text-center signuas"
+                  v-show="loading"
+                >
+                  <span class="spinner-border spinner-border-sm"></span>
                 </div>
               </div>
             </form>
@@ -1278,6 +1966,27 @@ export default {
       "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
     );
     document.head.appendChild(externalScriptCustom);
+    $(".image-box").click(function (event) {
+      var previewImg = $(this).children("img");
+
+      $(this).siblings().children("input").trigger("click");
+
+      $(this)
+        .siblings()
+        .children("input")
+        .change(function () {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            var urll = e.target.result;
+            $(previewImg).attr("src", urll);
+            previewImg.parent().css("background", "transparent");
+            previewImg.show();
+            previewImg.siblings("p").hide();
+          };
+          reader.readAsDataURL(this.files[0]);
+        });
+    });
     this.getProduct();
   },
   data() {
@@ -1286,114 +1995,211 @@ export default {
       countries: countries,
       id: this.$route.params.id,
       product: null,
+      loading: false,
+      message: "",
+      available: false,
+      storage: false,
+      temperature: false,
+      token: JSON.parse(localStorage.getItem("user")).token,
+      items: {
+        oil: { check: false },
+        fruit: { check: false },
+        vegetable: { check: false },
+        grain: { check: false },
+        nut: { check: false },
+        coffee: { check: false },
+        flower: { check: false },
+        animalFeed: { check: false },
+        others: { check: false },
+      },
+      shipping: {
+        fluid: { check: false },
+        others: { check: false },
+      },
+      name: null,
+      variety: "",
+      description: "",
+      farmMethod: "",
+      gmo: "",
+      country: "",
+      yearRoundAvailableStatus: "",
+      yearRoundAvailableFrom: "",
+      yearRoundAvailableTo: "",
+      specialStorageConditionStatus: "",
+      specialStorageConditionDetails: "",
+      temperatureControlledStatus: "",
+      temperatureControlledDetails: "",
+      category: "",
+      character: {},
+      image: {},
+
+      addImg: [],
+      cert_name: "",
+      file: { 1: {} },
+      addFile: [],
+      packages: {},
+      shipment: {},
+      min_quantity: "",
+      supply_ability: {},
+
+      status: null,
     };
   },
   methods: {
-    toggleCheck() {
-      if (document.getElementById("myCheckbox").checked === false) {
-        document.getElementById("aLink").style.display = "block";
-      } else {
-        document.getElementById("aLink").style.display = "none";
-      }
-    },
-    //Is produce available all year round?
-    yesnoAvailable() {
-      if (document.getElementById("noAvailable").checked) {
-        document.getElementById("ifNoAvailable").style.display = "block";
-      } else document.getElementById("ifNoAvailable").style.display = "none";
-    },
-    //Special Storage Conditions?
-    yesnoStorage() {
-      if (document.getElementById("yesStorage").checked) {
-        document.getElementById("ifYesStorage").style.display = "block";
-      } else document.getElementById("ifYesStorage").style.display = "none";
-    },
-    //Is temperature controlled equipment required for transportation?
-    yesnoTemperature() {
-      if (document.getElementById("yesTemperature").checked) {
-        document.getElementById("ifYesTemperature").style.display = "block";
-      } else document.getElementById("ifYesTemperature").style.display = "none";
-    },
+    async updateProduct(uploadOrSave) {
+      this.loading = true;
+      console.log("submitting!!");
+      let img_arr = [];
+      let file_arr = [];
+      let cert_name = [];
+      console.log(this.image);
+      console.log(this.file);
+      console.log("status is", this.status);
+      // for (let cert in this.file) {
+      //   file_arr.push(this.file[cert].img);
+      //   cert_name.push(this.file[cert].name);
+      // }
+      // for (let img in this.image) {
+      //   img_arr.push(this.image[img]);
+      // }
 
-    productOil() {
-      var x = document.getElementById("ifOil");
-      if (!x.style.display || x.style.display === "none") {
-        x.style.display = "block";
+      console.log(img_arr);
+      console.log(file_arr);
+      console.log(cert_name);
+
+      const fd = new FormData();
+
+      this.name && fd.append("name", this.name);
+      this.variety && fd.append("variety", this.variety);
+      this.description && fd.append("description", this.description);
+      this.farmMethod && fd.append("farmMethod", this.farmMethod);
+      this.gmo && fd.append("GMO", this.gmo);
+      this.country && fd.append("country", this.country);
+      this.location && fd.append("location", this.location);
+      this.intercom && fd.append("intercom", this.intercom);
+      this.yearRoundAvailableStatus &&
+        fd.append("yearRoundAvailableStatus", this.yearRoundAvailableStatus);
+      this.yearRoundAvailableFrom &&
+        fd.append("yearRoundAvailableStatus", this.yearRoundAvailableStatus);
+      this.yearRoundAvailableTo &&
+        fd.append("yearRoundAvailableTo", this.yearRoundAvailableTo);
+      this.specialStorageConditionStatus &&
+        fd.append(
+          "specialStorageConditionStatus",
+          this.specialStorageConditionStatus
+        );
+      this.specialStorageConditionDetails &&
+        fd.append(
+          "specialStorageConditionDetails",
+          this.specialStorageConditionDetails
+        );
+      this.temperatureControlledStatus &&
+        fd.append(
+          "temperatureControlledStatus",
+          this.temperatureControlledStatus
+        );
+      this.temperatureControlledDetails &&
+        fd.append(
+          "temperatureControlledDetails",
+          this.temperatureControlledDetails
+        );
+
+      this.category && fd.append("category", this.category);
+      this.character && fd.append("character", JSON.stringify(this.character));
+
+      if (this.file) {
+        for (let cert in this.file) {
+          fd.append("file", this.file[cert].img);
+          fd.append("cert_name", this.file[cert].name);
+        }
+      }
+      if (this.image) {
+        for (let img in this.image) {
+          fd.append("image", this.image[img]);
+        }
+      }
+
+      // if (this.image) {
+      //   for (let i = 0; i < img_arr.length; i++) {
+      //     fd.append("image", img_arr[i]);
+      //   }
+      // }
+      // if (this.file) {
+      //   for (let i = 0; i < file_arr.length; i++) {
+      //     fd.append("file", file_arr[i]);
+      //     fd.append("cert_name", cert_name[i]);
+      //   }
+      // }
+
+      this.packages && fd.append("package", JSON.stringify(this.packages));
+      this.shipment && fd.append("shipment", JSON.stringify(this.shipment));
+      this.min_quantity && fd.append("min_quantity", this.min_quantity);
+      this.supply_ability &&
+        fd.append("supply_ability", JSON.stringify(this.supply_ability));
+      uploadOrSave == "upload"
+        ? fd.append("status", "pending")
+        : fd.append("status", "incomplete");
+
+      const res = await fetch(
+        "https://producemart.herokuapp.com/updateProduct/" + this.id,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: this.token,
+          },
+          body: fd,
+        }
+      );
+      if (res.ok) {
+        console.log(res);
+        const data = await res.json();
+        if (uploadOrSave == "save") {
+          this.loading = false;
+          if (data.status)
+            this.$router.push("/supplier-dashboard/draft-products");
+          else
+            data.message
+              ? (this.message = data.message)
+              : (this.message = "Please try again.");
+        } else {
+          this.loading = false;
+          this.$router.push("/supplier-dashboard/pending-products");
+        }
       } else {
-        x.style.display = "none";
+        this.loading = false;
+        this.message =
+          "We are unable to save your response at the moment, please try again.";
       }
     },
-
-    productFruit() {
-      var x = document.getElementById("ifFruit");
-      if (!x.style.display || x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
+    setCategory(item) {
+      this.category = item;
+      for (let newItem in this.items) {
+        if (newItem != item) {
+          this.items[newItem].check = false;
+        }
       }
     },
-
-    productVegetable() {
-      var x = document.getElementById("ifVegetable");
-      if (!x.style.display || x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
+    setShipping(cat) {
+      for (let item in this.shipping) {
+        if (item != cat) {
+          this.shipping[item].check = false;
+        }
       }
     },
-
-    productGrain() {
-      var x = document.getElementById("ifGrain");
-      if (!x.style.display || x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
+    onFileChange(n) {
+      this.file[n].img = event.target.files[0];
+      console.log(this.file[n].img);
     },
-
-    productNut() {
-      var x = document.getElementById("ifNut");
-      if (!x.style.display || x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
+    onFieldChange(n) {
+      this.image[n] = event.target.files[0];
     },
-
-    productCoffee() {
-      var x = document.getElementById("ifCoffee");
-      if (!x.style.display || x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
+    addMoreCert() {
+      this.addFile.push(this.addFile.length + 2);
+      this.file[this.addFile.length + 1] = {};
     },
-
-    productFlower() {
-      var x = document.getElementById("ifFlower");
-      if (!x.style.display || x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
-    },
-
-    productAnimalFeed() {
-      var x = document.getElementById("ifAnimalFeed");
-      if (!x.style.display || x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
-    },
-
-    productOther() {
-      var x = document.getElementById("ifOther");
-      if (!x.style.display || x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
+    removeFile(n) {
+      this.addFile.pop();
+      delete this.file[n];
     },
     async getProduct() {
       const product = null;
@@ -1407,8 +2213,38 @@ export default {
         }
       );
       const { data } = await res.json();
-      this.product = data;
-      console.log(data);
+      this.product = data[0];
+      this.name = this.product.name;
+
+      this.variety = this.product.variety;
+      this.description = this.product.description;
+      this.farmMethod = this.product.farmMethod;
+      this.gmo = this.product.GMO;
+      this.country = this.product.country;
+      this.location = this.product.location;
+      this.yearRoundAvailableStatus = this.product.yearRoundAvailableStatus;
+      this.yearRoundAvailableFrom = this.product.yearRoundAvailableFrom;
+      this.yearRoundAvailableTo = this.product.yearRoundAvailableTo;
+      this.specialStorageConditionStatus =
+        this.product.specialStorageConditionStatus;
+      this.specialStorageConditionDetails =
+        this.product.specialStorageConditionDetails;
+      this.temperatureControlledStatus =
+        this.product.temperatureControlledStatus;
+      this.temperatureControlledDetails =
+        this.product.temperatureControlledDetails;
+      this.category = this.product.category;
+      this.items[this.category].check = true;
+      this.character = this.product.character ? this.product.character : {};
+
+      this.packages = this.product.packages ? this.product.packages : {};
+      this.shipment = this.product.shipment ? this.product.shipment : {};
+      this.min_quantity = this.product.min_quality;
+      (this.supply_ability = this.product.supply_ability
+        ? this.product.supply_ability
+        : {}),
+        (this.status = this.product.status),
+        console.log(data);
     },
   },
 };
