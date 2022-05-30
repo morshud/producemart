@@ -35,7 +35,7 @@
           <div class="col-md-11">
             <form
               class="form"
-              @submit.prevent="handleProductUpload"
+              @submit.prevent="handleProductUpload('upload')"
               enctype="multipart/form-data"
             >
               <!-- Progress bar -->
@@ -53,6 +53,19 @@
                 <div class="progress-step" data-title="Certifications"></div>
                 <div class="progress-step" data-title="Packaging"></div>
                 <div class="progress-step" data-title="Minimum Order"></div>
+              </div>
+              <div
+                class="alert alert-warning alert-dismissible fade show"
+                role="alert"
+                v-if="message"
+              >
+                {{ message }}
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
               </div>
 
               <!-- Step 1 - Product Details -->
@@ -135,7 +148,7 @@
                       required
                     ></textarea>
                   </div>
-                  <div class="col-lg-12 mb-3">
+                  <!-- <div class="col-lg-12 mb-3">
                     <label>intercoms</label>
                     <input
                       type="text"
@@ -144,7 +157,7 @@
                       disabled
                       placeholder="EXW - Ex Works"
                     />
-                  </div>
+                  </div> -->
                   <div class="col-lg-12 mb-3">
                     <label
                       >Is produce available all year round?
@@ -270,7 +283,12 @@
                     </button>
                   </div>
                   <div class="col-sm-12">
-                    <p class="saveAndContinue"><a>Save & Continue Later</a></p>
+                    <p
+                      class="saveAndContinue"
+                      @click="handleProductUpload('save')"
+                    >
+                      <a>Save & Continue Later</a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -754,7 +772,11 @@
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>USDA Grade (Applies to Almonds)</label>
-                      <select class="input" v-model="character.usdaGrade" required>
+                      <select
+                        class="input"
+                        v-model="character.usdaGrade"
+                        required
+                      >
                         <option hidden>Select</option>
                         <option>US Fancy</option>
                         <option>US Extra N.1</option>
@@ -1206,7 +1228,12 @@
                     </button>
                   </div>
                   <div class="col-sm-12">
-                    <p class="saveAndContinue"><a>Save & Continue Later</a></p>
+                    <p
+                      class="saveAndContinue"
+                      @click="handleProductUpload('save')"
+                    >
+                      <a>Save & Continue Later</a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1227,15 +1254,20 @@
                 <div class="col-lg-12 mt-4 mb-3">
                   <label>Upload Primary Image <span>*</span></label>
                   <div class="col-ting">
-                      <div class="control-group file-upload" id="file-upload1">
-                          <div class="image-box text-center">
-                              <p>Upload Image</p>
-                              <img src="" alt="">
-                          </div>
-                          <div class="controls" style="display: none;">
-                              <input type="file" name="contact_image_1" accept=".jpg, .jpeg, .png, .webp" @change="onFieldChange(1)"/>
-                          </div>
+                    <div class="control-group file-upload" id="file-upload1">
+                      <div class="image-box text-center">
+                        <p>Upload Image</p>
+                        <img src="" alt="" />
                       </div>
+                      <div class="controls" style="display: none">
+                        <input
+                          type="file"
+                          name="contact_image_1"
+                          accept=".jpg, .jpeg, .png, .webp"
+                          @change="onFieldChange(1)"
+                        />
+                      </div>
+                    </div>
                   </div>
                   <small class="uploadSmallPicture"
                     >(accepted image format: jpeg, jpg, png, webp)</small
@@ -1245,15 +1277,20 @@
                 <div class="col-lg-6 mt-2 mb-3 upload-more-image">
                   <label>Upload Additional Image</label>
                   <div class="col-ting">
-                      <div class="control-group file-upload" id="file-upload1">
-                          <div class="image-box text-center">
-                              <p>Upload Image</p>
-                              <img src="" alt="">
-                          </div>
-                          <div class="controls" style="display: none;">
-                              <input type="file" name="contact_image_1" accept=".jpg, .jpeg, .png, .webp" @change="onFieldChange(2)"/>
-                          </div>
+                    <div class="control-group file-upload" id="file-upload1">
+                      <div class="image-box text-center">
+                        <p>Upload Image</p>
+                        <img src="" alt="" />
                       </div>
+                      <div class="controls" style="display: none">
+                        <input
+                          type="file"
+                          name="contact_image_1"
+                          accept=".jpg, .jpeg, .png, .webp"
+                          @change="onFieldChange(2)"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -1264,25 +1301,36 @@
                     :key="i"
                   >
                     <label>Upload Additional Image</label>
+                    <input type="file" />
                     <div class="col-ting">
                       <div class="control-group file-upload" id="file-upload1">
-                          <div class="image-box text-center">
-                              <p>Upload Image</p>
-                              <img src="" alt="">
-                          </div>
-                          <div class="controls" style="display: none;">
-                              <input type="file" name="contact_image_1" accept=".jpg, .jpeg, .png, .webp" @change="onFieldChange(newImg)"/>
-                          </div>
+                        <div class="image-box text-center">
+                          <p>Upload Image {{ newImg }}</p>
+                          <img src="" alt="" />
+                        </div>
+                        <div class="controls" style="display: none">
+                          <input
+                            type="file"
+                            name="contact_image_1"
+                            accept=".jpg, .jpeg, .png, .webp"
+                            @change="onFieldChange(newImg)"
+                          />
+                        </div>
                       </div>
                     </div>
-                    <span @click="addImg.pop()" remove-field btn-remove-field class="removeField">Remove Field</span
+                    <span
+                      @click="addImg.pop()"
+                      remove-field
+                      btn-remove-field
+                      class="removeField"
+                      >Remove Field</span
                     >
                   </div>
                 </div>
                 <div class="row mt-3">
                   <div class="upload-dynamic"></div>
                 </div>
-                <div class="uploadMore">
+                <div class="uploadMore" v-if="addImg.length < 2">
                   <span @click="addImg.push(addImg.length + 3)"
                     >Upload More <i class="bi bi-plus-circle"></i
                   ></span>
@@ -1299,7 +1347,12 @@
                     </button>
                   </div>
                   <div class="col-sm-12">
-                    <p class="saveAndContinue"><a>Save & Continue Later</a></p>
+                    <p
+                      class="saveAndContinue"
+                      @click="handleProductUpload('save')"
+                    >
+                      <a>Save & Continue Later</a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1321,35 +1374,35 @@
                   <div class="col-lg-12 mt-4 mb-3">
                     <label>Certification Name</label>
                     <select class="input" v-model="file[1].name">
-                      <option>Select Certificate</option>
+                      <option hidden>Select Certificate</option>
                       <option>option 1</option>
-                      <option>option 1</option>
-                      <option>option 1</option>
+                      <option>option 2</option>
+                      <option>option 3</option>
                       <option>others</option>
                     </select>
                   </div>
                   <div class="col-lg-6 mb-3">
-                    <label>Certificte Number</label>
-                    <input type="text" class="input"/>
+                    <label>Certificate Number</label>
+                    <input type="text" class="input" />
                   </div>
                   <div class="col-lg-6 mb-3">
                     <label>Date of Issue</label>
-                    <input type="date" class="input"/>
+                    <input type="date" class="input" />
                   </div>
                   <div class="col-lg-12 mb-3">
                     <label>Name of Issuing Body</label>
-                    <input type="text" class="input"/>
+                    <input type="text" class="input" />
                   </div>
                   <div class="col-lg-12 mb-3">
                     <label>Validity Period</label>
                     <div class="row">
                       <div class="col-lg-6">
                         <span>From:</span>
-                        <input type="date" class="input"/>
+                        <input type="date" class="input" />
                       </div>
                       <div class="col-lg-6">
                         <span>To:</span>
-                        <input type="date" class="input"/>
+                        <input type="date" class="input" />
                       </div>
                     </div>
                   </div>
@@ -1368,50 +1421,52 @@
                     v-for="(newFile, i) in addFile"
                     :key="i"
                   >
-                  <div class="col-lg-12 mt-4 mb-3">
-                    <label>Certification Name</label>
-                    <select class="input" v-model="file[newFile].name">
-                      <option>Select Certificate</option>
-                      <option>option 1</option>
-                      <option>option 1</option>
-                      <option>option 1</option>
-                      <option>others</option>
-                    </select>
-                  </div>
-                  <div class="col-lg-6 mb-3">
-                    <label>Certificte Number</label>
-                    <input type="text" class="input"/>
-                  </div>
-                  <div class="col-lg-6 mb-3">
-                    <label>Date of Issue</label>
-                    <input type="date" class="input"/>
-                  </div>
-                  <div class="col-lg-12 mb-3">
-                    <label>Name of Issuing Body</label>
-                    <input type="text" class="input"/>
-                  </div>
-                  <div class="col-lg-12 mb-3">
-                    <label>Validity Period</label>
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <span>From:</span>
-                        <input type="date" class="input"/>
-                      </div>
-                      <div class="col-lg-6">
-                        <span>To:</span>
-                        <input type="date" class="input"/>
+                    <div class="col-lg-12 mt-4 mb-3">
+                      <label>Certification Name{{ newFile }}</label>
+                      <select class="input" v-model="file[newFile].name">
+                        <option>Select Certificate</option>
+                        <option>option 1</option>
+                        <option>option 2</option>
+                        <option>option 3</option>
+                        <option>others</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                      <label>Certificte Number</label>
+                      <input type="text" class="input" />
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                      <label>Date of Issue</label>
+                      <input type="date" class="input" />
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                      <label>Name of Issuing Body</label>
+                      <input type="text" class="input" />
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                      <label>Validity Period</label>
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <span>From:</span>
+                          <input type="date" class="input" />
+                        </div>
+                        <div class="col-lg-6">
+                          <span>To:</span>
+                          <input type="date" class="input" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-lg-12">
-                    <label>Upload Certification</label>
-                    <input
-                      type="file"
-                      class="input"
-                      @change="onFileChange(newFile)"
-                    />
-                  </div>
-                    <span @click="addFile.pop()" class="removeField">Remove Field</span>
+                    <div class="col-lg-12">
+                      <label>Upload Certification</label>
+                      <input
+                        type="file"
+                        class="input"
+                        @change="onFileChange(newFile)"
+                      />
+                    </div>
+                    <span @click="removeFile(newFile)" class="removeField"
+                      >Remove Field</span
+                    >
                   </div>
                 </div>
                 <div class="row mt-3">
@@ -1424,18 +1479,21 @@
                 </div>
 
                 <!--Table Display-->
-                <div class="row justify-content-center mb-4 mt-4">
+                <div
+                  class="row justify-content-center mb-4 mt-4"
+                  v-if="file[1].img"
+                >
                   <div class="col-lg-10">
                     <table class="certificateTable">
                       <tr class="headingTable">
                         <td>S/N</td>
-                        <td>Certicate Name</td>
-                        <td>Certicate File</td>
+                        <td>Certificate Name</td>
+                        <td>Certificate File</td>
                       </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>My New Certificate</td>
-                        <td>file.pdf</td>
+                      <tr v-for="(newCert, i) in file" :key="i">
+                        <td>{{ i }}</td>
+                        <td>{{ newCert.name }}</td>
+                        <td>{{ newCert.img.name }}</td>
                       </tr>
                     </table>
                   </div>
@@ -1453,7 +1511,12 @@
                     </button>
                   </div>
                   <div class="col-sm-12">
-                    <p class="saveAndContinue"><a>Save & Continue Later</a></p>
+                    <p
+                      class="saveAndContinue"
+                      @click="handleProductUpload('save')"
+                    >
+                      <a>Save & Continue Later</a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1472,29 +1535,56 @@
                 </div>
                 <div class="lineHR"></div>
                 <div class="row">
+                  <div class="col-lg-4 radioDiv mb-2">
+                    <input
+                      type="checkbox"
+                      @click="setShipping('fluid')"
+                      name="category"
+                      id="idOil"
+                      v-model="shipping.fluid.check"
+                    />
+                    <label for="idOil" class="radioSpan">Fluid (Liquid)</label>
+                  </div>
+                  <div class="col-lg-4 radioDiv mb-2">
+                    <input
+                      type="checkbox"
+                      @click="setShipping('others')"
+                      name="category"
+                      id="idFruit"
+                      v-model="shipping.others.check"
+                    />
+                    <label class="radioSpan" for="idFruit">Others</label>
+                  </div>
+                </div>
+                <div class="row">
                   <div class="col-lg-6 mt-4 mb-3">
                     <label>Packaging Unit</label>
-                    <input type="text" class="input" v-model="packages.unit" placeholder="e.g. Bag, Box,Vacuum Pack, Sack, Other" />
+                    <input
+                      type="text"
+                      class="input"
+                      v-model="packages.unit"
+                      placeholder="e.g. Bag, Box,Vacuum Pack, Sack, Other"
+                    />
                   </div>
-                  <!-- <div class="col-lg-6 mt-4 mb-3">
+                  <div class="col-lg-6 mt-4 mb-3" v-if="shipping.fluid.check">
                     <label>Volume of Packaging (litre)</label>
                     <input
                       type="text"
                       class="input"
                       v-model="packages.pckVol"
                     />
-                  </div> -->
+                  </div>
                   <div class="col-lg-6 mt-4 mb-3 categoryInnerDiv">
                     <label>Weight of Packaging</label>
                     <input
-                        type="text"
-                        class="input inputSize"
-                        v-model="packages.pckWgt"
-                      />
-                      <select class="input selectSize">
-                        <option>kg</option>
-                        <option>lb</option>
-                      </select>
+                      type="text"
+                      class="input inputSize"
+                      v-model="packages.pckWgt"
+                    />
+                    <select class="input selectSize">
+                      <option>kg</option>
+                      <option>lb</option>
+                    </select>
                   </div>
                   <div class="col-lg-6 mt-4 mb-3">
                     <label>Price of Packaging ($)</label>
@@ -1520,7 +1610,6 @@
                       <option>Pack</option>
                       <option>Pallet</option>
                       <option>Carton</option>
-                      <option>Container</option>
                     </select>
                   </div>
                   <div class="col-lg-6 mt-4 mb-3">
@@ -1638,7 +1727,6 @@
                     <input
                       type="checkbox"
                       id="acceptTerms"
-                      value="Pending"
                       required
                       v-model="status"
                     />
@@ -1660,6 +1748,12 @@
                     class="btn"
                     :disabled="!status"
                   />
+                </div>
+                <div
+                  class="col-lg-12 mb-4 mt-2 text-center signuas"
+                  v-show="loading"
+                >
+                  <span class="spinner-border spinner-border-sm"></span>
                 </div>
               </div>
             </form>
@@ -1690,7 +1784,6 @@ export default {
     "dash-footer": DashFooter,
   },
   mounted() {
-
     window.scrollTo(0, 0);
     const prevBtns = document.querySelectorAll(".btn-prev");
     const nextBtns = document.querySelectorAll(".btn-next");
@@ -1747,33 +1840,32 @@ export default {
     );
     document.head.appendChild(externalScriptCustom);
 
-    $(".image-box").click(function(event) {
-	var previewImg = $(this).children("img");
+    $(".image-box").click(function (event) {
+      var previewImg = $(this).children("img");
 
-	$(this)
-		.siblings()
-		.children("input")
-		.trigger("click");
+      $(this).siblings().children("input").trigger("click");
 
-	$(this)
-		.siblings()
-		.children("input")
-		.change(function() {
-			var reader = new FileReader();
+      $(this)
+        .siblings()
+        .children("input")
+        .change(function () {
+          var reader = new FileReader();
 
-			reader.onload = function(e) {
-				var urll = e.target.result;
-				$(previewImg).attr("src", urll);
-				previewImg.parent().css("background", "transparent");
-				previewImg.show();
-				previewImg.siblings("p").hide();
-			};
-			reader.readAsDataURL(this.files[0]);
-		});
-});
+          reader.onload = function (e) {
+            var urll = e.target.result;
+            $(previewImg).attr("src", urll);
+            previewImg.parent().css("background", "transparent");
+            previewImg.show();
+            previewImg.siblings("p").hide();
+          };
+          reader.readAsDataURL(this.files[0]);
+        });
+    });
   },
   data() {
     return {
+      loading: false,
+      message: "",
       countries: countries,
       available: false,
       storage: false,
@@ -1790,14 +1882,16 @@ export default {
         animalFeed: { check: false },
         others: { check: false },
       },
+      shipping: {
+        fluid: { check: false },
+        others: { check: false },
+      },
       name: "",
       variety: "",
       description: "",
       farmMethod: "",
       gmo: "",
       country: "",
-      location: "",
-      intercom: "",
       yearRoundAvailableStatus: "",
       yearRoundAvailableFrom: "",
       yearRoundAvailableTo: "",
@@ -1818,18 +1912,20 @@ export default {
       min_quantity: "",
       supply_ability: {},
 
-      status: "",
+      status: null,
     };
   },
 
   methods: {
-    async handleProductUpload() {
+    async handleProductUpload(uploadOrSave) {
+      this.loading = true;
       console.log("submitting!!");
       let img_arr = [];
       let file_arr = [];
       let cert_name = [];
       console.log(this.image);
       console.log(this.file);
+      console.log("status is", this.status);
       // for (let cert in this.file) {
       //   file_arr.push(this.file[cert].img);
       //   cert_name.push(this.file[cert].name);
@@ -1882,12 +1978,16 @@ export default {
       this.category && fd.append("category", this.category);
       this.character && fd.append("character", JSON.stringify(this.character));
 
-      for (let cert in this.file) {
-        fd.append("file", this.file[cert].img);
-        fd.append("cert_name", this.file[cert].name);
+      if (this.file) {
+        for (let cert in this.file) {
+          fd.append("file", this.file[cert].img);
+          fd.append("cert_name", this.file[cert].name);
+        }
       }
-      for (let img in this.image) {
-        fd.append("image", this.image[img]);
+      if (this.image) {
+        for (let img in this.image) {
+          fd.append("image", this.image[img]);
+        }
       }
 
       // if (this.image) {
@@ -1907,6 +2007,7 @@ export default {
       this.min_quantity && fd.append("min_quantity", this.min_quantity);
       this.supply_ability &&
         fd.append("supply_ability", JSON.stringify(this.supply_ability));
+      this.status && fd.append("status", "pending");
 
       const res = await fetch(
         "https://producemart.herokuapp.com/createProduct",
@@ -1918,8 +2019,26 @@ export default {
           body: fd,
         }
       );
-      const data = await res.json();
-      console.log(data);
+      if (res.ok) {
+        console.log(res);
+        const data = await res.json();
+        if (uploadOrSave == "save") {
+          this.loading = false;
+          if (data.status)
+            this.$router.push("/supplier-dashboard/draft-products");
+          else
+            data.message
+              ? (this.message = data.message)
+              : (this.message = "Please try again.");
+        } else {
+          this.loading = false;
+          this.$router.push("/supplier-dashboard/pending-products");
+        }
+      } else {
+        this.loading = false;
+        this.message =
+          "We are unable to save your response at the moment, please try again.";
+      }
     },
     setCategory(item) {
       this.category = item;
@@ -1929,8 +2048,16 @@ export default {
         }
       }
     },
+    setShipping(cat) {
+      for (let item in this.shipping) {
+        if (item != cat) {
+          this.shipping[item].check = false;
+        }
+      }
+    },
     onFileChange(n) {
       this.file[n].img = event.target.files[0];
+      console.log(this.file[n].img);
     },
     onFieldChange(n) {
       this.image[n] = event.target.files[0];
@@ -1938,6 +2065,10 @@ export default {
     addMoreCert() {
       this.addFile.push(this.addFile.length + 2);
       this.file[this.addFile.length + 1] = {};
+    },
+    removeFile(n) {
+      this.addFile.pop();
+      delete this.file[n];
     },
   },
 };

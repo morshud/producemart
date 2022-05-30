@@ -110,7 +110,7 @@ export default {
         this.$router.push("/dashboard/home");
       } else {
         this.loading = false;
-        this.message = "You're not authorized to signin as an admin";
+        this.message = "You're not authorized to signin as an admin, check";
       }
     },
   },

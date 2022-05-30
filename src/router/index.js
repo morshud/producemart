@@ -344,7 +344,7 @@ const routes = [
     component: DashSupplierProductDraftContinue,
   },
   {
-    path: "/supplier-dashboard/view-products",
+    path: "/supplier-dashboard/view-products/:id",
     name: "DashSupplierProductViewPublished",
     component: DashSupplierProductViewPublished,
   },
