@@ -41,9 +41,13 @@
                     <div class="box_right d-flex lms_block">
                       <div class="serach_field_2">
                         <div class="search_inner">
-                          <form Active="#">
+                          <form Active="#" @submit.prevent="">
                             <div class="search_field">
-                              <input type="text" placeholder="Search here..." />
+                              <input
+                                type="text"
+                                v-model="search"
+                                placeholder="Search here..."
+                              />
                             </div>
                             <button type="submit">
                               <i class="bi bi-search"></i>
@@ -73,7 +77,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(blog, i) in blogs" :key="blog._id">
+                        <tr v-for="(blog, i) in filteredBlogs" :key="blog._id">
                           <th scope="row">{{ i + 1 }}</th>
                           <td>
                             <h5>
@@ -153,9 +157,19 @@ export default {
     this.fetchBlog();
     console.log(this.blogs);
   },
+  computed: {
+    filteredBlogs() {
+      if (this.blogs) {
+        return this.blogs.filter((blog) =>
+          blog.title.toLowerCase().includes(this.search.toLowerCase())
+        );
+      }
+    },
+  },
   data() {
     return {
       blogs: null,
+      search: "",
       token: JSON.parse(localStorage.getItem("user")).token,
     };
   },

@@ -124,9 +124,10 @@
                 <div class="col-md-7">
                   <div class="card-body">
                     <h5 class="card-title">{{ blog.title }}</h5>
-                    <p class="card-text">
-                      {{ blog.description.slice(0, 150) }}...
-                    </p>
+                    <p
+                      class="card-text"
+                      v-html="blog.description.slice(0, 150) + '...'"
+                    ></p>
                     <router-link
                       :to="'/blog-content/' + blog.title"
                       class="linkRead"

@@ -53,14 +53,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="fileDownloadOption mb-3">
+                  <!-- <div class="fileDownloadOption mb-3">
                     <button type="button" title="Download as CSV file">
                       CSV
                     </button>
                     <button type="button" title="Download as PDF file">
                       PDF
                     </button>
-                  </div>
+                  </div> -->
                   <div class="QA_table mb_30">
                     <table class="table lms_table_active">
                       <thead>
@@ -97,8 +97,13 @@
                           <td><a href="#" class="status_btn">Active</a></td>
                           <td>
                             <div class="action_btns d-flex">
-                                <router-link to="/dashboard/edit-supplier-content"><a title="Edit" class="action_btn mr_10"> <i class="far fa-edit"></i> </a></router-link>
-                                <a href="#" title="Delete" class="action_btn"> <i class="fas fa-trash"></i> </a>
+                              <router-link to="/dashboard/edit-supplier-content"
+                                ><a title="Edit" class="action_btn mr_10">
+                                  <i class="far fa-edit"></i> </a
+                              ></router-link>
+                              <a href="#" title="Delete" class="action_btn">
+                                <i class="fas fa-trash"></i>
+                              </a>
                             </div>
                           </td>
                           <td><a href="#">productID100</a></td>

@@ -55,14 +55,19 @@
                     </div>
                     <div class="col-lg-12">
                       <div class="common_input mb_15">
-                        <textarea
+                        <ckeditor
+                          :editor="editor"
+                          :config="editorConfig"
+                          v-model="description"
+                        ></ckeditor>
+                        <!-- <textarea
                           name=""
                           id=""
                           cols="30"
                           rows="7"
                           placeholder="Blog Contents Here..."
                           v-model="description"
-                        ></textarea>
+                        ></textarea> -->
                       </div>
                     </div>
                     <div class="col-lg-12">
@@ -103,6 +108,7 @@
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 export default {
   name: "Produce Mart",
   components: {
@@ -123,6 +129,8 @@ export default {
   },
   data() {
     return {
+      editor: ClassicEditor,
+      editorConfig: {},
       blog: null,
       title: "",
       description: "",
