@@ -81,11 +81,14 @@
                             </h5>
                           </td>
                           <td>
-                            {{
-                              blog.description.length < 300
-                                ? blog.description
-                                : blog.description.slice(0, 300) + "..."
-                            }}
+                            <p
+                              v-html="blog.description"
+                              v-if="blog.description.length < 300"
+                            ></p>
+                            <p
+                              v-html="blog.description.slice(0, 300) + '...'"
+                              v-else
+                            ></p>
                           </td>
                           <td>
                             <img :src="blog.img_url" />

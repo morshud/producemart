@@ -14,8 +14,8 @@
           <div class="blog-image">
             <img :src="blog && blog.img_url" ondragstart="return false;" />
           </div>
-          <div class="note">
-            <p>{{ blog && blog.description }}</p>
+          <div v-if="blog">
+            <div class="note" v-html="blog.description"></div>
           </div>
           <div class="share-post text-center">
             <h4>Share Article</h4>
