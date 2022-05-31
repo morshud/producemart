@@ -159,15 +159,17 @@
                   v-for="(product, i) in filteredProducts"
                   :key="i"
                 >
-                  <router-link to="/products/inner-product">
+                  <router-link :to="'/products/inner-product/' + product._id">
                     <div class="imgArea">
                       <img :src="product.img_url[0]" draggable="false" />
                     </div>
                   </router-link>
                   <div class="detailArea">
                     <h5>{{ product.name }}</h5>
-                    <p>$10 per 100kg</p>
-                    <router-link to="/products/inner-product" class="route-link"
+                    <p>${{ Math.floor(Math.random() * 25) }} per 100kg</p>
+                    <router-link
+                      :to="'/products/inner-product/' + product._id"
+                      class="route-link"
                       ><a>View Products <i class="bi bi-arrow-right"></i></a
                     ></router-link>
                   </div>
@@ -212,7 +214,7 @@ export default {
       );
       const { data } = await res.json();
 
-      this.products = data;
+      this.products = data.filter((product) => product.status != "incomplete");
       console.log(this.products);
     },
   },

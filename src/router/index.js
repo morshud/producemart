@@ -142,7 +142,7 @@ const routes = [
   },
   { path: "/products", name: "Products", component: Products },
   {
-    path: "/products/inner-product",
+    path: "/products/inner-product/:id",
     name: "InnerProductPage",
     component: InnerProductPage,
   },
