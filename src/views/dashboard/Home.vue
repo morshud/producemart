@@ -85,7 +85,7 @@
             </div>
           </div>
           <!--Table-->
-          <div class="col-lg-9">
+          <div class="col-lg-12">
             <div class="white_card card_height_100 mb_30">
               <div class="white_card_header">
                 <div class="box_header m-0"></div>
@@ -102,6 +102,7 @@
                               <input
                                 type="text"
                                 placeholder="Search content here..."
+                                v-model="search"
                               />
                             </div>
                             <button type="submit">
@@ -113,7 +114,7 @@
                     </div>
                   </div>
                   <div class="QA_table mb_30">
-                    <table class="table">
+                    <table class="table" v-if="filteredUsers">
                       <thead>
                         <tr>
                           <th scope="col">#</th>
@@ -124,7 +125,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(user, i) in users" :key="user._id">
+                        <tr v-for="(user, i) in filteredUsers" :key="user._id">
                           <th scope="row">{{ i + 1 }}</th>
                           <td>{{ user.firstname }} {{ user.lastname }}</td>
                           <td>{{ user.email }}</td>
@@ -138,7 +139,7 @@
               </div>
             </div>
           </div>
-          <!--Recent Notification-->
+          <!-- Recent Notification
           <div class="col-xl-3">
             <div class="white_card card_height_100 mb_30">
               <div class="white_card_header">
@@ -205,7 +206,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <!--Chart Bar-->
           <div class="col-xl-7">
             <div class="white_card mb_30 card_height_100">
@@ -241,7 +242,7 @@
             </div>
           </div>
           <!--New Users-->
-          <div class="col-xl-8">
+          <!-- <div class="col-xl-8">
             <div class="white_card card_height_100 mb_30">
               <div class="white_card_header">
                 <div class="row align-items-center">
@@ -423,9 +424,9 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <!--Chart Circle-->
-          <div class="col-xl-4">
+          <!-- <div class="col-xl-4">
             <div class="white_card card_height_100 mb_30">
               <div class="white_card_header">
                 <div class="box_header m-0">
@@ -479,7 +480,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -512,9 +513,20 @@ export default {
   data() {
     return {
       users: null,
+      search: "",
     };
   },
-
+  computed: {
+    filteredUsers() {
+      if (this.users) {
+        return this.users.filter(
+          (user) =>
+            user.firstname.toLowerCase().includes(this.search.toLowerCase()) ||
+            user.lastname.toLowerCase().includes(this.search.toLowerCase())
+        );
+      }
+    },
+  },
   methods: {
     logOut() {
       this.$store.dispatch("auth/logout");

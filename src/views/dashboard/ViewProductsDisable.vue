@@ -1,5 +1,5 @@
 <template>
-  <title>Disable Products - Super Admin Dashboard | Produce Mart</title>
+  <title>Disabled Products - Super Admin Dashboard | Produce Mart</title>
   <dash-sidebar />
 
   <section class="main_content dashboard_part large_header_bg">
@@ -37,7 +37,7 @@
               <div class="white_card_body">
                 <div class="QA_section">
                   <div class="white_box_tittle list_header">
-                    <h4>Disable Products List</h4>
+                    <h4>Disabled Products List</h4>
                     <div class="box_right d-flex lms_block">
                       <div class="serach_field_2">
                         <div class="search_inner">
@@ -46,6 +46,7 @@
                               <input
                                 type="text"
                                 placeholder="Search products here..."
+                                v-model="search"
                               />
                             </div>
                             <button type="submit">
@@ -56,14 +57,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="fileDownloadOption mb-3">
+                  <!-- <div class="fileDownloadOption mb-3">
                     <button type="button" title="Download as CSV file">
                       CSV
                     </button>
                     <button type="button" title="Download as PDF file">
                       PDF
                     </button>
-                  </div>
+                  </div> -->
                   <div class="QA_table mb_30">
                     <table class="table lms_table_active">
                       <thead>
@@ -82,28 +83,40 @@
                           <th scope="col">Certification</th>
                           <th scope="col">Packaging</th>
                           <th scope="col">Minimum Order Quantity</th>
+                          <th scope="col">State</th>
                           <th scope="col">Status</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th scope="row">10DQ3</th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
+                        <tr v-for="(product, i) in filteredProducts" :key="i">
+                          <td>{{ product._id }}</td>
+                          <td>{{ product.name }}</td>
+                          <td>{{ product.variety }}</td>
+                          <td>{{ product.weight }}</td>
+                          <td>{{ product.dimension }}</td>
+                          <td>{{ product.supplier_id }}</td>
+                          <td>{{ product.price }}</td>
+                          <td>{{ product.category }}</td>
+                          <th scope="row">{{ product.farmMethod }}</th>
+                          <td>{{ product.description }}</td>
+                          <th scope="row">
+                            <img width="80" :src="product.img_url[0]" alt="" />
+                          </th>
                           <td>
-                            <a href="#" class="status_btn-danger">Disable</a>
+                            <a
+                              :href="product.certification[0].file_url"
+                              target="_blank"
+                              v-if="product.certification.length > 0"
+                              >View Certificate</a
+                            >
+                            <span v-else>No Certification uploaded</span>
+                          </td>
+                          <td>{{ product.packaging }}</td>
+                          <td>{{ product.qty }}</td>
+                          <td>{{ product.status }}</td>
+                          <td>
+                            <a href="#" class="status_btn">Active</a>
                           </td>
                           <td>
                             <div class="action_btns d-flex">
@@ -153,6 +166,33 @@ export default {
       "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
     );
     document.head.appendChild(externalScriptCustom);
+    this.getAllproducts();
+  },
+  data() {
+    return {
+      products: null,
+      search: "",
+    };
+  },
+  methods: {
+    async getAllproducts() {
+      const res = await fetch(
+        "https://producemart.herokuapp.com/getAllProducts"
+      );
+      const { data } = await res.json();
+
+      this.products = data.filter((val) => val.status == "disable");
+      console.log(this.products);
+    },
+  },
+  computed: {
+    filteredProducts() {
+      if (this.products) {
+        return this.products.filter((product) =>
+          product.name.toLowerCase().includes(this.search.toLowerCase())
+        );
+      }
+    },
   },
 };
 </script>

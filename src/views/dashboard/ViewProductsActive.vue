@@ -46,6 +46,7 @@
                               <input
                                 type="text"
                                 placeholder="Search products here..."
+                                v-model="search"
                               />
                             </div>
                             <button type="submit">
@@ -56,14 +57,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="fileDownloadOption mb-3">
+                  <!-- <div class="fileDownloadOption mb-3">
                     <button type="button" title="Download as CSV file">
                       CSV
                     </button>
                     <button type="button" title="Download as PDF file">
                       PDF
                     </button>
-                  </div>
+                  </div> -->
                   <div class="QA_table mb_30">
                     <table class="table lms_table_active">
                       <thead>
@@ -88,7 +89,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(product, i) in products" :key="i">
+                        <tr v-for="(product, i) in filteredProducts" :key="i">
                           <td>{{ product._id }}</td>
                           <td>{{ product.name }}</td>
                           <td>{{ product.variety }}</td>
@@ -106,8 +107,10 @@
                             <a
                               :href="product.certification[0].file_url"
                               target="_blank"
+                              v-if="product.certification.length > 0"
                               >View Certificate</a
                             >
+                            <span v-else>No Certification uploaded</span>
                           </td>
                           <td>{{ product.packaging }}</td>
                           <td>{{ product.qty }}</td>
@@ -168,6 +171,7 @@ export default {
   data() {
     return {
       products: null,
+      search: "",
     };
   },
   methods: {
@@ -179,6 +183,15 @@ export default {
 
       this.products = data;
       console.log(this.products);
+    },
+  },
+  computed: {
+    filteredProducts() {
+      if (this.products) {
+        return this.products.filter((product) =>
+          product.name.toLowerCase().includes(this.search.toLowerCase())
+        );
+      }
     },
   },
 };

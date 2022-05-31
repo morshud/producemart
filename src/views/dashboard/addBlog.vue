@@ -2,14 +2,22 @@
   <form @submit.prevent="addBlog">
     <label for="title">Title</label>
     <input type="text" name="title" v-model="title" /><br />
-    <label for="description">Description</label>
-    <textarea
+    <label for="description">Descriptions</label>
+    <ckeditor
+      name="description"
+      :editor="editor"
+      :config="editorConfig"
+      cols="30"
+      rows="10"
+      v-model="description"
+    ></ckeditor>
+    <!-- <textarea
       name="description"
       id=""
       cols="30"
       rows="10"
       v-model="description"
-    ></textarea>
+    ></textarea> -->
     <label for="image">Image</label>
     <input type="file" @change="fileUpload" />
     <input type="submit" value="Submit" />
@@ -17,10 +25,13 @@
 </template>
 
 <script>
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 export default {
   data() {
     return {
       title: "",
+      editor: ClassicEditor,
+      editorConfig: {},
       description: "",
       image: "",
       token: JSON.parse(localStorage.getItem("user")).token,

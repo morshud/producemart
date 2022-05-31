@@ -9,7 +9,7 @@
         <div class="col-lg-11 details">
           <div class="blog-title text-center">
             <h1>{{ blog && blog.title }}</h1>
-            <p>June 27, 2022 | By Produce Mart</p>
+            <p>{{ blog && blog.createdAt.slice(0, 10) }} | By Produce Mart</p>
           </div>
           <div class="blog-image">
             <img :src="blog && blog.img_url" ondragstart="return false;" />

@@ -82,7 +82,10 @@
                           <td>
                             <div class="action_btns d-flex">
                               <router-link
-                                to="/supplier-dashboard/continue-product-upload"
+                                :to="
+                                  '/supplier-dashboard/view-products/' +
+                                  product._id
+                                "
                                 title="View & Edit"
                                 class="action_btn mr_10"
                               >

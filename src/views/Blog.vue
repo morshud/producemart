@@ -133,7 +133,9 @@
                       >Read More <i class="bi bi-arrow-right-short"></i
                     ></router-link>
                     <p class="card-text">
-                      <small class="text-muted">3 mins ago</small>
+                      <small class="text-muted">{{
+                        blog.createdAt.slice(0, 10)
+                      }}</small>
                     </p>
                   </div>
                 </div>

@@ -208,7 +208,7 @@
                   </div>
                   <div class="col-lg-6 mb-3">
                     <label>Farming Method <span>*</span></label>
-                    <select class="input" v-model="farmMethod" required>
+                    <select class="input" v-model="farmMethod">
                       <option hidden>Select Method</option>
                       <option>Organic</option>
                       <option>Integrated</option>
@@ -217,7 +217,7 @@
                   </div>
                   <div class="col-lg-6 mb-3">
                     <label>GMO <span>*</span></label>
-                    <select class="input" v-model="gmo" required>
+                    <select class="input" v-model="gmo">
                       <option hidden>Select</option>
                       <option>Yes</option>
                       <option>No</option>
@@ -225,7 +225,7 @@
                   </div>
                   <div class="col-lg-12 mb-3">
                     <label>Country of origin <span>*</span></label>
-                    <select class="input" v-model="country" required>
+                    <select class="input" v-model="country">
                       <option value="Country" hidden>Select Country</option>
                       <option
                         v-for="(country, i) in countries"
@@ -244,7 +244,6 @@
                       class="input"
                       placeholder="Address"
                       v-model="location"
-                      required
                     ></textarea>
                   </div>
                   <!-- <div class="col-lg-12 mb-3">
@@ -868,11 +867,7 @@
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>USDA Grade (Applies to Almonds)</label>
-                      <select
-                        class="input"
-                        v-model="character.usdaGrade"
-                        required
-                      >
+                      <select class="input" v-model="character.usdaGrade">
                         <option hidden>Select</option>
                         <option>US Fancy</option>
                         <option>US Extra N.1</option>
@@ -1811,12 +1806,7 @@
                     </div>
                   </div>
                   <div class="col-lg-12 mt-3 mb-3">
-                    <input
-                      type="checkbox"
-                      id="acceptTerms"
-                      required
-                      v-model="status"
-                    />
+                    <input type="checkbox" id="acceptTerms" v-model="status" />
                     <label for="acceptTerms" class="labelTerms"
                       >By submitting this product, you agree to our
                       <a href="/terms" target="_blank">Terms & conditions</a>

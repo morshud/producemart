@@ -53,14 +53,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="fileDownloadOption mb-3">
+                  <!-- <div class="fileDownloadOption mb-3">
                     <button type="button" title="Download as CSV file">
                       CSV
                     </button>
                     <button type="button" title="Download as PDF file">
                       PDF
                     </button>
-                  </div>
+                  </div> -->
                   <div class="QA_table mb_30">
                     <table class="table lms_table_active">
                       <thead>
@@ -76,7 +76,9 @@
                         <tr v-for="(blog, i) in blogs" :key="blog._id">
                           <th scope="row">{{ i + 1 }}</th>
                           <td>
-                            <h5>{{ blog.title }}</h5>
+                            <h5>
+                              {{ blog.title }}
+                            </h5>
                           </td>
                           <td>
                             {{
