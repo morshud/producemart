@@ -5,7 +5,7 @@
 
   <section class="blog-details">
     <div class="container">
-      <div class="row justify-content-center">
+      <div class="row justify-content-center" v-if="blog">
         <div class="col-lg-11 details">
           <div class="blog-title text-center">
             <h1>{{ blog && blog.title }}</h1>
@@ -19,13 +19,22 @@
           </div>
           <div class="share-post text-center">
             <h4>Share Article</h4>
-            <a href="#" target="_blank" title="Share on Facebook"
+            <a
+              href="https://web.facebook.com/greenmousetech"
+              target="_blank"
+              title="Share on Facebook"
               ><i class="fab fa-facebook"></i
             ></a>
-            <a href="#" target="_blank" title="Share on Twitter"
-              ><i class="fab fa-twitter"></i
+            <a
+              href="https://www.linkedin.com/in/greenmouse/"
+              target="_blank"
+              title="Share on LinkedIn"
+              ><i class="fab fa-linkedin"></i
             ></a>
-            <a href="#" target="_blank" title="Share on Instagram"
+            <a
+              href="https://www.instagram.com/greenmouseonline/"
+              target="_blank"
+              title="Share on Instagram"
               ><i class="fab fa-instagram"></i
             ></a>
           </div>
@@ -38,6 +47,9 @@
             >
           </div>
         </div>
+      </div>
+      <div class="col-lg-12 mb-4 mt-2 text-center signuas" v-else>
+        <span class="spinner-border spinner-border-sm"></span>
       </div>
     </div>
   </section>

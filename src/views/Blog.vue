@@ -108,7 +108,7 @@
   <main class="blogContent">
     <section class="blogs">
       <div class="container">
-        <div class="row">
+        <div class="row" v-if="blogs">
           <div class="col-md-6 mb-1" v-for="(blog, i) in blogs" :key="i">
             <div class="card mb-3">
               <div class="row g-0">
@@ -143,6 +143,9 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="col-lg-12 mb-4 mt-2 text-center signuas" v-else>
+          <span class="spinner-border spinner-border-sm"></span>
         </div>
       </div>
     </section>
