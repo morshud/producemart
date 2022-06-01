@@ -77,6 +77,7 @@ import DashHome from "../views/dashboard/Home.vue";
 import DashProfile from "../views/dashboard/Profile.vue";
 //products
 import DashViewProductsActive from "../views/dashboard/ViewProductsActive.vue";
+import DashEditProductStatus from "../views/dashboard/EditProductStatus.vue";
 import DashViewProductsPending from "../views/dashboard/ViewProductsPending.vue";
 import DashViewProductsDisable from "../views/dashboard/ViewProductsDisable.vue";
 //orders
@@ -386,6 +387,11 @@ const routes = [
     path: "/dashboard/active-products",
     name: "DashViewProductsActive",
     component: DashViewProductsActive,
+  },
+  {
+    path: "/dashboard/edit-product-status",
+    name: "DashEditProductStatus",
+    component: DashEditProductStatus,
   },
   {
     path: "/dashboard/pending-products",

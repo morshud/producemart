@@ -120,10 +120,10 @@
                           </td>
                           <td>
                             <div class="action_btns d-flex">
-                              <a title="View & Edit" class="action_btn mr_10">
-                                <i class="far fa-edit"></i>
-                              </a>
-                              <a title="Delete" class="action_btn popup-btn">
+                              <router-link to="/dashboard/edit-product-status"><a title="View & Edit" class="action_btn mr_10">
+                                <i class="far fa-edit"></i> </a>
+                              </router-link>
+                              <a title="Delete" class="action_btn" data-toggle="modal" data-target="#exampleModalCenter">
                                 <i class="fas fa-trash"></i>
                               </a>
                             </div>
@@ -132,17 +132,19 @@
                       </tbody>
                     </table>
                     <!-- Popup Box Delete -->
-                    <div class="popup-wrap">
-                      <div class="popup-box">
-                        <i class="bi bi-exclamation-triangle"></i>
-                        <h2>Are You Sure?</h2>
-                        <p>You won't be able to revert this.</p>
-                        <a class="popBtnCancel popBtn popup-close"
-                          >No, Cancel</a
-                        >
-                        <a class="popBtnDelete popBtn">Yes, Delete!</a>
-                        <a class="close-btn popup-close" href="#">x</a>
-                      </div>
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-10" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body modal-body-box">
+                                    <i class="bi bi-exclamation-triangle"></i>
+                                    <h2>Are You Sure?</h2>
+                                    <p>You won't be able to revert this.</p>
+                                    <a class="popBtnCancel popBtn popup-close"
+                                      >No, Cancel</a>
+                                    <a class="popBtnDelete popBtn">Yes, Delete!</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                   </div>
                 </div>
@@ -172,21 +174,7 @@ export default {
     "dash-footer": DashFooter,
   },
   mounted() {
-    $(document).ready(function () {
-      $(".popup-btn").click(function (e) {
-        $(".popup-wrap").fadeIn(500);
-        $(".popup-box").removeClass("transform-out").addClass("transform-in");
 
-        e.preventDefault();
-      });
-
-      $(".popup-close").click(function (e) {
-        $(".popup-wrap").fadeOut(500);
-        $(".popup-box").removeClass("transform-in").addClass("transform-out");
-
-        e.preventDefault();
-      });
-    });
     window.scrollTo(0, 0);
 
     let externalScriptCustom = document.createElement("script");

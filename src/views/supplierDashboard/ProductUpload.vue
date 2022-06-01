@@ -1607,13 +1607,17 @@
                       <option>Carton</option>
                     </select>
                   </div>
-                  <div class="col-lg-6 mt-4 mb-3">
+                  <div class="col-lg-6 mt-4 mb-3 categoryInnerDiv">
                     <label>Weight of Shipment package</label>
                     <input
                       type="text"
-                      class="input"
+                      class="input inputSize"
                       v-model="shipment.ShipWgt"
                     />
+                    <select class="input selectSize">
+                      <option>kg</option>
+                      <option>lb</option>
+                    </select>
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
                     <label>Price of shipment ($)</label>

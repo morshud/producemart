@@ -3085,6 +3085,7 @@ table.dataTable.dtr-inline.collapsed
   transition: 0.3s;
   display: inline-block;
   flex: 32px 0 0;
+  cursor: pointer;
 }
 
 .action_btn:hover {
