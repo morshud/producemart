@@ -158,6 +158,7 @@ import MainHeader from "./mainHeader.vue";
 import SearchHeader from "./searchHeader.vue";
 import MainFooter from "./mainFooter.vue";
 import SearchInner from "./searchInner.vue";
+import { month } from "../assets/months";
 export default {
   name: "Produce Mart",
   components: {
@@ -180,8 +181,17 @@ export default {
       this.blogs = null;
       const res = await fetch("https://producemart.herokuapp.com/getAllBlog");
       const data = await res.json();
-      this.blogs = data.data;
-      console.log(this.blogs);
+      if (data.status == true) {
+        this.blogs = data.data;
+        this.blogs = this.blogs.map((val) => {
+          let d = new Date(val.createdAt);
+          val.createdAt =
+            d.getFullYear() + "-" + month[d.getMonth()] + "-" + d.getDay();
+          return val;
+        });
+      }
+
+      // console.log(this.blogs);
     },
   },
 };

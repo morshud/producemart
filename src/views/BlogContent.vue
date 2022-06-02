@@ -60,6 +60,7 @@
 import MainHeader from "./mainHeader.vue";
 import SearchHeader from "./searchHeader.vue";
 import MainFooter from "./mainFooter.vue";
+import { month } from "../assets/months";
 export default {
   name: "Produce Mart",
   components: {
@@ -92,8 +93,11 @@ export default {
         }
       );
       const data = await res.json();
-      //   console.log(data.data[0]);
+      // console.log(data.data);
       this.blog = data.data[0];
+      let d = new Date(this.blog.createdAt);
+      this.blog.createdAt =
+        d.getFullYear() + "-" + month[d.getMonth()] + "-" + d.getDay();
       //   console.log(this.blog.description);
     },
   },

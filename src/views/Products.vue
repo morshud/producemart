@@ -151,7 +151,7 @@
     <section class="ourProduct">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-md-12">
+          <div class="col-md-12" v-if="filteredProducts">
             <div class="container contProduct">
               <div class="row">
                 <div
@@ -176,6 +176,9 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="col-lg-12 mb-4 mt-2 text-center signuas" v-else>
+            <span class="spinner-border spinner-border-sm"></span>
           </div>
         </div>
       </div>
