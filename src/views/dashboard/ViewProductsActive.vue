@@ -71,20 +71,16 @@
                         <tr>
                           <th scope="col">Product ID</th>
                           <th scope="col">Product Name</th>
-                          <th scope="col">Product Variety</th>
-                          <th scope="col">Product Weight</th>
-                          <th scope="col">Product Dimension</th>
+
                           <th scope="col">Supplier ID</th>
                           <th scope="col">Price($)</th>
                           <th scope="col">Category</th>
-                          <th scope="col">Product Detail</th>
-                          <th scope="col">Product Characteristics</th>
+
                           <th scope="col">Product Image</th>
                           <th scope="col">Certification</th>
-                          <th scope="col">Packaging</th>
-                          <th scope="col">Minimum Order Quantity</th>
-                          <th scope="col">State</th>
+
                           <th scope="col">Status</th>
+
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
@@ -92,14 +88,11 @@
                         <tr v-for="(product, i) in filteredProducts" :key="i">
                           <td>{{ product._id }}</td>
                           <td>{{ product.name }}</td>
-                          <td>{{ product.variety }}</td>
-                          <td>{{ product.weight }}</td>
-                          <td>{{ product.dimension }}</td>
+
                           <td>{{ product.supplier_id }}</td>
                           <td>{{ product.price }}</td>
                           <td>{{ product.category }}</td>
-                          <th scope="row">{{ product.farmMethod }}</th>
-                          <td>{{ product.description }}</td>
+
                           <th scope="row">
                             <img width="80" :src="product.img_url[0]" alt="" />
                           </th>
@@ -112,18 +105,25 @@
                             >
                             <span v-else>No Certification uploaded</span>
                           </td>
-                          <td>{{ product.packaging }}</td>
-                          <td>{{ product.qty }}</td>
+
                           <td>{{ product.status }}</td>
-                          <td>
-                            <a href="#" class="status_btn">Active</a>
-                          </td>
+
                           <td>
                             <div class="action_btns d-flex">
-                              <router-link to="/dashboard/edit-product-status"><a title="View & Edit" class="action_btn mr_10">
-                                <i class="far fa-edit"></i> </a>
+                              <router-link to="/dashboard/edit-product-status"
+                                ><a
+                                  title="View & Edit"
+                                  class="action_btn mr_10"
+                                >
+                                  <i class="far fa-edit"></i>
+                                </a>
                               </router-link>
-                              <a title="Delete" class="action_btn" data-toggle="modal" data-target="#exampleModalCenter">
+                              <a
+                                title="Delete"
+                                class="action_btn"
+                                data-toggle="modal"
+                                data-target="#exampleModalCenter"
+                              >
                                 <i class="fas fa-trash"></i>
                               </a>
                             </div>
@@ -132,19 +132,30 @@
                       </tbody>
                     </table>
                     <!-- Popup Box Delete -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-10" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body modal-body-box">
-                                    <i class="bi bi-exclamation-triangle"></i>
-                                    <h2>Are You Sure?</h2>
-                                    <p>You won't be able to revert this.</p>
-                                    <a class="popBtnCancel popBtn popup-close"
-                                      >No, Cancel</a>
-                                    <a class="popBtnDelete popBtn">Yes, Delete!</a>
-                                </div>
-                            </div>
+                    <div
+                      class="modal fade"
+                      id="exampleModalCenter"
+                      tabindex="-10"
+                      role="dialog"
+                      aria-labelledby="exampleModalCenterTitle"
+                      aria-hidden="true"
+                    >
+                      <div
+                        class="modal-dialog modal-dialog-centered"
+                        role="document"
+                      >
+                        <div class="modal-content">
+                          <div class="modal-body modal-body-box">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <h2>Are You Sure?</h2>
+                            <p>You won't be able to revert this.</p>
+                            <a class="popBtnCancel popBtn popup-close"
+                              >No, Cancel</a
+                            >
+                            <a class="popBtnDelete popBtn">Yes, Delete!</a>
+                          </div>
                         </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -174,7 +185,6 @@ export default {
     "dash-footer": DashFooter,
   },
   mounted() {
-
     window.scrollTo(0, 0);
 
     let externalScriptCustom = document.createElement("script");

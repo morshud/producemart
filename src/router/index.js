@@ -548,7 +548,7 @@ const routes = [
     component: DashViewAdmin,
   },
   {
-    path: "/dashboard/manage-admin",
+    path: "/dashboard/manage-admin/:id",
     name: "DashManageAdmin",
     component: DashManageAdmin,
   },

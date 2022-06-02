@@ -66,48 +66,86 @@
                           <th scope="col">First Name</th>
                           <th scope="col">Last Name</th>
                           <th scope="col">Email Address</th>
-                          <th scope="col">Password</th>
+
                           <th scope="col">Role</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">110GRT</th>
-                          <td>Hayden1123</td>
-                          <td>Hayden</td>
-                          <td>Felix</td>
-                          <td>myemail@email.com</td>
-                          <td>1234567890</td>
-                          <td>Reporting Admin</td>
+                      <tbody v-if="admins">
+                        <tr v-for="(admin, i) in admins" :key="i">
+                          <th scope="row">{{ admin._id }}</th>
+                          <td>{{ admin.username }}</td>
+                          <td>{{ admin.firstname }}</td>
+                          <td>{{ admin.lastname }}</td>
+                          <td>{{ admin.email }}</td>
+
+                          <td>{{ admin.role }}</td>
                           <td>
                             <div class="action_btns d-flex">
-                              <a title="View & Edit" class="action_btn mr_10">
-                                <i class="far fa-edit"></i>
-                              </a>
-                              <a title="Delete" class="action_btn" data-toggle="modal" data-target="#exampleModalCenter">
+                              <router-link
+                                :to="'/dashboard/manage-admin/' + admin._id"
+                              >
+                                <a title="View & Edit" class="action_btn mr_10">
+                                  <i class="far fa-edit"></i>
+                                </a>
+                              </router-link>
+                              <a
+                                title="Delete"
+                                class="action_btn"
+                                data-toggle="modal"
+                                :data-target="'#exampleModalCenter' + i"
+                              >
                                 <i class="fas fa-trash"></i>
                               </a>
                             </div>
                           </td>
+                          <div
+                            class="modal fade"
+                            :id="'exampleModalCenter' + i"
+                            tabindex="-10"
+                            role="dialog"
+                            aria-labelledby="exampleModalCenterTitle"
+                            aria-hidden="true"
+                          >
+                            <div
+                              class="modal-dialog modal-dialog-centered"
+                              role="document"
+                            >
+                              <div class="modal-content">
+                                <div class="modal-body modal-body-box">
+                                  <i class="bi bi-exclamation-triangle"></i>
+                                  <h2>
+                                    Delete {{ admin.role }}
+                                    {{ admin.firstname }}?
+                                  </h2>
+                                  <p>You won't be able to revert this.</p>
+                                  <a
+                                    class="popBtnCancel popBtn popup-close"
+                                    data-dismiss="modal"
+                                    aria-label="Close"
+                                    >No, Cancel</a
+                                  >
+                                  <a
+                                    @click="deleteAdmin(admin._id)"
+                                    class="popBtnDelete popBtn"
+                                    data-dismiss="modal"
+                                    aria-label="Close"
+                                    >Yes, Delete!</a
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </tr>
                       </tbody>
+                      <div
+                        class="col-lg-12 mb-4 mt-2 text-center signuas"
+                        v-else
+                      >
+                        <span class="spinner-border spinner-border-sm"></span>
+                      </div>
                     </table>
                     <!-- Popup Box Delete -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-10" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body modal-body-box">
-                                    <i class="bi bi-exclamation-triangle"></i>
-                                    <h2>Are You Sure?</h2>
-                                    <p>You won't be able to revert this.</p>
-                                    <a class="popBtnCancel popBtn popup-close"
-                                      >No, Cancel</a>
-                                    <a class="popBtnDelete popBtn">Yes, Delete!</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -136,7 +174,6 @@ export default {
     "dash-footer": DashFooter,
   },
   mounted() {
-
     window.scrollTo(0, 0);
 
     let externalScriptCustom = document.createElement("script");
@@ -145,6 +182,41 @@ export default {
       "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
     );
     document.head.appendChild(externalScriptCustom);
+    this.getAllAdmins();
+  },
+  data() {
+    return {
+      admins: null,
+      token: JSON.parse(localStorage.getItem("user")).token,
+    };
+  },
+  methods: {
+    async getAllAdmins() {
+      // console.log(this.token);
+      const res = await fetch("https://producemart.herokuapp.com/getAdmin", {
+        method: "GET",
+        headers: {
+          Authorization: this.token,
+        },
+      });
+      const { data } = await res.json();
+      this.admins = data;
+    },
+    async deleteAdmin(id) {
+      const res = await fetch(
+        "https://producemart.herokuapp.com/" + id + "/delete",
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: this.token,
+          },
+        }
+      );
+      const data = await res.json();
+      if (data.status == true) {
+        this.getAllAdmins();
+      }
+    },
   },
 };
 </script>
