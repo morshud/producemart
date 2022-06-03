@@ -186,7 +186,7 @@ export default {
         this.blogs = this.blogs.map((val) => {
           let d = new Date(val.createdAt);
           val.createdAt =
-            d.getFullYear() + "-" + month[d.getMonth()] + "-" + d.getDay();
+            d.getDay() + "-" + month[d.getMonth()] + "-" + d.getFullYear();
           return val;
         });
       }

@@ -97,7 +97,7 @@ export default {
       this.blog = data.data[0];
       let d = new Date(this.blog.createdAt);
       this.blog.createdAt =
-        d.getFullYear() + "-" + month[d.getMonth()] + "-" + d.getDay();
+        d.getDay() + "-" + month[d.getMonth()] + "-" + d.getFullYear();
       //   console.log(this.blog.description);
     },
   },
