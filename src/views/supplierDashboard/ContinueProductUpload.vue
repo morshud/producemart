@@ -1481,7 +1481,7 @@
                     <input
                       type="text"
                       class="input"
-                      v-model="packages.pckVol"
+                      v-model="packages.volume"
                     />
                   </div> -->
                   <div class="col-lg-6 mt-4 mb-3 categoryInnerDiv">
@@ -1489,7 +1489,7 @@
                     <input
                         type="text"
                         class="input inputSize"
-                        v-model="packages.pckWgt"
+                        v-model="packages.weight"
                       />
                       <select class="input selectSize">
                         <option>kg</option>
@@ -1501,7 +1501,7 @@
                     <input
                       type="text"
                       class="input"
-                      v-model="packages.pckPrice"
+                      v-model="packages.price"
                     />
                   </div>
                 </div>
@@ -1512,7 +1512,7 @@
                 <div class="row">
                   <div class="col-lg-6 mt-4 mb-3">
                     <label>Shipment Packaging</label>
-                    <select class="input" v-model="shipment.shipPckng">
+                    <select class="input" v-model="shipment.package">
                       <option hidden>Select</option>
                       <option>Crate</option>
                       <option>Box</option>
@@ -1528,7 +1528,7 @@
                     <input
                       type="text"
                       class="input"
-                      v-model="shipment.ShipWgt"
+                      v-model="shipment.weight"
                     />
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
@@ -1536,7 +1536,7 @@
                     <input
                       type="text"
                       class="input"
-                      v-model="shipment.shipPrice"
+                      v-model="shipment.price"
                     />
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
@@ -1545,13 +1545,13 @@
                       type="text"
                       class="input"
                       placeholder="e.g. 12 x 1Ltr bottle in a box"
-                      v-model="shipment.noOfUnits"
+                      v-model="shipment.unit_package_box"
                     />
                     <input
                       type="text"
                       class="input"
                       placeholder="e.g. 40 boxes per pallet"
-                      v-model="shipment.noOfUnits"
+                      v-model="shipment.unit_package_pallet"
                     />
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
@@ -1564,7 +1564,7 @@
                     <input
                       type="text"
                       class="input"
-                      v-model="shipment.shipContainer"
+                      v-model="shipment.unit_container"
                     />
                   </div>
                 </div>
@@ -1620,12 +1620,12 @@
                         <input
                           type="text"
                           class="input"
-                          v-model="supply_ability.qty"
+                          v-model="supply_ability.quantity"
                         />
                       </div>
                       <div class="col-lg-6 mb-3">
                         <label>frequency</label>
-                        <select class="input" v-model="supply_ability.freq">
+                        <select class="input" v-model="supply_ability.frequency">
                           <option>Week</option>
                           <option>Month</option>
                           <option>Quarter</option>
