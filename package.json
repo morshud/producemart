@@ -17,6 +17,7 @@
     "jquery": "^3.6.0",
     "jquery.easing": "^1.4.1",
     "lodash": "^4.17.21",
+    "sweetalert2": "^11.4.17",
     "swiper": "^8.1.0",
     "vue": "^3.2.13",
     "vue-axios": "^3.4.1",
