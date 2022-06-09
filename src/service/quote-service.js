@@ -1,11 +1,15 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 const API_URL = "https://producemart.herokuapp.com/";
+const user = JSON.parse(localStorage.getItem("user"));
 
 class QUOTE {
   CreateQuote(parameter) {
-    return axios.get(API_URL + "createQuote", parameter, {
-      headers: authHeader()
+    return axios.post(API_URL + "createQuote", parameter, {
+      headers: {
+        "Authorization": user.token,
+        "Content-Type": "application/json"
+      }
     });
   }
 
@@ -16,19 +20,19 @@ class QUOTE {
   }
 
   GetQuoteById(id) {
-    return axios.post(API_URL + "getQuote/" + id, {
+    return axios.get(API_URL + "getQuote/" + id, {
       headers: authHeader(),
     });
   }
 
   UpdateQuote(data, id){
-    return axios.post(API_URL + "updateQuote/" + id, data {
+    return axios.post(API_URL + "updateQuote/" + id, data, {
       headers: authHeader(),
     });
   }
 
   DeleteQuote(id) {
-    return axios.post(API_URL + "deleteQuote/" + id {
+    return axios.delete(API_URL + "deleteQuote/" + id, {
       headers: authHeader(),
     });
   }
