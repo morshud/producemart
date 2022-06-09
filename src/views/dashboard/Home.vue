@@ -14,7 +14,13 @@
               <div class="row">
                 <div class="col-lg-8">
                   <div class="dashboard_header_title">
-                    <h3>Super Admin Dashboard</h3>
+                    <h3>
+                      {{
+                        admin.role
+                          .replace(admin.role[0], admin.role[0].toUpperCase())
+                          .replace("admin", " Admin")
+                      }}
+                    </h3>
                   </div>
                 </div>
                 <div class="col-lg-4">
@@ -513,6 +519,7 @@ export default {
   data() {
     return {
       users: null,
+      admin: JSON.parse(localStorage.getItem("user")),
       search: "",
     };
   },
@@ -530,13 +537,20 @@ export default {
   methods: {
     logOut() {
       this.$store.dispatch("auth/logout");
-      this.$router.push("/login");
+      this.$router.push("/admin//login");
     },
     async fetchUsers() {
       this.users = null;
       const res = await fetch("https://producemart.herokuapp.com/getAllUsers");
       const { data } = await res.json();
-      this.users = data;
+      this.users =
+        this.admin.role == "superadmin"
+          ? data
+          : data.filter(
+              (admin) => admin.role == "supplier" || admin.role == "buyer"
+            );
+      console.log(this.users[0].role);
+      console.log(data);
     },
   },
   mounted() {

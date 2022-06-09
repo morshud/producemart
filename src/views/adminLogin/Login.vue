@@ -44,7 +44,12 @@
                   />
                 </div>
                 <div class="col-lg-12 mb-4 mt-2">
-                  <input type="submit" value="Login" class="submit" />
+                  <input
+                    type="submit"
+                    value="Login"
+                    class="submit"
+                    :disabled="loading"
+                  />
                   <div
                     class="col-lg-12 mb-4 mt-2 text-center signuas"
                     v-show="loading"
@@ -106,11 +111,15 @@ export default {
       {
         data.user && localStorage.setItem("user", JSON.stringify(data.user));
       }
-      if (data.user.role == "admin" || data.user.role == "superadmin") {
+      if (
+        data.user.role == "superadmin" ||
+        data.user.role == "operatingadmin" ||
+        data.user.role == "reportingadmin"
+      ) {
         this.$router.push("/dashboard/home");
       } else {
         this.loading = false;
-        this.message = "You're not authorized to signin as an admin, check";
+        this.message = "You're not authorized to signin as an admin, check ";
       }
     },
   },

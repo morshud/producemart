@@ -46,6 +46,7 @@
                               <input
                                 type="text"
                                 placeholder="Search content here..."
+                                v-model="search"
                               />
                             </div>
                             <button type="submit">
@@ -72,14 +73,23 @@
                         </tr>
                       </thead>
                       <tbody v-if="admins">
-                        <tr v-for="(admin, i) in admins" :key="i">
+                        <tr v-for="(admin, i) in filterAdmins" :key="i">
                           <th scope="row">{{ admin._id }}</th>
                           <td>{{ admin.username }}</td>
                           <td>{{ admin.firstname }}</td>
                           <td>{{ admin.lastname }}</td>
                           <td>{{ admin.email }}</td>
 
-                          <td>{{ admin.role }}</td>
+                          <td>
+                            {{
+                              admin.role
+                                .replace(
+                                  admin.role[0],
+                                  admin.role[0].toUpperCase()
+                                )
+                                .replace("admin", " Admin")
+                            }}
+                          </td>
                           <td>
                             <div class="action_btns d-flex">
                               <router-link
@@ -187,8 +197,16 @@ export default {
   data() {
     return {
       admins: null,
+      search: "",
       token: JSON.parse(localStorage.getItem("user")).token,
     };
+  },
+  computed: {
+    filterAdmins() {
+      return this.admins.filter((admin) =>
+        admin.firstname.toLowerCase().includes(this.search.toLowerCase())
+      );
+    },
   },
   methods: {
     async getAllAdmins() {

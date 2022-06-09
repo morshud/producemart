@@ -2,16 +2,16 @@
   <!--Side Navbar-->
   <nav class="sidebar dark_sidebar">
     <div class="logo d-flex justify-content-between">
-      <a class="large_logo" href="/dashboard/home"
+      <router-link class="large_logo" to="/dashboard/home"
         ><img
           src="@/assets/img/dashboard-img/dash-logo.png"
           alt="Produce Mart Logo"
-      /></a>
-      <a class="small_logo" href="/dashboard/home"
+      /></router-link>
+      <router-link class="small_logo" to="/dashboard/home"
         ><img
           src="@/assets/img/dashboard-img/mini_logo.png"
           alt="Produce Mart Logo"
-      /></a>
+      /></router-link>
     </div>
     <ul id="sidebar_menu">
       <!--Dashboard-->
@@ -28,7 +28,7 @@
         </router-link>
       </li>
       <!--Emails-->
-      <li class="">
+      <li class="" v-if="user.role == 'superadmin'">
         <router-link to="#" class="has-arrow">
           <a aria-expanded="false">
             <div class="nav_icon_small">
@@ -66,7 +66,10 @@
         </ul>
       </li>
       <!--Products-->
-      <li class="">
+      <li
+        class=""
+        v-if="user.role == 'superadmin' || user.role == 'operatingadmin'"
+      >
         <router-link to="#" class="has-arrow">
           <a aria-expanded="false">
             <div class="nav_icon_small">
@@ -96,7 +99,10 @@
         </ul>
       </li>
       <!--Orders-->
-      <li class="">
+      <li
+        class=""
+        v-if="user.role == 'superadmin' || user.role == 'operatingadmin'"
+      >
         <router-link to="#" class="has-arrow">
           <a aria-expanded="false">
             <div class="nav_icon_small">
@@ -116,7 +122,10 @@
         </ul>
       </li>
       <!--Buyers-->
-      <li class="">
+      <li
+        class=""
+        v-if="user.role == 'superadmin' || user.role == 'operatingadmin'"
+      >
         <router-link to="#" class="has-arrow">
           <a aria-expanded="false">
             <div class="nav_icon_small">
@@ -146,7 +155,10 @@
         </ul>
       </li>
       <!--Supplier-->
-      <li class="">
+      <li
+        class=""
+        v-if="user.role == 'superadmin' || user.role == 'operatingadmin'"
+      >
         <router-link to="#" class="has-arrow">
           <a aria-expanded="false">
             <div class="nav_icon_small">
@@ -181,7 +193,7 @@
         </ul>
       </li>
       <!--Shipper-->
-      <li class="">
+      <li class="" v-if="user.role == 'superadmin'">
         <router-link to="#" class="has-arrow">
           <a aria-expanded="false">
             <div class="nav_icon_small">
@@ -206,7 +218,7 @@
         </ul>
       </li>
       <!--Inspector-->
-      <li class="">
+      <li class="" v-if="user.role == 'superadmin'">
         <router-link to="#" class="has-arrow">
           <a aria-expanded="false">
             <div class="nav_icon_small">
@@ -231,7 +243,10 @@
         </ul>
       </li>
       <!--Quotes-->
-      <li class="">
+      <li
+        class=""
+        v-if="user.role == 'superadmin' || user.role == 'operatingadmin'"
+      >
         <router-link to="#" class="has-arrow">
           <a aria-expanded="false">
             <div class="nav_icon_small">
@@ -251,7 +266,7 @@
         </ul>
       </li>
       <!--Blogs-->
-      <li class="">
+      <li class="" v-if="user.role == 'superadmin'">
         <router-link to="#" class="has-arrow">
           <a aria-expanded="false">
             <div class="nav_icon_small">
@@ -276,7 +291,7 @@
         </ul>
       </li>
       <!--Access Level-->
-      <li class="">
+      <li class="" v-if="user.role == 'superadmin'">
         <router-link to="#" class="has-arrow">
           <a aria-expanded="false">
             <div class="nav_icon_small">
@@ -301,7 +316,10 @@
         </ul>
       </li>
       <!--Reports-->
-      <li class="">
+      <li
+        class=""
+        v-if="user.role == 'superadmin' || user.role == 'reportingadmin'"
+      >
         <router-link to="#" class="has-arrow">
           <a aria-expanded="false">
             <div class="nav_icon_small">
@@ -373,7 +391,7 @@
               <img src="@/assets/img/menu-icon/logout.png" />
             </div>
             <div class="nav_title">
-              <span><a href @click.prevent="logOut">Log Out</a></span>
+              <span><a @click.prevent="logOut">Log Out</a></span>
             </div>
           </a>
         </router-link>
@@ -388,29 +406,23 @@
 <script>
 export default {
   name: "dashboard",
-  computed: {
-    currentUser() {
-      const user = JSON.parse(localStorage.getItem("user"));
-      //   console.log(user);
-      if (user) {
-        console.log(user);
-        return user;
-      }
-    },
-  },
-  mounted() {
-    if (!this.currentUser) {
-      this.$router.push("/login");
-    }
+  data() {
+    return {
+      user: JSON.parse(localStorage.getItem("user")),
+    };
   },
 
   methods: {
     logOut() {
       this.$store.dispatch("auth/logout");
-      this.$router.push("/login");
+      this.$router.push("/admin/login");
     },
   },
   mounted() {
+    if (!this.user) {
+      this.$router.push("/admin/login");
+    }
+    // console.log("alaye", this.user);
     window.scrollTo(0, 0);
 
     let externalScriptJquery = document.createElement("script");

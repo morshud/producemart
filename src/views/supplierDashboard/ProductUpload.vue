@@ -1325,7 +1325,7 @@
                 <div class="row mt-3">
                   <div class="upload-dynamic"></div>
                 </div>
-                <div class="uploadMore" v-if="addImg.length < 2">
+                <div class="uploadMore" v-if="addImg.length < 1">
                   <span @click="addImg.push(addImg.length + 3)"
                     >Upload More <i class="bi bi-plus-circle"></i
                   ></span>

@@ -14,7 +14,7 @@
               <div class="row">
                 <div class="col-lg-8">
                   <div class="dashboard_header_title">
-                    <h3>Create Admin</h3>
+                    <h3>Update Admin</h3>
                   </div>
                 </div>
                 <div class="col-lg-4">
@@ -85,7 +85,7 @@
                     <label>Admin Roles</label>
                     <select class="input" v-model="admin.role">
                       <option hidden>Select Roles</option>
-                      <option>Operations Admin</option>
+                      <option>Operating Admin</option>
                       <option>Reporting Admin</option>
                       <option>Super Admin</option>
                     </select>
@@ -168,7 +168,7 @@ export default {
         this.loading = false;
         this.$router.push("/dashboard/view-admin");
       }
-      console.log(data);
+      // console.log(data);
     },
     async getAdmin() {
       const res = await fetch(
@@ -183,9 +183,13 @@ export default {
       const data = await res.json();
       if (data.status == true) {
         this.admin = data.data;
-        this.admin.role = this.admin.role
-          .replace(this.admin.role[0], this.admin.role[0].toUpperCase())
-          .replace("admin", " Admin");
+        this.admin.role = this.admin.role.includes(" ")
+          ? this.admin.role
+              .replace(this.admin.role[0], this.admin.role[0].toUpperCase())
+              .replace("admin", "Admin")
+          : this.admin.role
+              .replace(this.admin.role[0], this.admin.role[0].toUpperCase())
+              .replace("admin", " Admin");
         console.log(this.admin);
       }
     },

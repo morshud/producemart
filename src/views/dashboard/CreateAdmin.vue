@@ -162,7 +162,7 @@ export default {
         lastname: this.lastname,
         email: this.email,
         password: this.password,
-        role: this.role.toLowerCase(),
+        role: this.role.replace(" ", "").toLowerCase(),
       };
       console.log(bdy);
       const res = await fetch("https://producemart.herokuapp.com/createAdmin", {

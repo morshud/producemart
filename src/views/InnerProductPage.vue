@@ -91,13 +91,13 @@
               <h6>Fresh</h6>
             </div>
             <div class="col-lg-4 detailsDivBelow">
-              <h5>Minimum Order</h5>
+              <h5>Minimum Order Quantity</h5>
               <h6>1000 bags</h6>
             </div>
-            <div class="col-lg-4 detailsDivBelow">
+            <!-- <div class="col-lg-4 detailsDivBelow">
               <h5>Incoterms</h5>
               <h6>EXW - EX Works</h6>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-lg-12 text-center">
@@ -130,7 +130,7 @@
             ></button>
           </div>
           <div class="modal-body modalBody">
-            <form id="msform">
+            <form id="msform" @submit.prevent="">
               <!-- progressbar -->
               <ul id="progressbar">
                 <li class="active">Quantity</li>
@@ -158,7 +158,12 @@
                   disabled
                   class="input"
                 />
-                <input type="text" placeholder="Input quantity" class="input" />
+                <input
+                  type="text"
+                  placeholder="Input quantity"
+                  class="input"
+                  v-model="qty"
+                />
                 <input
                   type="button"
                   name="next"
@@ -204,19 +209,34 @@
                 </div>
                 <h2 class="fs-title">Choose shipping service</h2>
                 <div class="checkboxDiv">
-                  <input type="checkbox" id="air" @click="sendAir()" />
+                  <input
+                    type="checkbox"
+                    id="air"
+                    @click="setShipping('air')"
+                    v-model="shipping.air"
+                  />
                   <label for="air">Send by air</label>
                 </div>
                 <div class="checkboxDiv">
-                  <input type="checkbox" id="sea" @click="sendSea()" />
+                  <input
+                    type="checkbox"
+                    id="sea"
+                    @click="setShipping('sea')"
+                    v-model="shipping.sea"
+                  />
                   <label for="sea">Send by sea</label>
                 </div>
                 <div class="checkboxDiv">
-                  <input type="checkbox" id="road" @click="sendRoad()" />
+                  <input
+                    type="checkbox"
+                    id="road"
+                    @click="setShipping('road')"
+                    v-model="shipping.road"
+                  />
                   <label for="road">Send by road</label>
                 </div>
                 <!-- Send by air -->
-                <div class="container showDivBelow" id="ifSendAir">
+                <div class="container showDivBelow" v-if="shipping.air">
                   <div class="row">
                     <div class="col-lg-12">
                       <h3>Destinations - Send By Air</h3>
@@ -224,12 +244,12 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Country</label>
-                      <select class="input">
+                      <select class="input" v-model="country">
                         <option value="Country" hidden>Select Country</option>
                         <option
                           v-for="(country, i) in countries"
                           :value="country"
-                          :key="country"
+                          :key="i"
                         >
                           {{ country }}
                         </option>
@@ -237,20 +257,25 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Port</label>
-                      <select class="input">
-                        <option>Select Port</option>
+                      <select class="input" v-model="port">
+                        <option value="Select Port" hidden>Select Port</option>
+                        <option value="port1">Port1</option>
+                        <option value="port2">Port2</option>
                       </select>
                     </div>
                     <div class="col-lg-12">
                       <label>Incoterms</label>
-                      <select class="input">
-                        <option>Select Port</option>
+                      <select class="input" v-model="incoterms">
+                        <option value="incotemrs" hidden>
+                          Select Incoterms
+                        </option>
+                        <option value="inco1">inco1</option>
                       </select>
                     </div>
                   </div>
                 </div>
                 <!-- Send by sea -->
-                <div class="container showDivBelow" id="ifSendSea">
+                <div class="container showDivBelow" v-if="shipping.sea">
                   <div class="row">
                     <div class="col-lg-12">
                       <h3>Destinations - Send By Sea</h3>
@@ -258,12 +283,12 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Country</label>
-                      <select class="input">
+                      <select class="input" v-model="country">
                         <option value="Country" hidden>Select Country</option>
                         <option
                           v-for="(country, i) in countries"
                           :value="country"
-                          :key="country"
+                          :key="i"
                         >
                           {{ country }}
                         </option>
@@ -271,20 +296,21 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Port</label>
-                      <select class="input">
+                      <select class="input" v-model="port">
                         <option>Select Port</option>
                       </select>
                     </div>
                     <div class="col-lg-12">
                       <label>Incoterms</label>
                       <select class="input">
-                        <option>Select Port</option>
+                        <option hidden>Select Port</option>
+                        <option value="inco1">inco1</option>
                       </select>
                     </div>
                   </div>
                 </div>
                 <!-- Send by road -->
-                <div class="container showDivBelow" id="ifSendRoad">
+                <div class="container showDivBelow" v-if="shipping.road">
                   <div class="row">
                     <div class="col-lg-12">
                       <h3>Destinations - Send By Road</h3>
@@ -292,7 +318,12 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Address 1</label>
-                      <textarea cols="30" rows="3" class="textarea"></textarea>
+                      <textarea
+                        cols="30"
+                        rows="3"
+                        class="textarea"
+                        v-model="address"
+                      ></textarea>
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Address 2</label>
@@ -1086,6 +1117,11 @@ export default {
       product: null,
       id: this.$route.params.id,
       countries: countries,
+      shipping: {
+        air: false,
+        sea: false,
+        road: false,
+      },
     };
   },
   methods: {
@@ -1097,6 +1133,13 @@ export default {
 
       this.product = data;
       console.log(this.product);
+    },
+    setShipping(val) {
+      for (let ship in this.shipping) {
+        if (ship != val) {
+          this.shipping[ship] = false;
+        }
+      }
     },
     sendAir() {
       var x = document.getElementById("ifSendAir");
