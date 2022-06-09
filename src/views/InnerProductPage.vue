@@ -56,7 +56,7 @@
           <div class="row productIntroText justify-content-center">
             <div class="col-lg-12 detailsDiv">
               <span>Product Name</span>
-              <p>{{ product && product.name }} - CODE-1976</p>
+              <p>{{ product && product.name }}</p>
               <small
                 ><img src="@/assets/img/dashboard-img/medalGold.png" /> Gold
                 Rated Supplier | <a href="#">See Audit Report</a></small
@@ -152,13 +152,13 @@
                 <h2 class="fs-title">
                   Indicate the quantity of the produce you want
                 </h2>
-                <input
+                <!-- <input
                   type="text"
-                  value="$500 per 100kg"
                   disabled
+                  v-model="quantity"
                   class="input"
-                />
-                <input type="text" placeholder="Input quantity" class="input" />
+                /> -->
+                <input type="text" v-model="quantity" placeholder="Input quantity" class="input" />
                 <input
                   type="button"
                   name="next"
@@ -204,15 +204,18 @@
                 </div>
                 <h2 class="fs-title">Choose shipping service</h2>
                 <div class="checkboxDiv">
-                  <input type="checkbox" id="air" @click="sendAir()" />
+                  <input type="radio" name="
+                  shipping" id="air" @click="sendShipping('ifSendAir')" />
                   <label for="air">Send by air</label>
                 </div>
                 <div class="checkboxDiv">
-                  <input type="checkbox" id="sea" @click="sendSea()" />
+                  <input type="radio" name="
+                  shipping" id="sea" @click="sendShipping('ifSendSea')" />
                   <label for="sea">Send by sea</label>
                 </div>
                 <div class="checkboxDiv">
-                  <input type="checkbox" id="road" @click="sendRoad()" />
+                  <input type="radio" name="
+                  shipping" id="road" @click="sendShipping('ifSendRoad')" />
                   <label for="road">Send by road</label>
                 </div>
                 <!-- Send by air -->
@@ -224,7 +227,7 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Country</label>
-                      <select class="input">
+                      <select v-model="country" class="input">
                         <option value="Country" hidden>Select Country</option>
                         <option
                           v-for="(country, i) in countries"
@@ -237,14 +240,17 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Port</label>
-                      <select class="input">
-                        <option>Select Port</option>
+                      <select v-model="port" class="input">
+                        <option value="Lagos">Lagos</option>
+                        <option value="Port Harcourt">Port Harcourt</option>
                       </select>
                     </div>
                     <div class="col-lg-12">
                       <label>Incoterms</label>
-                      <select class="input">
+                      <select v-model="incoterm" class="input">
                         <option>Select Port</option>
+                        <option value="Incoterms 1">Incoterms 1</option>
+                        <option value="Incoterms @">Incoterms 2</option>
                       </select>
                     </div>
                   </div>
@@ -271,14 +277,17 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Port</label>
-                      <select class="input">
-                        <option>Select Port</option>
+                      <select v-model="port" class="input">
+                        <option value="Lagos">Lagos</option>
+                        <option value="Port Harcourt">Port Harcourt</option>
                       </select>
                     </div>
                     <div class="col-lg-12">
                       <label>Incoterms</label>
-                      <select class="input">
+                      <select v-model="incoterms" class="input">
                         <option>Select Port</option>
+                        <option value="Incoterms 1">Incoterms 1</option>
+                        <option value="Incoterms @">Incoterms 2</option>
                       </select>
                     </div>
                   </div>
@@ -291,20 +300,16 @@
                       <div class="lineHr"></div>
                     </div>
                     <div class="col-lg-12 mb-2">
-                      <label>Address 1</label>
-                      <textarea cols="30" rows="3" class="textarea"></textarea>
-                    </div>
-                    <div class="col-lg-12 mb-2">
-                      <label>Address 2</label>
-                      <textarea cols="30" rows="3" class="textarea"></textarea>
+                      <label>Address</label>
+                      <textarea v-model="address" cols="30" rows="3" class="textarea"></textarea>
                     </div>
                     <div class="col-lg-6 mb-2">
                       <label>City</label>
-                      <input type="text" class="input" />
+                      <input v-model="city" type="text" class="input" />
                     </div>
                     <div class="col-lg-6 mb-2">
                       <label>State/Province</label>
-                      <input type="text" class="input" />
+                      <input v-model="state" type="text" class="input" />
                     </div>
                     <div class="col-lg-6 mb-2">
                       <label>Country</label>
@@ -321,7 +326,7 @@
                     </div>
                     <div class="col-lg-6">
                       <label>Postal/Zip code</label>
-                      <input type="text" class="input" />
+                      <input v-model="zip" type="text" class="input" />
                     </div>
                   </div>
                 </div>
@@ -358,7 +363,7 @@
                   <table>
                     <tr class="bodyRow">
                       <td class="tdMain">Quantity</td>
-                      <td class="tdBody">10 bags</td>
+                      <td class="tdBody">{{quantity}}</td>
                     </tr>
                     <tr class="bodyRow">
                       <td class="tdMain">Dated on</td>
@@ -385,30 +390,24 @@
                     <p class="summaryHeadSub">by road</p>
                     <table>
                       <tr class="bodyRow">
-                        <td class="tdMain">Address 1</td>
-                        <td class="tdBody">5, Awe Avenue, Off Oshodi Road</td>
-                      </tr>
-                      <tr class="bodyRow">
-                        <td class="tdMain">Address 2</td>
-                        <td class="tdBody">
-                          No 6, Rotimi Williams Street, Ojota
-                        </td>
+                        <td class="tdMain">Address</td>
+                        <td class="tdBody">{{address}}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">City</td>
-                        <td class="tdBody">Ado-Ekiti</td>
+                        <td class="tdBody">{{city}}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">State/Province</td>
-                        <td class="tdBody">Ekiti</td>
+                        <td class="tdBody">{{state}}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Country</td>
-                        <td class="tdBody">Nigeria</td>
+                        <td class="tdBody">{{country}}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Postal Code</td>
-                        <td class="tdBody">1000001</td>
+                        <td class="tdBody">{{zip}}</td>
                       </tr>
                     </table>
                   </div>
@@ -417,11 +416,11 @@
                     <table>
                       <tr class="bodyRow">
                         <td class="tdMain">SeaPort</td>
-                        <td class="tdBody">Apapa port, Lagos</td>
+                        <td class="tdBody">{{port}}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Country</td>
-                        <td class="tdBody">Nigeria</td>
+                        <td class="tdBody">{{country}}</td>
                       </tr>
                     </table>
                   </div>
@@ -430,11 +429,11 @@
                     <table>
                       <tr class="bodyRow">
                         <td class="tdMain">AirPort</td>
-                        <td class="tdBody">Asaba International Airport</td>
+                        <td class="tdBody">{{port}}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Country</td>
-                        <td class="tdBody">Nigeria</td>
+                        <td class="tdBody">{{country}}</td>
                       </tr>
                     </table>
                   </div>
@@ -963,7 +962,10 @@
 <script>
 import MainHeader from "./mainHeader.vue";
 import SearchHeader from "./searchHeader.vue";
+import { ref } from 'vue'
 import MainFooter from "./mainFooter.vue";
+
+import QUOTE from './../service/quote-service'
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/effect-flip";
@@ -985,6 +987,16 @@ export default {
   },
   setup() {
     return {
+      shipping: ref(''),
+      quantity: ref(''),
+      address: ref(''),
+      country: ref(''),
+      port: ref(''),
+      state: ref(''),
+      incoterms: ref(''),
+      zip: ref(''),
+      city: ref(''),
+      shipping: ref(''),
       modules: [EffectFlip, Pagination, Navigation],
     };
   },
@@ -1098,29 +1110,31 @@ export default {
       this.product = data;
       console.log(this.product);
     },
-    sendAir() {
-      var x = document.getElementById("ifSendAir");
-      if (!x.style.display || x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
-    },
-    sendSea() {
-      var x = document.getElementById("ifSendSea");
-      if (!x.style.display || x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
-    },
-    sendRoad() {
-      var x = document.getElementById("ifSendRoad");
-      if (!x.style.display || x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
+    sendShipping(params) {
+      var a = document.getElementById('ifSendAir');
+      var b = document.getElementById('ifSendSea');
+      var c = document.getElementById('ifSendRoad');
+        if(params == 'ifSendAir'){
+          a.style.display = "block";
+          b.style.display = "none";
+          c.style.display = "none";
+        } 
+        else if(params == 'ifSendSea'){
+          b.style.display = "block";
+          a.style.display = "none";
+          c.style.display = "none";
+        }
+        else if(params == 'ifSendRoad'){
+          c.style.display = "block";
+          a.style.display = "none";
+          b.style.display = "none";
+        }
+        else{
+          a.style.display = "none";
+          b.style.display = "none";
+          c.style.display = "none";
+        }
+      
     },
   },
 };

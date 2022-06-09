@@ -90,9 +90,6 @@
                   <div class="modal-body">
                     <section class="formSec">
                       <div class="container">
-                        <div v-if="statusMessage" class="alert alert-success alert-dismissible fade show" role="alert">
-                          Success! {{statusMessage}}
-                        </div>
                         <div v-if="userAuth" class="row justify-content-center">
                           <div class="col-lg-12">
                             <form @submit.prevent="requestQuote">
@@ -452,12 +449,13 @@
                                 <div class="col-lg-12">
                                   <button type="submit">Request Quote</button>
                                 </div>
+                                 
                               </div>
                             </form>
                           </div>
                         </div>
                         <div v-else class="row justify-content-center">
-                          <h3>Please <router-link to="/login"><a class="authLogin">Login</a></router-link> to request a product quote</h3>
+                          <h5>Please <router-link to="/login"><a class="authLogin">Login</a></router-link> to request a product quote</h5>
                         </div>
                       </div>
                     </section>
@@ -688,6 +686,7 @@
     import MainFooter from './mainFooter.vue'
     import SearchInner from './searchInner.vue'
     import QUOTE from './../service/quote-service'
+    import Swal from 'sweetalert2';
     export default {
       name: "Produce Mart",
       components:{
@@ -712,24 +711,24 @@
           destination: '',
           incoterm: '',
           addSpec: '',
-          statusMessage: ""
+          statusMessage: false,
+          modal: 'modal fade show'
         }
       },
       computed:{
         userAuth(){
           const user = JSON.parse(localStorage.getItem("user"));
           if(user && user.token){
-            console.log("hello")
             return true
           }
           else{
-            console.log("No token")
             return false
           }
         }
       },
       methods: {
         requestQuote(){
+          
           const quoteRequests = {
             "name": this.productName,
             "price": this.price,
@@ -747,12 +746,14 @@
             "intercoms": this.incoterm
           }
           QUOTE.CreateQuote(quoteRequests).then(res => {
-            console.log(res);
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: `${res.data.message}`,
+              showConfirmButton: false,
+              timer: 3500
+            })
             this.clearForm()
-            this.statusMessage = res.data.message
-            setTimeout(function () {
-              this.statusMessage = ""
-            }, 5000);
           })
           .catch(err => {
             console.log(err);
