@@ -1583,11 +1583,7 @@
                   </div>
                   <div class="col-lg-6 mt-4 mb-3">
                     <label>Price of Packaging ($)</label>
-                    <input
-                      type="text"
-                      class="input"
-                      v-model="packages.price"
-                    />
+                    <input type="text" class="input" v-model="packages.price" />
                   </div>
                 </div>
                 <div class="lineHR"></div>
@@ -1621,11 +1617,7 @@
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
                     <label>Price of shipment ($)</label>
-                    <input
-                      type="text"
-                      class="input"
-                      v-model="shipment.price"
-                    />
+                    <input type="text" class="input" v-model="shipment.price" />
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
                     <label>Number Of Units Per Shipment Package</label>
@@ -1713,7 +1705,10 @@
                       </div>
                       <div class="col-lg-6 mb-3">
                         <label>frequency</label>
-                        <select class="input" v-model="supply_ability.frequency">
+                        <select
+                          class="input"
+                          v-model="supply_ability.frequency"
+                        >
                           <option>Week</option>
                           <option>Month</option>
                           <option>Quarter</option>
@@ -1760,7 +1755,6 @@
         </div>
       </div>
     </div>
-
     <dash-footer />
   </section>
 </template>
@@ -1833,10 +1827,10 @@ export default {
     }
 
     let externalScriptCustom = document.createElement("script");
-    externalScriptCustom.setAttribute(
-      "src",
-      "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
-    );
+    // externalScriptCustom.setAttribute(
+    //   "src",
+    //   "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
+    // );
     document.head.appendChild(externalScriptCustom);
 
     $(".image-box").click(function (event) {
