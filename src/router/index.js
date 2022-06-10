@@ -67,6 +67,10 @@ import DashSupplierProductViewPublished from "../views/supplierDashboard/Product
 import DashSupplierRequestAudit from "../views/supplierDashboard/RequestAudit.vue";
 //sales analytics
 import DashSupplierSalesAnalytics from "../views/supplierDashboard/SalesAnalytics.vue";
+//address
+import DashSupplierAddNewAddress from "../views/supplierDashboard/AddNewAddress.vue";
+import DashSupplierViewAllAddress from "../views/supplierDashboard/ViewAllAddress.vue";
+import DashSupplierEditAddress from "../views/supplierDashboard/EditAddress.vue";
 //settings
 import DashSupplierEditProfileDetails from "../views/supplierDashboard/EditProfileDetails.vue";
 import DashSupplierProfile from "../views/supplierDashboard/Profile.vue";
@@ -360,6 +364,22 @@ const routes = [
     path: "/supplier-dashboard/sales-analytics",
     name: "DashSupplierSalesAnalytics",
     component: DashSupplierSalesAnalytics,
+  },
+  //addresses
+  {
+    path: "/supplier-dashboard/add-new-address",
+    name: "DashSupplierAddNewAddress",
+    component: DashSupplierAddNewAddress,
+  },
+  {
+    path: "/supplier-dashboard/view-address",
+    name: "DashSupplierViewAllAddress",
+    component: DashSupplierViewAllAddress,
+  },
+  {
+    path: "/supplier-dashboard/edit-address",
+    name: "DashSupplierEditAddress",
+    component: DashSupplierEditAddress,
   },
   //settings
   {

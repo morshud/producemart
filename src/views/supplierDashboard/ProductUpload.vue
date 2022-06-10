@@ -139,13 +139,19 @@
                   </div>
                   <div class="col-lg-12 mb-3">
                     <label>Location Of Produce <span>*</span></label>
-                    <textarea
+                    <select class="input" v-model="location">
+                      <option hidden>Choose Address</option>
+                      <option>No 1, Anifowose Street, Off Papa Ajayi Cresent, Tawakalitu State, Nigeria.</option>
+                      <option>No 404, Mufu Olosa, Igayin State, Nigeria.</option>
+                      <option>No 504, Oremeji Street, Lagos.</option>
+                    </select>
+                    <!-- <textarea
                       cols="30"
                       rows="4"
                       class="input"
                       placeholder="Address"
                       v-model="location"
-                    ></textarea>
+                    ></textarea> -->
                   </div>
                   <!-- <div class="col-lg-12 mb-3">
                     <label>intercoms</label>
@@ -1251,7 +1257,7 @@
                   <div class="col-ting">
                     <div class="control-group file-upload" id="file-upload1">
                       <div class="image-box text-center">
-                        <p>Upload Image</p>
+                        <p><i class="bi bi-plus-circle-fill"></i> <br> Upload Image</p>
                         <img src="" alt="" />
                       </div>
                       <div class="controls" style="display: none">
@@ -1267,6 +1273,7 @@
                   <small class="uploadSmallPicture"
                     >(accepted image format: jpeg, jpg, png, webp)</small
                   >
+                  <button class="removeImgBtn" type="button">Remove Image</button>
                 </div>
 
                 <div class="col-lg-6 mt-2 mb-3 upload-more-image">
@@ -1274,7 +1281,7 @@
                   <div class="col-ting">
                     <div class="control-group file-upload" id="file-upload1">
                       <div class="image-box text-center">
-                        <p>Upload Image</p>
+                        <p><i class="bi bi-plus-circle-fill"></i> <br> Upload Image</p>
                         <img src="" alt="" />
                       </div>
                       <div class="controls" style="display: none">
@@ -1287,6 +1294,7 @@
                       </div>
                     </div>
                   </div>
+                  <button class="removeImgBtn" type="button">Remove Image</button>
                 </div>
 
                 <div v-if="addImg.length">
@@ -1300,7 +1308,7 @@
                     <div class="col-ting">
                       <div class="control-group file-upload" id="file-upload1">
                         <div class="image-box text-center">
-                          <p>Upload Image {{ newImg }}</p>
+                          <p><i class="bi bi-plus-circle-fill"></i> <br> Upload Image {{ newImg }}</p>
                           <img src="" alt="" />
                         </div>
                         <div class="controls" style="display: none">
@@ -1313,6 +1321,7 @@
                         </div>
                       </div>
                     </div>
+                    <button class="removeImgBtn removeImgBtnOthers" type="button">Remove Image</button>
                     <span
                       @click="addImg.pop()"
                       remove-field
@@ -1528,70 +1537,161 @@
                     product including; Name, variety, description etc.
                   </p>
                 </div>
-                <div class="lineHR"></div>
+                <div class="lineHR lineHRSpe"></div>
                 <div class="row">
                   <div class="col-lg-4 radioDiv mb-2">
                     <input
                       type="checkbox"
                       @click="setShipping('fluid')"
                       name="category"
-                      id="idOil"
+                      id="packageType"
                       v-model="shipping.fluid.check"
                     />
-                    <label for="idOil" class="radioSpan">Fluid (Liquid)</label>
+                    <label for="packageType" class="radioSpan">Package Type</label>
                   </div>
                   <div class="col-lg-4 radioDiv mb-2">
                     <input
                       type="checkbox"
                       @click="setShipping('others')"
                       name="category"
-                      id="idFruit"
+                      id="weight"
                       v-model="shipping.others.check"
                     />
-                    <label class="radioSpan" for="idFruit">Others</label>
+                    <label class="radioSpan" for="weight">Weight</label>
                   </div>
                 </div>
-                <div class="row">
+
+                <!-- Package drop div -->
+                <div class="row" v-if="shipping.fluid.check">
                   <div class="col-lg-6 mt-4 mb-3">
-                    <label>Packaging Unit</label>
-                    <input
+                    <label>Product Unit</label>
+                    <small>Choose product packaging unit.</small>
+                    <div class="divUnit">
+                      <input type="radio" id="crate" value="crate" name="product-unit"/>
+                      <label for="crate">Crate</label>
+                    </div>
+                    <div class="divUnit">
+                      <input type="radio" id="box" value="box" name="product-unit"/>
+                      <label for="box">Box</label>
+                    </div>
+                    <div class="divUnit">
+                      <input type="radio" id="pack" value="pack" name="product-unit"/>
+                      <label for="pack">Pack</label>
+                    </div>
+                    <div class="divUnit">
+                      <input type="radio" id="pallet" value="pallet" name="product-unit"/>
+                      <label for="pallet">Pallet</label>
+                    </div>
+                    <div class="divUnit">
+                      <input type="radio" id="carton" value="carton" name="product-unit"/>
+                      <label for="carton">Carton</label>
+                    </div>
+                    <div class="divUnit">
+                      <input type="radio" id="other" value="other" name="product-unit"/>
+                      <label for="other">Other</label>
+                      <div>
+                        <input type="text" placeholder="other" class="inputShow"/>
+                      </div>
+                    </div>
+                    <!-- <input
                       type="text"
                       class="input"
                       v-model="packages.unit"
                       placeholder="e.g. Bag, Box,Vacuum Pack, Sack, Other"
-                    />
+                    /> -->
                   </div>
-                  <div class="col-lg-6 mt-4 mb-3" v-if="shipping.fluid.check">
+                  <!-- <div class="col-lg-6 mt-4 mb-3" v-if="shipping.fluid.check">
                     <label>Volume of Packaging (litre)</label>
                     <input
                       type="text"
                       class="input"
                       v-model="packages.volume"
                     />
-                  </div>
+                  </div> -->
                   <div class="col-lg-6 mt-4 mb-3 categoryInnerDiv">
-                    <label>Weight of Packaging</label>
-                    <input
-                      type="text"
-                      class="input inputSize"
-                      v-model="packages.weight"
-                    />
-                    <select class="input selectSize">
-                      <option>kg</option>
-                      <option>lb</option>
-                    </select>
-                  </div>
-                  <div class="col-lg-6 mt-4 mb-3">
-                    <label>Price of Packaging ($)</label>
-                    <input type="text" class="input" v-model="packages.price" />
+
+                    <div class="row">
+                      <div class="col-lg-12 headerPackOption">
+                        <h5>Packaging Options</h5>
+                      </div>
+                      <div class="col-lg-12 mb-3">
+                        <label>Weight of Packaging</label>
+                        <small>Enter <span>bag</span> weight in kg or lb.</small>
+                        <input
+                          type="text"
+                          class="input inputSize"
+                          v-model="packages.weight"
+                        />
+                        <select class="input selectSize">
+                          <option>kg</option>
+                          <option>lb</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-12 mt-3">
+                        <label>Price of Packaging ($)</label>
+                        <small>Enter a price for one <span>bag</span> unit that your are selling.</small>
+                        <input
+                          type="text"
+                          class="input"
+                          v-model="packages.price"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="lineHR"></div>
+
+                <!-- Weight drop div -->
+                <div class="row" v-if="shipping.others.check">
+                  <div class="col-lg-6 mt-4 mb-3">
+                    <label>Product Unit</label>
+                    <div class="divUnit">
+                      <input type="radio" id="ton" value="ton" name="product-weight"/>
+                      <label for="ton">Ton</label>
+                    </div>
+                    <div class="divUnit">
+                      <input type="radio" id="kg" value="kg" name="product-weight"/>
+                      <label for="kg">Kg</label>
+                    </div>
+                    <div class="divUnit">
+                      <input type="radio" id="lb" value="lb" name="product-weight"/>
+                      <label for="lb">LB</label>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 mt-4 mb-3 categoryInnerDiv">
+                    <div class="row">
+                      <div class="col-lg-12 headerPackOption">
+                        <h5>Packaging Options</h5>
+                      </div>
+                      <div class="col-lg-12 mb-3">
+                        <label>Product Weight</label>
+                        <small>Enter weight</small>
+                        <input
+                          type="text"
+                          class="input"
+                          v-model="packages.weight"
+                        />
+                      </div>
+                      <div class="col-lg-12 mt-3">
+                        <label>Price of Packaging ($)</label>
+                        <small>Enter a price that you are selling.</small>
+                        <input
+                          type="text"
+                          class="input"
+                          v-model="packages.price"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="lineHRSpe2"></div>
+
+                <!-- Shipment Starts Here -->
                 <div class="col-lg-12 text-center headerH1">
                   <h1>Shipment</h1>
                 </div>
                 <div class="row">
-                  <div class="col-lg-6 mt-4 mb-3">
+                  <!-- <div class="col-lg-6 mt-4 mb-3">
                     <label>Shipment Packaging</label>
                     <select class="input" v-model="shipment.package">
                       <option hidden>Select</option>
@@ -1602,8 +1702,8 @@
                       <option>Pallet</option>
                       <option>Carton</option>
                     </select>
-                  </div>
-                  <div class="col-lg-6 mt-4 mb-3 categoryInnerDiv">
+                  </div> -->
+                  <!-- <div class="col-lg-6 mt-4 mb-3 categoryInnerDiv">
                     <label>Weight of Shipment package</label>
                     <input
                       type="text"
@@ -1614,12 +1714,17 @@
                       <option>kg</option>
                       <option>lb</option>
                     </select>
-                  </div>
-                  <div class="col-lg-12 mt-4 mb-3">
+                  </div> -->
+                  <!-- <div class="col-lg-12 mt-4 mb-3">
                     <label>Price of shipment ($)</label>
-                    <input type="text" class="input" v-model="shipment.price" />
-                  </div>
-                  <div class="col-lg-12 mt-4 mb-3">
+
+                    <input
+                      type="text"
+                      class="input"
+                      v-model="shipment.price"
+                    />
+                  </div> -->
+                  <!-- <div class="col-lg-12 mt-4 mb-3">
                     <label>Number Of Units Per Shipment Package</label>
                     <input
                       type="text"
@@ -1633,6 +1738,36 @@
                       placeholder="e.g. 40 boxes per pallet"
                       v-model="shipment.unit_package_pallet"
                     />
+                  </div> -->
+                  <div class="col-lg-12 mt-4 mb-3">
+                    <div class="row">
+                      <div class="col-lg-12 headerPackOption">
+                        <h5>Unit Dimension</h5>
+                        <small>We need the dimension for calculating shipping costs.</small>
+                      </div>
+                      <div class="col-lg-12">
+                        <label>Select Unit (cm or inches)</label>
+                        <div class="divSelectUnit justify-content-center">
+                            <select class="input">
+                              <option>cm</option>
+                              <option>iches</option>
+                            </select>
+                            <div class="divLWH">
+                              <label>Lenght</label>
+                              <input type="number" class="input"/>
+                            </div>
+                            <div class="divLWH">
+                              <label>Width</label>
+                              <input type="number" class="input"/>
+                            </div>
+                            <div class="divLWH">
+                              <label>Height</label>
+                              <input type="number" class="input"/>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
                     <label>Shipping in Container</label>
@@ -1679,13 +1814,17 @@
                 </div>
                 <div class="lineHR"></div>
                 <div class="row justify-content-center">
-                  <div class="col-lg-7 mb-4">
+                  <div class="col-lg-7 mb-4 categoryInnerDiv">
                     <label>Minimum Order Quantity</label>
                     <small
                       >Minimum number of units customers can request to buy for
                       this product</small
                     >
-                    <input type="text" class="input" v-model="min_quantity" />
+                    <input type="text" class="input inputSize" v-model="min_quantity" />
+                    <select class="input selectSize">
+                      <option>kg</option>
+                      <option>lb</option>
+                    </select>
                   </div>
                   <div class="col-lg-12 text-center">
                     <label>Supply Ability</label>
@@ -1827,10 +1966,10 @@ export default {
     }
 
     let externalScriptCustom = document.createElement("script");
-    // externalScriptCustom.setAttribute(
-    //   "src",
-    //   "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
-    // );
+    externalScriptCustom.setAttribute(
+      "src",
+      "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
+    );
     document.head.appendChild(externalScriptCustom);
 
     $(".image-box").click(function (event) {

@@ -176,6 +176,31 @@
               <img src="@/assets/img/menu-icon/setting.png" />
             </div>
             <div class="nav_title">
+              <span>Addresses</span>
+            </div>
+          </a>
+        </router-link>
+        <ul>
+          <li>
+            <router-link to="/supplier-dashboard/add-new-address"
+              ><a>Add New Address</a></router-link
+            >
+          </li>
+          <li>
+            <router-link to="/supplier-dashboard/View-address"
+              ><a>View All Address</a></router-link
+            >
+          </li>
+        </ul>
+      </li>
+      <!--Settings-->
+      <li class="">
+        <router-link to="#" class="has-arrow">
+          <a aria-expanded="false">
+            <div class="nav_icon_small">
+              <img src="@/assets/img/menu-icon/setting.png" />
+            </div>
+            <div class="nav_title">
               <span>Settings</span>
             </div>
           </a>
