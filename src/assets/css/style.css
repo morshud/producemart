@@ -2268,6 +2268,12 @@ p a:hover {
   background: 0 0;
 }
 
+.common_input label{
+  padding-bottom: 5px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
 .nav-link-notify {
   position: relative;
 }
