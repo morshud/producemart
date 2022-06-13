@@ -139,19 +139,23 @@
                   </div>
                   <div class="col-lg-12 mb-3">
                     <label>Location Of Produce <span>*</span></label>
-                    <select class="input" v-model="location">
+                    <select class="input" v-model="location" v-if="address">
                       <option hidden>Choose Address</option>
-                      <option>No 1, Anifowose Street, Off Papa Ajayi Cresent, Tawakalitu State, Nigeria.</option>
-                      <option>No 404, Mufu Olosa, Igayin State, Nigeria.</option>
-                      <option>No 504, Oremeji Street, Lagos.</option>
+                      <option
+                        v-for="(add, i) in address"
+                        :key="i"
+                        :value="add.state + ' ' + add.country"
+                      >
+                        {{ add.street }} {{ add.city }} {{ add.state }}
+                        {{ add.country }}
+                      </option>
                     </select>
-                    <!-- <textarea
-                      cols="30"
-                      rows="4"
-                      class="input"
-                      placeholder="Address"
-                      v-model="location"
-                    ></textarea> -->
+                    <p class="mt-1 mb-1">
+                      <router-link to="/supplier-dashboard/add-new-address">
+                        <i class="bi bi-plus-circle-fill"></i>
+                        Add new address.
+                      </router-link>
+                    </p>
                   </div>
                   <!-- <div class="col-lg-12 mb-3">
                     <label>intercoms</label>
@@ -1257,7 +1261,10 @@
                   <div class="col-ting">
                     <div class="control-group file-upload" id="file-upload1">
                       <div class="image-box text-center">
-                        <p><i class="bi bi-plus-circle-fill"></i> <br> Upload Image</p>
+                        <p>
+                          <i class="bi bi-plus-circle-fill"></i> <br />
+                          Upload Image
+                        </p>
                         <img src="" alt="" />
                       </div>
                       <div class="controls" style="display: none">
@@ -1273,7 +1280,9 @@
                   <small class="uploadSmallPicture"
                     >(accepted image format: jpeg, jpg, png, webp)</small
                   >
-                  <button class="removeImgBtn" type="button">Remove Image</button>
+                  <button class="removeImgBtn" type="button">
+                    Remove Image
+                  </button>
                 </div>
 
                 <div class="col-lg-6 mt-2 mb-3 upload-more-image">
@@ -1281,7 +1290,10 @@
                   <div class="col-ting">
                     <div class="control-group file-upload" id="file-upload1">
                       <div class="image-box text-center">
-                        <p><i class="bi bi-plus-circle-fill"></i> <br> Upload Image</p>
+                        <p>
+                          <i class="bi bi-plus-circle-fill"></i> <br />
+                          Upload Image
+                        </p>
                         <img src="" alt="" />
                       </div>
                       <div class="controls" style="display: none">
@@ -1294,7 +1306,9 @@
                       </div>
                     </div>
                   </div>
-                  <button class="removeImgBtn" type="button">Remove Image</button>
+                  <button class="removeImgBtn" type="button">
+                    Remove Image
+                  </button>
                 </div>
 
                 <div v-if="addImg.length">
@@ -1308,7 +1322,10 @@
                     <div class="col-ting">
                       <div class="control-group file-upload" id="file-upload1">
                         <div class="image-box text-center">
-                          <p><i class="bi bi-plus-circle-fill"></i> <br> Upload Image {{ newImg }}</p>
+                          <p>
+                            <i class="bi bi-plus-circle-fill"></i> <br />
+                            Upload Image {{ newImg }}
+                          </p>
                           <img src="" alt="" />
                         </div>
                         <div class="controls" style="display: none">
@@ -1321,7 +1338,12 @@
                         </div>
                       </div>
                     </div>
-                    <button class="removeImgBtn removeImgBtnOthers" type="button">Remove Image</button>
+                    <button
+                      class="removeImgBtn removeImgBtnOthers"
+                      type="button"
+                    >
+                      Remove Image
+                    </button>
                     <span
                       @click="addImg.pop()"
                       remove-field
@@ -1547,7 +1569,9 @@
                       id="packageType"
                       v-model="shipping.fluid.check"
                     />
-                    <label for="packageType" class="radioSpan">Package Type</label>
+                    <label for="packageType" class="radioSpan"
+                      >Package Type</label
+                    >
                   </div>
                   <div class="col-lg-4 radioDiv mb-2">
                     <input
@@ -1567,30 +1591,64 @@
                     <label>Product Unit</label>
                     <small>Choose product packaging unit.</small>
                     <div class="divUnit">
-                      <input type="radio" id="crate" value="crate" name="product-unit"/>
+                      <input
+                        type="radio"
+                        id="crate"
+                        value="crate"
+                        name="product-unit"
+                      />
                       <label for="crate">Crate</label>
                     </div>
                     <div class="divUnit">
-                      <input type="radio" id="box" value="box" name="product-unit"/>
+                      <input
+                        type="radio"
+                        id="box"
+                        value="box"
+                        name="product-unit"
+                      />
                       <label for="box">Box</label>
                     </div>
                     <div class="divUnit">
-                      <input type="radio" id="pack" value="pack" name="product-unit"/>
+                      <input
+                        type="radio"
+                        id="pack"
+                        value="pack"
+                        name="product-unit"
+                      />
                       <label for="pack">Pack</label>
                     </div>
                     <div class="divUnit">
-                      <input type="radio" id="pallet" value="pallet" name="product-unit"/>
+                      <input
+                        type="radio"
+                        id="pallet"
+                        value="pallet"
+                        name="product-unit"
+                      />
                       <label for="pallet">Pallet</label>
                     </div>
                     <div class="divUnit">
-                      <input type="radio" id="carton" value="carton" name="product-unit"/>
+                      <input
+                        type="radio"
+                        id="carton"
+                        value="carton"
+                        name="product-unit"
+                      />
                       <label for="carton">Carton</label>
                     </div>
                     <div class="divUnit">
-                      <input type="radio" id="other" value="other" name="product-unit"/>
+                      <input
+                        type="radio"
+                        id="other"
+                        value="other"
+                        name="product-unit"
+                      />
                       <label for="other">Other</label>
                       <div>
-                        <input type="text" placeholder="other" class="inputShow"/>
+                        <input
+                          type="text"
+                          placeholder="other"
+                          class="inputShow"
+                        />
                       </div>
                     </div>
                     <!-- <input
@@ -1609,14 +1667,15 @@
                     />
                   </div> -->
                   <div class="col-lg-6 mt-4 mb-3 categoryInnerDiv">
-
                     <div class="row">
                       <div class="col-lg-12 headerPackOption">
                         <h5>Packaging Options</h5>
                       </div>
                       <div class="col-lg-12 mb-3">
                         <label>Weight of Packaging</label>
-                        <small>Enter <span>bag</span> weight in kg or lb.</small>
+                        <small
+                          >Enter <span>bag</span> weight in kg or lb.</small
+                        >
                         <input
                           type="text"
                           class="input inputSize"
@@ -1629,7 +1688,10 @@
                       </div>
                       <div class="col-lg-12 mt-3">
                         <label>Price of Packaging ($)</label>
-                        <small>Enter a price for one <span>bag</span> unit that your are selling.</small>
+                        <small
+                          >Enter a price for one <span>bag</span> unit that your
+                          are selling.</small
+                        >
                         <input
                           type="text"
                           class="input"
@@ -1645,15 +1707,30 @@
                   <div class="col-lg-6 mt-4 mb-3">
                     <label>Product Unit</label>
                     <div class="divUnit">
-                      <input type="radio" id="ton" value="ton" name="product-weight"/>
+                      <input
+                        type="radio"
+                        id="ton"
+                        value="ton"
+                        name="product-weight"
+                      />
                       <label for="ton">Ton</label>
                     </div>
                     <div class="divUnit">
-                      <input type="radio" id="kg" value="kg" name="product-weight"/>
+                      <input
+                        type="radio"
+                        id="kg"
+                        value="kg"
+                        name="product-weight"
+                      />
                       <label for="kg">Kg</label>
                     </div>
                     <div class="divUnit">
-                      <input type="radio" id="lb" value="lb" name="product-weight"/>
+                      <input
+                        type="radio"
+                        id="lb"
+                        value="lb"
+                        name="product-weight"
+                      />
                       <label for="lb">LB</label>
                     </div>
                   </div>
@@ -1743,28 +1820,31 @@
                     <div class="row">
                       <div class="col-lg-12 headerPackOption">
                         <h5>Unit Dimension</h5>
-                        <small>We need the dimension for calculating shipping costs.</small>
+                        <small
+                          >We need the dimension for calculating shipping
+                          costs.</small
+                        >
                       </div>
                       <div class="col-lg-12">
                         <label>Select Unit (cm or inches)</label>
                         <div class="divSelectUnit justify-content-center">
-                            <select class="input">
-                              <option>cm</option>
-                              <option>iches</option>
-                            </select>
-                            <div class="divLWH">
-                              <label>Lenght</label>
-                              <input type="number" class="input"/>
-                            </div>
-                            <div class="divLWH">
-                              <label>Width</label>
-                              <input type="number" class="input"/>
-                            </div>
-                            <div class="divLWH">
-                              <label>Height</label>
-                              <input type="number" class="input"/>
-                            </div>
-                            <div class="clear"></div>
+                          <select class="input">
+                            <option>cm</option>
+                            <option>iches</option>
+                          </select>
+                          <div class="divLWH">
+                            <label>Lenght</label>
+                            <input type="number" class="input" />
+                          </div>
+                          <div class="divLWH">
+                            <label>Width</label>
+                            <input type="number" class="input" />
+                          </div>
+                          <div class="divLWH">
+                            <label>Height</label>
+                            <input type="number" class="input" />
+                          </div>
+                          <div class="clear"></div>
                         </div>
                       </div>
                     </div>
@@ -1820,7 +1900,11 @@
                       >Minimum number of units customers can request to buy for
                       this product</small
                     >
-                    <input type="text" class="input inputSize" v-model="min_quantity" />
+                    <input
+                      type="text"
+                      class="input inputSize"
+                      v-model="min_quantity"
+                    />
                     <select class="input selectSize">
                       <option>kg</option>
                       <option>lb</option>
@@ -1993,9 +2077,11 @@ export default {
           reader.readAsDataURL(this.files[0]);
         });
     });
+    this.getAddress();
   },
   data() {
     return {
+      address: null,
       loading: false,
       message: "",
       countries: countries,
@@ -2173,6 +2259,19 @@ export default {
         this.message =
           "We are unable to save your response at the moment, please try again.";
       }
+    },
+    async getAddress() {
+      const res = await fetch(
+        "https://producemart.herokuapp.com/getUserAddress/",
+        {
+          method: "GET",
+          headers: {
+            Authorization: this.token,
+          },
+        }
+      );
+      const { data } = await res.json();
+      this.address = data;
     },
     setCategory(item) {
       this.category = item;

@@ -377,7 +377,7 @@ const routes = [
     component: DashSupplierViewAllAddress,
   },
   {
-    path: "/supplier-dashboard/edit-address",
+    path: "/supplier-dashboard/edit-address/:id",
     name: "DashSupplierEditAddress",
     component: DashSupplierEditAddress,
   },

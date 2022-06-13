@@ -41,19 +41,79 @@
                   </div>
                 </div>
               </div>
+              <div
+                class="alert alert-warning alert-dismissible fade show"
+                role="alert"
+                v-if="message"
+              >
+                {{ message }}
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
               <div class="white_card_body">
-                <form>
+                <form @submit.prevent="addAdress">
                   <div class="row">
                     <div class="col-lg-12 mb-2">
                       <div class="common_input mb_15">
-                          <label>Address Title</label>
-                          <input type="text" class="input" placeholder="Address title"/>
+                        <label>Address Title</label>
+                        <input
+                          type="text"
+                          class="input"
+                          placeholder="Warehouse, Headquater, farm etc."
+                          v-model="address.name"
+                        />
                       </div>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 mb-2">
                       <div class="common_input">
-                          <label>Enter Address</label>
-                          <textarea cols="30" rows="3" placeholder="Input address"></textarea>
+                        <label>Street</label>
+                        <input
+                          cols="30"
+                          rows="3"
+                          placeholder="19, John green way."
+                          v-model="address.street"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-12 mb-2">
+                      <div class="common_input">
+                        <label>City</label>
+                        <input
+                          cols="30"
+                          rows="3"
+                          placeholder="New york"
+                          v-model="address.city"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-12 mb-2">
+                      <div class="common_input">
+                        <label>State</label>
+                        <input
+                          cols="30"
+                          rows="3"
+                          placeholder="Georgia"
+                          v-model="address.state"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-12 mb-2">
+                      <div class="common_input">
+                        <label>Country</label>
+                        <select class="input" v-model="address.country">
+                          <option value="Country" hidden>Select Country</option>
+                          <option
+                            v-for="(country, i) in countries"
+                            :value="country"
+                            :key="i"
+                          >
+                            {{ country }}
+                          </option>
+                        </select>
                       </div>
                     </div>
                     <div class="col-12">
@@ -61,10 +121,17 @@
                         <button
                           type="submit"
                           class="btn_1 radius_btn d-block text-center"
+                          :disabled="loading"
                         >
                           Add Address
                         </button>
                       </div>
+                    </div>
+                    <div
+                      class="col-lg-12 mb-4 mt-2 text-center signuas"
+                      v-show="loading"
+                    >
+                      <span class="spinner-border spinner-border-sm"></span>
                     </div>
                   </div>
                 </form>
@@ -85,6 +152,7 @@
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
+import { countries } from "@/assets/countries";
 export default {
   name: "Produce Mart",
   components: {
@@ -101,6 +169,59 @@ export default {
       "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
     );
     document.head.appendChild(externalScriptCustom);
+  },
+  data() {
+    return {
+      message: "",
+      loading: false,
+      countries: countries,
+      token: JSON.parse(localStorage.getItem("user")).token,
+      address: { name: "", street: "", city: "", state: "", country: "" },
+    };
+  },
+  methods: {
+    notEmpty() {
+      for (let inp in this.address) {
+        if (this.address[inp] == "") {
+          console.log(inp);
+          this.message =
+            inp == "name"
+              ? "Please fill the title field"
+              : `Please fill the ${inp} field`;
+          return false;
+        }
+      }
+      return true;
+    },
+    async addAdress() {
+      console.log("Submitting!!!");
+      this.loading = true;
+      if (this.notEmpty()) {
+        const res = await fetch(
+          "https://producemart.herokuapp.com/addAddress",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: this.token,
+            },
+            body: JSON.stringify(this.address),
+          }
+        );
+        const data = await res.json();
+        if (data.status) {
+          this.loading = false;
+          this.$router.push("/supplier-dashboard/View-address");
+        } else {
+          this.message = data.message
+            ? data.message
+            : "Unable to add address, try again.";
+        }
+        console.log(data);
+      } else {
+        this.loading = false;
+      }
+    },
   },
 };
 </script>
