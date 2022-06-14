@@ -160,7 +160,7 @@ export default {
       );
       const { data } = await res.json();
       this.products = data;
-      console.log(data);
+      // console.log(data);
     },
     async deleteProduct(id) {
       const res = await fetch(
@@ -173,6 +173,7 @@ export default {
         }
       );
       const data = await res.json();
+      console.log(data);
       this.fetchPublishedProduct();
     },
   },

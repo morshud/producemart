@@ -1235,6 +1235,12 @@
                       Next
                     </button>
                   </div>
+                  <div
+                    class="col-lg-12 mb-4 mt-2 text-center signuas"
+                    v-show="loading"
+                  >
+                    <span class="spinner-border spinner-border-sm"></span>
+                  </div>
                   <div class="col-sm-12">
                     <p
                       class="saveAndContinue"
@@ -1360,6 +1366,12 @@
                     <button type="button" class="btn btn-next width-100">
                       Next
                     </button>
+                  </div>
+                  <div
+                    class="col-lg-12 mb-4 mt-2 text-center signuas"
+                    v-show="loading"
+                  >
+                    <span class="spinner-border spinner-border-sm"></span>
                   </div>
                   <div class="col-sm-12">
                     <p
@@ -1564,6 +1576,12 @@
                     <button type="button" class="btn btn-next width-100">
                       Next
                     </button>
+                  </div>
+                  <div
+                    class="col-lg-12 mb-4 mt-2 text-center signuas"
+                    v-show="loading"
+                  >
+                    <span class="spinner-border spinner-border-sm"></span>
                   </div>
                   <div class="col-sm-12">
                     <p
@@ -1858,8 +1876,19 @@
                       Next
                     </button>
                   </div>
+                  <div
+                    class="col-lg-12 mb-4 mt-2 text-center signuas"
+                    v-show="loading"
+                  >
+                    <span class="spinner-border spinner-border-sm"></span>
+                  </div>
                   <div class="col-sm-12">
-                    <p class="saveAndContinue"><a>Save & Continue Later</a></p>
+                    <p
+                      class="saveAndContinue"
+                      @click="handleProductUpload('save')"
+                    >
+                      <a>Save & Continue Later</a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1959,7 +1988,7 @@
                     type="submit"
                     value="Submit"
                     class="btn"
-                    :disabled="!status"
+                    :disabled="!status || loading"
                   />
                 </div>
                 <div
@@ -2272,17 +2301,11 @@ export default {
         }
       );
       if (res.ok) {
-        console.log("response", res);
-        const data = await res.json();
+        // const data = await res.json();
+        // console.log("response", res);
         if (uploadOrSave == "save") {
           this.loading = false;
-          console.log("data", data);
-          if (data.status)
-            this.$router.push("/supplier-dashboard/draft-products");
-          else
-            data.message
-              ? (this.message = data.message)
-              : (this.message = "Please try again.");
+          this.$router.push("/supplier-dashboard/draft-products");
         } else {
           this.loading = false;
           this.$router.push("/supplier-dashboard/pending-products");
