@@ -294,14 +294,14 @@
                       Next
                     </button>
                   </div>
-                  <div class="col-sm-12">
+                  <!-- <div class="col-sm-12">
                     <p
                       class="saveAndContinue"
                       @click="handleProductUpload('save')"
                     >
                       <a>Save & Continue Later</a>
                     </p>
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
@@ -1262,17 +1262,22 @@
                 <div class="col-lg-12 mt-4 mb-3">
                   <label>Upload Primary Image <span>*</span></label>
                   <div class="col-ting">
-                    <div class="control-group file-upload" id="file-upload1">
+                    <div
+                      class="control-group file-upload"
+                      id="file-upload1"
+                      @click="$refs.inputFile.click()"
+                    >
                       <div class="image-box text-center">
-                        <p>
+                        <p v-if="!displayImg[0]">
                           <i class="bi bi-plus-circle-fill"></i> <br />
                           Upload Image
                         </p>
-                        <img src="" alt="" />
+                        <img :src="displayImg[0]" alt="" />
                       </div>
                       <div class="controls" style="display: none">
                         <input
                           type="file"
+                          ref="inputFile"
                           name="contact_image_1"
                           accept=".jpg, .jpeg, .png, .webp"
                           @change="onFieldChange(1)"
@@ -1283,124 +1288,60 @@
                   <small class="uploadSmallPicture"
                     >(accepted image format: jpeg, jpg, png, webp)</small
                   >
-                  <button class="removeImgBtn" type="button">
+                  <button
+                    class="removeImgBtn"
+                    type="button"
+                    @click="removeDispImg(0)"
+                  >
                     Remove Image
                   </button>
                 </div>
-
-                <!-- <div class="col-lg-6 mt-2 mb-3 upload-more-image">
-                  <label>Upload Additional Image</label>
-                  <div class="col-ting">
-                    <div class="control-group file-upload" id="file-upload1">
-                      <div class="image-box text-center">
-                        <p>
-                          <i class="bi bi-plus-circle-fill"></i> <br />
-                          Upload Image
-                        </p>
-                        <img src="" alt="" />
-                      </div>
-                      <div class="controls" style="display: none">
-                        <input
-                          type="file"
-                          name="contact_image_1"
-                          accept=".jpg, .jpeg, .png, .webp"
-                          @change="onFieldChange(2)"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <button class="removeImgBtn" type="button">
-                    Remove Image
-                  </button>
-                </div>
-                <div class="col-lg-6 mt-2 mb-3 upload-more-image">
-                  <label>Upload Additional Image</label>
-                  <div class="col-ting">
-                    <div class="control-group file-upload" id="file-upload1">
-                      <div class="image-box text-center">
-                        <p>
-                          <i class="bi bi-plus-circle-fill"></i> <br />
-                          Upload Image
-                        </p>
-                        <img src="" alt="" />
-                      </div>
-                      <div class="controls" style="display: none">
-                        <input
-                          type="file"
-                          name="contact_image_1"
-                          accept=".jpg, .jpeg, .png, .webp"
-                          @change="onFieldChange(2)"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <button class="removeImgBtn" type="button">
-                    Remove Image
-                  </button>
-                </div>
-                <div class="col-lg-6 mt-2 mb-3 upload-more-image">
-                  <label>Upload Additional Image</label>
-                  <div class="col-ting">
-                    <div class="control-group file-upload" id="file-upload1">
-                      <div class="image-box text-center">
-                        <p>
-                          <i class="bi bi-plus-circle-fill"></i> <br />
-                          Upload Image
-                        </p>
-                        <img src="" alt="" />
-                      </div>
-                      <div class="controls" style="display: none">
-                        <input
-                          type="file"
-                          name="contact_image_1"
-                          accept=".jpg, .jpeg, .png, .webp"
-                          @change="onFieldChange(2)"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <button class="removeImgBtn" type="button">
-                    Remove Image
-                  </button>
-                </div> -->
-
-                <!-- <div
+                <div
                   class="col-lg-6 mt-2 mb-3 upload-more-image"
                   v-for="(newImg, i) in addImg"
                   :key="i"
                 >
                   <label>Upload Additional Image</label>
-                  <input type="file" />
                   <div class="col-ting">
-                    <div class="control-group file-upload" id="file-upload1">
+                    <div
+                      class="control-group file-upload"
+                      id="file-upload1"
+                      @click="$refs.items[newImg - 1].click()"
+                    >
                       <div class="image-box text-center">
-                        <p>
+                        <p v-if="!displayImg[newImg]">
                           <i class="bi bi-plus-circle-fill"></i> <br />
-                          Upload Image {{ newImg }}
+                          Upload Image
                         </p>
-                        <img src="" alt="" />
+                        <img :src="displayImg[newImg]" alt="" />
                       </div>
                       <div class="controls" style="display: none">
                         <input
                           type="file"
+                          ref="items"
                           name="contact_image_1"
                           accept=".jpg, .jpeg, .png, .webp"
-                          @change="onFieldChange(newImg)"
+                          @change="onFieldChange(newImg + 1)"
                         />
                       </div>
                     </div>
                   </div>
-                  <button class="removeImgBtn removeImgBtnOthers" type="button">
+                  <button
+                    class="removeImgBtn mb-2 mt-1"
+                    type="button"
+                    @click="removeDispImg(newImg)"
+                  >
                     Remove Image
                   </button>
                   <span
-                    @click="addImg.pop()"
+                    @click="removeField(newImg)"
                     remove-field
                     btn-remove-field
-                    class="removeField"
+                    class="removeField mt-1"
                     >Remove Field</span
                   >
-                </div> -->
+                </div>
+
                 <div class="row mt-3">
                   <div class="upload-dynamic"></div>
                 </div>
@@ -2111,27 +2052,28 @@ export default {
     );
     document.head.appendChild(externalScriptCustom);
 
-    $(".image-box").click(function (event) {
-      var previewImg = $(this).children("img");
+    // $(".image-box").click(function (event) {
+    //   var previewImg = $(this).children("img");
 
-      $(this).siblings().children("input").trigger("click");
+    //   $(this).siblings().children("input").trigger("click");
 
-      $(this)
-        .siblings()
-        .children("input")
-        .change(function () {
-          var reader = new FileReader();
+    //   $(this)
+    //     .siblings()
+    //     .children("input")
+    //     .change(function () {
+    //       var reader = new FileReader();
 
-          reader.onload = function (e) {
-            var urll = e.target.result;
-            $(previewImg).attr("src", urll);
-            previewImg.parent().css("background", "transparent");
-            previewImg.show();
-            previewImg.siblings("p").hide();
-          };
-          reader.readAsDataURL(this.files[0]);
-        });
-    });
+    //       reader.onload = function (e) {
+    //         var urll = e.target.result;
+    //         $(previewImg).attr("src", urll);
+    //         previewImg.parent().css("background", "transparent");
+    //         previewImg.show();
+    //         previewImg.siblings("p").hide();
+    //       };
+    //       reader.readAsDataURL(this.files[0]);
+    //     });
+    // });
+
     this.getAddress();
   },
   data() {
@@ -2189,6 +2131,7 @@ export default {
       min_quantity: "",
       min_quantity_unit: "",
       supply_ability: {},
+      displayImg: [],
 
       status: null,
     };
@@ -2329,10 +2272,11 @@ export default {
         }
       );
       if (res.ok) {
-        console.log(res);
+        console.log("response", res);
         const data = await res.json();
         if (uploadOrSave == "save") {
           this.loading = false;
+          console.log("data", data);
           if (data.status)
             this.$router.push("/supplier-dashboard/draft-products");
           else
@@ -2384,6 +2328,18 @@ export default {
     },
     onFieldChange(n) {
       this.image[n] = event.target.files[0];
+      this.displayImg[n - 1] = URL.createObjectURL(this.image[n]);
+
+      // console.log(this.displayImg[n - 1]);
+    },
+    removeDispImg(n) {
+      this.displayImg.splice(n, 1);
+      delete this.image[n];
+    },
+    removeField(n) {
+      this.displayImg.splice(n, 1);
+      delete this.image[n];
+      this.addImg.splice(n - 1, 1);
     },
     addMoreCert() {
       this.addFile.push(this.addFile.length + 2);
