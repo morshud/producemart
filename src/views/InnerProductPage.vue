@@ -906,53 +906,21 @@
         <div class="col-md-12">
           <div class="container contProduct">
             <div class="row">
-              <div class="itemProduct">
-                <router-link to="/inner-product">
-                  <div class="imgArea">
-                    <img
-                      src="@/assets/img/products/product1.png"
-                      draggable="false"
-                    />
-                  </div>
-                </router-link>
-                <div class="detailArea">
-                  <h5>Ripe Banana</h5>
-                  <p>$10 per 100kg</p>
-                  <router-link to="/inner-product" class="route-link"
-                    ><a>View Products <i class="bi bi-arrow-right"></i></a
-                  ></router-link>
-                </div>
-              </div>
-              <div class="itemProduct">
+              <div class="itemProduct" v-for="(prod, i) in products" :key="i">
                 <router-link to="#">
                   <div class="imgArea">
-                    <img
-                      src="@/assets/img/products/product11.png"
-                      draggable="false"
-                    />
+                    <img :src="prod.img_url[0]" draggable="false" />
                   </div>
                 </router-link>
                 <div class="detailArea">
-                  <h5>Palm Kernel</h5>
-                  <p>$10 per 100kg</p>
-                  <router-link to="#" class="route-link"
-                    ><a>View Products <i class="bi bi-arrow-right"></i></a
-                  ></router-link>
-                </div>
-              </div>
-              <div class="itemProduct">
-                <router-link to="#">
-                  <div class="imgArea">
-                    <img
-                      src="@/assets/img/products/product111.png"
-                      draggable="false"
-                    />
-                  </div>
-                </router-link>
-                <div class="detailArea">
-                  <h5>Cocoa</h5>
-                  <p>$10 per 100kg</p>
-                  <router-link to="#" class="route-link"
+                  <h5>{{ prod.name }}</h5>
+                  <p>
+                    {{ prod.package.price }} per {{ prod.package.weight
+                    }}{{ prod.package.unit }}
+                  </p>
+                  <router-link
+                    :to="'/products/inner-product/' + prod._id"
+                    class="route-link"
                     ><a>View Products <i class="bi bi-arrow-right"></i></a
                   ></router-link>
                 </div>
@@ -996,16 +964,6 @@ export default {
   },
   setup() {
     return {
-      // shipping: ref(""),
-      // quantity: ref(""),
-      // address: ref(""),
-      // country: ref(""),
-      // port: ref(""),
-      // state: ref(""),
-      // incoterms: ref(""),
-      // zip: ref(""),
-      // city: ref(""),
-      // shipping: ref(""),
       modules: [EffectFlip, Pagination, Navigation],
     };
   },
@@ -1101,10 +1059,12 @@ export default {
       );
     });
     this.getProduct();
+    this.getAllproducts();
   },
   data() {
     return {
       product: null,
+      products: null,
       id: this.$route.params.id,
       countries: countries,
       shipping: {
@@ -1123,6 +1083,20 @@ export default {
 
       this.product = data;
       console.log(this.product);
+    },
+
+    async getAllproducts() {
+      const res = await fetch(
+        "https://producemart.herokuapp.com/getAllProducts"
+      );
+      const { data } = await res.json();
+
+      this.products = data
+        .splice(0, 3)
+        .filter((val) => val.status == "active" && val._id != this.id);
+
+      // this.products = data;
+      // console.log(this.products);
     },
 
     sendAir() {

@@ -424,132 +424,35 @@
                     <div class="detailArea">
                       <h5>Ripe Banana</h5>
                       <p>$10 per 100kg</p>
+                      <router-link to="#" class="route-link"
+                        ><a>View Products <i class="bi bi-arrow-right"></i></a
+                      ></router-link>
+                    </div>
+                  </div>
+                  <div
+                    class="itemProduct"
+                    v-for="(product, i) in products"
+                    :key="i"
+                  >
+                    <router-link to="#">
+                      <div class="imgArea">
+                        <img :src="product.img_url[0]" draggable="false" />
+                      </div>
+                    </router-link>
+                    <div class="detailArea">
+                      <h5>{{ product.name }}</h5>
+                      <p>
+                        {{ product.package.price }} per
+                        {{ product.package.weight }}{{ product.package.unit }}
+                      </p>
                       <router-link
-                        to="/products/inner-product"
+                        :to="'/products/inner-product/' + product._id"
                         class="route-link"
                         ><a>View Products <i class="bi bi-arrow-right"></i></a
                       ></router-link>
                     </div>
                   </div>
-                  <div class="itemProduct">
-                    <router-link to="#">
-                      <div class="imgArea">
-                        <img
-                          src="@/assets/img/products/product11.png"
-                          draggable="false"
-                        />
-                      </div>
-                    </router-link>
-                    <div class="detailArea">
-                      <h5>Palm Kernel</h5>
-                      <p>$10 per 100kg</p>
-                      <router-link to="#" class="route-link"
-                        ><a>View Products <i class="bi bi-arrow-right"></i></a
-                      ></router-link>
-                    </div>
-                  </div>
-                  <div class="itemProduct">
-                    <router-link to="#">
-                      <div class="imgArea">
-                        <img
-                          src="@/assets/img/products/product111.png"
-                          draggable="false"
-                        />
-                      </div>
-                    </router-link>
-                    <div class="detailArea">
-                      <h5>Cocoa</h5>
-                      <p>$10 per 100kg</p>
-                      <router-link to="#" class="route-link"
-                        ><a>View Products <i class="bi bi-arrow-right"></i></a
-                      ></router-link>
-                    </div>
-                  </div>
-                  <div class="itemProduct">
-                    <router-link to="#">
-                      <div class="imgArea">
-                        <img
-                          src="@/assets/img/products/product1111.png"
-                          draggable="false"
-                        />
-                      </div>
-                    </router-link>
-                    <div class="detailArea">
-                      <h5>Tomatoes</h5>
-                      <p>$10 per 100kg</p>
-                      <router-link to="#" class="route-link"
-                        ><a>View Products <i class="bi bi-arrow-right"></i></a
-                      ></router-link>
-                    </div>
-                  </div>
-                  <div class="itemProduct">
-                    <router-link to="#">
-                      <div class="imgArea">
-                        <img
-                          src="@/assets/img/products/product11111.png"
-                          draggable="false"
-                        />
-                      </div>
-                    </router-link>
-                    <div class="detailArea">
-                      <h5>Beans</h5>
-                      <p>$10 per 100kg</p>
-                      <router-link to="#" class="route-link"
-                        ><a>View Products <i class="bi bi-arrow-right"></i></a
-                      ></router-link>
-                    </div>
-                  </div>
-                  <div class="itemProduct">
-                    <router-link to="#">
-                      <div class="imgArea">
-                        <img
-                          src="@/assets/img/products/product111111.png"
-                          draggable="false"
-                        />
-                      </div>
-                    </router-link>
-                    <div class="detailArea">
-                      <h5>Carrots</h5>
-                      <p>$10 per 100kg</p>
-                      <router-link to="#" class="route-link"
-                        ><a>View Products <i class="bi bi-arrow-right"></i></a
-                      ></router-link>
-                    </div>
-                  </div>
-                  <div class="itemProduct">
-                    <router-link to="#">
-                      <div class="imgArea">
-                        <img
-                          src="@/assets/img/products/product1111111.png"
-                          draggable="false"
-                        />
-                      </div>
-                    </router-link>
-                    <div class="detailArea">
-                      <h5>Rice</h5>
-                      <p>$10 per 100kg</p>
-                      <router-link to="#" class="route-link"
-                        ><a>View Products <i class="bi bi-arrow-right"></i></a
-                      ></router-link>
-                    </div>
-                  </div>
-                  <div class="itemProduct">
-                    <router-link to="#">
-                      <div class="imgArea">
-                        <img
-                          src="@/assets/img/products/product11111111.png"
-                          draggable="false"
-                        />
-                      </div>
-                    </router-link>
-                    <div class="detailArea">
-                      <h5>Corn</h5>
-                      <p>$10 per 100kg</p>
-                      <router-link to="#" class="route-link"
-                        ><a>View Products <i class="bi bi-arrow-right"></i></a
-                      ></router-link>
-                    </div>
-                  </div>
+
                   <div class="col-lg-12 text-right viewMoreDiv">
                     <router-link to="/products" class="route-link"
                       ><a>View More</a></router-link
@@ -565,7 +468,42 @@
               role="tabpanel"
               aria-labelledby="pills-fruits-tab"
             >
-              Fruits
+              <div class="container contProduct" v-if="productFruit">
+                <div class="row">
+                  <div
+                    class="itemProduct"
+                    v-for="(product, i) in productFruit"
+                    :key="i"
+                  >
+                    <router-link to="#">
+                      <div class="imgArea">
+                        <img :src="product.img_url[0]" draggable="false" />
+                      </div>
+                    </router-link>
+                    <div class="detailArea">
+                      <h5>{{ product.name }}</h5>
+                      <p>
+                        {{ product.package.price }} per
+                        {{ product.package.weight }}{{ product.package.unit }}
+                      </p>
+                      <router-link
+                        :to="'/products/inner-product/' + product._id"
+                        class="route-link"
+                        ><a>View Products <i class="bi bi-arrow-right"></i></a
+                      ></router-link>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 text-right viewMoreDiv">
+                    <router-link to="/products" class="route-link"
+                      ><a>View More</a></router-link
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="container contProd" v-else>
+                <p>No product in the category Fruit.</p>
+              </div>
             </div>
 
             <div
@@ -574,7 +512,42 @@
               role="tabpanel"
               aria-labelledby="pills-vegetable-tab"
             >
-              Vegetable
+              <div class="container contProduct" v-if="productVegetable">
+                <div class="row">
+                  <div
+                    class="itemProduct"
+                    v-for="(product, i) in productVegetable"
+                    :key="i"
+                  >
+                    <router-link to="#">
+                      <div class="imgArea">
+                        <img :src="product.img_url[0]" draggable="false" />
+                      </div>
+                    </router-link>
+                    <div class="detailArea">
+                      <h5>{{ product.name }}</h5>
+                      <p>
+                        {{ product.package.price }} per
+                        {{ product.package.weight }}{{ product.package.unit }}
+                      </p>
+                      <router-link
+                        :to="'/products/inner-product/' + product._id"
+                        class="route-link"
+                        ><a>View Products <i class="bi bi-arrow-right"></i></a
+                      ></router-link>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 text-right viewMoreDiv">
+                    <router-link to="/products" class="route-link"
+                      ><a>View More</a></router-link
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="container contProd" v-else>
+                <p>No product in the category Vegetable.</p>
+              </div>
             </div>
 
             <div
@@ -583,7 +556,42 @@
               role="tabpanel"
               aria-labelledby="pills-oil-tab"
             >
-              Oil
+              <div class="container contProduct" v-if="productOil">
+                <div class="row">
+                  <div
+                    class="itemProduct"
+                    v-for="(product, i) in productOil"
+                    :key="i"
+                  >
+                    <router-link to="#">
+                      <div class="imgArea">
+                        <img :src="product.img_url[0]" draggable="false" />
+                      </div>
+                    </router-link>
+                    <div class="detailArea">
+                      <h5>{{ product.name }}</h5>
+                      <p>
+                        {{ product.package.price }} per
+                        {{ product.package.weight }}{{ product.package.unit }}
+                      </p>
+                      <router-link
+                        :to="'/products/inner-product/' + product._id"
+                        class="route-link"
+                        ><a>View Products <i class="bi bi-arrow-right"></i></a
+                      ></router-link>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 text-right viewMoreDiv">
+                    <router-link to="/products" class="route-link"
+                      ><a>View More</a></router-link
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="container contProd" v-else>
+                <p>No product in the category Vegetable.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -779,10 +787,36 @@ export default {
       sliderImage3: {
         backgroundImage: `url(${require("@/assets/img/sliderImg3.jpg")})`,
       },
+      products: null,
+      productFruit: null,
+      productVegetable: null,
+      productOil: null,
     };
   },
   mounted() {
     window.scrollTo(0, 0);
+    this.getAllproducts();
+  },
+  methods: {
+    async getAllproducts() {
+      const res = await fetch(
+        "https://producemart.herokuapp.com/getAllProducts"
+      );
+      const { data } = await res.json();
+
+      this.products = data.filter((val) => val.status == "active");
+      this.productFruit = this.products.filter(
+        (prd) => prd.category == "fruit"
+      );
+      this.productVegetable = this.products.filter(
+        (prd) => prd.category == "vegetable"
+      );
+      this.productOil = this.products.filter((prd) => prd.category == "oil");
+      console.log(this.products);
+
+      // this.products = data;
+      // console.log(this.products);
+    },
   },
 };
 </script>

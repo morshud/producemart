@@ -104,7 +104,11 @@
                           >
                             <i class="far fa-edit"></i>
                           </router-link>
-                          <span title="Disable" class="action_btn">
+                          <span
+                            title="Disable"
+                            class="action_btn"
+                            @click="deleteMail(mail._id)"
+                          >
                             <i class="fas fa-trash"></i>
                           </span>
                         </div>
@@ -168,6 +172,22 @@ export default {
       const { data } = await res.json();
       this.mails = data.filter((mail) => mail.type == "shipper");
       console.log(data);
+    },
+    async deleteMail(id) {
+      console.log("testing");
+      const res = await fetch(
+        "https://producemart.herokuapp.com/deleteEmail/" + id,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: this.token,
+          },
+        }
+      );
+      console.log(res);
+      if (res.ok) {
+        this.fetchEmail();
+      }
     },
   },
 };

@@ -39,7 +39,7 @@
               <div class="row">
                 <div class="col-lg-4">
                   <div class="crm_box">
-                    <h4>2,455</h4>
+                    <h4>{{ dashboardParams && dashboardParams.buyer }}</h4>
                     <p>Buyers</p>
                     <img
                       src="@/assets/img/dashboard-img/dash-buyer.png"
@@ -49,7 +49,7 @@
                 </div>
                 <div class="col-lg-4">
                   <div class="crm_box">
-                    <h4>20,305</h4>
+                    <h4>{{ dashboardParams && dashboardParams.supplier }}</h4>
                     <p>Suppliers</p>
                     <img
                       src="@/assets/img/dashboard-img/dash-seller.png"
@@ -59,7 +59,14 @@
                 </div>
                 <div class="col-lg-4">
                   <div class="crm_box">
-                    <h4>100,000</h4>
+                    <h4>
+                      {{
+                        dashboardParams &&
+                        dashboardParams.pendingProduct +
+                          dashboardParams.disableProduct +
+                          dashboardParams.activeProduct
+                      }}
+                    </h4>
                     <p>Products</p>
                     <img
                       src="@/assets/img/dashboard-img/dash-product.png"
@@ -69,7 +76,7 @@
                 </div>
                 <div class="col-lg-4">
                   <div class="crm_box">
-                    <h4>5,300</h4>
+                    <h4>{{ dashboardParams && dashboardParams.quotes }}</h4>
                     <p>Quotes</p>
                     <img
                       src="@/assets/img/dashboard-img/dash-quote.png"
@@ -79,7 +86,7 @@
                 </div>
                 <div class="col-lg-4">
                   <div class="crm_box">
-                    <h4>15,500</h4>
+                    <h4>0</h4>
                     <p>Orders</p>
                     <img
                       src="@/assets/img/dashboard-img/dash-quote.png"
@@ -519,6 +526,7 @@ export default {
   data() {
     return {
       users: null,
+      dashboardParams: null,
       admin: JSON.parse(localStorage.getItem("user")),
       search: "",
     };
@@ -552,9 +560,16 @@ export default {
       console.log(this.users[0].role);
       console.log(data);
     },
+    async getDashboardParam() {
+      const res = await fetch("https://producemart.herokuapp.com/getDashboard");
+      const { data } = await res.json();
+      console.log(data);
+      this.dashboardParams = data;
+    },
   },
   mounted() {
     this.fetchUsers();
+    this.getDashboardParam();
     ////chartBar
     var options = {
       chart: {
