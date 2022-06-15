@@ -102,7 +102,7 @@
         </div>
         <div class="col-lg-12 text-center">
           <div class="btnDiv">
-            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            <a type="button" @click="showModal" data-bs-toggle="modal" data-bs-target="#exampleModal"
               >Request Quote <i class="bi bi-arrow-right"></i
             ></a>
           </div>
@@ -113,7 +113,9 @@
     <!-- Modal -->
     <div
       class="modal fade"
-      id="exampleModal"
+      ref="exampleModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
@@ -125,7 +127,7 @@
             <button
               type="button"
               class="btn-close"
-              data-bs-dismiss="modal"
+              @click="modal.hide()"
               aria-label="Close"
             ></button>
           </div>
@@ -940,12 +942,12 @@ import "swiper/css/effect-flip";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { EffectFlip, Pagination, Navigation } from "swiper";
+import { Modal } from "bootstrap";
 import $ from "jquery";
 require("jquery.easing");
 import { countries } from "../assets/countries";
 import QUOTE from './../service/quote-service'
 import Swal from 'sweetalert2';
-
 export default {
   name: "Produce Mart",
   components: {
@@ -955,24 +957,23 @@ export default {
     searchHeader: SearchHeader,
     mainFooter: MainFooter,
   },
+  created() {
+    this.getProduct();
+    this.getAllproducts();
+  },
   mounted() {
     window.scrollTo(0, 0);
-
     //jQuery time
     var current_fs, next_fs, previous_fs; //fieldsets
     var left, opacity, scale; //fieldset properties which we will animate
     var animating; //flag to prevent quick multi-click glitches
-
     $(".next").click(function () {
       if (animating) return false;
       animating = true;
-
       current_fs = $(this).parent();
       next_fs = $(this).parent().next();
-
       //activate next step on progressbar using the index of next_fs
       $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
       //show the next fieldset
       next_fs.show();
       //hide the current fieldset with style
@@ -1003,19 +1004,15 @@ export default {
         }
       );
     });
-
     $(".previous").click(function () {
       if (animating) return false;
       animating = false;
-
       current_fs = $(this).parent();
       previous_fs = $(this).parent().prev();
-
       //de-activate current step on progressbar
       $("#progressbar li")
         .eq($("fieldset").index(current_fs))
         .removeClass("active");
-
       //show the previous fieldset
       previous_fs.show();
       //hide the current fieldset with style
@@ -1046,8 +1043,7 @@ export default {
         }
       );
     });
-    this.getProduct();
-    this.getAllproducts();
+    
   },
   data() {
     return {
@@ -1079,22 +1075,27 @@ export default {
       roadState: '',
       roadCountry: '',
       roadZip: '',
+      products: null,
       id: this.$route.params.id,
       countries: countries,
       EffectFlip, 
       Pagination, 
-      Navigation
+      Navigation,
+      modal: null,
     };
   },
   methods: {
     async getProduct() {
+      
       const res = await fetch(
         "https://producemart.herokuapp.com/getProductById/" + this.id
       );
       const { data } = await res.json();
-
       this.product = data;
-      console.log(this.product);
+    },
+    showModal(){
+      this.modal = new Modal(this.$refs.exampleModal);
+      this.modal.show()
     },
     addQuote(){
       const data = {
@@ -1114,12 +1115,13 @@ export default {
       QUOTE.addProductQuote(data, this.id)
       .then(res => {
         console.log(res)
+        this.modal.hide()
         Swal.fire({
           position: 'top-end',
           icon: 'success',
           title: `${res.data.message}`,
           showConfirmButton: false,
-          timer: 3500
+          timer: 5500
         })
       })
       .catch(err => {
@@ -1130,6 +1132,20 @@ export default {
       if(this.quantity < item){
         this.quantity = item
       }
+    },
+
+    async getAllproducts() {
+      const res = await fetch(
+        "https://producemart.herokuapp.com/getAllProducts"
+      );
+      const { data } = await res.json();
+
+      this.products = data
+        .splice(0, 3)
+        .filter((val) => val.status == "active" && val._id != this.id);
+
+      // this.products = data;
+      // console.log(this.products);
     },
     sendAir() {
       var x = document.getElementById("ifSendAir");
