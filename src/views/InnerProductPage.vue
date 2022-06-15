@@ -64,8 +64,8 @@
             </div>
             <div class="col-lg-12 detailsDiv">
               <span>Price</span>
-              <p>${{ Math.floor(Math.random() * 100) }} per 100kg</p>
-              <p>${{ Math.floor(Math.random() * 1000) }} per bag</p>
+              <p><strong>Shipping:</strong> {{ product.shipment.price}} per {{ product.shipment.weight}}{{ product.shipment.weight_unit}}</p>
+              <p><strong>Package:</strong> {{ product.package.price}} per {{ product.package.unit}}</p>
             </div>
             <div class="col-lg-4 detailsDivBelow">
               <h5>Crop Year</h5>
@@ -92,12 +92,12 @@
             </div>
             <div class="col-lg-4 detailsDivBelow">
               <h5>Minimum Order Quantity</h5>
-              <h6>1000 bags</h6>
+              <h6>{{product.order.min_quantity}} {{product.order.qty_unit}}</h6>
             </div>
-            <!-- <div class="col-lg-4 detailsDivBelow">
+            <div class="col-lg-4 detailsDivBelow">
               <h5>Incoterms</h5>
               <h6>EXW - EX Works</h6>
-            </div> -->
+            </div>
           </div>
         </div>
         <div class="col-lg-12 text-center">
@@ -130,7 +130,7 @@
             ></button>
           </div>
           <div class="modal-body modalBody">
-            <form id="msform" @submit.prevent="">
+            <form id="msform" @submit.prevent="addQuote">
               <!-- progressbar -->
               <ul id="progressbar">
                 <li class="active">Quantity</li>
@@ -154,12 +154,11 @@
                 </h2>
                 <input
                   type="text"
-                  value="$500 per 100kg"
+                  :value="product.package.price + ' per '+ product.package.unit"
                   disabled
                   class="input"
                 />
-                <input type="text" placeholder="Input quantity" class="input" />
-
+                <input :min="product.order.min_quantity" @keyup="minimum(product.order.min_quantity)" type="number" placeholder="Input quantity" v-model="quantity" class="input" />
                 <input
                   type="button"
                   name="next"
@@ -214,11 +213,10 @@
                 </div>
                 <div class="checkboxDiv">
                   <input type="checkbox" id="road" @click="sendRoad()" />
-
                   <label for="road">Send by road</label>
                 </div>
                 <!-- Send by air -->
-                <div class="container showDivBelow" v-if="shipping.air">
+                <div class="container showDivBelow" id="ifSendAir">
                   <div class="row">
                     <div class="col-lg-12">
                       <h3>Destinations - Send By Air</h3>
@@ -226,8 +224,7 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Country</label>
-
-                      <select class="input">
+                      <select v-model="airCountry" class="input">
                         <option value="Country" hidden>Select Country</option>
                         <option
                           v-for="(country, i) in countries"
@@ -240,14 +237,15 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Port</label>
-                      <select class="input">
+                      <select v-model="airPort" class="input">
                         <option>Select Port</option>
                       </select>
                     </div>
                     <div class="col-lg-12">
                       <label>Incoterms</label>
-                      <select class="input">
+                      <select v-model="airIncoterm" class="input">
                         <option>Select Port</option>
+                        <option value="Lagos">Lagos</option>
                       </select>
                     </div>
                   </div>
@@ -261,33 +259,34 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Country</label>
-                      <select class="input">
+                      <select v-model="seaCountry" class="input">
                         <option value="Country" hidden>Select Country</option>
-                        <optiongit
+                        <option
                           v-for="(country, i) in countries"
                           :value="country"
                           :key="country"
                         >
                           {{ country }}
-                        </optiongit>
+                        </option>
                       </select>
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Port</label>
-                      <select class="input">
+                      <select v-model="seaPort" class="input">
                         <option>Select Port</option>
+                        <option value="Lagos">Lagos</option>
                       </select>
                     </div>
                     <div class="col-lg-12">
                       <label>Incoterms</label>
-                      <select class="input">
+                      <select v-model="seaIncoterm" class="input">
                         <option>Select Port</option>
                       </select>
                     </div>
                   </div>
                 </div>
                 <!-- Send by road -->
-                <div class="container showDivBelow" v-if="shipping.road">
+                <div class="container showDivBelow" id="ifSendRoad">
                   <div class="row">
                     <div class="col-lg-12">
                       <h3>Destinations - Send By Road</h3>
@@ -295,29 +294,28 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Address 1</label>
-
-                      <textarea cols="30" rows="3" class="textarea"></textarea>
+                      <textarea v-model="roadAdd1" cols="30" rows="3" class="textarea"></textarea>
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Address 2</label>
-                      <textarea cols="30" rows="3" class="textarea"></textarea>
+                      <textarea v-model="roadAdd2" cols="30" rows="3" class="textarea"></textarea>
                     </div>
                     <div class="col-lg-6 mb-2">
                       <label>City</label>
-                      <input type="text" class="input" />
+                      <input v-model="roadCity" type="text" class="input" />
                     </div>
                     <div class="col-lg-6 mb-2">
                       <label>State/Province</label>
-                      <input type="text" class="input" />
+                      <input v-model="roadState" type="text" class="input" />
                     </div>
                     <div class="col-lg-6 mb-2">
                       <label>Country</label>
-                      <select class="input">
+                      <select v-model="roadCountry" class="input">
                         <option value="Country" hidden>Select Country</option>
                         <option
                           v-for="(country, i) in countries"
                           :value="country"
-                          :key="i"
+                          :key="country"
                         >
                           {{ country }}
                         </option>
@@ -325,7 +323,7 @@
                     </div>
                     <div class="col-lg-6">
                       <label>Postal/Zip code</label>
-                      <input type="text" class="input" />
+                      <input v-model="roadZip" type="text" class="input" />
                     </div>
                   </div>
                 </div>
@@ -362,20 +360,19 @@
                   <table>
                     <tr class="bodyRow">
                       <td class="tdMain">Quantity</td>
-
-                      <td class="tdBody">10 bags</td>
+                      <td class="tdBody">{{quantity}} {{product.package.unit}}</td>
                     </tr>
                     <tr class="bodyRow">
                       <td class="tdMain">Dated on</td>
-                      <td class="tdBody">25-04-2022</td>
+                      <td class="tdBody">{{new Date().toISOString().slice(0, 10)}}</td>
                     </tr>
                     <tr class="bodyRow">
                       <td class="tdMain">Time</td>
-                      <td class="tdBody">8:10am</td>
+                      <td class="tdBody">{{new Date().toLocaleTimeString()}}</td>
                     </tr>
                     <tr class="bodyRow">
                       <td class="tdMain">Estimated Cost</td>
-                      <td class="tdBody">$20,000</td>
+                      <td class="tdBody">${{quantity * product.package.price.slice(1)}}</td>
                     </tr>
                     <tr class="bodyRow">
                       <td class="tdMain">Estimated Weight</td>
@@ -391,29 +388,29 @@
                     <table>
                       <tr class="bodyRow">
                         <td class="tdMain">Address 1</td>
-                        <td class="tdBody">5, Awe Avenue, Off Oshodi Road</td>
+                        <td class="tdBody">{{roadAdd1}}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Address 2</td>
                         <td class="tdBody">
-                          No 6, Rotimi Williams Street, Ojota
+                          {{roadAdd2}}
                         </td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">City</td>
-                        <td class="tdBody">Ado-Ekiti</td>
+                        <td class="tdBody">{{roadCity}}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">State/Province</td>
-                        <td class="tdBody">Ekiti</td>
+                        <td class="tdBody">{{roadState}}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Country</td>
-                        <td class="tdBody">Nigeria</td>
+                        <td class="tdBody">{{roadCountry}}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Postal Code</td>
-                        <td class="tdBody">1000001</td>
+                        <td class="tdBody">{{roadZip}}</td>
                       </tr>
                     </table>
                   </div>
@@ -422,12 +419,11 @@
                     <table>
                       <tr class="bodyRow">
                         <td class="tdMain">SeaPort</td>
-
-                        <td class="tdBody">Apapa port, Lagos</td>
+                        <td class="tdBody">{{seaPort}}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Country</td>
-                        <td class="tdBody">Nigeria</td>
+                        <td class="tdBody">{{seaCountry}}</td>
                       </tr>
                     </table>
                   </div>
@@ -436,12 +432,11 @@
                     <table>
                       <tr class="bodyRow">
                         <td class="tdMain">AirPort</td>
-
-                        <td class="tdBody">Asaba International Airport</td>
+                        <td class="tdBody">{{airPort}}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Country</td>
-                        <td class="tdBody">Nigeria</td>
+                        <td class="tdBody">{{airCountry}}</td>
                       </tr>
                     </table>
                   </div>
@@ -934,14 +929,10 @@
 
   <mainFooter />
 </template>
-
+<style scoped src="@/assets/css/slider.css"></style>
 <script>
 import MainHeader from "./mainHeader.vue";
 import SearchHeader from "./searchHeader.vue";
-// import { ref } from "vue";
-// import MainFooter from "./mainFooter.vue";
-
-// import QUOTE from "./../service/quote-service";
 import MainFooter from "./mainFooter.vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
@@ -952,6 +943,8 @@ import { EffectFlip, Pagination, Navigation } from "swiper";
 import $ from "jquery";
 require("jquery.easing");
 import { countries } from "../assets/countries";
+import QUOTE from './../service/quote-service'
+import Swal from 'sweetalert2';
 
 export default {
   name: "Produce Mart",
@@ -961,11 +954,6 @@ export default {
     mainHeader: MainHeader,
     searchHeader: SearchHeader,
     mainFooter: MainFooter,
-  },
-  setup() {
-    return {
-      modules: [EffectFlip, Pagination, Navigation],
-    };
   },
   mounted() {
     window.scrollTo(0, 0);
@@ -1063,15 +1051,39 @@ export default {
   },
   data() {
     return {
-      product: null,
-      products: null,
+      product: {
+        shipment: {
+          price: '',
+          weight: '',
+          weight_unit: '',
+        },
+        package: {
+          price: '',
+          unit: '',
+        },
+        order: {
+          min_quantity: '',
+          qty_unit: '',
+        }
+      },
+      quantity: '',
+      airCountry: '',
+      airPort: '',
+      airIncoterm: '',
+      seaCountry: '',
+      seaPort: '',
+      seaIncoterm: '',
+      roadAdd1: '',
+      roadAdd2: '',
+      roadCity: '',
+      roadState: '',
+      roadCountry: '',
+      roadZip: '',
       id: this.$route.params.id,
       countries: countries,
-      shipping: {
-        air: false,
-        sea: false,
-        road: false,
-      },
+      EffectFlip, 
+      Pagination, 
+      Navigation
     };
   },
   methods: {
@@ -1084,21 +1096,41 @@ export default {
       this.product = data;
       console.log(this.product);
     },
-
-    async getAllproducts() {
-      const res = await fetch(
-        "https://producemart.herokuapp.com/getAllProducts"
-      );
-      const { data } = await res.json();
-
-      this.products = data
-        .splice(0, 3)
-        .filter((val) => val.status == "active" && val._id != this.id);
-
-      // this.products = data;
-      // console.log(this.products);
+    addQuote(){
+      const data = {
+        "quantity": this.quantity,
+        "airCountry": this.airCountry,
+        "airPort": this.airPort,
+        "airIncoterm": this.airIncoterm,
+        "seaCountry": this.seaCountry,
+        "seaPort": this.seaPort,
+        "seaIncoterm": this.seaIncoterm,
+        "roadAddress": this.roadAdd1 + ',' + this.roadAdd2,
+        "roadCity": this.roadCity,
+        "roadState": this.roadState,
+        "roadCountry": this.roadCountry,
+        "postal_code": this.roadZip
+      }
+      QUOTE.addProductQuote(data, this.id)
+      .then(res => {
+        console.log(res)
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: `${res.data.message}`,
+          showConfirmButton: false,
+          timer: 3500
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
     },
-
+    minimum(item){
+      if(this.quantity < item){
+        this.quantity = item
+      }
+    },
     sendAir() {
       var x = document.getElementById("ifSendAir");
       if (!x.style.display || x.style.display === "none") {

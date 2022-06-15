@@ -38,7 +38,7 @@ class QUOTE {
   }
 
   addProductQuote(data, id){
-    return axios.post(API_URL + "product" + "addQuote/" + id, data, {
+    return axios.post(API_URL + "product/" + "addQuote/" + id, data, {
       headers: {
         "Authorization": user.token,
         "Content-Type": "application/json"
