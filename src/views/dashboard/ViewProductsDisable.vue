@@ -71,38 +71,38 @@
                         <tr>
                           <th scope="col">Product ID</th>
                           <th scope="col">Product Name</th>
-                          <th scope="col">Product Variety</th>
+                          <!-- <th scope="col">Product Variety</th>
                           <th scope="col">Product Weight</th>
-                          <th scope="col">Product Dimension</th>
+                          <th scope="col">Product Dimension</th> -->
                           <th scope="col">Supplier ID</th>
                           <th scope="col">Price($)</th>
                           <th scope="col">Category</th>
-                          <th scope="col">Product Detail</th>
-                          <th scope="col">Product Characteristics</th>
+                          <!-- <th scope="col">Product Detail</th>
+                          <th scope="col">Product Characteristics</th> -->
                           <th scope="col">Product Image</th>
                           <th scope="col">Certification</th>
-                          <th scope="col">Packaging</th>
-                          <th scope="col">Minimum Order Quantity</th>
+                          <!-- <th scope="col">Packaging</th>
+                          <th scope="col">Minimum Order Quantity</th> -->
                           <th scope="col">State</th>
-                          <th scope="col">Status</th>
-                          <th scope="col">Action</th>
+                          <th scope="col">Activate</th>
+                          <th scope="col">Actions</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="(product, i) in filteredProducts" :key="i">
                           <td>{{ product._id }}</td>
                           <td>{{ product.name }}</td>
-                          <td>{{ product.variety }}</td>
+                          <!-- <td>{{ product.variety }}</td>
                           <td>{{ product.weight }}</td>
-                          <td>{{ product.dimension }}</td>
-                          <td>{{ product.supplier_id }}</td>
-                          <td>{{ product.price }}</td>
+                          <td>{{ product.dimension }}</td> -->
+                          <td>{{ product.userId._id }}</td>
+                          <td>{{ product.package.price }}</td>
                           <td>{{ product.category }}</td>
-                          <th scope="row">{{ product.farmMethod }}</th>
-                          <td>{{ product.description }}</td>
-                          <th scope="row">
+                          <!-- <td scope="row">{{ product.farmMethod }}</td>
+                          <td>{{ product.description }}</td> -->
+                          <td scope="row">
                             <img width="80" :src="product.img_url[0]" alt="" />
-                          </th>
+                          </td>
                           <td>
                             <a
                               :href="product.certification[0].file_url"
@@ -112,20 +112,35 @@
                             >
                             <span v-else>No Certification uploaded</span>
                           </td>
-                          <td>{{ product.packaging }}</td>
-                          <td>{{ product.qty }}</td>
+                          <!-- <td>{{ product.packaging }}</td>
+                          <td>{{ product.qty }}</td> -->
                           <td>{{ product.status }}</td>
                           <td>
-                            <a href="#" class="status_btn">Active</a>
+                            <span
+                              @click="activateOrDeact(product._id, 'active')"
+                              class="status_btn"
+                              >Activate</span
+                            >
                           </td>
                           <td>
                             <div class="action_btns d-flex">
-                              <a href="#" title="Edit" class="action_btn mr_10">
-                                <i class="far fa-edit"></i>
-                              </a>
-                              <a href="#" title="Delete" class="action_btn">
+                              <router-link
+                                :to="'/products/inner-product/' + product._id"
+                                target="_blank"
+                                title="View"
+                                class="action_btn mr_10"
+                              >
+                                <i class="far fa-eye"></i>
+                              </router-link>
+                              <!-- <span
+                                @click="
+                                  activateOrDeact(product._id, 'disabled')
+                                "
+                                title="Disable"
+                                class="action_btn"
+                              >
                                 <i class="fas fa-trash"></i>
-                              </a>
+                              </span> -->
                             </div>
                           </td>
                         </tr>
@@ -172,6 +187,7 @@ export default {
     return {
       products: null,
       search: "",
+      token: JSON.parse(localStorage.getItem("user")).token,
     };
   },
   methods: {
@@ -181,8 +197,23 @@ export default {
       );
       const { data } = await res.json();
 
-      this.products = data.filter((val) => val.status == "disable");
+      this.products = data.filter((val) => val.status == "disabled");
       console.log(this.products);
+    },
+    async activateOrDeact(id, action) {
+      // console.log(this.token);
+      const res = await fetch(
+        "https://producemart.herokuapp.com/verifyProduct/" + id,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: this.token,
+          },
+          body: JSON.stringify({ verify: action }),
+        }
+      );
+      if (res.ok) this.getAllproducts();
     },
   },
   computed: {

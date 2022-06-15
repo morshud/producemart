@@ -89,8 +89,8 @@
                           <td>{{ product._id }}</td>
                           <td>{{ product.name }}</td>
 
-                          <td>{{ product.supplier_id }}</td>
-                          <td>{{ product.price }}</td>
+                          <td>{{ product.userId._id }}</td>
+                          <td>{{ product.package.price }}</td>
                           <td>{{ product.category }}</td>
 
                           <th scope="row">
@@ -110,22 +110,21 @@
 
                           <td>
                             <div class="action_btns d-flex">
-                              <router-link to="/dashboard/edit-product-status"
-                                ><a
-                                  title="View & Edit"
-                                  class="action_btn mr_10"
-                                >
-                                  <i class="far fa-edit"></i>
-                                </a>
+                              <router-link
+                                :to="'/products/inner-product/' + product._id"
+                                target="_blank"
+                                title="View"
+                                class="action_btn mr_10"
+                              >
+                                <i class="far fa-eye"></i>
                               </router-link>
-                              <a
-                                title="Delete"
+                              <span
+                                @click="activateOrDeact(product._id)"
+                                title="Disable"
                                 class="action_btn"
-                                data-toggle="modal"
-                                data-target="#exampleModalCenter"
                               >
                                 <i class="fas fa-trash"></i>
-                              </a>
+                              </span>
                             </div>
                           </td>
                         </tr>
@@ -199,6 +198,7 @@ export default {
     return {
       products: null,
       search: "",
+      token: JSON.parse(localStorage.getItem("user")).token,
     };
   },
   methods: {
@@ -208,8 +208,27 @@ export default {
       );
       const { data } = await res.json();
 
-      this.products = data;
+      this.products = data.filter((val) => val.status == "active");
       console.log(this.products);
+
+      // this.products = data;
+      // console.log(this.products);
+    },
+    async activateOrDeact(id) {
+      console.log(id);
+      const res = await fetch(
+        "https://producemart.herokuapp.com/verifyProduct/" + id,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: this.token,
+          },
+          body: JSON.stringify({ verify: "disabled" }),
+        }
+      );
+      console.log(res);
+      if (res.ok) this.getAllproducts();
     },
   },
   computed: {

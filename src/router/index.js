@@ -117,6 +117,11 @@ import DashEmailBuyer from "../views/dashboard/EmailBuyer.vue";
 import DashEmailSupplier from "../views/dashboard/EmailSupplier.vue";
 import DashEmailInspector from "../views/dashboard/EmailInspector.vue";
 import DashEmailShipper from "../views/dashboard/EmailShipper.vue";
+import EditBuyerEmail from "../views/dashboard/EditBuyerEmail.vue";
+import EditSupplierEmail from "../views/dashboard/EditSupplierEmail.vue";
+import EditShipperEmail from "../views/dashboard/EditShipperEmail.vue";
+import EditInspectorEmail from "../views/dashboard/EditInspectorEmail.vue";
+import AddEmail from "../views/dashboard/AddEmail.vue";
 //access level
 import DashCreateAdmin from "../views/dashboard/CreateAdmin.vue";
 import DashViewAdmin from "../views/dashboard/ViewAdmin.vue";
@@ -555,6 +560,31 @@ const routes = [
     path: "/dashboard/shipper-email",
     name: "DashEmailShipper",
     component: DashEmailShipper,
+  },
+  {
+    path: "/dashboard/edit-buyer-email/:id",
+    name: "EditBuyerEmail",
+    component: EditBuyerEmail,
+  },
+  {
+    path: "/dashboard/edit-supplier-email/:id",
+    name: "EditSupplierEmail",
+    component: EditSupplierEmail,
+  },
+  {
+    path: "/dashboard/edit-shipper-email/:id",
+    name: "EditShipperEmail",
+    component: EditShipperEmail,
+  },
+  {
+    path: "/dashboard/edit-inspector-email/:id",
+    name: "EditInspectorEmail",
+    component: EditInspectorEmail,
+  },
+  {
+    path: "/dashboard/add-email",
+    name: "AddEmail",
+    component: AddEmail,
   },
   //access level
   {

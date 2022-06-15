@@ -58,6 +58,11 @@
               ><a>Shipper</a></router-link
             >
           </li>
+          <li>
+            <router-link to="/dashboard/add-email"
+              ><a>Add Email</a></router-link
+            >
+          </li>
           <!-- <li><router-link to="/dashboard/mail-box"><a>Mail Box</a></router-link></li>
                     <li><router-link to="/dashboard/compose-mail"><a>Compose Mail</a></router-link></li>
                     <li><router-link to="/dashboard/sent-mail"><a>Sent Mail</a></router-link></li>
