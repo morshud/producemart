@@ -147,16 +147,15 @@ export default {
     async fetchPublishedProduct() {
       this.products = null;
       const res = await fetch(
-        "https://producemart.herokuapp.com/getProductsbyUser?status=disabled",
+        "https://producemart.herokuapp.com/getAllProducts",
         {
           method: "GET",
-          headers: {
-            Authorization: this.token,
-          },
         }
       );
       const { data } = await res.json();
-      this.products = data;
+      this.products = data.filter(
+        (prod) => prod.status == "disabled" || prod.available == false
+      );
       console.log(data);
     },
     async deleteProduct(id) {

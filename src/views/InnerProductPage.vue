@@ -414,7 +414,7 @@
                         <option
                           v-for="(country, i) in countries"
                           :value="country"
-                          :key="country"
+                          :key="i"
                         >
                           {{ country }}
                         </option>
