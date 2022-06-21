@@ -534,7 +534,7 @@ const routes = [
     component: DashViewQuotes,
   },
   {
-    path: "/dashboard/quotes/quotes0001",
+    path: "/dashboard/quotes/:id",
     name: "DashQuotes0001",
     component: DashQuotes0001,
   },
