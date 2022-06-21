@@ -15,7 +15,7 @@
                                 <div class="col-lg-8">
                                     <div class="dashboard_header_title">
                                         <h3>View Quotes</h3>
-                                        <span><strong>Quote Title Here</strong></span>
+                                        <span><strong>{{product.name}}</strong></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -39,29 +39,27 @@
                                 </div>
                                 <div class="card QA_table">
                                     <div class="card-header">
-                                        #345444 - Quotation From Supplier Tobilola
+                                        #{{quote._id}} - Quotation From Supplier {{supplier.firstname}}
                                     </div>
                                     <div class="card-body">
                                         <div class="row mb-4">
                                             <div class="col-sm-6">
                                                 <h6 class="mb-3">From:</h6>
                                                 <div>
-                                                    <strong>Supplier: Tobiloba Justice</strong>
+                                                    <strong>Supplier: {{supplier.firstname}} {{supplier.lastname}}</strong>
                                                 </div>
-                                                <div>Nigeria</div>
-                                                <div>Street Address, Lagos.</div>
-                                                <div>Email: <a href="#">myemail@email.com</a></div>
-                                                <div>Phone: +2348012345678</div>
+                                                <div>Email: <a href="#">{{supplier.email}}</a></div>
+                                                <div>Phone: {{supplier.phone_no}}</div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <h6 class="mb-3">TO:</h6>
                                                 <div>
-                                                    <strong>Buyer: Goriola Ayomide</strong>
+                                                    <strong>Buyer: {{buyer.firstname}} {{buyer.lastname}}</strong>
                                                 </div>
-                                                <div>Nigeria</div>
-                                                <div>Street Address, Lagos.</div>
-                                                <div>Email: <a href="#">myemail@email.com</a></div>
-                                                <div>Phone: +2348012345678</div>
+                                                <!-- <div>Nigeria</div>
+                                                <div>Street Address, Lagos.</div> -->
+                                                <div>Email: <a href="#">{{buyer.email}}</a></div>
+                                                <div>Phone: {{buyer.phone_no}}</div>
                                             </div>
                                         </div>
                                         <div class="table-responsive-sm">
@@ -71,39 +69,21 @@
                                                     <th class="center">#</th>
                                                     <th class="center">Quote ID</th>
                                                     <th class="center">Product Name</th>
-                                                    <th class="center">Product ID</th>
-                                                    <th>Product <br> Specification</th>
-                                                    <th>Shipping Details</th>
+                                                    <th class="center">Product Variety</th>
                                                     <th class="center">Quantity <br> Ordered</th>
                                                     <th class="right">Price of Product ($)</th>
-                                                    <th class="right">Product Details</th>
                                                     <th class="right">Total ($)</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class="center">1</td>
-                                                    <td class="left strong">#345444</td>
-                                                    <td class="left strong">Orange</td>
-                                                    <td class="right">orange123RQ3</td>
-                                                    <td class="center"></td>
-                                                    <td class="center">Road</td>
-                                                    <td class="center">3 bags</td>
-                                                    <td class="right">20</td>
-                                                    <td class="right">120kg</td>
-                                                    <td class="right">60</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="center">2</td>
-                                                    <td class="left strong">#345444</td>
-                                                    <td class="left strong">Cocoa</td>
-                                                    <td class="right">cocoa39GGF</td>
-                                                    <td class="center"></td>
-                                                    <td class="center">Road</td>
-                                                    <td class="center">6 bags</td>
-                                                    <td class="right">60</td>
-                                                    <td class="right">200kg</td>
-                                                    <td class="right">360</td>
+                                                    <td class="center">#</td>
+                                                    <td class="left strong">#{{quote._id}}</td>
+                                                    <td class="left strong">{{product.name}}</td>
+                                                    <td class="right">{{product.variety}}</td>
+                                                    <td class="center">{{quote.quantity}}{{product.order.qty_unit}}</td>
+                                                    <td class="right">{{product.package.price}}</td>
+                                                    <td class="right">${{quote.quantity * product.package.price.slice(1)}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -116,7 +96,7 @@
                                                                 <td class="left">
                                                                     <strong>Total Weight</strong>
                                                                 </td>
-                                                                <td class="right">320kg</td>
+                                                                <td class="right">{{quote.quantity * product.package.weight}} {{product.package.unit}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="left">
@@ -172,12 +152,46 @@
     import DashSidebar from './dash-sidebar.vue'
     import DashNavbar from './dash-navbar.vue'
     import DashFooter from './dash-footer.vue'
+    import QUOTE from '../../service/quote-service'
     export default {
       name: "Produce Mart",
       components:{
-      'dash-sidebar': DashSidebar,
-      'dash-navbar': DashNavbar,
-      'dash-footer': DashFooter,
+        'dash-sidebar': DashSidebar,
+        'dash-navbar': DashNavbar,
+        'dash-footer': DashFooter,
+      },
+      data(){
+          return{
+            quoteId: this.$route.params.id,
+            buyer: {
+
+            },
+            destination: {
+
+            },
+            supplier: {},
+            product:{
+                order: '',
+                package: ''
+            },
+            quote: ''
+          }
+      },
+      created(){
+          this.getSingleQuote()
+      },
+      methods: {
+        getSingleQuote(){
+            QUOTE.getSingleQuote(this.quoteId).then(res => {
+                let result = res.data.data
+                this.product = result.product
+                this.supplier = result.supplier
+                this.buyer = result.buyer
+                this.destination = result.destination
+                this.quote = result
+                console.log(result);
+            })
+        }
       },
       mounted(){
         window.scrollTo(0,0)

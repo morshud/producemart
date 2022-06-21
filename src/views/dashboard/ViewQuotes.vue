@@ -60,14 +60,14 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>#345444</td>
-                                                <td>Supplier - Tobilola</td>
-                                                <td>myemail@email.com</td>
-                                                <td>2022-03-30</td>
+                                            <tr v-for="item in quotes" :key="item.id">
+                                                <th scope="row">#</th>
+                                                <td>#{{item._id}}</td>
+                                                <td>Supplier - {{item.supplier.company_name}}</td>
+                                                <td>{{item.buyer.email}}</td>
+                                                <td>{{new Date(item.createdAt).toISOString().slice(0, 10)}}</td>
                                                 <td>
-                                                    <router-link to="/dashboard/quotes/quotes0001"><button class="status_view">View</button></router-link>
+                                                    <router-link :to="'/dashboard/quotes/'+item._id" ><button class="status_view">View</button></router-link>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -104,12 +104,29 @@
     import DashSidebar from './dash-sidebar.vue'
     import DashNavbar from './dash-navbar.vue'
     import DashFooter from './dash-footer.vue'
+    import QUOTE from '../../service/quote-service'
     export default {
       name: "Produce Mart",
       components:{
       'dash-sidebar': DashSidebar,
       'dash-navbar': DashNavbar,
       'dash-footer': DashFooter,
+      },
+      data(){
+        return{
+            quotes: [],
+        }
+      },
+      created(){
+        this.getQuotes()
+      },
+      methods: {
+        getQuotes(){
+            QUOTE.getQuotes().then(res => {
+                this.quotes = res.data.data
+                console.log(res.data)
+            })
+        }
       },
       mounted(){
         window.scrollTo(0,0)

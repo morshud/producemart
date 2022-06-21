@@ -46,6 +46,18 @@ class QUOTE {
     });
   }
 
+  getQuotes() {
+    return axios.get(API_URL + "product/" + "getQuotes", {
+      headers: authHeader()
+    });
+  }
+
+  getSingleQuote(id) {
+    return axios.get(API_URL + "product/" + "getQuoteById/"+ id, {
+      headers: authHeader()
+    });
+  }
+
 }
 
 export default new QUOTE();

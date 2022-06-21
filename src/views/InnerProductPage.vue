@@ -160,7 +160,8 @@
                   disabled
                   class="input"
                 />
-                <input :min="product.order.min_quantity" @keyup="minimum(product.order.min_quantity)" type="number" placeholder="Input quantity" v-model="quantity" class="input" />
+                <input :min="product.order.min_quantity" @keyup="minimum(product.order.min_quantity)" type="number" :placeholder="'Minimum of '+ product.order.min_quantity + product.package.unit" v-model="quantity" class="input" />
+                <p style="color: red">{{errMessage}}</p>
                 <input
                   type="button"
                   name="next"
@@ -241,13 +242,20 @@
                       <label>Port</label>
                       <select v-model="airPort" class="input">
                         <option>Select Port</option>
+                        <option value="Lagos">Lagos</option>
                       </select>
                     </div>
                     <div class="col-lg-12">
                       <label>Incoterms</label>
                       <select v-model="airIncoterm" class="input">
-                        <option>Select Port</option>
-                        <option value="Lagos">Lagos</option>
+                        <option>Select Incoterm</option>
+                        <option value="EXW - ExWorks">EXW - ExWorks</option>
+                        <option value="FCA - Free Carrier">FCA - Free Carrier</option>
+                        <option value="CIP - Carriage & Insurance Paid">CIP - Carriage & Insurance Paid</option>
+                        <option value="CPT - Carriage Paid To">CPT - Carriage Paid To</option>
+                        <option value="DDP - Delivered Duty Paid">DDP - Delivered Duty Paid</option>
+                        <option value="DAP - Delivered at Place">DAP - Delivered at Place</option>
+                        <option value="DPU - Delivered at Place Unload">DPU - Delivered at Place Unload</option>
                       </select>
                     </div>
                   </div>
@@ -282,7 +290,18 @@
                     <div class="col-lg-12">
                       <label>Incoterms</label>
                       <select v-model="seaIncoterm" class="input">
-                        <option>Select Port</option>
+                        <option>Select Incoterm</option>
+                        <option value="EXW - ExWorks">EXW - ExWorks</option>
+                        <option value="FCA - Free Carrier">FCA - Free Carrier</option>
+                        <option value="CIP - Carriage & Insurance Paid">CIP - Carriage & Insurance Paid</option>
+                        <option value="CPT - Carriage Paid To">CPT - Carriage Paid To</option>
+                        <option value="DDP - Delivered Duty Paid">DDP - Delivered Duty Paid</option>
+                        <option value="DAP - Delivered at Place">DAP - Delivered at Place</option>
+                        <option value="DPU - Delivered at Place Unload">DPU - Delivered at Place Unload</option>
+                        <option value="FAS - Free Alongside Shipping">FAS - Free Alongside Shipping</option>
+                        <option value="FOB - Free On Board">FOB - Free On Board</option>
+                        <option value="CFR - Cost & Freight">CFR - Cost & Freight</option>
+                        <option value="CIF - Cost Insurance Freght">CIF - Cost Insurance Freght</option>
                       </select>
                     </div>
                   </div>
@@ -326,6 +345,19 @@
                     <div class="col-lg-6">
                       <label>Postal/Zip code</label>
                       <input v-model="roadZip" type="text" class="input" />
+                    </div>
+                    <div class="col-lg-12">
+                      <label>Incoterms</label>
+                      <select v-model="roadIncoterm" class="input">
+                        <option>Select Incoterm</option>
+                        <option value="EXW - ExWorks">EXW - ExWorks</option>
+                        <option value="FCA - Free Carrier">FCA - Free Carrier</option>
+                        <option value="CIP - Carriage & Insurance Paid">CIP - Carriage & Insurance Paid</option>
+                        <option value="CPT - Carriage Paid To">CPT - Carriage Paid To</option>
+                        <option value="DDP - Delivered Duty Paid">DDP - Delivered Duty Paid</option>
+                        <option value="DAP - Delivered at Place">DAP - Delivered at Place</option>
+                        <option value="DPU - Delivered at Place Unload">DPU - Delivered at Place Unload</option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -414,6 +446,10 @@
                         <td class="tdMain">Postal Code</td>
                         <td class="tdBody">{{roadZip}}</td>
                       </tr>
+                      <tr class="bodyRow">
+                        <td class="tdMain">Incoterm</td>
+                        <td class="tdBody">{{roadIncoterm}}</td>
+                      </tr>
                     </table>
                   </div>
                   <div class="bySea">
@@ -427,6 +463,10 @@
                         <td class="tdMain">Country</td>
                         <td class="tdBody">{{seaCountry}}</td>
                       </tr>
+                      <tr class="bodyRow">
+                        <td class="tdMain">Incoterm</td>
+                        <td class="tdBody">{{seaIncoterm}}</td>
+                      </tr>
                     </table>
                   </div>
                   <div class="byAir">
@@ -439,6 +479,10 @@
                       <tr class="bodyRow">
                         <td class="tdMain">Country</td>
                         <td class="tdBody">{{airCountry}}</td>
+                      </tr>
+                      <tr class="bodyRow">
+                        <td class="tdMain">Incoterm</td>
+                        <td class="tdBody">{{airIncoterm}}</td>
                       </tr>
                     </table>
                   </div>
@@ -1075,6 +1119,7 @@ export default {
       roadState: '',
       roadCountry: '',
       roadZip: '',
+      roadIncoterm: '',
       products: null,
       id: this.$route.params.id,
       countries: countries,
@@ -1082,6 +1127,7 @@ export default {
       Pagination, 
       Navigation,
       modal: null,
+      errMessage: '',
     };
   },
   methods: {
@@ -1130,7 +1176,16 @@ export default {
     },
     minimum(item){
       if(this.quantity < item){
-        this.quantity = item
+        this.errMessage = `oOps!, quantity cannot be less than ${item}`
+      }
+      else if(this.quantity >= item){
+        this.errMessage = ''
+      }
+      else if(this.quantity == ''){
+        this.errMessage = ''
+      }
+      else{
+        this.errMessage = ''
       }
     },
 
