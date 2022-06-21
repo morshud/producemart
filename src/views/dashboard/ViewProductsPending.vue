@@ -117,15 +117,22 @@
                           <td>{{ product.status }}</td>
                           <td>
                             <span
-                              @click="activateOrDeact(product._id, 'active')"
+                              @click="
+                                activateOrDeact(
+                                  product._id,
+                                  'active',
+                                  product.name
+                                )
+                              "
                               class="status_btn"
+                              title="Click to activate product"
                               >Activate</span
                             >
                           </td>
                           <td>
                             <div class="action_btns d-flex">
                               <router-link
-                                :to="'/products/inner-product/' + product._id"
+                                :to="'/dashboard/product-review/' + product._id"
                                 target="_blank"
                                 title="View"
                                 class="action_btn mr_10"
@@ -134,7 +141,11 @@
                               </router-link>
                               <span
                                 @click="
-                                  activateOrDeact(product._id, 'disabled')
+                                  activateOrDeact(
+                                    product._id,
+                                    'disabled',
+                                    product.name
+                                  )
                                 "
                                 title="Disable"
                                 class="action_btn"
@@ -165,6 +176,7 @@
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
+import Swal from "sweetalert2";
 export default {
   name: "Produce Mart",
   components: {
@@ -200,7 +212,7 @@ export default {
       this.products = data.filter((val) => val.status == "pending");
       console.log(this.products);
     },
-    async activateOrDeact(id, action) {
+    async activateOrDeact(id, action, name) {
       // console.log(this.token);
       const res = await fetch(
         "https://producemart.herokuapp.com/verifyProduct/" + id,
@@ -213,7 +225,23 @@ export default {
           body: JSON.stringify({ verify: action }),
         }
       );
-      if (res.ok) this.getAllproducts();
+      if (res.ok) {
+        this.getAllproducts();
+        Swal.fire({
+          title: name + " has been activated!",
+          text: "Product is now listed for buyers",
+          icon: "success",
+          showCancelButton: true,
+          confirmButtonColor: "#97f29f",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Activate more",
+          cancelButtonText: "Active products",
+        }).then((result) => {
+          if (!result.isConfirmed) {
+            this.$router.push("/dashboard/active-products");
+          }
+        });
+      }
     },
   },
   computed: {

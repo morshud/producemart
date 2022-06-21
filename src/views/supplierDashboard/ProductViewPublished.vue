@@ -45,7 +45,10 @@
                 Products</router-link
               >
             </div>
-            <div class="row justify-content-center summaryBox" v-if="product">
+            <div
+              class="row justify-content-center summaryBox"
+              v-if="product && product.status != 'incomplete'"
+            >
               <div class="col-lg-12">
                 <h1>Product Summary</h1>
                 <div class="lineHr"></div>
@@ -86,18 +89,19 @@
                   <tr>
                     <td class="mainText">weight of packaging:</td>
                     <td class="contentText">
-                      {{ product.packages && product.packages.pckWgt }}
+                      {{ product.package && product.package.weight }}
+                      {{ product.package && product.package.weight_unit }}
                     </td>
                   </tr>
                   <tr>
                     <td class="mainText">price of packaging:</td>
                     <td class="contentText">
-                      ${{ product.packages && product.packages.pckPrice }}
+                      {{ product.package && product.package.price }}
                     </td>
                   </tr>
                 </table>
               </div>
-              <div class="row mt-4">
+              <!-- <div class="row mt-4">
                 <div class="col-lg-6">
                   <span class="spanAction">Enable Product</span>
                   <label class="switchDisable">
@@ -110,23 +114,8 @@
                   </label>
                   <span class="spanAction">Disable Product</span>
 
-                  <!-- <div class="disableBtn">
-                                        <a href="#disable-click">Open Modal Content</a>
-                                    </div>
-                                    <div id="disable-click" class="disable-box">
-                                        <div class="disable-content">
-                                            <h1>Are you sure you want to disable this product?</h1>
-                                            <p>Customers will no longer be able to view this product.</p>
-                                            <p>Disabled products can be found in the 'unpublished products' section of the MY PRODUCTS tab.</p>
-                                            <div class="actionBtn">
-                                                <a href="#" class="cancel-btn">Cancel</a>
-                                                <a href="#" class="disable-btn">Disable!</a>
-                                            </div>
-                                            <a href="#" class="modal__close">&times;</a>
-                                        </div>
-                                    </div> -->
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
 
@@ -273,6 +262,7 @@
                       <label for="yesAvailable" class="radioSpan"
                         >YES, available year round</label
                       >
+
                       <input
                         type="radio"
                         @click="available = true"
@@ -2212,15 +2202,15 @@ export default {
       this.gmo = this.product.GMO;
       this.country = this.product.country;
       this.location = this.product.location;
-      this.yearRoundAvailableStatus = this.product.yearRoundAvailableStatus;
-      this.yearRoundAvailableFrom = this.product.yearRoundAvailableFrom;
-      this.yearRoundAvailableTo = this.product.yearRoundAvailableTo;
+      this.yearRoundAvailableStatus = this.product.yearRoundAvailable.status;
+      this.yearRoundAvailableFrom = this.product.yearRoundAvailable.from;
+      this.yearRoundAvailableTo = this.product.yearRoundAvailable.to;
       this.specialStorageConditionStatus =
-        this.product.specialStorageConditionStatus;
+        this.product.specialStorageCondition.status;
       this.specialStorageConditionDetails =
         this.product.specialStorageConditionDetails;
       this.temperatureControlledStatus =
-        this.product.temperatureControlledStatus;
+        this.product.temperatureControlled.status;
       this.temperatureControlledDetails =
         this.product.temperatureControlledDetails;
       this.category = this.product.category;

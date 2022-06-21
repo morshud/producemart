@@ -166,7 +166,10 @@
                   </router-link>
                   <div class="detailArea">
                     <h5>{{ product.name }}</h5>
-                    <p>${{ Math.floor(Math.random() * 25) }} per 100kg</p>
+                    <p>
+                      {{ product.package.price }} per {{ product.package.weight
+                      }}{{ product.package.weight_unit }}
+                    </p>
                     <router-link
                       :to="'/products/inner-product/' + product._id"
                       class="route-link"

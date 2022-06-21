@@ -359,7 +359,7 @@
                 All Products
               </button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item" role="presentation" v-if="categories[0]">
               <button
                 class="nav-link tabs-button"
                 id="pills-fruits-tab"
@@ -370,10 +370,10 @@
                 aria-controls="pills-fruits"
                 aria-selected="false"
               >
-                Fruits
+                {{ categories[0] }}
               </button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item" role="presentation" v-if="categories[1]">
               <button
                 class="nav-link tabs-button"
                 id="pills-vegetable-tab"
@@ -384,10 +384,10 @@
                 aria-controls="pills-vegetable"
                 aria-selected="false"
               >
-                Vegetable
+                {{ categories[1] }}
               </button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item" role="presentation" v-if="categories[2]">
               <button
                 class="nav-link tabs-button"
                 id="pills-oil-tab"
@@ -398,7 +398,7 @@
                 aria-controls="pills-oil"
                 aria-selected="false"
               >
-                Oil
+                {{ categories[2] }}
               </button>
             </li>
           </ul>
@@ -468,11 +468,11 @@
               role="tabpanel"
               aria-labelledby="pills-fruits-tab"
             >
-              <div class="container contProduct" v-if="productFruit">
+              <div class="container contProduct" v-if="firstProductCategory">
                 <div class="row">
                   <div
                     class="itemProduct"
-                    v-for="(product, i) in productFruit"
+                    v-for="(product, i) in firstProductCategory"
                     :key="i"
                   >
                     <router-link to="#">
@@ -512,11 +512,11 @@
               role="tabpanel"
               aria-labelledby="pills-vegetable-tab"
             >
-              <div class="container contProduct" v-if="productVegetable">
+              <div class="container contProduct" v-if="secondProductCategory">
                 <div class="row">
                   <div
                     class="itemProduct"
-                    v-for="(product, i) in productVegetable"
+                    v-for="(product, i) in secondProductCategory"
                     :key="i"
                   >
                     <router-link to="#">
@@ -556,11 +556,11 @@
               role="tabpanel"
               aria-labelledby="pills-oil-tab"
             >
-              <div class="container contProduct" v-if="productOil">
+              <div class="container contProduct" v-if="thirdProductCategory">
                 <div class="row">
                   <div
                     class="itemProduct"
-                    v-for="(product, i) in productOil"
+                    v-for="(product, i) in thirdProductCategory"
                     :key="i"
                   >
                     <router-link to="#">
@@ -788,9 +788,10 @@ export default {
         backgroundImage: `url(${require("@/assets/img/sliderImg3.jpg")})`,
       },
       products: null,
-      productFruit: null,
-      productVegetable: null,
-      productOil: null,
+      firstProductCategory: null,
+      secondProductCategory: null,
+      thirdProductCategory: null,
+      categories: [],
     };
   },
   mounted() {
@@ -805,13 +806,22 @@ export default {
       const { data } = await res.json();
 
       this.products = data.filter((val) => val.status == "active");
-      this.productFruit = this.products.filter(
-        (prd) => prd.category == "fruit"
+      this.products.map((prod) => {
+        if (prod.category != this.categories[this.categories.length])
+          this.categories.push(prod.category);
+      });
+      console.log(this.categories[0]);
+
+      this.firstProductCategory = this.products.filter(
+        (prd) => prd.category == this.categories[0]
       );
-      this.productVegetable = this.products.filter(
-        (prd) => prd.category == "vegetable"
+      console.log(this.firstProductCategory);
+      this.secondProductCategory = this.products.filter(
+        (prd) => prd.category == this.categories[1]
       );
-      this.productOil = this.products.filter((prd) => prd.category == "oil");
+      this.thirdProductCategory = this.products.filter(
+        (prd) => prd.category == this.categories[2]
+      );
       console.log(this.products);
 
       // this.products = data;

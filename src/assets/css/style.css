@@ -2246,7 +2246,8 @@ p a:hover {
 }
 
 .common_input input,
-.common_input textarea, .common_input select {
+.common_input textarea,
+.common_input select {
   background-color: #fff;
   border: 0;
   padding: 12px 10px;
@@ -2260,7 +2261,7 @@ p a:hover {
 }
 
 .common_input input,
-.common_input textarea::placeholder{
+.common_input textarea::placeholder {
   color: #444444;
   font-weight: 400;
   font-size: 14px;
@@ -2268,7 +2269,7 @@ p a:hover {
   background: 0 0;
 }
 
-.common_input label{
+.common_input label {
   padding-bottom: 5px;
   font-size: 14px;
   font-weight: 500;
@@ -2774,6 +2775,9 @@ p a:hover {
   white-space: nowrap;
   min-width: 70px;
   text-align: center;
+}
+.status_btn:hover {
+  cursor: pointer;
 }
 .status_await {
   display: inline-block;

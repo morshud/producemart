@@ -70,12 +70,23 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <div class="common_input">
-                        <label>Street</label>
+                        <label>Address Line 1</label>
                         <input
                           cols="30"
                           rows="3"
-                          placeholder="19, John green way."
+                          placeholder="Steet adress, P.O box, company name, warehouse"
                           v-model="address.street"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-12 mb-2">
+                      <div class="common_input">
+                        <label>Address Line 2</label>
+                        <input
+                          cols="30"
+                          rows="3"
+                          placeholder="Apartment, suite, unit, building, floor etc"
+                          v-model="streetTwo"
                         />
                       </div>
                     </div>
@@ -92,12 +103,23 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <div class="common_input">
-                        <label>State</label>
+                        <label>State/Province/Region</label>
                         <input
                           cols="30"
                           rows="3"
                           placeholder="Georgia"
                           v-model="address.state"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-12 mb-2">
+                      <div class="common_input">
+                        <label>Zip/Postal code</label>
+                        <input
+                          cols="30"
+                          rows="3"
+                          placeholder="100213"
+                          v-model="zip"
                         />
                       </div>
                     </div>
@@ -175,6 +197,8 @@ export default {
       message: "",
       loading: false,
       countries: countries,
+      streetTwo: "",
+      zip: "",
       token: JSON.parse(localStorage.getItem("user")).token,
       address: { name: "", street: "", city: "", state: "", country: "" },
     };
@@ -191,12 +215,24 @@ export default {
           return false;
         }
       }
+      if (this.zip == "") {
+        this.message = "Please fill the zip field";
+        return false;
+      }
       return true;
     },
     async addAdress() {
       console.log("Submitting!!!");
       this.loading = true;
       if (this.notEmpty()) {
+        this.address.street = this.address.street + " " + this.streetTwo;
+        this.address.street[this.address.street.length - 1] != ","
+          ? (this.address.street += ",")
+          : "";
+        this.address.city[this.address.city.length - 1] != ","
+          ? (this.address.city += ",")
+          : "";
+        this.address.country = this.address.country + " " + this.zip;
         const res = await fetch(
           "https://producemart.herokuapp.com/addAddress",
           {

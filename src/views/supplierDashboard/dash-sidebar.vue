@@ -124,8 +124,13 @@
             >
           </li>
           <li>
+            <router-link to="/supplier-dashboard/rejected-products"
+              ><a>Rejected Products</a></router-link
+            >
+          </li>
+          <li>
             <router-link to="/supplier-dashboard/disable-products"
-              ><a>Disable Products</a></router-link
+              ><a>Unavailable Products</a></router-link
             >
           </li>
           <li>

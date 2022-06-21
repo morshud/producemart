@@ -4,6 +4,7 @@ import About from "../views/About.vue";
 import RequestAProduct from "../views/RequestAProduct.vue";
 import Products from "../views/Products.vue";
 import InnerProductPage from "../views/InnerProductPage.vue";
+
 import Faq from "../views/Faq.vue";
 import Blog from "../views/Blog.vue";
 import BlogContent from "../views/BlogContent.vue";
@@ -59,6 +60,7 @@ import DashSupplierOrderViewCancelled from "../views/supplierDashboard/OrderView
 import DashSupplierProductUpload from "../views/supplierDashboard/ProductUpload.vue";
 import DashSupplierProductPublished from "../views/supplierDashboard/ProductPublished.vue";
 import DashSupplierProductPending from "../views/supplierDashboard/ProductPending.vue";
+import DashSupplierProductRejected from "../views/supplierDashboard/ProductRejected.vue";
 import DashSupplierProductDisable from "../views/supplierDashboard/ProductDisable.vue";
 import DashSupplierProductDraft from "../views/supplierDashboard/ProductDraft.vue";
 import DashSupplierProductDraftContinue from "../views/supplierDashboard/ContinueProductUpload.vue";
@@ -84,6 +86,7 @@ import DashViewProductsActive from "../views/dashboard/ViewProductsActive.vue";
 import DashEditProductStatus from "../views/dashboard/EditProductStatus.vue";
 import DashViewProductsPending from "../views/dashboard/ViewProductsPending.vue";
 import DashViewProductsDisable from "../views/dashboard/ViewProductsDisable.vue";
+import AdminProductReview from "../views/dashboard/AdminProductReview.vue";
 //orders
 import DashViewOrders from "../views/dashboard/ViewOrders.vue";
 //buyers
@@ -121,7 +124,7 @@ import EditBuyerEmail from "../views/dashboard/EditBuyerEmail.vue";
 import EditSupplierEmail from "../views/dashboard/EditSupplierEmail.vue";
 import EditShipperEmail from "../views/dashboard/EditShipperEmail.vue";
 import EditInspectorEmail from "../views/dashboard/EditInspectorEmail.vue";
-import AddEmail from "../views/dashboard/AddEmail.vue";
+// import AddEmail from "../views/dashboard/AddEmail.vue";
 //access level
 import DashCreateAdmin from "../views/dashboard/CreateAdmin.vue";
 import DashViewAdmin from "../views/dashboard/ViewAdmin.vue";
@@ -156,6 +159,7 @@ const routes = [
     name: "InnerProductPage",
     component: InnerProductPage,
   },
+
   { path: "/faq", name: "Faq", component: Faq },
   { path: "/blog", name: "Blog", component: Blog },
   { path: "/blog-content/:title", name: "BlogContent", component: BlogContent },
@@ -339,6 +343,11 @@ const routes = [
     component: DashSupplierProductPending,
   },
   {
+    path: "/supplier-dashboard/rejected-products",
+    name: "DashSupplierProductRejected",
+    component: DashSupplierProductRejected,
+  },
+  {
     path: "/supplier-dashboard/disable-products",
     name: "DashSupplierProductDisable",
     component: DashSupplierProductDisable,
@@ -427,6 +436,11 @@ const routes = [
     path: "/dashboard/disable-products",
     name: "DashViewProductsDisable",
     component: DashViewProductsDisable,
+  },
+  {
+    path: "/dashboard/product-review/:id",
+    name: "AdminProductReview",
+    component: AdminProductReview,
   },
   //orders
   {
@@ -581,11 +595,11 @@ const routes = [
     name: "EditInspectorEmail",
     component: EditInspectorEmail,
   },
-  {
-    path: "/dashboard/add-email",
-    name: "AddEmail",
-    component: AddEmail,
-  },
+  // {
+  //   path: "/dashboard/add-email",
+  //   name: "AddEmail",
+  //   component: AddEmail,
+  // },
   //access level
   {
     path: "/dashboard/create-admin",

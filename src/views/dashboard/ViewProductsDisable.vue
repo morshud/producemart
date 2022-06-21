@@ -125,7 +125,7 @@
                           <td>
                             <div class="action_btns d-flex">
                               <router-link
-                                :to="'/products/inner-product/' + product._id"
+                                :to="'/dashboard/product-review/' + product._id"
                                 target="_blank"
                                 title="View"
                                 class="action_btn mr_10"

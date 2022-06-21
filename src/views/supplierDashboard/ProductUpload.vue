@@ -289,7 +289,7 @@
                     <button
                       type="button"
                       class="btn btn-next width-100 ml-auto"
-                      :disabled="disableNxt"
+                      :disable="disableNxt"
                     >
                       Next
                     </button>
@@ -1292,15 +1292,20 @@
                     </div>
                   </div>
                   <small class="uploadSmallPicture"
-                    >(accepted image format: jpeg, jpg, png, webp)</small
+                    >(accepted image format: jpeg, jpg, png, webp. Max file
+                    size: 200kb)</small
                   >
                   <button
                     class="removeImgBtn"
                     type="button"
                     @click="removeDispImg(0)"
+                    v-if="displayImg[0]"
                   >
                     Remove Image
                   </button>
+                  <small class="uploadSmallPicture" v-if="imgSizeMsg">{{
+                    imgSizeMsg
+                  }}</small>
                 </div>
                 <div
                   class="col-lg-6 mt-2 mb-3 upload-more-image"
@@ -1336,6 +1341,7 @@
                     class="removeImgBtn mb-2 mt-1"
                     type="button"
                     @click="removeDispImg(newImg)"
+                    v-if="displayImg[i + 1]"
                   >
                     Remove Image
                   </button>
@@ -1346,6 +1352,9 @@
                     class="removeField mt-1"
                     >Remove Field</span
                   >
+                  <small class="uploadSmallPicture" v-if="imgSizeMsg">{{
+                    imgSizeMsg
+                  }}</small>
                 </div>
 
                 <div class="row mt-3">
@@ -1558,9 +1567,14 @@
                         <td>Certificate File</td>
                       </tr>
                       <tr v-for="(newCert, i) in file" :key="i">
-                        <td>{{ i }}</td>
-                        <td>{{ newCert.name }}</td>
-                        <td>{{ newCert.img.name }}</td>
+                        <td v-if="newCert.img">{{ i }}</td>
+                        <td v-if="newCert.img">{{ newCert.name }}</td>
+                        <td v-if="newCert.img">{{ newCert.img?.name }}</td>
+                        <td v-if="newCert.img">
+                          <span @click="removeFileUpload(i)" class="removeField"
+                            >Remove Field</span
+                          >
+                        </td>
                       </tr>
                     </table>
                   </div>
@@ -1648,12 +1662,26 @@
                       </select>
                     </div>
 
-                    <!-- <input
+                    <input
+                      v-if="packages.unit == 'others'"
                       type="text"
                       class="input"
-                      v-model="packages.unit"
+                      v-model="otherPackageUnit"
                       placeholder="e.g. Bag, Box,Vacuum Pack, Sack, Other"
-                    /> -->
+                    />
+                    <label v-if="packages.unit && name"
+                      >How many {{ name }} are in 1
+                      {{
+                        otherPackageUnit ? otherPackageUnit : packages.unit
+                      }}?</label
+                    >
+                    <input
+                      v-if="packages.unit && name"
+                      type="text"
+                      class="input"
+                      v-model="packages.per_unit"
+                      placeholder="e.g. Bag, Box,Vacuum Pack, Sack, Other"
+                    />
                   </div>
                   <!-- <div class="col-lg-6 mt-4 mb-3" v-if="shipping.fluid.check">
                     <label>Volume of Packaging (litre)</label>
@@ -1671,7 +1699,13 @@
                       <div class="col-lg-12 mb-3">
                         <label>Weight of Packaging</label>
                         <small
-                          >Enter <span>bag</span> weight in kg or lb.</small
+                          >Enter
+                          <span>{{
+                            packages.unit != "others"
+                              ? packages.unit
+                              : otherPackageUnit
+                          }}</span>
+                          weight in kg or lb.</small
                         >
                         <input
                           type="text"
@@ -1690,14 +1724,55 @@
                       <div class="col-lg-12 mt-3">
                         <label>Price of Packaging ($)</label>
                         <small
-                          >Enter a price for one <span>bag</span> unit that your
-                          are selling.</small
+                          >Enter a price for one
+                          <span>{{
+                            packages.unit != "others"
+                              ? packages.unit
+                              : otherPackageUnit
+                          }}</span>
+                          unit that your are selling.</small
                         >
                         <input
                           type="text"
                           class="input"
                           v-model="packages.price"
                         />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 mt-4 mb-3">
+                    <div class="row">
+                      <div class="col-lg-12 headerPackOption">
+                        <h5>Dimension of each product packages</h5>
+                        <!-- <small
+                          >We need the dimension for calculating shipping
+                          costs.</small
+                        > -->
+                      </div>
+                      <div class="col-lg-12">
+                        <label>Select Unit (cm or inches)</label>
+                        <div class="divSelectUnit justify-content-center">
+                          <select
+                            class="input"
+                            v-model="packages.dimension_unit"
+                          >
+                            <option value="cm">cm</option>
+                            <option value="inches">inches</option>
+                          </select>
+                          <div class="divLWH">
+                            <label>Lenght</label>
+                            <input type="number" class="input" v-model="plen" />
+                          </div>
+                          <div class="divLWH">
+                            <label>Width</label>
+                            <input type="number" class="input" v-model="pwid" />
+                          </div>
+                          <div class="divLWH">
+                            <label>Height</label>
+                            <input type="number" class="input" v-model="phgt" />
+                          </div>
+                          <div class="clear"></div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1801,6 +1876,22 @@
                     <input type="text" class="input" v-model="shipment.price" />
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
+                    <p
+                      v-if="
+                        shipment.package &&
+                        shipment.weight &&
+                        shipment.weight_unit &&
+                        shipment.price
+                      "
+                    >
+                      <strong>Note: </strong>
+                      {{
+                        `1 ${shipment.package} weighs ${shipment.weight}${shipment.weight_unit} and your agreed shipping price is
+                      \$${shipment.price}`
+                      }}
+                    </p>
+                  </div>
+                  <div class="col-lg-12 mt-4 mb-3">
                     <label>Number Of Units Per Shipment Package</label>
                     <input
                       type="text"
@@ -1808,17 +1899,17 @@
                       placeholder="e.g. 12 x 1Ltr bottle in a box"
                       v-model="shipment.unit_package_box"
                     />
-                    <input
+                    <!-- <input
                       type="text"
                       class="input"
                       placeholder="e.g. 40 boxes per pallet"
                       v-model="shipment.unit_package_pallet"
-                    />
+                    /> -->
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
                     <div class="row">
                       <div class="col-lg-12 headerPackOption">
-                        <h5>Unit Dimension</h5>
+                        <h5>Dimension of each shipping package</h5>
                         <small
                           >We need the dimension for calculating shipping
                           costs.</small
@@ -1851,18 +1942,26 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-12 mt-4 mb-3">
+                  <div class="col-lg-12 mt-4 mb-3 categoryInnerDiv">
                     <label>Shipping in Container</label>
                     <small
-                      >How many units can fit in a 20 foot shipping container?
-                      This is useful information for the buyer to see the size
-                      of the shipment</small
+                      >How many shipping packages can fit in a 20 foot shipping
+                      container? This is useful information for the buyer to see
+                      the size of the shipment</small
                     >
                     <input
                       type="text"
-                      class="input"
-                      v-model="shipment.unit_container"
+                      class="input inputSize"
+                      v-model="shipment.container_package"
                     />
+                    <select
+                      class="input selectSize"
+                      v-model="shipment.container_unit"
+                    >
+                      <option value="kg">kg</option>
+                      <option value="lb">lb</option>
+                      <option value="ton">ton</option>
+                    </select>
                   </div>
                 </div>
                 <div class="row">
@@ -1925,6 +2024,14 @@
                       <option value="kg">kg</option>
                       <option value="lb">lb</option>
                       <option value="ton">ton</option>
+                      <option value="crate">Crate</option>
+                      <option value="box">Box</option>
+                      <option value="pack">Pack</option>
+                      <option value="pallete">Pallete</option>
+                      <option value="carton">Carton</option>
+                      <option value="carton" v-if="otherPackageUnit">
+                        {{ otherPackageUnit }}
+                      </option>
                     </select>
                   </div>
                   <div class="col-lg-12 text-center">
@@ -2017,6 +2124,8 @@ import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
 import { countries } from "@/assets/countries";
+import Swal from "sweetalert2";
+
 export default {
   name: "Produce Mart",
   components: {
@@ -2081,28 +2190,6 @@ export default {
     );
     document.head.appendChild(externalScriptCustom);
 
-    // $(".image-box").click(function (event) {
-    //   var previewImg = $(this).children("img");
-
-    //   $(this).siblings().children("input").trigger("click");
-
-    //   $(this)
-    //     .siblings()
-    //     .children("input")
-    //     .change(function () {
-    //       var reader = new FileReader();
-
-    //       reader.onload = function (e) {
-    //         var urll = e.target.result;
-    //         $(previewImg).attr("src", urll);
-    //         previewImg.parent().css("background", "transparent");
-    //         previewImg.show();
-    //         previewImg.siblings("p").hide();
-    //       };
-    //       reader.readAsDataURL(this.files[0]);
-    //     });
-    // });
-
     this.getAddress();
   },
   data() {
@@ -2134,6 +2221,9 @@ export default {
       len: null,
       wid: null,
       hgt: null,
+      plen: null,
+      pwid: null,
+      phgt: null,
       name: "",
       variety: "",
       description: "",
@@ -2150,12 +2240,13 @@ export default {
       category: "",
       character: {},
       image: {},
-
+      imgSizeMsg: "",
       addImg: [],
       cert_name: "",
       file: { 1: {} },
       addFile: [],
       packages: {},
+      otherPackageUnit: "",
       shipment: {},
       min_quantity: "",
       min_quantity_unit: "",
@@ -2274,7 +2365,11 @@ export default {
           fd.append("image", this.image[img]);
         }
       }
-      console.log("packages", this.packages);
+      // console.log("packages", this.packages);
+      if (this.plen && this.pwid && this.phgt)
+        this.packages.dimension = `${this.plen} x ${this.pwid} x ${this.phgt}`;
+      console.log("shipment", this.shipment);
+      if (this.otherPackageUnit) this.packages.unit = this.otherPackageUnit;
       this.packages && fd.append("package", JSON.stringify(this.packages));
       if (this.len && this.wid && this.hgt)
         this.shipment.dimension = `${this.len} x ${this.wid} x ${this.hgt}`;
@@ -2303,12 +2398,91 @@ export default {
       if (res.ok) {
         // const data = await res.json();
         // console.log("response", res);
+
         if (uploadOrSave == "save") {
           this.loading = false;
-          this.$router.push("/supplier-dashboard/draft-products");
+          Swal.fire({
+            title: "Product Saved!",
+            text: "Click Yes to view product in draft",
+            icon: "success",
+            confirmButtonColor: "#97f29f",
+            confirmButtonText: "Yes",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.$router.push("/supplier-dashboard/draft-products");
+            }
+          });
         } else {
-          this.loading = false;
-          this.$router.push("/supplier-dashboard/pending-products");
+          (this.address = null),
+            (this.loading = false),
+            (this.message = ""),
+            (this.available = false),
+            (this.storage = false),
+            (this.temperature = false),
+            (this.items = {
+              oil: { check: false },
+              fruit: { check: false },
+              vegetable: { check: false },
+              grain: { check: false },
+              nut: { check: false },
+              coffee: { check: false },
+              flower: { check: false },
+              animalFeed: { check: false },
+              others: { check: false },
+            }),
+            (this.shipping = {
+              fluid: { check: false },
+              others: { check: false },
+            }),
+            (this.len = null),
+            (this.wid = null),
+            (this.hgt = null),
+            (this.plen = null),
+            (this.pwid = null),
+            (this.phgt = null),
+            (this.name = ""),
+            (this.variety = ""),
+            (this.description = ""),
+            (this.farmMethod = ""),
+            (this.gmo = ""),
+            (this.country = ""),
+            (this.yearRoundAvailableStatus = ""),
+            (this.yearRoundAvailableFrom = ""),
+            (this.yearRoundAvailableTo = ""),
+            (this.specialStorageConditionStatus = ""),
+            (this.specialStorageConditionDetails = ""),
+            (this.temperatureControlledStatus = ""),
+            (this.temperatureControlledDetails = ""),
+            (this.category = ""),
+            (this.character = {}),
+            (this.image = {}),
+            (this.imgSizeMsg = ""),
+            (this.addImg = []),
+            (this.cert_name = ""),
+            (this.file = { 1: {} }),
+            (this.addFile = []),
+            (this.packages = {}),
+            (this.otherPackageUnit = ""),
+            (this.shipment = {}),
+            (this.min_quantity = ""),
+            (this.min_quantity_unit = ""),
+            (this.supply_ability = {}),
+            (this.displayImg = []),
+            (this.status = null),
+            Swal.fire({
+              title: "Great Job!",
+              text: "Do you want upload more product?",
+              icon: "success",
+              showCancelButton: true,
+              confirmButtonColor: "#97f29f",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Yes",
+              cancelButtonText: "No, view product",
+            }).then((result) => {
+              if (!result.isConfirmed) {
+                this.$router.push("/supplier-dashboard/pending-products");
+              }
+            });
         }
       } else {
         this.loading = false;
@@ -2347,11 +2521,20 @@ export default {
     },
     onFileChange(n) {
       this.file[n].img = event.target.files[0];
-      console.log(this.file[n].img);
+      console.log(this.file);
     },
     onFieldChange(n) {
+      this.imgSizeMsg = "";
       this.image[n] = event.target.files[0];
-      this.displayImg[n - 1] = URL.createObjectURL(this.image[n]);
+      // console.log(this.image[n].size);
+      if (this.image[n].size < 250000) {
+        this.displayImg[n - 1] = URL.createObjectURL(this.image[n]);
+      } else {
+        this.imgSizeMsg =
+          "***File too large, image upload should not be more than 200kb***";
+        delete this.image[n];
+        this.displayImg[n - 1] && this.displayImg.pop();
+      }
 
       // console.log(this.displayImg[n - 1]);
     },
@@ -2371,6 +2554,10 @@ export default {
     removeFile(n) {
       this.addFile.pop();
       delete this.file[n];
+    },
+    removeFileUpload(n) {
+      delete this.file[n].img;
+      //this.$refs["fileUpload"].value = null;
     },
   },
 };

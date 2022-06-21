@@ -1,5 +1,5 @@
 <template>
-  <title>Published Products - Supplier Dashboard | Produce Mart</title>
+  <title>Rejected Products - Supplier Dashboard | Produce Mart</title>
   <dash-sidebar />
 
   <section class="main_content dashboard_part large_header_bg">
@@ -14,7 +14,7 @@
               <div class="row">
                 <div class="col-lg-8">
                   <div class="dashboard_header_title">
-                    <h3>Published Products</h3>
+                    <h3>Rejected Products</h3>
                   </div>
                 </div>
                 <div class="col-lg-4">
@@ -23,7 +23,7 @@
                       <router-link to="/supplier-dashboard/home"
                         ><a>Dashboard</a></router-link
                       >
-                      <i class="fas fa-caret-right"></i> Published Products
+                      <i class="fas fa-caret-right"></i> Rejected Products
                     </p>
                   </div>
                 </div>
@@ -37,7 +37,7 @@
               <div class="white_card_body">
                 <div class="QA_section">
                   <div class="white_box_tittle list_header">
-                    <h4>Published Products List</h4>
+                    <h4>Rejected Products List</h4>
                     <div class="box_right d-flex lms_block">
                       <div class="serach_field_2">
                         <div class="search_inner">
@@ -56,21 +56,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="fileDownloadOption mb-3">
-                    <button type="button" title="Download as CSV file">
-                      CSV
-                    </button>
-                    <button type="button" title="Download as PDF file">
-                      PDF
-                    </button>
-                  </div>
+
                   <div class="QA_table mb_30" v-if="products">
                     <table class="table lms_table_active">
                       <thead>
                         <tr>
                           <th scope="col">#</th>
                           <th scope="col">Product Name</th>
-                          <th scope="col">Published Date</th>
+                          <th scope="col">Comments</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
@@ -78,11 +71,19 @@
                         <tr v-for="(product, i) in products" :key="i">
                           <th scope="row">{{ i + 1 }}</th>
                           <td>{{ product.name }}</td>
-                          <td>{{ product.updatedAt }}</td>
+                          <td>
+                            <p v-for="(fdbck, i) in product.feedback" :key="i">
+                              {{ fdbck.comment }}
+                            </p>
+                          </td>
+
                           <td>
                             <div class="action_btns d-flex">
                               <router-link
-                                to="/supplier-dashboard/view-products"
+                                :to="
+                                  '/supplier-dashboard/view-products/' +
+                                  product._id
+                                "
                                 title="View & Edit"
                                 class="action_btn mr_10"
                               >
@@ -145,8 +146,9 @@ export default {
   },
   methods: {
     async fetchPublishedProduct() {
+      this.products = null;
       const res = await fetch(
-        "https://producemart.herokuapp.com/getProductsbyUser?status=active",
+        "https://producemart.herokuapp.com/getProductsbyUser?status=rejected",
         {
           method: "GET",
           headers: {

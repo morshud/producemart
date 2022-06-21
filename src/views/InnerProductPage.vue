@@ -64,13 +64,20 @@
             </div>
             <div class="col-lg-12 detailsDiv">
               <span>Price</span>
-              <p>${{ Math.floor(Math.random() * 100) }} per 100kg</p>
-              <p>${{ Math.floor(Math.random() * 1000) }} per bag</p>
+              <p>
+                {{ product && product.package.price }} per
+                {{ product && product.package.volume }}
+              </p>
+              <p>
+                {{ product && product.package.volume }} weighs
+                {{ product && product.package.weight
+                }}{{ product && product.package.weight_unit }}
+              </p>
             </div>
-            <div class="col-lg-4 detailsDivBelow">
+            <!-- <div class="col-lg-4 detailsDivBelow">
               <h5>Crop Year</h5>
               <h6>2022</h6>
-            </div>
+            </div> -->
             <div class="col-lg-4 detailsDivBelow">
               <h5>Produce Variety</h5>
               <h6>{{ product && product.variety }}</h6>
@@ -232,7 +239,7 @@
                         <option
                           v-for="(country, i) in countries"
                           :value="country"
-                          :key="country"
+                          :key="i"
                         >
                           {{ country }}
                         </option>
@@ -266,7 +273,7 @@
                         <optiongit
                           v-for="(country, i) in countries"
                           :value="country"
-                          :key="country"
+                          :key="i"
                         >
                           {{ country }}
                         </optiongit>
@@ -571,16 +578,18 @@
                     </tr>
                     <tr>
                       <td class="thead">Location of Produce</td>
-                      <td class="tbody">{{ product && product.location }}</td>
+                      <td class="tbody">
+                        {{ product && product.location }}
+                      </td>
                     </tr>
                     <tr>
                       <td class="thead">GMO (Genetically Modified Organism)</td>
                       <td class="tbody">{{ product && product.GMO }}</td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                       <td class="thead">Crop Year</td>
-                      <td class="tbody">16-02-2022</td>
-                    </tr>
+                      <td class="tbody">16-Jun-2022</td>
+                    </tr> -->
                     <tr>
                       <td class="thead">Is Produce Available Year Round?</td>
                       <td class="tbody">
@@ -720,10 +729,10 @@
                 <div class="col-lg-12">
                   <h1>Certifications</h1>
                   <table v-if="product.certification">
-                    <tr v-for="(cert, i) in product.certification" :key="i">
-                      <td class="thead certi">{{ cert.name }}</td>
+                    <tr v-for="(certs, i) in product.certification" :key="i">
+                      <td class="thead certi">{{ certs.cert_name }}</td>
                       <td class="tbody certi">
-                        <a :href="cert.file_url" target="_blank"
+                        <a :href="certs.file_url" target="_blank"
                           >View Certification</a
                         >
                       </td>
@@ -1082,7 +1091,7 @@ export default {
       const { data } = await res.json();
 
       this.product = data;
-      console.log(this.product);
+      // console.log(this.product);
     },
 
     async getAllproducts() {
@@ -1090,10 +1099,11 @@ export default {
         "https://producemart.herokuapp.com/getAllProducts"
       );
       const { data } = await res.json();
+      console.log(data);
 
       this.products = data
-        .splice(0, 3)
-        .filter((val) => val.status == "active" && val._id != this.id);
+        .filter((val) => val.status == "active" && val._id != this.id)
+        .splice(0, 3);
 
       // this.products = data;
       // console.log(this.products);

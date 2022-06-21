@@ -67,7 +67,16 @@
                           dashboardParams.activeProduct
                       }}
                     </h4>
-                    <p>Products</p>
+                    <p>
+                      Products
+                      <small v-if="dashboardParams"
+                        ><strong>A: </strong
+                        >{{ dashboardParams.activeProduct }} <strong>P: </strong
+                        >{{ dashboardParams.pendingProduct }}
+                        <strong>D: </strong
+                        >{{ dashboardParams.disableProduct }}</small
+                      >
+                    </p>
                     <img
                       src="@/assets/img/dashboard-img/dash-product.png"
                       ondragstart="return false;"
