@@ -615,14 +615,14 @@
             <source src="@/assets/videos/video.mp4" type="video/mp4" />
           </video>
         </div> -->
-        <div class="col-lg-8 text-center video">
+        <!-- <div class="col-lg-8 text-center video">
           <iframe
             width="600"
             height="380"
             src="https://www.youtube.com/embed/dVsuCUrHtNI"
           >
           </iframe>
-        </div>
+        </div> -->
       </div>
     </div>
   </section>

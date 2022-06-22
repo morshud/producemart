@@ -37,7 +37,7 @@
               <div class="white_card_body">
                 <div class="QA_section">
                   <div class="white_box_tittle list_header">
-                    <h4>Disabled Products List</h4>
+                    <h4>Unavailable Products List</h4>
                     <div class="box_right d-flex lms_block">
                       <div class="serach_field_2">
                         <div class="search_inner">
@@ -70,19 +70,27 @@
                         <tr>
                           <th scope="col">#</th>
                           <th scope="col">Product Name</th>
-                          <th scope="col">Disabled Date</th>
+                          <th scope="col">Unavailable Date</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="(product, i) in products" :key="i">
-                          <th scope="row">{{ i + 1 }}</th>
+                          <th scope="row" v-if="product.status == 'disabled'">
+                            <i class="fas fa-warning"></i>
+                          </th>
+                          <th scope="row" v-else>
+                            {{ i + 1 }}
+                          </th>
                           <td>{{ product.name }}</td>
                           <td>{{ product.updatedAt }}</td>
-                          <td>
+                          <td v-if="product.status != 'disabled'">
                             <div class="action_btns d-flex">
                               <router-link
-                                to="/supplier-dashboard/view-products"
+                                :to="
+                                  '/supplier-dashboard/view-products/' +
+                                  product._id
+                                "
                                 title="View & Edit"
                                 class="action_btn mr_10"
                               >
@@ -97,6 +105,7 @@
                               </span>
                             </div>
                           </td>
+                          <td v-else><p>Disabled by admin</p></td>
                         </tr>
                       </tbody>
                     </table>
@@ -156,7 +165,7 @@ export default {
       this.products = data.filter(
         (prod) => prod.status == "disabled" || prod.available == false
       );
-      console.log(data);
+      console.log(this.products);
     },
     async deleteProduct(id) {
       const res = await fetch(

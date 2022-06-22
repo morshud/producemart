@@ -64,8 +64,14 @@
             </div>
             <div class="col-lg-12 detailsDiv">
               <span>Price</span>
-              <p><strong>Shipping:</strong> {{ product.shipment.price}} per {{ product.shipment.weight}}{{ product.shipment.weight_unit}}</p>
-              <p><strong>Package:</strong> {{ product.package.price}} per {{ product.package.unit}}</p>
+              <p>
+                <strong>Shipping:</strong> {{ product.shipment.price }} per
+                {{ product.shipment.weight }}{{ product.shipment.weight_unit }}
+              </p>
+              <p>
+                <strong>Package:</strong> {{ product.package.price }} per
+                {{ product.package.unit }}
+              </p>
             </div>
             <div class="col-lg-4 detailsDivBelow">
               <h5>Crop Year</h5>
@@ -92,17 +98,23 @@
             </div>
             <div class="col-lg-4 detailsDivBelow">
               <h5>Minimum Order Quantity</h5>
-              <h6>{{product.order.min_quantity}} {{product.order.qty_unit}}</h6>
+              <h6>
+                {{ product.order.min_quantity }} {{ product.order.qty_unit }}
+              </h6>
             </div>
-            <div class="col-lg-4 detailsDivBelow">
+            <!-- <div class="col-lg-4 detailsDivBelow">
               <h5>Incoterms</h5>
               <h6>EXW - EX Works</h6>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-lg-12 text-center">
           <div class="btnDiv">
-            <a type="button" @click="showModal" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            <a
+              type="button"
+              @click="showModal"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
               >Request Quote <i class="bi bi-arrow-right"></i
             ></a>
           </div>
@@ -156,12 +168,25 @@
                 </h2>
                 <input
                   type="text"
-                  :value="product.package.price + ' per '+ product.package.unit"
+                  :value="
+                    product.package.price + ' per ' + product.package.unit
+                  "
                   disabled
                   class="input"
                 />
-                <input :min="product.order.min_quantity" @keyup="minimum(product.order.min_quantity)" type="number" :placeholder="'Minimum of '+ product.order.min_quantity + product.package.unit" v-model="quantity" class="input" />
-                <p style="color: red">{{errMessage}}</p>
+                <input
+                  :min="product.order.min_quantity"
+                  @keyup="minimum(product.order.min_quantity)"
+                  type="number"
+                  :placeholder="
+                    'Minimum order quantity for this product is ' +
+                    product.order.min_quantity +
+                    product.package.unit
+                  "
+                  v-model="quantity"
+                  class="input"
+                />
+                <p style="color: red">{{ errMessage }}</p>
                 <input
                   type="button"
                   name="next"
@@ -232,7 +257,7 @@
                         <option
                           v-for="(country, i) in countries"
                           :value="country"
-                          :key="country"
+                          :key="i"
                         >
                           {{ country }}
                         </option>
@@ -250,12 +275,24 @@
                       <select v-model="airIncoterm" class="input">
                         <option>Select Incoterm</option>
                         <option value="EXW - ExWorks">EXW - ExWorks</option>
-                        <option value="FCA - Free Carrier">FCA - Free Carrier</option>
-                        <option value="CIP - Carriage & Insurance Paid">CIP - Carriage & Insurance Paid</option>
-                        <option value="CPT - Carriage Paid To">CPT - Carriage Paid To</option>
-                        <option value="DDP - Delivered Duty Paid">DDP - Delivered Duty Paid</option>
-                        <option value="DAP - Delivered at Place">DAP - Delivered at Place</option>
-                        <option value="DPU - Delivered at Place Unload">DPU - Delivered at Place Unload</option>
+                        <option value="FCA - Free Carrier">
+                          FCA - Free Carrier
+                        </option>
+                        <option value="CIP - Carriage & Insurance Paid">
+                          CIP - Carriage & Insurance Paid
+                        </option>
+                        <option value="CPT - Carriage Paid To">
+                          CPT - Carriage Paid To
+                        </option>
+                        <option value="DDP - Delivered Duty Paid">
+                          DDP - Delivered Duty Paid
+                        </option>
+                        <option value="DAP - Delivered at Place">
+                          DAP - Delivered at Place
+                        </option>
+                        <option value="DPU - Delivered at Place Unload">
+                          DPU - Delivered at Place Unload
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -274,7 +311,7 @@
                         <option
                           v-for="(country, i) in countries"
                           :value="country"
-                          :key="country"
+                          :key="i"
                         >
                           {{ country }}
                         </option>
@@ -292,16 +329,36 @@
                       <select v-model="seaIncoterm" class="input">
                         <option>Select Incoterm</option>
                         <option value="EXW - ExWorks">EXW - ExWorks</option>
-                        <option value="FCA - Free Carrier">FCA - Free Carrier</option>
-                        <option value="CIP - Carriage & Insurance Paid">CIP - Carriage & Insurance Paid</option>
-                        <option value="CPT - Carriage Paid To">CPT - Carriage Paid To</option>
-                        <option value="DDP - Delivered Duty Paid">DDP - Delivered Duty Paid</option>
-                        <option value="DAP - Delivered at Place">DAP - Delivered at Place</option>
-                        <option value="DPU - Delivered at Place Unload">DPU - Delivered at Place Unload</option>
-                        <option value="FAS - Free Alongside Shipping">FAS - Free Alongside Shipping</option>
-                        <option value="FOB - Free On Board">FOB - Free On Board</option>
-                        <option value="CFR - Cost & Freight">CFR - Cost & Freight</option>
-                        <option value="CIF - Cost Insurance Freght">CIF - Cost Insurance Freght</option>
+                        <option value="FCA - Free Carrier">
+                          FCA - Free Carrier
+                        </option>
+                        <option value="CIP - Carriage & Insurance Paid">
+                          CIP - Carriage & Insurance Paid
+                        </option>
+                        <option value="CPT - Carriage Paid To">
+                          CPT - Carriage Paid To
+                        </option>
+                        <option value="DDP - Delivered Duty Paid">
+                          DDP - Delivered Duty Paid
+                        </option>
+                        <option value="DAP - Delivered at Place">
+                          DAP - Delivered at Place
+                        </option>
+                        <option value="DPU - Delivered at Place Unload">
+                          DPU - Delivered at Place Unload
+                        </option>
+                        <option value="FAS - Free Alongside Shipping">
+                          FAS - Free Alongside Shipping
+                        </option>
+                        <option value="FOB - Free On Board">
+                          FOB - Free On Board
+                        </option>
+                        <option value="CFR - Cost & Freight">
+                          CFR - Cost & Freight
+                        </option>
+                        <option value="CIF - Cost Insurance Freght">
+                          CIF - Cost Insurance Freght
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -315,11 +372,21 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Address 1</label>
-                      <textarea v-model="roadAdd1" cols="30" rows="3" class="textarea"></textarea>
+                      <textarea
+                        v-model="roadAdd1"
+                        cols="30"
+                        rows="3"
+                        class="textarea"
+                      ></textarea>
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Address 2</label>
-                      <textarea v-model="roadAdd2" cols="30" rows="3" class="textarea"></textarea>
+                      <textarea
+                        v-model="roadAdd2"
+                        cols="30"
+                        rows="3"
+                        class="textarea"
+                      ></textarea>
                     </div>
                     <div class="col-lg-6 mb-2">
                       <label>City</label>
@@ -351,12 +418,24 @@
                       <select v-model="roadIncoterm" class="input">
                         <option>Select Incoterm</option>
                         <option value="EXW - ExWorks">EXW - ExWorks</option>
-                        <option value="FCA - Free Carrier">FCA - Free Carrier</option>
-                        <option value="CIP - Carriage & Insurance Paid">CIP - Carriage & Insurance Paid</option>
-                        <option value="CPT - Carriage Paid To">CPT - Carriage Paid To</option>
-                        <option value="DDP - Delivered Duty Paid">DDP - Delivered Duty Paid</option>
-                        <option value="DAP - Delivered at Place">DAP - Delivered at Place</option>
-                        <option value="DPU - Delivered at Place Unload">DPU - Delivered at Place Unload</option>
+                        <option value="FCA - Free Carrier">
+                          FCA - Free Carrier
+                        </option>
+                        <option value="CIP - Carriage & Insurance Paid">
+                          CIP - Carriage & Insurance Paid
+                        </option>
+                        <option value="CPT - Carriage Paid To">
+                          CPT - Carriage Paid To
+                        </option>
+                        <option value="DDP - Delivered Duty Paid">
+                          DDP - Delivered Duty Paid
+                        </option>
+                        <option value="DAP - Delivered at Place">
+                          DAP - Delivered at Place
+                        </option>
+                        <option value="DPU - Delivered at Place Unload">
+                          DPU - Delivered at Place Unload
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -394,19 +473,27 @@
                   <table>
                     <tr class="bodyRow">
                       <td class="tdMain">Quantity</td>
-                      <td class="tdBody">{{quantity}} {{product.package.unit}}</td>
+                      <td class="tdBody">
+                        {{ quantity }} {{ product.package.unit }}
+                      </td>
                     </tr>
                     <tr class="bodyRow">
                       <td class="tdMain">Dated on</td>
-                      <td class="tdBody">{{new Date().toISOString().slice(0, 10)}}</td>
+                      <td class="tdBody">
+                        {{ new Date().toISOString().slice(0, 10) }}
+                      </td>
                     </tr>
                     <tr class="bodyRow">
                       <td class="tdMain">Time</td>
-                      <td class="tdBody">{{new Date().toLocaleTimeString()}}</td>
+                      <td class="tdBody">
+                        {{ new Date().toLocaleTimeString() }}
+                      </td>
                     </tr>
                     <tr class="bodyRow">
                       <td class="tdMain">Estimated Cost</td>
-                      <td class="tdBody">${{quantity * product.package.price.slice(1)}}</td>
+                      <td class="tdBody">
+                        ${{ quantity * product.package.price.slice(1) }}
+                      </td>
                     </tr>
                     <tr class="bodyRow">
                       <td class="tdMain">Estimated Weight</td>
@@ -422,33 +509,33 @@
                     <table>
                       <tr class="bodyRow">
                         <td class="tdMain">Address 1</td>
-                        <td class="tdBody">{{roadAdd1}}</td>
+                        <td class="tdBody">{{ roadAdd1 }}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Address 2</td>
                         <td class="tdBody">
-                          {{roadAdd2}}
+                          {{ roadAdd2 }}
                         </td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">City</td>
-                        <td class="tdBody">{{roadCity}}</td>
+                        <td class="tdBody">{{ roadCity }}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">State/Province</td>
-                        <td class="tdBody">{{roadState}}</td>
+                        <td class="tdBody">{{ roadState }}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Country</td>
-                        <td class="tdBody">{{roadCountry}}</td>
+                        <td class="tdBody">{{ roadCountry }}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Postal Code</td>
-                        <td class="tdBody">{{roadZip}}</td>
+                        <td class="tdBody">{{ roadZip }}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Incoterm</td>
-                        <td class="tdBody">{{roadIncoterm}}</td>
+                        <td class="tdBody">{{ roadIncoterm }}</td>
                       </tr>
                     </table>
                   </div>
@@ -457,15 +544,15 @@
                     <table>
                       <tr class="bodyRow">
                         <td class="tdMain">SeaPort</td>
-                        <td class="tdBody">{{seaPort}}</td>
+                        <td class="tdBody">{{ seaPort }}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Country</td>
-                        <td class="tdBody">{{seaCountry}}</td>
+                        <td class="tdBody">{{ seaCountry }}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Incoterm</td>
-                        <td class="tdBody">{{seaIncoterm}}</td>
+                        <td class="tdBody">{{ seaIncoterm }}</td>
                       </tr>
                     </table>
                   </div>
@@ -474,15 +561,15 @@
                     <table>
                       <tr class="bodyRow">
                         <td class="tdMain">AirPort</td>
-                        <td class="tdBody">{{airPort}}</td>
+                        <td class="tdBody">{{ airPort }}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Country</td>
-                        <td class="tdBody">{{airCountry}}</td>
+                        <td class="tdBody">{{ airCountry }}</td>
                       </tr>
                       <tr class="bodyRow">
                         <td class="tdMain">Incoterm</td>
-                        <td class="tdBody">{{airIncoterm}}</td>
+                        <td class="tdBody">{{ airIncoterm }}</td>
                       </tr>
                     </table>
                   </div>
@@ -503,7 +590,17 @@
               </fieldset>
             </form>
             <div v-else class="row justify-content-center">
-              <h5>Please <router-link to="/login"><a class="authLogin">Login</a></router-link> or <router-link to="/buyer-registration"><a class="authLogin">SignUp</a></router-link> to request a quote</h5>
+              <h5>
+                Please
+                <router-link to="/login"
+                  ><a class="authLogin">Login</a></router-link
+                >
+                or
+                <router-link to="/buyer-registration"
+                  ><a class="authLogin">SignUp</a></router-link
+                >
+                to request a quote
+              </h5>
             </div>
           </div>
         </div>
@@ -993,8 +1090,8 @@ import { Modal } from "bootstrap";
 import $ from "jquery";
 require("jquery.easing");
 import { countries } from "../assets/countries";
-import QUOTE from './../service/quote-service'
-import Swal from 'sweetalert2';
+import QUOTE from "./../service/quote-service";
+import Swal from "sweetalert2";
 export default {
   name: "Produce Mart",
   components: {
@@ -1090,116 +1187,110 @@ export default {
         }
       );
     });
-    
   },
   data() {
     return {
       product: {
         shipment: {
-          price: '',
-          weight: '',
-          weight_unit: '',
+          price: "",
+          weight: "",
+          weight_unit: "",
         },
         package: {
-          price: '',
-          unit: '',
+          price: "",
+          unit: "",
         },
         order: {
-          min_quantity: '',
-          qty_unit: '',
-        }
+          min_quantity: "",
+          qty_unit: "",
+        },
       },
-      quantity: '',
-      airCountry: '',
-      airPort: '',
-      airIncoterm: '',
-      seaCountry: '',
-      seaPort: '',
-      seaIncoterm: '',
-      roadAdd1: '',
-      roadAdd2: '',
-      roadCity: '',
-      roadState: '',
-      roadCountry: '',
-      roadZip: '',
-      roadIncoterm: '',
+      quantity: "",
+      airCountry: "",
+      airPort: "",
+      airIncoterm: "",
+      seaCountry: "",
+      seaPort: "",
+      seaIncoterm: "",
+      roadAdd1: "",
+      roadAdd2: "",
+      roadCity: "",
+      roadState: "",
+      roadCountry: "",
+      roadZip: "",
+      roadIncoterm: "",
       products: null,
       id: this.$route.params.id,
       countries: countries,
-      EffectFlip, 
-      Pagination, 
+      EffectFlip,
+      Pagination,
       Navigation,
       modal: null,
-      errMessage: '',
+      errMessage: "",
     };
   },
-  computed:{
-    userAuth(){
+  computed: {
+    userAuth() {
       const user = JSON.parse(localStorage.getItem("user"));
-      if(user && user.token){
-        return true
+      if (user && user.token) {
+        return true;
+      } else {
+        return false;
       }
-      else{
-        return false
-      }
-    }
+    },
   },
   methods: {
     async getProduct() {
-      
       const res = await fetch(
         "https://producemart.herokuapp.com/getProductById/" + this.id
       );
       const { data } = await res.json();
       this.product = data;
     },
-    showModal(){
+    showModal() {
       this.modal = new Modal(this.$refs.exampleModal);
-      this.modal.show()
+      this.modal.show();
     },
-    addQuote(){
+    addQuote() {
       const data = {
-        "quantity": this.quantity,
-        "airCountry": this.airCountry,
-        "airPort": this.airPort,
-        "airIncoterm": this.airIncoterm,
-        "seaCountry": this.seaCountry,
-        "seaPort": this.seaPort,
-        "seaIncoterm": this.seaIncoterm,
-        "roadAddress": this.roadAdd1 + ',' + this.roadAdd2,
-        "roadCity": this.roadCity,
-        "roadState": this.roadState,
-        "roadCountry": this.roadCountry,
-        "postal_code": this.roadZip
-      }
+        quantity: this.quantity,
+        airCountry: this.airCountry,
+        airPort: this.airPort,
+        airIncoterm: this.airIncoterm,
+        seaCountry: this.seaCountry,
+        seaPort: this.seaPort,
+        seaIncoterm: this.seaIncoterm,
+        roadAddress: this.roadAdd1 + "," + this.roadAdd2,
+        roadCity: this.roadCity,
+        roadState: this.roadState,
+        roadCountry: this.roadCountry,
+        postal_code: this.roadZip,
+      };
       QUOTE.addProductQuote(data, this.id)
-      .then(res => {
-        console.log(res)
-        this.modal.hide()
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: `${res.data.message}`,
-          showConfirmButton: false,
-          timer: 5500
+        .then((res) => {
+          console.log(res);
+          this.modal.hide();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${res.data.message}`,
+            showConfirmButton: false,
+            timer: 5500,
+          });
         })
-      })
-      .catch(err => {
-        console.log(err)
-      })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    minimum(item){
-      if(this.quantity < item){
-        this.errMessage = `oOps!, quantity cannot be less than ${item}`
-      }
-      else if(this.quantity >= item){
-        this.errMessage = ''
-      }
-      else if(this.quantity == ''){
-        this.errMessage = ''
-      }
-      else{
-        this.errMessage = ''
+    minimum(item) {
+      if (this.quantity < item) {
+        this.errMessage = `oOps!, quantity cannot be less than ${item}`;
+      } else if (this.quantity >= item) {
+        this.errMessage = "";
+      } else if (this.quantity == "") {
+        this.errMessage = "";
+      } else {
+        this.errMessage = "";
       }
     },
 
