@@ -1741,6 +1741,24 @@
                     </div>
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
+                    <p
+                      v-if="
+                        name &&
+                        packages.per_unit &&
+                        packages.unit &&
+                        packages.weight &&
+                        packages.weight_unit &&
+                        packages.price
+                      "
+                    >
+                      <strong>Note: </strong>
+                      {{
+                        `1 ${packages.unit} of ${packages.per_unit} ${name}  weighs ${packages.weight}${packages.weight_unit} and your selling price is
+                      \$${packages.price}`
+                      }}
+                    </p>
+                  </div>
+                  <div class="col-lg-12 mt-4 mb-3">
                     <div class="row">
                       <div class="col-lg-12 headerPackOption">
                         <h5>Dimension of each product packages</h5>
