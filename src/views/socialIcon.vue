@@ -6,3 +6,5 @@
       <a href="#" target="_blank" title="Connect with us on LinkedIn"><i class="fab fa-linkedin"></i></a>
   </div>
 </template>
+<style scoped src="@/assets/css/styleFrontend.css"></style>
+<style scoped src="@/assets/css/bootstrap.css"></style>

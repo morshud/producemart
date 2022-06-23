@@ -76,8 +76,8 @@
                           <th scope="row">{{ i + 1 }}</th>
                           <td>{{ address.name }}</td>
                           <td>
-                            {{ address.street }} {{ address.city }}
-                            {{ address.state }} {{ address.country }}
+                            {{ address.street }}, {{ address.city }},
+                            {{ address.state }}, {{ address.country }}.
                           </td>
                           <td>
                             <div class="action_btns d-flex">

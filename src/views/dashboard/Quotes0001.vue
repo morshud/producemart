@@ -48,7 +48,7 @@
                                                 <div>
                                                     <strong>Supplier: {{supplier.firstname}} {{supplier.lastname}}</strong>
                                                 </div>
-                                                <div>Email: <a href="#">{{supplier.email}}</a></div>
+                                                <div>Email: <a>{{supplier.email}}</a></div>
                                                 <div>Phone: {{supplier.phone_no}}</div>
                                             </div>
                                             <div class="col-sm-6">
@@ -58,7 +58,7 @@
                                                 </div>
                                                 <!-- <div>Nigeria</div>
                                                 <div>Street Address, Lagos.</div> -->
-                                                <div>Email: <a href="#">{{buyer.email}}</a></div>
+                                                <div>Email: <a>{{buyer.email}}</a></div>
                                                 <div>Phone: {{buyer.phone_no}}</div>
                                             </div>
                                         </div>
@@ -126,6 +126,22 @@
                                                                     <strong><a href="#" class="status_btn">Active</a></strong>
                                                                 </td>
                                                             </tr>
+                                                            <tr>
+                                                                <td class="left">
+                                                                    <strong>Shipper Price</strong>
+                                                                </td>
+                                                                <td class="right">
+                                                                    <a class="enterPricesBtn" data-bs-toggle="modal" data-bs-target="#shipperModal">Enter Price</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="left">
+                                                                    <strong>Inspector Price</strong>
+                                                                </td>
+                                                                <td class="right">
+                                                                    <a class="enterPricesBtn" data-bs-toggle="modal" data-bs-target="#inspectorModal">Enter Price</a>
+                                                                </td>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -142,12 +158,159 @@
             </div>
         </div>
 
+        <!-- Shipper Modal -->
+        <div class="modal fade" id="shipperModal" tabindex="-1" aria-labelledby="shipperModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="shipperModalLabel">Set Shippers Price & Select Preferred Shipper</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="white_card_body">
+                                    <div class="QA_section">
+                                        <div class="QA_table">
+                                            <table class="table lms_table_active tableSetPrice">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">Set Price</th>
+                                                    <th scope="col">Set Quantity</th>
+                                                    <th scope="col">Choose Shipper</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <form>
+                                                        <td>mufusa@me.com</td>
+                                                        <td>
+                                                            <input type="text" placeholder="Enter price">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" placeholder="Enter quantity">
+                                                        </td>
+                                                        <td scope="row">
+                                                            <label for="radioShp1" class="primary_checkbox d-flex mr-12 ">
+                                                            <input type="radio" id="radioShp1" name="shipper">
+                                                            <span class="checkmark"></span>
+                                                            </label>
+                                                        </td>
+                                                    </form>
+                                                </tr>
+                                                <tr>
+                                                    <form>
+                                                        <td>taju@tawakalitu.com</td>
+                                                        <td>
+                                                            <input type="text" placeholder="Enter price">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" placeholder="Enter quantity">
+                                                        </td>
+                                                        <td scope="row">
+                                                            <label for="radioShp2" class="primary_checkbox d-flex mr-12 ">
+                                                            <input type="radio" id="radioShp2" name="shipper">
+                                                            <span class="checkmark"></span>
+                                                            </label>
+                                                        </td>
+                                                    </form>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btnSaveChange" data-bs-dismiss="modal">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inspector Modal -->
+        <div class="modal fade" id="inspectorModal" tabindex="-1" aria-labelledby="inspectorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="inspectorModalLabel">Set Inspectors Price & Select Preferred Inspector</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="white_card_body">
+                                    <div class="QA_section">
+                                        <div class="QA_table">
+                                            <table class="table lms_table_active tableSetPrice">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">Set Price</th>
+                                                    <th scope="col">Set Quantity</th>
+                                                    <th scope="col">Choose Inspector</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <form>
+                                                        <td>mufusa@me.com</td>
+                                                        <td>
+                                                            <input type="text" placeholder="Enter price">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" placeholder="Enter quantity">
+                                                        </td>
+                                                        <td scope="row">
+                                                            <label for="radioIns1" class="primary_checkbox d-flex mr-12 ">
+                                                            <input type="radio" id="radioIns1" name="inspector">
+                                                            <span class="checkmark"></span>
+                                                            </label>
+                                                        </td>
+                                                    </form>
+                                                </tr>
+                                                <tr>
+                                                    <form>
+                                                        <td>taju@tawakalitu.com</td>
+                                                        <td>
+                                                            <input type="text" placeholder="Enter price">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" placeholder="Enter quantity">
+                                                        </td>
+                                                        <td scope="row">
+                                                            <label for="radioIns2" class="primary_checkbox d-flex mr-12 ">
+                                                            <input type="radio" id="radioIns2" name="inspector">
+                                                            <span class="checkmark"></span>
+                                                            </label>
+                                                        </td>
+                                                    </form>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btnSaveChange" data-bs-dismiss="modal">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <dash-footer/>
     </section>
 </template>
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>
 <style scoped src="@/assets/css/style.css"></style>
+<style scoped src="@/assets/css/styleSupport.css"></style>
 <script>
     import DashSidebar from './dash-sidebar.vue'
     import DashNavbar from './dash-navbar.vue'

@@ -39,28 +39,13 @@
         </router-link>
         <ul>
           <li>
-            <router-link to="/supplier-dashboard/mail-box"
-              ><a>Mail Box</a></router-link
+            <router-link to="/supplier-dashboard/all-notifications"
+              ><a>All Notifications</a></router-link
             >
           </li>
           <li>
-            <router-link to="/supplier-dashboard/compose-mail"
-              ><a>Compose Mail</a></router-link
-            >
-          </li>
-          <li>
-            <router-link to="/supplier-dashboard/sent-mail"
-              ><a>Sent Mail</a></router-link
-            >
-          </li>
-          <li>
-            <router-link to="/supplier-dashboard/draft-mail"
-              ><a>Drafts</a></router-link
-            >
-          </li>
-          <li>
-            <router-link to="/supplier-dashboard/trash-mail"
-              ><a>Trash</a></router-link
+            <router-link to="/supplier-dashboard/deleted-notifications"
+              ><a>Deleted Notifications</a></router-link
             >
           </li>
         </ul>

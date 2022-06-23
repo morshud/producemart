@@ -1794,7 +1794,7 @@ p a:hover {
 }
 
 .dashboard_header .dashboard_header_title h3 {
-  font-size: 25px;
+  font-size: 22px;
   font-weight: 600 !important;
   color: #000;
   margin-bottom: 7px;
@@ -5248,7 +5248,7 @@ body::-webkit-scrollbar {
 .QA_section .QA_table tbody th,
 .QA_section .QA_table tbody td {
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .QA_section .QA_table tbody th.pending,

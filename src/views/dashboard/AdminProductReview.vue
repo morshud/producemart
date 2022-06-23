@@ -366,71 +366,81 @@
               role="tabpanel"
               aria-labelledby="pills-review-tab"
             >
-              <div class="row detailsMore">
+              <div class="row detailsMore detailsMoreFeedback">
                 <div class="col-lg-12">
                   <h1>Previous Feedback on this product</h1>
                   <table v-if="product">
-                    <tr v-for="(fdbck, i) in product.feedback" :key="i">
-                      <td class="thead">{{ i + 1 }}</td>
-                      <!-- <td class="thead">
-                        {{
-                          fdbck.read
-                            ? "It has been edited"
-                            : "It has not been edited"
-                        }}
-                      </td> -->
-                      <td class="thead">{{ fdbck.comment }}</td>
-                      <td class="thead">
-                        <div class="action_btns d-flex">
-                          <router-link
-                            to="#"
+                    <thead class="theadFeedback">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Feedback Message</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody class="tbodyFeedback">
+                      <tr v-for="(fdbck, i) in product.feedback" :key="i">
+                        <td>{{ i + 1 }}</td>
+                        <!-- <td class="thead">
+                          {{
+                            fdbck.read
+                              ? "It has been edited"
+                              : "It has not been edited"
+                          }}
+                        </td> -->
+                        <td>{{ fdbck.comment }}</td>
+                        <td>
+                          <span
                             title="Edit Feedback"
                             class="action_btn mr_10"
                             @click="getFeedback(fdbck._id)"
                           >
                             <i class="far fa-edit"></i>
-                          </router-link>
+                          </span>
                           <span
                             @click="deleteFeedback(fdbck._id)"
-                            title="DeleteFeedback"
+                            title="Delete Feedback"
                             class="action_btn"
                           >
                             <i class="fas fa-trash"></i>
                           </span>
-                        </div>
-                      </td>
-                    </tr>
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
               </div>
-              <div class="row justify-content-center mt-4">
-                <form @submit.prevent="AddFeedback" v-if="!updateId">
-                  <label for="feedback"
-                    >Give Supplier feedback why this product can't be activated
-                    and listed.</label
-                  ><br />
-                  <textarea
-                    name="feedback"
-                    id=""
-                    cols="30"
-                    rows="10"
-                    v-model="comment"
-                  ></textarea
-                  ><br />
-                  <input type="submit" value="Feedback" />
-                </form>
-                <form @submit.prevent="updateFeedback" v-else>
-                  <label for="feedback">Update feedback field.</label><br />
-                  <textarea
-                    name="feedback"
-                    id=""
-                    cols="30"
-                    rows="10"
-                    v-model="comment"
-                  ></textarea
-                  ><br />
-                  <input type="submit" value="Feedback" />
-                </form>
+              <div class="row justify-content-center mt-5">
+                <div class="col-lg-12 feedBackBox" v-if="!updateId">
+                  <form @submit.prevent="AddFeedback">
+                    <label for="feedback"
+                      >Give Supplier feedback why this product can't be activated
+                      and listed.</label
+                    ><br />
+                    <textarea
+                      name="feedback"
+                      id=""
+                      cols="30"
+                      rows="4"
+                      v-model="comment"
+                    ></textarea
+                    ><br />
+                    <input type="submit" value="Feedback" class="feedBackBtn" />
+                  </form>
+                </div>
+                <div class="col-lg-12 feedBackBox" v-else>
+                  <form @submit.prevent="updateFeedback">
+                    <label for="feedback">Update feedback field.</label><br />
+                    <textarea
+                      name="feedback"
+                      id=""
+                      cols="30"
+                      rows="4"
+                      v-model="comment"
+                    ></textarea
+                    ><br />
+                    <input type="submit" value="Feedback" class="feedBackBtn" />
+                  </form>
+                </div>
               </div>
             </div>
           </div>

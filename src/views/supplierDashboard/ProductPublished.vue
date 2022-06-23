@@ -71,6 +71,7 @@
                           <th scope="col">#</th>
                           <th scope="col">Product Name</th>
                           <th scope="col">Published Date</th>
+                          <th scope="col">Product Status (Enable - Disable)</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
@@ -79,6 +80,18 @@
                           <th scope="row">{{ i + 1 }}</th>
                           <td>{{ product.name }}</td>
                           <td>{{ product.updatedAt }}</td>
+                          <td>
+                            <span class="spanAction">Enable</span>
+                            <label class="switchDisable">
+                              <input
+                                type="checkbox"
+                                id="myCheckbox"
+                                @change="toggleCheck()"
+                              />
+                              <span class="slider round"></span>
+                            </label>
+                            <span class="spanAction">Disable</span>
+                          </td>
                           <td>
                             <div class="action_btns d-flex">
                               <router-link
@@ -115,6 +128,7 @@
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>
 <style scoped src="@/assets/css/style.css"></style>
+<style scoped src="@/assets/css/styleSupport.css"></style>
 <script>
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
