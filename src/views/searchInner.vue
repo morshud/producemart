@@ -6,6 +6,8 @@
         </form>
     </header>
 </template>
+<style scoped src="@/assets/css/styleFrontend.css"></style>
+<style scoped src="@/assets/css/bootstrap.css"></style>
 <script>
 export default {
   mounted(){

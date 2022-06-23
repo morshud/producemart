@@ -90,11 +90,11 @@
                             <!-- Modal -->
                             <div id="modal" class="modal-container">
                                 <div class="modal-box">
-                                    <div class="modal-header">
+                                    <div class="modal-header-order">
                                         <h2>Cancel Order</h2>
-                                        <div class="btn_close">X</div>
+                                        <div class="btn_close-order">X</div>
                                     </div>
-                                    <div class="modal-content">
+                                    <div class="modal-content-order">
                                         <form>
                                             <div class="row">
                                                 <div class="col-lg-12 text-center mb-4">
@@ -104,7 +104,7 @@
                                                     <input type="radio" name="cancel" id="one"> <label for="one">Transaction is taking too long?</label>
                                                 </div>
                                                 <div class="col-lg-12 mb-3">
-                                                    <input type="radio" name="cancel" id="two"> <label for="one">Alternative supplier?</label>
+                                                    <input type="radio" name="cancel" id="two"> <label for="two">Alternative supplier?</label>
                                                 </div>
                                                 <div class="col-lg-12 mb-3">
                                                     <label>Other</label>

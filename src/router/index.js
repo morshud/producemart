@@ -45,11 +45,15 @@ import DashBuyerChangePassword from "../views/buyerDashboard/ChangePassword.vue"
 //////////Supplier Dashboard
 import DashSupplierHome from "../views/supplierDashboard/Home.vue";
 //notifications
+import DashSupplierAllNotifications from "../views/supplierDashboard/AllNotifications.vue";
+import DashSupplierDeletedNotifications from "../views/supplierDashboard/DeletedNotifications.vue";
+/*
 import DashSupplierMailBox from "../views/supplierDashboard/MailBox.vue";
 import DashSupplierSentMail from "../views/supplierDashboard/SentMail.vue";
 import DashSupplierTrashMail from "../views/supplierDashboard/TrashMail.vue";
 import DashSupplierComposeMail from "../views/supplierDashboard/ComposeMail.vue";
 import DashSupplierDraftMail from "../views/supplierDashboard/DraftMail.vue";
+*/
 //orders
 import DashSupplierOrdersOpen from "../views/supplierDashboard/OrdersOpen.vue";
 import DashSupplierOrdersClosed from "../views/supplierDashboard/OrdersClosed.vue";
@@ -275,6 +279,17 @@ const routes = [
   { path: "/supplier-dashboard", redirect: "/supplier-dashboard/home" },
   //notifications
   {
+    path: "/supplier-dashboard/all-notifications",
+    name: "DashSupplierAllNotifications",
+    component: DashSupplierAllNotifications,
+  },
+  {
+    path: "/supplier-dashboard/deleted-notifications",
+    name: "DashSupplierDeletedNotifications",
+    component: DashSupplierDeletedNotifications,
+  },
+  /*
+  {
     path: "/supplier-dashboard/mail-box",
     name: "DashSupplierMailBox",
     component: DashSupplierMailBox,
@@ -299,6 +314,7 @@ const routes = [
     name: "DashSupplierDraftMail",
     component: DashSupplierDraftMail,
   },
+  */
   //orders
   {
     path: "/supplier-dashboard/open-orders",

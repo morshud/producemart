@@ -229,8 +229,9 @@
               </div>
             </div>
           </div> -->
+
           <!--Chart Bar-->
-          <div class="col-xl-7">
+          <!-- <div class="col-xl-7">
             <div class="white_card mb_30 card_height_100">
               <div class="white_card_header">
                 <div
@@ -247,9 +248,10 @@
                 <div id="chartBar"></div>
               </div>
             </div>
-          </div>
+          </div> -->
+
           <!--Chart Pie-->
-          <div class="col-xl-5">
+          <!-- <div class="col-xl-5">
             <div class="white_card card_height_100 mb_30">
               <div class="white_card_header">
                 <div class="box_header m-0">
@@ -262,7 +264,8 @@
                 <div id="chartPie"></div>
               </div>
             </div>
-          </div>
+          </div> -->
+
           <!--New Users-->
           <!-- <div class="col-xl-8">
             <div class="white_card card_height_100 mb_30">
