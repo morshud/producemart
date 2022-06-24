@@ -46,7 +46,7 @@
                                             <div class="col-sm-6">
                                                 <h6 class="mb-3">From:</h6>
                                                 <div>
-                                                    <strong>Supplier: {{supplier.firstname}} {{supplier.lastname}}</strong>
+                                                    <strong>Supplier: <a href="#">{{supplier.firstname}} {{supplier.lastname}}</a></strong>
                                                 </div>
                                                 <div>Email: <a>{{supplier.email}}</a></div>
                                                 <div>Phone: {{supplier.phone_no}}</div>
@@ -54,7 +54,7 @@
                                             <div class="col-sm-6">
                                                 <h6 class="mb-3">TO:</h6>
                                                 <div>
-                                                    <strong>Buyer: {{buyer.firstname}} {{buyer.lastname}}</strong>
+                                                    <strong>Buyer: <a href="#">{{buyer.firstname}} {{buyer.lastname}}</a></strong>
                                                 </div>
                                                 <!-- <div>Nigeria</div>
                                                 <div>Street Address, Lagos.</div> -->
@@ -88,63 +88,209 @@
                                             </tbody>
                                         </table>
                                         </div>
-                                        <div class="row justify-content-end">
-                                                <div class="col-lg-6 ml-auto QA_section">
-                                                    <table class="table table-clear QA_table">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="left">
-                                                                    <strong>Total Weight</strong>
+
+                                        <div class="row faq-section mt-3">
+                                            <div class="col-lg-12">
+                                                <div class="faq-box">
+                                                    <details>
+                                                        <summary>Show More Details</summary>
+                                                        <div class="faq-content">
+                                                            <!-- Order -->
+                                                            <div class="summaryTable">
+                                                            <h1 class="summaryHead">Order</h1>
+                                                            <table>
+                                                                <tr class="bodyRow">
+                                                                <td class="tdMain">Quantity</td>
+                                                                <td class="tdBody">
+                                                                    {{ quantity }} {{ product.package.unit }}
                                                                 </td>
-                                                                <td class="right">{{quote.quantity * product.package.weight}} {{product.package.unit}}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="left">
-                                                                    <strong>Shipping Price ($)</strong>
+                                                                </tr>
+                                                                <tr class="bodyRow">
+                                                                <td class="tdMain">Dated on</td>
+                                                                <td class="tdBody">
+                                                                    {{ new Date().toISOString().slice(0, 10) }}
                                                                 </td>
-                                                                <td class="right">80</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="left">
-                                                                    <strong>Total Price ($)</strong>
+                                                                </tr>
+                                                                <tr class="bodyRow">
+                                                                <td class="tdMain">Time</td>
+                                                                <td class="tdBody">
+                                                                    {{ new Date().toLocaleTimeString() }}
                                                                 </td>
-                                                                <td class="right">420</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="left">
-                                                                    <strong>Overall Cost ($)</strong>
+                                                                </tr>
+                                                                <tr class="bodyRow">
+                                                                <td class="tdMain">Estimated Cost</td>
+                                                                <td class="tdBody">
+                                                                    ${{ quantity * product.package.price.slice(1) }}
                                                                 </td>
-                                                                <td class="right">
-                                                                    <strong>500</strong>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="left">
-                                                                    <strong>Status</strong>
-                                                                </td>
-                                                                <td class="right">
-                                                                    <strong><a href="#" class="status_btn">Active</a></strong>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="left">
-                                                                    <strong>Shipper Price</strong>
-                                                                </td>
-                                                                <td class="right">
-                                                                    <a class="enterPricesBtn" data-bs-toggle="modal" data-bs-target="#shipperModal">Enter Price</a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="left">
-                                                                    <strong>Inspector Price</strong>
-                                                                </td>
-                                                                <td class="right">
-                                                                    <a class="enterPricesBtn" data-bs-toggle="modal" data-bs-target="#inspectorModal">Enter Price</a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                                </tr>
+                                                                <tr class="bodyRow">
+                                                                <td class="tdMain">Estimated Weight</td>
+                                                                <td class="tdBody">200kg</td>
+                                                                </tr>
+                                                            </table>
+                                                            </div>
+                                                            <!-- Destination -->
+                                                            <div class="summaryTable">
+                                                            <h1 class="summaryHead">Destination</h1>
+                                                            <div class="byRoad">
+                                                                <p class="summaryHeadSub">by road</p>
+                                                                <table>
+                                                                <tr class="bodyRow">
+                                                                    <td class="tdMain">Address 1</td>
+                                                                    <td class="tdBody">{{ roadAdd1 }}</td>
+                                                                </tr>
+                                                                <tr class="bodyRow">
+                                                                    <td class="tdMain">Address 2</td>
+                                                                    <td class="tdBody">
+                                                                    {{ roadAdd2 }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="bodyRow">
+                                                                    <td class="tdMain">City</td>
+                                                                    <td class="tdBody">{{ roadCity }}</td>
+                                                                </tr>
+                                                                <tr class="bodyRow">
+                                                                    <td class="tdMain">State/Province</td>
+                                                                    <td class="tdBody">{{ roadState }}</td>
+                                                                </tr>
+                                                                <tr class="bodyRow">
+                                                                    <td class="tdMain">Country</td>
+                                                                    <td class="tdBody">{{ roadCountry }}</td>
+                                                                </tr>
+                                                                <tr class="bodyRow">
+                                                                    <td class="tdMain">Postal Code</td>
+                                                                    <td class="tdBody">{{ roadZip }}</td>
+                                                                </tr>
+                                                                <tr class="bodyRow">
+                                                                    <td class="tdMain">Incoterm</td>
+                                                                    <td class="tdBody">{{ roadIncoterm }}</td>
+                                                                </tr>
+                                                                </table>
+                                                            </div>
+                                                            <div class="bySea">
+                                                                <p class="summaryHeadSub">by sea</p>
+                                                                <table>
+                                                                <tr class="bodyRow">
+                                                                    <td class="tdMain">SeaPort</td>
+                                                                    <td class="tdBody">{{ seaPort }}</td>
+                                                                </tr>
+                                                                <tr class="bodyRow">
+                                                                    <td class="tdMain">Country</td>
+                                                                    <td class="tdBody">{{ seaCountry }}</td>
+                                                                </tr>
+                                                                <tr class="bodyRow">
+                                                                    <td class="tdMain">Incoterm</td>
+                                                                    <td class="tdBody">{{ seaIncoterm }}</td>
+                                                                </tr>
+                                                                </table>
+                                                            </div>
+                                                            <div class="byAir">
+                                                                <p class="summaryHeadSub">by air</p>
+                                                                <table>
+                                                                <tr class="bodyRow">
+                                                                    <td class="tdMain">AirPort</td>
+                                                                    <td class="tdBody">{{ airPort }}</td>
+                                                                </tr>
+                                                                <tr class="bodyRow">
+                                                                    <td class="tdMain">Country</td>
+                                                                    <td class="tdBody">{{ airCountry }}</td>
+                                                                </tr>
+                                                                <tr class="bodyRow">
+                                                                    <td class="tdMain">Incoterm</td>
+                                                                    <td class="tdBody">{{ airIncoterm }}</td>
+                                                                </tr>
+                                                                </table>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    </details>
                                                 </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row justify-content-end">
+                                            <div class="col-lg-6 ml-auto QA_section">
+                                                <table class="table table-clear QA_table tableBox">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="left">
+                                                                <strong>Total Weight</strong>
+                                                            </td>
+                                                            <td class="right">{{quote.quantity * product.package.weight}} {{product.package.unit}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="left">
+                                                                <strong>Shipping Price ($)</strong>
+                                                            </td>
+                                                            <td class="right">80</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="left">
+                                                                <strong>Total Price ($)</strong>
+                                                            </td>
+                                                            <td class="right">420</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="left">
+                                                                <strong>Overall Cost ($)</strong>
+                                                            </td>
+                                                            <td class="right">
+                                                                <strong>500</strong>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="left">
+                                                                <strong>Status</strong>
+                                                            </td>
+                                                            <td class="right">
+                                                                <strong><a href="#" class="status_btn">Active</a></strong>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="left">
+                                                                <strong>Shipping Price</strong>
+                                                            </td>
+                                                            <td class="right">
+                                                                <router-link to="/dashboard/shipping-price" class="enterPricesBtn">Enter Price</router-link>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="left">
+                                                                <strong>Inspection Price</strong>
+                                                            </td>
+                                                            <td class="right">
+                                                                <router-link to="/dashboard/inspection-price" class="enterPricesBtn">Enter Price</router-link>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-12 mt-2 mb-2">
+                                                <h4>Selected Shipper and Inspector</h4>
+                                            </div>
+                                            <div class="table-responsive-sm">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center">Shipper</th>
+                                                            <th class="center">Inspector</th>
+                                                            <th class="center">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="center">Taiwo Taiwo Limited</td>
+                                                            <td class="center">Single Man Operations</td>
+                                                            <td class="center">
+                                                                <button class="sendToSupplier" data-bs-toggle="modal" data-bs-target="#detailsModal">Preview Details</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -158,150 +304,104 @@
             </div>
         </div>
 
-        <!-- Shipper Modal -->
-        <div class="modal fade" id="shipperModal" tabindex="-1" aria-labelledby="shipperModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="shipperModalLabel">Set Shippers Price & Select Preferred Shipper</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- Preview Details Modal -->
+        <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">Preview Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="summaryTable">
+                    <h1 class="summaryHead">Shippers Company Name Here</h1>
+                    <div class="byRoad">
+                        <p class="summaryHeadSub">by road</p>
+                        <table>
+                            <tr class="bodyRow">
+                                <td class="tdMain">Shipping Cost</td>
+                                <td class="tdBody">$3000</td>
+                            </tr>
+                            <tr class="bodyRow">
+                                <td class="tdMain">Initial Deposit</td>
+                                <td class="tdBody">$2000</td>
+                            </tr>
+                            <tr class="bodyRow">
+                                <td class="tdMain">Insurance</td>
+                                <td class="tdBody">$50</td>
+                            </tr>
+                            <tr class="bodyRow">
+                                <td class="tdMain">Estimated Duration</td>
+                                <td class="tdBody">3 weeks</td>
+                            </tr>
+                        </table>
                     </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="white_card_body">
-                                    <div class="QA_section">
-                                        <div class="QA_table">
-                                            <table class="table lms_table_active tableSetPrice">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">Email</th>
-                                                    <th scope="col">Set Price</th>
-                                                    <th scope="col">Set Quantity</th>
-                                                    <th scope="col">Choose Shipper</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <form>
-                                                        <td>mufusa@me.com</td>
-                                                        <td>
-                                                            <input type="text" placeholder="Enter price">
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" placeholder="Enter quantity">
-                                                        </td>
-                                                        <td scope="row">
-                                                            <label for="radioShp1" class="primary_checkbox d-flex mr-12 ">
-                                                            <input type="radio" id="radioShp1" name="shipper">
-                                                            <span class="checkmark"></span>
-                                                            </label>
-                                                        </td>
-                                                    </form>
-                                                </tr>
-                                                <tr>
-                                                    <form>
-                                                        <td>taju@tawakalitu.com</td>
-                                                        <td>
-                                                            <input type="text" placeholder="Enter price">
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" placeholder="Enter quantity">
-                                                        </td>
-                                                        <td scope="row">
-                                                            <label for="radioShp2" class="primary_checkbox d-flex mr-12 ">
-                                                            <input type="radio" id="radioShp2" name="shipper">
-                                                            <span class="checkmark"></span>
-                                                            </label>
-                                                        </td>
-                                                    </form>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="bySea">
+                        <p class="summaryHeadSub">by sea</p>
+                        <table>
+                            <tr class="bodyRow">
+                                <td class="tdMain">Shipping Cost</td>
+                                <td class="tdBody">$2000</td>
+                            </tr>
+                            <tr class="bodyRow">
+                                <td class="tdMain">Initial Deposit</td>
+                                <td class="tdBody">$1000</td>
+                            </tr>
+                            <tr class="bodyRow">
+                                <td class="tdMain">Insurance</td>
+                                <td class="tdBody">$50</td>
+                            </tr>
+                            <tr class="bodyRow">
+                                <td class="tdMain">Estimated Duration</td>
+                                <td class="tdBody">10 weeks</td>
+                            </tr>
+                        </table>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btnSaveChange" data-bs-dismiss="modal">Save Changes</button>
+                    <div class="byAir">
+                        <p class="summaryHeadSub">by air</p>
+                        <table>
+                            <tr class="bodyRow">
+                                <td class="tdMain">Shipping Cost</td>
+                                <td class="tdBody">$4000</td>
+                            </tr>
+                            <tr class="bodyRow">
+                                <td class="tdMain">Initial Deposit</td>
+                                <td class="tdBody">$2500</td>
+                            </tr>
+                            <tr class="bodyRow">
+                                <td class="tdMain">Insurance</td>
+                                <td class="tdBody">$50</td>
+                            </tr>
+                            <tr class="bodyRow">
+                                <td class="tdMain">Estimated Duration</td>
+                                <td class="tdBody">1 week</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
+                <div class="summaryTable">
+                    <h1 class="summaryHead">Inspector Company Name Here</h1>
+                    <div class="byRoad">
+                        <p class="summaryHeadSub">Inpection</p>
+                        <table>
+                            <tr class="bodyRow">
+                                <td class="tdMain">Inspection Cost</td>
+                                <td class="tdBody">$3000</td>
+                            </tr>
+                            <tr class="bodyRow">
+                                <td class="tdMain">Estimated Duration</td>
+                                <td class="tdBody">3 weeks</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer modalFooter">
+                <button type="button">Send to Supplier</button>
+                <button type="button">Send to Buyer</button>
+            </div>
             </div>
         </div>
-
-        <!-- Inspector Modal -->
-        <div class="modal fade" id="inspectorModal" tabindex="-1" aria-labelledby="inspectorModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="inspectorModalLabel">Set Inspectors Price & Select Preferred Inspector</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="white_card_body">
-                                    <div class="QA_section">
-                                        <div class="QA_table">
-                                            <table class="table lms_table_active tableSetPrice">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">Email</th>
-                                                    <th scope="col">Set Price</th>
-                                                    <th scope="col">Set Quantity</th>
-                                                    <th scope="col">Choose Inspector</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <form>
-                                                        <td>mufusa@me.com</td>
-                                                        <td>
-                                                            <input type="text" placeholder="Enter price">
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" placeholder="Enter quantity">
-                                                        </td>
-                                                        <td scope="row">
-                                                            <label for="radioIns1" class="primary_checkbox d-flex mr-12 ">
-                                                            <input type="radio" id="radioIns1" name="inspector">
-                                                            <span class="checkmark"></span>
-                                                            </label>
-                                                        </td>
-                                                    </form>
-                                                </tr>
-                                                <tr>
-                                                    <form>
-                                                        <td>taju@tawakalitu.com</td>
-                                                        <td>
-                                                            <input type="text" placeholder="Enter price">
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" placeholder="Enter quantity">
-                                                        </td>
-                                                        <td scope="row">
-                                                            <label for="radioIns2" class="primary_checkbox d-flex mr-12 ">
-                                                            <input type="radio" id="radioIns2" name="inspector">
-                                                            <span class="checkmark"></span>
-                                                            </label>
-                                                        </td>
-                                                    </form>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btnSaveChange" data-bs-dismiss="modal">Save Changes</button>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <dash-footer/>
@@ -311,6 +411,7 @@
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>
 <style scoped src="@/assets/css/style.css"></style>
 <style scoped src="@/assets/css/styleSupport.css"></style>
+<style scoped src="@/assets/css/slider.css"></style>
 <script>
     import DashSidebar from './dash-sidebar.vue'
     import DashNavbar from './dash-navbar.vue'

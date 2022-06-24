@@ -22,14 +22,17 @@ import Buyer from "../views/userAuth/Buyer.vue";
 //Admin Login
 import AdminLogin from "../views/adminLogin/Login.vue";
 
+
 //////////Buyer Dashboard
 import DashBuyerHome from "../views/buyerDashboard/Home.vue";
 //notifications
-import DashBuyerMailBox from "../views/buyerDashboard/MailBox.vue";
+import DashBuyerAllNotifications from "../views/buyerDashboard/AllNotifications.vue";
+/*
 import DashBuyerSentMail from "../views/buyerDashboard/SentMail.vue";
 import DashBuyerTrashMail from "../views/buyerDashboard/TrashMail.vue";
 import DashBuyerComposeMail from "../views/buyerDashboard/ComposeMail.vue";
 import DashBuyerDraftMail from "../views/buyerDashboard/DraftMail.vue";
+*/
 //orders
 import DashBuyerOrdersOpen from "../views/buyerDashboard/OrdersOpen.vue";
 import DashBuyerOrdersClosed from "../views/buyerDashboard/OrdersClosed.vue";
@@ -42,12 +45,13 @@ import DashBuyerEditProfileDetails from "../views/buyerDashboard/EditProfileDeta
 import DashBuyerProfile from "../views/buyerDashboard/Profile.vue";
 import DashBuyerChangePassword from "../views/buyerDashboard/ChangePassword.vue";
 
+
 //////////Supplier Dashboard
 import DashSupplierHome from "../views/supplierDashboard/Home.vue";
 //notifications
 import DashSupplierAllNotifications from "../views/supplierDashboard/AllNotifications.vue";
-import DashSupplierDeletedNotifications from "../views/supplierDashboard/DeletedNotifications.vue";
 /*
+import DashSupplierDeletedNotifications from "../views/supplierDashboard/DeletedNotifications.vue";
 import DashSupplierMailBox from "../views/supplierDashboard/MailBox.vue";
 import DashSupplierSentMail from "../views/supplierDashboard/SentMail.vue";
 import DashSupplierTrashMail from "../views/supplierDashboard/TrashMail.vue";
@@ -85,6 +89,8 @@ import DashSupplierChangePassword from "../views/supplierDashboard/ChangePasswor
 //////////Dashboard
 import DashHome from "../views/dashboard/Home.vue";
 import DashProfile from "../views/dashboard/Profile.vue";
+//notifications
+import DashAllNotifications from "../views/dashboard/AllNotifications.vue";
 //products
 import DashViewProductsActive from "../views/dashboard/ViewProductsActive.vue";
 import DashEditProductStatus from "../views/dashboard/EditProductStatus.vue";
@@ -115,6 +121,8 @@ import DashEditInspectorContent from "../views/dashboard/EditInspectorContent.vu
 //quotes
 import DashViewQuotes from "../views/dashboard/ViewQuotes.vue";
 import DashQuotes0001 from "../views/dashboard/Quotes0001.vue";
+import DashEnterShippingPrice from "../views/dashboard/EnterShippingPrice.vue";
+import DashEnterInspectionPrice from "../views/dashboard/EnterInspectionPrice.vue";
 //blogs
 import DashWriteBlog from "../views/dashboard/WriteBlog.vue";
 import DashEditBlogContent from "../views/dashboard/EditBlogContent.vue";
@@ -197,10 +205,11 @@ const routes = [
   { path: "/buyer-dashboard", redirect: "/buyer-dashboard/home" },
   //notifications
   {
-    path: "/buyer-dashboard/mail-box",
-    name: "DashBuyerMailBox",
-    component: DashBuyerMailBox,
+    path: "/buyer-dashboard/all-notifications",
+    name: "DashBuyerAllNotifications",
+    component: DashBuyerAllNotifications,
   },
+  /*
   {
     path: "/buyer-dashboard/sent-mail",
     name: "DashBuyerSentMail",
@@ -221,6 +230,7 @@ const routes = [
     name: "DashBuyerDraftMail",
     component: DashBuyerDraftMail,
   },
+  */
   //orders
   {
     path: "/buyer-dashboard/open-orders",
@@ -283,12 +293,12 @@ const routes = [
     name: "DashSupplierAllNotifications",
     component: DashSupplierAllNotifications,
   },
+  /*
   {
     path: "/supplier-dashboard/deleted-notifications",
     name: "DashSupplierDeletedNotifications",
     component: DashSupplierDeletedNotifications,
   },
-  /*
   {
     path: "/supplier-dashboard/mail-box",
     name: "DashSupplierMailBox",
@@ -432,6 +442,12 @@ const routes = [
   { path: "/admin/login", name: "AdminLogin", component: AdminLogin },
   { path: "/dashboard/home", name: "DashHome", component: DashHome },
   { path: "/dashboard/profile", name: "DashProfile", component: DashProfile },
+   //notifications
+   {
+    path: "/dashboard/all-notifications",
+    name: "DashAllNotifications",
+    component: DashAllNotifications,
+  },
   //products
   {
     path: "/dashboard/active-products",
@@ -553,6 +569,16 @@ const routes = [
     path: "/dashboard/quotes/:id",
     name: "DashQuotes0001",
     component: DashQuotes0001,
+  },
+  {
+    path: "/dashboard/shipping-price",
+    name: "DashEnterShippingPrice",
+    component: DashEnterShippingPrice,
+  },
+  {
+    path: "/dashboard/inspection-price",
+    name: "DashEnterSInspectionPrice",
+    component: DashEnterInspectionPrice,
   },
   //blogs
   {
