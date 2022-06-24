@@ -71,7 +71,7 @@
                           <th scope="col">#</th>
                           <th scope="col">Product Name</th>
                           <th scope="col">Published Date</th>
-                          <th scope="col">Product Status (Enable - Disable)</th>
+                          <th scope="col">Product Availability</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
@@ -81,16 +81,15 @@
                           <td>{{ product.name }}</td>
                           <td>{{ product.updatedAt }}</td>
                           <td>
-                            <span class="spanAction">Enable</span>
-                            <label class="switchDisable">
-                              <input
-                                type="checkbox"
-                                id="myCheckbox"
-                                @change="toggleCheck()"
-                              />
+                            <span class="spanAction">Disable</span>
+                            <label
+                              class="switchDisable"
+                              title="Click to make unavailable"
+                            >
+                              <input type="checkbox" id="myCheckbox" checked />
                               <span class="slider round"></span>
                             </label>
-                            <span class="spanAction">Disable</span>
+                            <span class="spanAction">Available</span>
                           </td>
                           <td>
                             <div class="action_btns d-flex">
@@ -133,6 +132,8 @@
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
+import Swal from "sweetalert2";
+
 export default {
   name: "Produce Mart",
   components: {
@@ -153,6 +154,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       token: JSON.parse(localStorage.getItem("user")).token,
       products: null,
     };
@@ -171,6 +173,39 @@ export default {
       const { data } = await res.json();
       this.products = data;
       console.log(data);
+    },
+    async makeUnavailable(id) {
+      this.loading = true;
+      const res = await fetch(
+        "https://producemart.herokuapp.com/productAvailability/" + id,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: this.token,
+          },
+          body: JSON.stringify({ available: false }),
+        }
+      );
+      if (res.ok) {
+        this.loading = false;
+        this.fetchPublishedProduct();
+        Swal.fire({
+          title: "Product made unavailable!",
+          text: "You can view in the unavailable page and also make available when product is available",
+          icon: "success",
+          confirmButtonColor: "#97f29f",
+          confirmButtonText: "Ok",
+        });
+      } else {
+        this.loading = false;
+        Swal.fire({
+          title: "ooPs!",
+          text: "Unable to make product unavailable at the moment please try again later",
+          icon: "error",
+          confirmButtonColor: "#97f29f",
+          confirmButtonText: "Ok",
+        });
+      }
     },
     async deleteProduct(id) {
       const res = await fetch(
