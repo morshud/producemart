@@ -56,14 +56,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="fileDownloadOption mb-3">
+                  <!-- <div class="fileDownloadOption mb-3">
                     <button type="button" title="Download as CSV file">
                       CSV
                     </button>
                     <button type="button" title="Download as PDF file">
                       PDF
                     </button>
-                  </div>
+                  </div> -->
                   <div class="QA_table mb_30" v-if="products">
                     <table class="table lms_table_active">
                       <thead>
@@ -84,7 +84,18 @@
                             <span class="spanAction">Disable</span>
                             <label
                               class="switchDisable"
+                              title="Loading..."
+                              v-if="loading && id == product._id"
+                              disabled
+                            >
+                              <input type="checkbox" id="myCheckbox" disabled />
+                              <span class="slider round" disabled></span>
+                            </label>
+                            <label
+                              class="switchDisable"
                               title="Click to make unavailable"
+                              @click="makeUnavailable(product._id)"
+                              v-else
                             >
                               <input type="checkbox" id="myCheckbox" checked />
                               <span class="slider round"></span>
@@ -155,6 +166,7 @@ export default {
   data() {
     return {
       loading: false,
+      id: null,
       token: JSON.parse(localStorage.getItem("user")).token,
       products: null,
     };
@@ -171,10 +183,11 @@ export default {
         }
       );
       const { data } = await res.json();
-      this.products = data;
+      this.products = data.filter((prod) => prod.available);
       console.log(data);
     },
     async makeUnavailable(id) {
+      this.id = id;
       this.loading = true;
       const res = await fetch(
         "https://producemart.herokuapp.com/productAvailability/" + id,
@@ -182,6 +195,7 @@ export default {
           method: "PATCH",
           headers: {
             Authorization: this.token,
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ available: false }),
         }
@@ -191,7 +205,7 @@ export default {
         this.fetchPublishedProduct();
         Swal.fire({
           title: "Product made unavailable!",
-          text: "You can view in the unavailable page and also make available when product is available",
+          text: "You can view product in the unavailable page and also make available when product is available",
           icon: "success",
           confirmButtonColor: "#97f29f",
           confirmButtonText: "Ok",

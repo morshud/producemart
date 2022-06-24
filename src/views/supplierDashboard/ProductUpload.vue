@@ -185,7 +185,7 @@
                       <option
                         v-for="(add, i) in address"
                         :key="i"
-                        :value="add.city + ' ' + add.state"
+                        :value="add.city + ' ' + add.country"
                       >
                         {{ add.name }}: {{ add.street }} {{ add.city }}
                         {{ add.state }}

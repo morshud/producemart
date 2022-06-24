@@ -23,7 +23,7 @@
                       <router-link to="/supplier-dashboard/home"
                         ><a>Dashboard</a></router-link
                       >
-                      <i class="fas fa-caret-right"></i> Disabled Products
+                      <i class="fas fa-caret-right"></i> Unavailable Products
                     </p>
                   </div>
                 </div>
@@ -56,35 +56,65 @@
                       </div>
                     </div>
                   </div>
-                  <div class="fileDownloadOption mb-3">
+                  <!-- <div class="fileDownloadOption mb-3">
                     <button type="button" title="Download as CSV file">
                       CSV
                     </button>
                     <button type="button" title="Download as PDF file">
                       PDF
                     </button>
-                  </div>
-                  <div class="QA_table mb_30" v-if="products">
+                  </div> -->
+                  <div class="QA_table mb_30" v-if="unavailableProducts">
                     <table class="table lms_table_active">
                       <thead>
                         <tr>
                           <th scope="col">#</th>
                           <th scope="col">Product Name</th>
                           <th scope="col">Unavailable Date</th>
+                          <th scope="col">Product Availability</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(product, i) in products" :key="i">
-                          <th scope="row" v-if="product.status == 'disabled'">
-                            <i class="fas fa-warning"></i>
-                          </th>
-                          <th scope="row" v-else>
+                        <tr
+                          v-for="(product, i) in unavailableProducts"
+                          :key="i"
+                        >
+                          <th scope="row">
                             {{ i + 1 }}
                           </th>
                           <td>{{ product.name }}</td>
                           <td>{{ product.updatedAt }}</td>
-                          <td v-if="product.status != 'disabled'">
+                          <td>
+                            <span class="spanAction">Disable</span>
+                            <label
+                              class="switchDisable"
+                              title="Loading..."
+                              disabled
+                              v-if="loading && id == product._id"
+                            >
+                              <input
+                                type="checkbox"
+                                id="myCheckbox"
+                                checked
+                                disabled
+                              />
+                              <span class="slider round" disabled></span>
+                            </label>
+                            <label
+                              class="switchDisable"
+                              @click="makeUnavailable(product._id)"
+                              title="Click to make available"
+                              v-else
+                            >
+                              <input type="checkbox" id="myCheckbox" />
+                              <span class="slider round"></span>
+                            </label>
+
+                            <span class="spanAction">Available</span>
+                          </td>
+
+                          <td>
                             <div class="action_btns d-flex">
                               <router-link
                                 :to="
@@ -105,7 +135,18 @@
                               </span>
                             </div>
                           </td>
-                          <td v-else><p>Disabled by admin</p></td>
+                        </tr>
+                        <tr v-for="(product, i) in disabledProducts" :key="i">
+                          <th scope="row">
+                            <i class="fas fa-warning"></i>
+                          </th>
+
+                          <td>{{ product.name }}</td>
+                          <td>{{ product.updatedAt }}</td>
+
+                          <td>product disabled</td>
+
+                          <td><p>Disabled by admin</p></td>
                         </tr>
                       </tbody>
                     </table>
@@ -124,10 +165,12 @@
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>
 <style scoped src="@/assets/css/style.css"></style>
+<style scoped src="@/assets/css/styleSupport.css"></style>
 <script>
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
+import Swal from "sweetalert2";
 export default {
   name: "Produce Mart",
   components: {
@@ -148,13 +191,15 @@ export default {
   },
   data() {
     return {
+      loading: false,
+      id: null,
       token: JSON.parse(localStorage.getItem("user")).token,
-      products: null,
+      unavailableProducts: null,
+      disabledProducts: null,
     };
   },
   methods: {
     async fetchPublishedProduct() {
-      this.products = null;
       const res = await fetch(
         "https://producemart.herokuapp.com/getAllProducts",
         {
@@ -162,10 +207,44 @@ export default {
         }
       );
       const { data } = await res.json();
-      this.products = data.filter(
-        (prod) => prod.status == "disabled" || prod.available == false
+      this.unavailableProducts = data.filter((prod) => prod.available == false);
+      this.disabledProducts = data.filter((prod) => prod.status == "disabled");
+      console.log(this.unavailableProducts);
+    },
+    async makeUnavailable(id) {
+      this.id = id;
+      this.loading = true;
+      const res = await fetch(
+        "https://producemart.herokuapp.com/productAvailability/" + id,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: this.token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ available: true }),
+        }
       );
-      console.log(this.products);
+      if (res.ok) {
+        this.loading = false;
+        this.fetchPublishedProduct();
+        Swal.fire({
+          title: "Product made available!",
+          text: "You can view product in the published product page.",
+          icon: "success",
+          confirmButtonColor: "#97f29f",
+          confirmButtonText: "Ok",
+        });
+      } else {
+        this.loading = false;
+        Swal.fire({
+          title: "ooPs!",
+          text: "Unable to make product available at the moment please try again later",
+          icon: "error",
+          confirmButtonColor: "#97f29f",
+          confirmButtonText: "Ok",
+        });
+      }
     },
     async deleteProduct(id) {
       const res = await fetch(
