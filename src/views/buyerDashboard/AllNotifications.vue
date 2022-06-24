@@ -1,5 +1,5 @@
 <template>
-    <title>All Notifications - Supplier Dashboard | Produce Mart</title>
+    <title>All Notifications - Buyer Dashboard | Produce Mart</title>
     <dash-sidebar/>
 
     <section class="main_content dashboard_part large_header_bg">
@@ -20,7 +20,7 @@
                                 <div class="col-lg-4">
                                     <div class="dashboard_breadcam text-right">
                                         <p>
-                                            <router-link to="/supplier-dashboard/home"><a>Dashboard</a></router-link> 
+                                            <router-link to="/buyer-dashboard/home"><a>Dashboard</a></router-link> 
                                             <i class="fas fa-caret-right"></i> 
                                             Notifications
                                         </p>

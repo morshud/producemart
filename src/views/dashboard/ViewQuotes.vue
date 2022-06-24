@@ -56,6 +56,7 @@
                                                 <th scope="col">From</th>
                                                 <th scope="col">Email</th>
                                                 <th scope="col">Date</th>
+                                                <th scope="col">Status</th>
                                                 <th scope="col">Link</th>
                                             </tr>
                                             </thead>
@@ -66,6 +67,7 @@
                                                 <td>Supplier - {{item.supplier.company_name}}</td>
                                                 <td>{{item.buyer.email}}</td>
                                                 <td>{{new Date(item.createdAt).toISOString().slice(0, 10)}}</td>
+                                                <td></td>
                                                 <td>
                                                     <router-link :to="'/dashboard/quotes/'+item._id" ><button class="status_view">View</button></router-link>
                                                 </td>

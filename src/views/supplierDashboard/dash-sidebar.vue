@@ -43,11 +43,11 @@
               ><a>All Notifications</a></router-link
             >
           </li>
-          <li>
+          <!-- <li>
             <router-link to="/supplier-dashboard/deleted-notifications"
               ><a>Deleted Notifications</a></router-link
             >
-          </li>
+          </li> -->
         </ul>
       </li>
       <!--Orders-->

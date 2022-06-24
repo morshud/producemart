@@ -27,6 +27,26 @@
           </a>
         </router-link>
       </li>
+      <!--Notifications-->
+      <li class="">
+        <router-link to="#" class="has-arrow">
+          <a aria-expanded="false">
+            <div class="nav_icon_small">
+              <img src="@/assets/img/menu-icon/notification.png" />
+            </div>
+            <div class="nav_title">
+              <span>Notifications</span>
+            </div>
+          </a>
+        </router-link>
+        <ul>
+          <li>
+            <router-link to="/dashboard/all-notifications"
+              ><a>All Notifications</a></router-link
+            >
+          </li>
+        </ul>
+      </li>
       <!--Emails-->
       <li class="" v-if="user.role == 'superadmin'">
         <router-link to="#" class="has-arrow">
@@ -63,11 +83,6 @@
               ><a>Add Email</a></router-link
             >
           </li>
-          <!-- <li><router-link to="/dashboard/mail-box"><a>Mail Box</a></router-link></li>
-                    <li><router-link to="/dashboard/compose-mail"><a>Compose Mail</a></router-link></li>
-                    <li><router-link to="/dashboard/sent-mail"><a>Sent Mail</a></router-link></li>
-                    <li><router-link to="/dashboard/mail-draft"><a>Drafts</a></router-link></li>
-                    <li><router-link to="/dashboard/trash-mail"><a>Trash</a></router-link></li> -->
         </ul>
       </li>
       <!--Products-->

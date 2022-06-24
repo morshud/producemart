@@ -119,7 +119,7 @@
                   </div>
                   <div class="nofity_footer">
                     <div class="submit_button text-center pt_20">
-                      <a href="#" class="btn_1">See More</a>
+                      <router-link to="/buyer-dashboard/all-notifications" class="btn_1">See More</router-link>
                     </div>
                   </div>
                 </div>
