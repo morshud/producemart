@@ -413,8 +413,8 @@
                 <div class="col-lg-12 feedBackBox" v-if="!updateId">
                   <form @submit.prevent="AddFeedback">
                     <label for="feedback"
-                      >Give Supplier feedback why this product can't be activated
-                      and listed.</label
+                      >Give Supplier feedback why this product can't be
+                      activated and listed.</label
                     ><br />
                     <textarea
                       name="feedback"
@@ -682,3 +682,6 @@ export default {
   },
 };
 </script>
+<style scoped src="@/assets/css/slider.css"></style>
+<style scoped src="@/assets/css/styleFrontend.css"></style>
+<style scoped src="@/assets/css/bootstrap.css"></style>

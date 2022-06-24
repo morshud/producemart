@@ -37,22 +37,59 @@
               class="form"
               @submit.prevent="handleProductUpload('upload')"
               enctype="multipart/form-data"
+              :key="componentKey"
             >
               <!-- Progress bar -->
               <div class="progressbar">
                 <div class="progress" id="progress"></div>
                 <div
-                  class="progress-step progress-step-active"
+                  :class="
+                    step == 1 || step > 1
+                      ? 'progress-step progress-step-active'
+                      : 'progress-step'
+                  "
                   data-title="Product Details"
                 ></div>
                 <div
-                  class="progress-step"
+                  :class="
+                    step == 2 || step > 2
+                      ? 'progress-step progress-step-active'
+                      : 'progress-step'
+                  "
                   data-title="Product Characteristics"
                 ></div>
-                <div class="progress-step" data-title="Image Selection"></div>
-                <div class="progress-step" data-title="Certifications"></div>
-                <div class="progress-step" data-title="Packaging"></div>
-                <div class="progress-step" data-title="Minimum Order"></div>
+                <div
+                  :class="
+                    step == 3 || step > 3
+                      ? 'progress-step progress-step-active'
+                      : 'progress-step'
+                  "
+                  data-title="Image Selection"
+                ></div>
+                <div
+                  :class="
+                    step == 4 || step > 4
+                      ? 'progress-step progress-step-active'
+                      : 'progress-step'
+                  "
+                  data-title="Certifications"
+                ></div>
+                <div
+                  :class="
+                    step == 5 || step > 5
+                      ? 'progress-step progress-step-active'
+                      : 'progress-step'
+                  "
+                  data-title="Packaging"
+                ></div>
+                <div
+                  :class="
+                    step == 6
+                      ? 'progress-step progress-step-active'
+                      : 'progress-step'
+                  "
+                  data-title="Minimum Order"
+                ></div>
               </div>
               <div
                 class="alert alert-warning alert-dismissible fade show"
@@ -70,7 +107,11 @@
 
               <!-- Step 1 - Product Details -->
               <div
-                class="row form-step form-step-active justify-content-center"
+                :class="
+                  step == 1
+                    ? 'row form-step form-step-active justify-content-center'
+                    : 'row form-step justify-content-center'
+                "
               >
                 <div class="col-lg-12 text-center headerH1">
                   <h1>Product Details</h1>
@@ -289,7 +330,8 @@
                     <button
                       type="button"
                       class="btn btn-next width-100 ml-auto"
-                      :disable="disableNxt"
+                      :disabled="disableNxt"
+                      @click="step = 2"
                     >
                       Next
                     </button>
@@ -306,7 +348,13 @@
               </div>
 
               <!-- Step 2 - Product Characteristics -->
-              <div class="row form-step">
+              <div
+                :class="
+                  step == 2
+                    ? 'row form-step form-step-active '
+                    : 'row form-step'
+                "
+              >
                 <div class="col-lg-12 text-center headerH1">
                   <h1>Product Characteristics</h1>
                 </div>
@@ -1226,12 +1274,20 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-6">
-                    <button type="button" class="btn btn-prev width-100">
+                    <button
+                      type="button"
+                      class="btn btn-prev width-100"
+                      @click="step = 1"
+                    >
                       Previous
                     </button>
                   </div>
                   <div class="col-sm-6">
-                    <button type="button" class="btn btn-next width-100">
+                    <button
+                      type="button"
+                      class="btn btn-next width-100"
+                      @click="step = 3"
+                    >
                       Next
                     </button>
                   </div>
@@ -1253,7 +1309,13 @@
               </div>
 
               <!-- Step 3 - Image Selection -->
-              <div class="row form-step">
+              <div
+                :class="
+                  step == 3
+                    ? 'row form-step form-step-active '
+                    : 'row form-step'
+                "
+              >
                 <div class="col-lg-12 text-center headerH1">
                   <h1>Product Image</h1>
                 </div>
@@ -1367,12 +1429,20 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-6">
-                    <button type="button" class="btn btn-prev width-100">
+                    <button
+                      type="button"
+                      class="btn btn-prev width-100"
+                      @click="step = 2"
+                    >
                       Previous
                     </button>
                   </div>
                   <div class="col-sm-6">
-                    <button type="button" class="btn btn-next width-100">
+                    <button
+                      type="button"
+                      class="btn btn-next width-100"
+                      @click="step = 4"
+                    >
                       Next
                     </button>
                   </div>
@@ -1394,7 +1464,13 @@
               </div>
 
               <!-- Step 4 - Certification -->
-              <div class="row form-step">
+              <div
+                :class="
+                  step == 4
+                    ? 'row form-step form-step-active '
+                    : 'row form-step'
+                "
+              >
                 <div class="col-lg-12 text-center headerH1">
                   <h1>Certification</h1>
                 </div>
@@ -1582,12 +1658,20 @@
 
                 <div class="row">
                   <div class="col-sm-6">
-                    <button type="button" class="btn btn-prev width-100">
+                    <button
+                      type="button"
+                      class="btn btn-prev width-100"
+                      @click="step = 3"
+                    >
                       Previous
                     </button>
                   </div>
                   <div class="col-sm-6">
-                    <button type="button" class="btn btn-next width-100">
+                    <button
+                      type="button"
+                      class="btn btn-next width-100"
+                      @click="step = 5"
+                    >
                       Next
                     </button>
                   </div>
@@ -1609,7 +1693,13 @@
               </div>
 
               <!-- Step 5 - Packaging -->
-              <div class="row form-step">
+              <div
+                :class="
+                  step == 5
+                    ? 'row form-step form-step-active '
+                    : 'row form-step'
+                "
+              >
                 <div class="col-lg-12 text-center headerH1">
                   <h1>Packaging</h1>
                 </div>
@@ -1851,6 +1941,22 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-lg-12 mt-4 mb-3">
+                    <p
+                      v-if="
+                        name &&
+                        packages.weight &&
+                        packages.weight_unit &&
+                        packages.price
+                      "
+                    >
+                      <strong>Note: </strong>
+                      {{
+                        `${packages.weight}${packages.weight_unit} of ${name} sells at the price of
+                      \$${packages.price}`
+                      }}
+                    </p>
+                  </div>
                 </div>
 
                 <div class="lineHRSpe2"></div>
@@ -1976,20 +2082,30 @@
                       class="input selectSize"
                       v-model="shipment.container_unit"
                     >
-                      <option value="kg">kg</option>
-                      <option value="lb">lb</option>
-                      <option value="ton">ton</option>
+                      <option value="crate">Crate</option>
+                      <option value="box">Box</option>
+                      <option value="pack">Pack</option>
+                      <option value="pallete">Pallete</option>
+                      <option value="carton">Carton</option>
                     </select>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-sm-6">
-                    <button type="button" class="btn btn-prev width-100">
+                    <button
+                      type="button"
+                      class="btn btn-prev width-100"
+                      @click="step = 4"
+                    >
                       Previous
                     </button>
                   </div>
                   <div class="col-sm-6">
-                    <button type="button" class="btn btn-next width-100">
+                    <button
+                      type="button"
+                      class="btn btn-next width-100"
+                      @click="step = 6"
+                    >
                       Next
                     </button>
                   </div>
@@ -2011,7 +2127,13 @@
               </div>
 
               <!-- Step 6 - Minimum Order -->
-              <div class="row form-step">
+              <div
+                :class="
+                  step == 6
+                    ? 'row form-step form-step-active '
+                    : 'row form-step'
+                "
+              >
                 <div class="col-lg-12 text-center headerH1">
                   <h1>Minimum Order</h1>
                 </div>
@@ -2108,7 +2230,9 @@
                   </div>
                 </div>
                 <div class="btns-group">
-                  <a href="#" class="btn btn-prev">Previous</a>
+                  <a href="#" class="btn btn-prev" @click="step = 5"
+                    >Previous</a
+                  >
                   <input
                     type="submit"
                     value="Submit"
@@ -2153,53 +2277,6 @@ export default {
   },
   mounted() {
     window.scrollTo(0, 0);
-    const prevBtns = document.querySelectorAll(".btn-prev");
-    const nextBtns = document.querySelectorAll(".btn-next");
-    const progress = document.getElementById("progress");
-    const formSteps = document.querySelectorAll(".form-step");
-    const progressSteps = document.querySelectorAll(".progress-step");
-
-    let formStepsNum = 0;
-
-    nextBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        formStepsNum++;
-        updateFormSteps();
-        updateProgressbar();
-      });
-    });
-
-    prevBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        formStepsNum--;
-        updateFormSteps();
-        updateProgressbar();
-      });
-    });
-
-    function updateFormSteps() {
-      formSteps.forEach((formStep) => {
-        formStep.classList.contains("form-step-active") &&
-          formStep.classList.remove("form-step-active");
-      });
-
-      formSteps[formStepsNum].classList.add("form-step-active");
-    }
-
-    function updateProgressbar() {
-      progressSteps.forEach((progressStep, idx) => {
-        if (idx < formStepsNum + 1) {
-          progressStep.classList.add("progress-step-active");
-        } else {
-          progressStep.classList.remove("progress-step-active");
-        }
-      });
-
-      const progressActive = document.querySelectorAll(".progress-step-active");
-
-      progress.style.width =
-        ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
-    }
 
     let externalScriptCustom = document.createElement("script");
     externalScriptCustom.setAttribute(
@@ -2212,6 +2289,8 @@ export default {
   },
   data() {
     return {
+      componentKey: 0,
+      step: 1,
       disableNxt: true,
       address: null,
       loading: false,
@@ -2501,6 +2580,7 @@ export default {
                 this.$router.push("/supplier-dashboard/pending-products");
               }
             });
+          this.reload();
         }
       } else {
         this.loading = false;
@@ -2529,6 +2609,11 @@ export default {
           this.items[newItem].check = false;
         }
       }
+    },
+    reload() {
+      // this.$router.go(0);
+      this.componentKey += 1;
+      this.step = 1;
     },
     setShipping(cat) {
       for (let item in this.shipping) {
