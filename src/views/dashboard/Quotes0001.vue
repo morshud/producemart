@@ -110,15 +110,15 @@
                             <td class="left strong">{{ product.name }}</td>
                             <td class="right">{{ product.variety }}</td>
                             <td class="center">
-                              {{ quote.quantity }}{{ product.order.qty_unit }}
+                              {{ quote.quantity }}{{ product.order?.qty_unit }}
                             </td>
                             <td class="right">
-                              {{ product && product.package.price }}
+                              {{ product && product.package?.price }}
                             </td>
                             <td class="right">
                               ${{
                                 product &&
-                                quote.quantity * product.package.price.slice(1)
+                                quote.quantity * product.package?.price.slice(1)
                               }}
                             </td>
                           </tr>
@@ -140,7 +140,7 @@
                                     <td class="tdMain">Quantity</td>
                                     <td class="tdBody">
                                       {{ quote.quantity }}
-                                      {{ product.package.unit }}
+                                      {{ product && product.package?.unit }}
                                     </td>
                                   </tr>
                                   <tr class="bodyRow">
@@ -161,8 +161,9 @@
                                     <td class="tdMain">Estimated Cost</td>
                                     <td class="tdBody">
                                       ${{
+                                        product &&
                                         quote.quantity *
-                                        product.package.price.slice(1)
+                                          product.package?.price.slice(1)
                                       }}
                                     </td>
                                   </tr>
@@ -177,102 +178,102 @@
                                 <h1 class="summaryHead">Destination</h1>
                                 <div
                                   class="byRoad"
-                                  v-if="destination.road.country"
+                                  v-if="destination.road?.country"
                                 >
                                   <p class="summaryHeadSub">by road</p>
                                   <table>
                                     <tr class="bodyRow">
                                       <td class="tdMain">Address 1</td>
                                       <td class="tdBody">
-                                        {{ destination.road.address }}
+                                        {{ destination.road?.address }}
                                       </td>
                                     </tr>
                                     <tr class="bodyRow">
                                       <td class="tdMain">Address 2</td>
                                       <td class="tdBody">
-                                        {{ destination.road.roadAdd2 }}
+                                        {{ destination.road?.roadAdd2 }}
                                       </td>
                                     </tr>
                                     <tr class="bodyRow">
                                       <td class="tdMain">City</td>
                                       <td class="tdBody">
-                                        {{ destination.road.city }}
+                                        {{ destination.road?.city }}
                                       </td>
                                     </tr>
                                     <tr class="bodyRow">
                                       <td class="tdMain">State/Province</td>
                                       <td class="tdBody">
-                                        {{ destination.road.state }}
+                                        {{ destination.road?.state }}
                                       </td>
                                     </tr>
                                     <tr class="bodyRow">
                                       <td class="tdMain">Country</td>
                                       <td class="tdBody">
-                                        {{ destination.road.country }}
+                                        {{ destination.road?.country }}
                                       </td>
                                     </tr>
                                     <tr class="bodyRow">
                                       <td class="tdMain">Postal Code</td>
                                       <td class="tdBody">
-                                        {{ destination.road.postal_code }}
+                                        {{ destination.road?.postal_code }}
                                       </td>
                                     </tr>
                                     <tr class="bodyRow">
                                       <td class="tdMain">Incoterm</td>
                                       <td class="tdBody">
-                                        {{ destination.road.incoterm }}
+                                        {{ destination.road?.incoterm }}
                                       </td>
                                     </tr>
                                   </table>
                                 </div>
                                 <div
                                   class="bySea"
-                                  v-if="destination.sea.country"
+                                  v-if="destination.sea?.country"
                                 >
                                   <p class="summaryHeadSub">by sea</p>
                                   <table>
                                     <tr class="bodyRow">
                                       <td class="tdMain">SeaPort</td>
                                       <td class="tdBody">
-                                        {{ destination.sea.port }}
+                                        {{ destination.sea?.port }}
                                       </td>
                                     </tr>
                                     <tr class="bodyRow">
                                       <td class="tdMain">Country</td>
                                       <td class="tdBody">
-                                        {{ destination.sea.country }}
+                                        {{ destination.sea?.country }}
                                       </td>
                                     </tr>
                                     <tr class="bodyRow">
                                       <td class="tdMain">Incoterm</td>
                                       <td class="tdBody">
-                                        {{ destination.sea.incoterm }}
+                                        {{ destination.sea?.incoterm }}
                                       </td>
                                     </tr>
                                   </table>
                                 </div>
                                 <div
                                   class="byAir"
-                                  v-if="destination.air.country"
+                                  v-if="destination.air?.country"
                                 >
                                   <p class="summaryHeadSub">by air</p>
                                   <table>
                                     <tr class="bodyRow">
                                       <td class="tdMain">AirPort</td>
                                       <td class="tdBody">
-                                        {{ destination.air.port }}
+                                        {{ destination.air?.port }}
                                       </td>
                                     </tr>
                                     <tr class="bodyRow">
                                       <td class="tdMain">Country</td>
                                       <td class="tdBody">
-                                        {{ destination.air.country }}
+                                        {{ destination.air?.country }}
                                       </td>
                                     </tr>
                                     <tr class="bodyRow">
                                       <td class="tdMain">Incoterm</td>
                                       <td class="tdBody">
-                                        {{ destination.air.incoterm }}
+                                        {{ destination.air?.incoterm }}
                                       </td>
                                     </tr>
                                   </table>
@@ -293,8 +294,8 @@
                                 <strong>Total Weight</strong>
                               </td>
                               <td class="right">
-                                {{ quote.quantity * product.package.weight }}
-                                {{ product.package.unit }}
+                                {{ quote.quantity * product.package?.weight }}
+                                {{ product.package?.unit }}
                               </td>
                             </tr>
                             <tr>
@@ -360,7 +361,21 @@
                                 <strong>Action</strong>
                               </td>
                               <td class="right">
-                                <button class="enterPricesBtn">save</button>
+                                <button
+                                  class="enterPricesBtn"
+                                  @click="saveQuote"
+                                  v-if="!loading"
+                                >
+                                  save
+                                </button>
+                                <div
+                                  class="col-lg-12 mb-4 mt-2 text-center signuas"
+                                  v-else
+                                >
+                                  <span
+                                    class="spinner-border spinner-border-sm"
+                                  ></span>
+                                </div>
                               </td>
                             </tr>
                           </tbody>
@@ -368,7 +383,7 @@
                       </div>
                     </div>
 
-                    <div class="row" v-if="orderDetails">
+                    <div class="row" v-if="order">
                       <div class="col-lg-12 mt-2 mb-2">
                         <h4>Selected Shipper and Inspector</h4>
                       </div>
@@ -383,8 +398,14 @@
                           </thead>
                           <tbody>
                             <tr>
-                              <td class="center">{{ names.shipper }}</td>
-                              <td class="center">{{ names.inspector }}</td>
+                              <td class="center">
+                                {{ order?.shipper?.firstName }}
+                                {{ order?.shipper.lastName }}
+                              </td>
+                              <td class="center">
+                                {{ order?.inspector?.firstName }}
+                                {{ order?.inspector?.lastName }}
+                              </td>
                               <td class="center">
                                 <button
                                   class="sendToSupplier"
@@ -435,94 +456,173 @@
           </div>
           <div class="modal-body">
             <div class="summaryTable">
-              <h1 class="summaryHead">{{ names.shipper }}</h1>
-              <div class="byRoad" v-if="orderDetails.road_cost">
+              <h1 class="summaryHead">{{ order?.shipper?.companyName }}</h1>
+              <div
+                class="byRoad"
+                v-if="order?.shipment_payment?.road?.road_cost"
+              >
                 <p class="summaryHeadSub">by road</p>
                 <table>
                   <tr class="bodyRow">
                     <td class="tdMain">Shipping Cost</td>
-                    <td class="tdBody">${{ orderDetails.road_cost }}</td>
+                    <td class="tdBody">
+                      ${{
+                        order?.shipment_payment &&
+                        order?.shipment_payment?.road?.road_cost
+                      }}
+                    </td>
                   </tr>
                   <tr class="bodyRow">
                     <td class="tdMain">Initial Deposit</td>
-                    <td class="tdBody">${{ orderDetails.road_deposit }}</td>
+                    <td class="tdBody">
+                      ${{
+                        order?.shipment_payment &&
+                        order?.shipment_payment?.road?.road_deposit
+                      }}
+                    </td>
                   </tr>
                   <tr class="bodyRow">
                     <td class="tdMain">Insurance</td>
-                    <td class="tdBody">${{ orderDetails.road_insurance }}</td>
+                    <td class="tdBody">
+                      ${{
+                        order?.shipment_payment &&
+                        order?.shipment_payment?.road?.road_insurance
+                      }}
+                    </td>
                   </tr>
                   <tr class="bodyRow">
                     <td class="tdMain">Estimated Duration</td>
                     <td class="tdBody">
-                      {{ orderDetails.road_duration }}
-                      {{ orderDetails.road_duration_period }}
+                      {{
+                        order?.shipment_payment &&
+                        order?.shipment_payment?.road?.road_duration
+                      }}
+                      {{
+                        order?.shipment_payment &&
+                        order?.shipment_payment?.road?.road_duration_period
+                      }}
                     </td>
                   </tr>
                 </table>
               </div>
-              <div class="bySea" v-if="orderDetails.sea_cost">
+              <div class="bySea" v-if="order?.shipment_payment?.sea?.sea_cost">
                 <p class="summaryHeadSub">by sea</p>
                 <table>
                   <tr class="bodyRow">
                     <td class="tdMain">Shipping Cost</td>
-                    <td class="tdBody">${{ orderDetails.sea_cost }}</td>
+                    <td class="tdBody">
+                      ${{
+                        order?.shipment_payment &&
+                        order?.shipment_payment?.sea?.sea_cost
+                      }}
+                    </td>
                   </tr>
                   <tr class="bodyRow">
                     <td class="tdMain">Initial Deposit</td>
-                    <td class="tdBody">${{ orderDetails.sea_deposit }}</td>
+                    <td class="tdBody">
+                      ${{
+                        order?.shipment_payment &&
+                        order?.shipment_payment?.sea?.sea_deposit
+                      }}
+                    </td>
                   </tr>
                   <tr class="bodyRow">
                     <td class="tdMain">Insurance</td>
-                    <td class="tdBody">${{ orderDetails.sea_insurance }}</td>
+                    <td class="tdBody">
+                      ${{
+                        order?.shipment_payment &&
+                        order?.shipment_payment?.sea?.sea_insurance
+                      }}
+                    </td>
                   </tr>
                   <tr class="bodyRow">
                     <td class="tdMain">Estimated Duration</td>
                     <td class="tdBody">
-                      {{ orderDetails.sea_duration }}
-                      {{ orderDetails.sea_duration_period }}
+                      {{
+                        order?.shipment_payment &&
+                        order?.shipment_payment?.sea?.sea_duration
+                      }}
+                      {{
+                        order?.shipment_payment &&
+                        order?.shipment_payment?.sea?.sea_duration_period
+                      }}
                     </td>
                   </tr>
                 </table>
               </div>
-              <div class="byAir" v-if="orderDetails.air_cost">
+              <div class="byAir" v-if="order?.shipment_payment?.air?.air_cost">
                 <p class="summaryHeadSub">by air</p>
                 <table>
                   <tr class="bodyRow">
                     <td class="tdMain">Shipping Cost</td>
-                    <td class="tdBody">${{ orderDetails.air_cost }}</td>
+                    <td class="tdBody">
+                      ${{
+                        order?.shipment_payment &&
+                        order?.shipment_payment?.air?.air_cost
+                      }}
+                    </td>
                   </tr>
                   <tr class="bodyRow">
                     <td class="tdMain">Initial Deposit</td>
-                    <td class="tdBody">${{ orderDetails.air_deposit }}</td>
+                    <td class="tdBody">
+                      ${{
+                        order?.shipment_payment &&
+                        order?.shipment_payment?.air?.air_deposit
+                      }}
+                    </td>
                   </tr>
                   <tr class="bodyRow">
                     <td class="tdMain">Insurance</td>
-                    <td class="tdBody">${{ orderDetails.air_insurance }}</td>
+                    <td class="tdBody">
+                      ${{
+                        order?.shipment_payment &&
+                        order?.shipment_payment?.air?.air_insurance
+                      }}
+                    </td>
                   </tr>
                   <tr class="bodyRow">
                     <td class="tdMain">Estimated Duration</td>
                     <td class="tdBody">
-                      {{ orderDetails.air_duration }}
-                      {{ orderDetails.air_duration_period }}
+                      {{
+                        order?.shipment_payment &&
+                        order?.shipment_payment?.air?.air_duration
+                      }}
+                      {{
+                        order?.shipment_payment &&
+                        order?.shipment_payment?.air?.air_duration_period
+                      }}
                     </td>
                   </tr>
                 </table>
               </div>
             </div>
             <div class="summaryTable">
-              <h1 class="summaryHead">Inspector Company Name Here</h1>
+              <h1 class="summaryHead">
+                {{ order?.inspector && order?.inspector?.companyName }}
+              </h1>
               <div class="byRoad">
                 <p class="summaryHeadSub">Inpection</p>
                 <table>
                   <tr class="bodyRow">
                     <td class="tdMain">Inspection Cost</td>
-                    <td class="tdBody">${{ orderDetails.inspection_cost }}</td>
+                    <td class="tdBody">
+                      {{
+                        order?.inspection_payment &&
+                        order?.inspection_payment?.inspection_cost
+                      }}
+                    </td>
                   </tr>
                   <tr class="bodyRow">
                     <td class="tdMain">Estimated Duration</td>
                     <td class="tdBody">
-                      {{ orderDetails.inspection_duration }}
-                      {{ orderDetails.inspection_duration_period }}
+                      {{
+                        order?.inspection_payment &&
+                        order?.inspection_payment?.inspection_duration
+                      }}
+                      {{
+                        order?.inspection_payment &&
+                        order?.inspection_payment?.inspection_duration_period
+                      }}
                     </td>
                   </tr>
                 </table>
@@ -530,12 +630,15 @@
             </div>
           </div>
           <div class="modal-footer modalFooter">
-            <button type="button" @click="sendToBuyerOrSupplier">
+            <button type="button" @click="sendToUser('supplier')">
               Send to Supplier
             </button>
-            <button type="button" @click="sendToBuyerOrSupplier">
+            <button type="button" @click="sendToUser('buyer')">
               Send to Buyer
             </button>
+          </div>
+          <div class="col-lg-12 mb-4 mt-2 text-center signuas" v-if="loading">
+            <span class="spinner-border spinner-border-sm"></span>
           </div>
         </div>
       </div>
@@ -554,6 +657,7 @@ import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
 import QUOTE from "../../service/quote-service";
+import Swal from "sweetalert2";
 export default {
   name: "Produce Mart",
   components: {
@@ -564,20 +668,25 @@ export default {
   data() {
     return {
       quoteId: this.$route.params.id,
+      loading: false,
+      order: null,
       buyer: {},
       destination: {},
       supplier: {},
-      product: {
-        order: "",
-        package: "",
-      },
+      product: {},
       quote: "",
-      orderDetails: JSON.parse(localStorage.getItem("orderDetails")),
-      names: JSON.parse(localStorage.getItem("names")),
+      orderDetails: null,
+      names: null,
+      token: JSON.parse(localStorage.getItem("user")).token,
     };
   },
   created() {
     this.getSingleQuote();
+    this.getOrder();
+    setTimeout(() => {
+      this.names = JSON.parse(localStorage.getItem("names"));
+      this.orderDetails = JSON.parse(localStorage.getItem("orderDetails"));
+    }, 3000);
   },
   methods: {
     getSingleQuote() {
@@ -591,10 +700,27 @@ export default {
         console.log("Result", result);
       });
     },
-    async sendToBuyerOrSupplier() {
+    async getOrder() {
+      const res = await fetch(
+        "https://producemart.herokuapp.com/getOrder/" + this.quoteId,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: this.token,
+          },
+        }
+      );
+      const data = await res.json();
+      if (data.data) this.order = data.data;
+      else this.order = null;
+    },
+    async saveQuote() {
+      console.log("submitting");
+      this.loading = true;
       const res = await fetch(
         "https://producemart.herokuapp.com/createOrder/" + this.quoteId,
         {
+          method: "POST",
           headers: {
             Authorization: this.token,
             "Content-Type": "application/json",
@@ -605,7 +731,28 @@ export default {
       if (res.ok) {
         localStorage.removeItem("orderDetails");
         localStorage.removeItem("names");
+        this.getOrder();
+        Swal.fire("successful!", "Quote has been sent !", "success");
       }
+      this.loading = false;
+    },
+    async sendToUser(role) {
+      let API_URL =
+        role == "supplier"
+          ? "https://producemart.herokuapp.com/sendSupplier/"
+          : "https://producemart.herokuapp.com/sendBuyer/";
+      this.loading = true;
+      const res = await fetch(API_URL + this.quoteId, {
+        method: "PUT",
+        headers: {
+          Authorization: this.token,
+          "Content-Type": "application/json",
+        },
+      });
+      if (res.ok) {
+        Swal.fire("successful!", `Quote has been sent ${role}!`, "success");
+      }
+      this.loading = false;
     },
   },
   mounted() {
