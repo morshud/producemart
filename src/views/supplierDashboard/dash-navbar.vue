@@ -31,7 +31,7 @@
               <li>
                 <a class="bell_notification_clicker" href="#">
                   <img src="@/assets/img/icon/bell.svg" alt="" />
-                  <span>6</span>
+                  <span>{{ notifications }}</span>
                 </a>
                 <div class="Menu_NOtification_Wrap">
                   <div class="notification_Header">
@@ -119,7 +119,11 @@
                   </div>
                   <div class="nofity_footer">
                     <div class="submit_button text-center pt_20">
-                      <router-link to="/supplier-dashboard/all-notifications" class="btn_1">See More</router-link>
+                      <router-link
+                        to="/supplier-dashboard/all-notifications"
+                        class="btn_1"
+                        >See More</router-link
+                      >
                     </div>
                   </div>
                 </div>
@@ -160,6 +164,7 @@ export default {
   //     },
   //   },
   mounted() {
+    this.getAllNotifications();
     // if (!this.currentUser) {
     //     this.$router.push('/login');
     // }
@@ -191,6 +196,7 @@ export default {
   data() {
     return {
       user: JSON.parse(localStorage.getItem("user")),
+      notifications: null,
     };
   },
 
@@ -198,6 +204,20 @@ export default {
     logOut() {
       this.$store.dispatch("auth/logout");
       this.$router.push("/login");
+    },
+    async getAllNotifications() {
+      const res = await fetch(
+        "https://producemart.herokuapp.com/getUserNotifications",
+        {
+          method: "GET",
+          headers: {
+            Authorization: this.user.token,
+          },
+        }
+      );
+      const { data } = await res.json();
+      this.notifications = data.filter((prod) => !prod.read).length;
+      //   console.log(this.notifications);
     },
   },
 };

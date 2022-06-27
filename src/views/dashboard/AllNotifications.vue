@@ -142,7 +142,7 @@ export default {
   methods: {
     async getAllNotifications() {
       const res = await fetch(
-        "https://producemart.herokuapp.com/getUserNotifications",
+        "https://producemart.herokuapp.com/getAdminNotifications",
         {
           method: "GET",
           headers: {

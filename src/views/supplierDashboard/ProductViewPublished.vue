@@ -1329,17 +1329,59 @@
                   </p>
                 </div>
                 <div class="lineHR"></div>
-                <div class="col-lg-12 mt-4 mb-3">
-                  <label>Upload more Images <span>*</span></label>
+                <div
+                  class="col-lg-12 mt-4 mb-3"
+                  v-for="(img, i) in images"
+                  :key="i"
+                >
+                  <label> Image {{ i + 1 }}</label>
                   <div class="col-ting">
                     <div class="control-group file-upload" id="file-upload1">
                       <div class="image-box text-center">
-                        <p>Upload Image</p>
-                        <img src="" alt="" />
+                        <img :src="img" alt="" />
+                      </div>
+                      <!-- <div class="controls" style="display: none">
+                        <input
+                          type="file"
+                          
+                          name="contact_image_1"
+                          accept=".jpg, .jpeg, .png, .webp"
+                          @change="onFieldChange(1)"
+                        />
+                      </div> -->
+                    </div>
+                  </div>
+                  <small class="uploadSmallPicture"
+                    >(accepted image format: jpeg, jpg, png, webp. Max file
+                    size: 200kb)</small
+                  >
+                  <button
+                    class="removeImgBtn"
+                    type="button"
+                    @click="deleteImg(img_id[i])"
+                  >
+                    Remove Image
+                  </button>
+                </div>
+                <!-- <div class="col-lg-12 mt-4 mb-3">
+                  <label>Upload Primary Image <span>*</span></label>
+                  <div class="col-ting">
+                    <div
+                      class="control-group file-upload"
+                      id="file-upload1"
+                      @click="$refs.inputFile.click()"
+                    >
+                      <div class="image-box text-center">
+                        <p v-if="!displayImg[0]">
+                          <i class="bi bi-plus-circle-fill"></i> <br />
+                          Upload Image
+                        </p>
+                        <img :src="displayImg[0]" alt="" />
                       </div>
                       <div class="controls" style="display: none">
                         <input
                           type="file"
+                          ref="inputFile"
                           name="contact_image_1"
                           accept=".jpg, .jpeg, .png, .webp"
                           @change="onFieldChange(1)"
@@ -1348,68 +1390,76 @@
                     </div>
                   </div>
                   <small class="uploadSmallPicture"
-                    >(accepted image format: jpeg, jpg, png, webp)</small
+                    >(accepted image format: jpeg, jpg, png, webp. Max file
+                    size: 200kb)</small
                   >
-                </div>
-
-                <div class="col-lg-6 mt-2 mb-3 upload-more-image">
+                  <button
+                    class="removeImgBtn"
+                    type="button"
+                    @click="removeDispImg(0)"
+                    v-if="displayImg[0]"
+                  >
+                    Remove Image
+                  </button>
+                  <small class="uploadSmallPicture" v-if="imgSizeMsg">{{
+                    imgSizeMsg
+                  }}</small>
+                </div> -->
+                <div
+                  class="col-lg-6 mt-2 mb-3 upload-more-image"
+                  v-for="(newImg, i) in addImg"
+                  :key="i"
+                >
                   <label>Upload Additional Image</label>
                   <div class="col-ting">
-                    <div class="control-group file-upload" id="file-upload1">
+                    <div
+                      class="control-group file-upload"
+                      id="file-upload1"
+                      @click="$refs.items[newImg].click()"
+                    >
                       <div class="image-box text-center">
-                        <p>Upload Image</p>
-                        <img src="" alt="" />
+                        <p v-if="!displayImg[newImg]">
+                          <i class="bi bi-plus-circle-fill"></i> <br />
+                          Upload Image
+                        </p>
+                        <img :src="displayImg[newImg]" alt="" />
                       </div>
                       <div class="controls" style="display: none">
                         <input
                           type="file"
+                          ref="items"
                           name="contact_image_1"
                           accept=".jpg, .jpeg, .png, .webp"
-                          @change="onFieldChange(2)"
+                          @change="onFieldChange(newImg)"
                         />
                       </div>
                     </div>
                   </div>
+                  <button
+                    class="removeImgBtn mb-2 mt-1"
+                    type="button"
+                    @click="removeDispImg(newImg)"
+                    v-if="displayImg[i]"
+                  >
+                    Remove Image
+                  </button>
+                  <span
+                    @click="removeField(newImg)"
+                    remove-field
+                    btn-remove-field
+                    class="removeField mt-1"
+                    >Remove Field</span
+                  >
+                  <small class="uploadSmallPicture" v-if="imgSizeMsg">{{
+                    imgSizeMsg
+                  }}</small>
                 </div>
 
-                <div v-if="addImg.length">
-                  <div
-                    class="col-lg-6 mt-2 mb-3 upload-more-image"
-                    v-for="(newImg, i) in addImg"
-                    :key="i"
-                  >
-                    <label>Upload Additional Image</label>
-                    <input type="file" />
-                    <div class="col-ting">
-                      <div class="control-group file-upload" id="file-upload1">
-                        <div class="image-box text-center">
-                          <p>Upload Image {{ newImg }}</p>
-                          <img src="" alt="" />
-                        </div>
-                        <div class="controls" style="display: none">
-                          <input
-                            type="file"
-                            name="contact_image_1"
-                            accept=".jpg, .jpeg, .png, .webp"
-                            @change="onFieldChange(newImg)"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <span
-                      @click="addImg.pop()"
-                      remove-field
-                      btn-remove-field
-                      class="removeField"
-                      >Remove Field</span
-                    >
-                  </div>
-                </div>
                 <div class="row mt-3">
                   <div class="upload-dynamic"></div>
                 </div>
                 <div class="uploadMore" v-if="addImg.length < 2">
-                  <span @click="addImg.push(addImg.length + 3)"
+                  <span @click="addImg.push(addImg.length)"
                     >Upload More <i class="bi bi-plus-circle"></i
                   ></span>
                 </div>
@@ -1424,8 +1474,17 @@
                       Next
                     </button>
                   </div>
+                  <div
+                    class="col-lg-12 mb-4 mt-2 text-center signuas"
+                    v-show="loading"
+                  >
+                    <span class="spinner-border spinner-border-sm"></span>
+                  </div>
                   <div class="col-sm-12">
-                    <p class="saveAndContinue" @click="updateProduct('save')">
+                    <p
+                      class="saveAndContinue"
+                      @click="handleProductUpload('save')"
+                    >
                       <a>Save & Continue Later</a>
                     </p>
                   </div>
@@ -1445,39 +1504,63 @@
                   </p>
                 </div>
                 <div class="lineHR"></div>
-                <div class="row add-more-certi">
+                <div
+                  class="row add-more-certi"
+                  v-for="(cert, i) in certification"
+                  :key="i"
+                >
                   <div class="col-lg-12 mt-4 mb-3">
                     <label>Certification Name</label>
-                    <select class="input" v-model="file[1].name">
+                    <select class="input" v-model="cert.cert_name">
                       <option hidden>Select Certificate</option>
-                      <option>option 1</option>
-                      <option>option 2</option>
-                      <option>option 3</option>
-                      <option>others</option>
+                      <option value="option 1">option 1</option>
+                      <option value="option 2">option 2</option>
+                      <option value="option 3">option 3</option>
+                      <option value="others">others</option>
                     </select>
                   </div>
                   <div class="col-lg-6 mb-3">
                     <label>Certificate Number</label>
-                    <input type="text" class="input" />
+                    <input
+                      type="text"
+                      class="input"
+                      v-model="cert.cert_number"
+                    />
                   </div>
                   <div class="col-lg-6 mb-3">
                     <label>Date of Issue</label>
-                    <input type="date" class="input" />
+                    <input
+                      type="date"
+                      class="input"
+                      v-model="cert.dateOfIssue"
+                    />
                   </div>
                   <div class="col-lg-12 mb-3">
                     <label>Name of Issuing Body</label>
-                    <input type="text" class="input" />
+                    <input
+                      type="text"
+                      class="input"
+                      v-model="cert.issuingBody"
+                    />
                   </div>
                   <div class="col-lg-12 mb-3">
                     <label>Validity Period</label>
                     <div class="row">
                       <div class="col-lg-6">
                         <span>From:</span>
-                        <input type="date" class="input" />
+                        <input
+                          type="date"
+                          class="input"
+                          v-model="cert.validityPeriod.from"
+                        />
                       </div>
                       <div class="col-lg-6">
                         <span>To:</span>
-                        <input type="date" class="input" />
+                        <input
+                          type="date"
+                          class="input"
+                          v-model="cert.validityPeriod.to"
+                        />
                       </div>
                     </div>
                   </div>
@@ -1490,6 +1573,71 @@
                     />
                   </div>
                 </div>
+                <!-- <div class="row add-more-certi">
+                  <div class="col-lg-12 mt-4 mb-3">
+                    <label>Certification Name</label>
+                    <select class="input" v-model="file[1].name">
+                      <option hidden>Select Certificate</option>
+                      <option>option 1</option>
+                      <option>option 2</option>
+                      <option>option 3</option>
+                      <option>others</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-6 mb-3">
+                    <label>Certificate Number</label>
+                    <input
+                      type="text"
+                      class="input"
+                      v-model="file[1].cert_number"
+                    />
+                  </div>
+                  <div class="col-lg-6 mb-3">
+                    <label>Date of Issue</label>
+                    <input
+                      type="date"
+                      class="input"
+                      v-model="file[1].dateOfIssue"
+                    />
+                  </div>
+                  <div class="col-lg-12 mb-3">
+                    <label>Name of Issuing Body</label>
+                    <input
+                      type="text"
+                      class="input"
+                      v-model="file[1].issuingBody"
+                    />
+                  </div>
+                  <div class="col-lg-12 mb-3">
+                    <label>Validity Period</label>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <span>From:</span>
+                        <input
+                          type="date"
+                          class="input"
+                          v-model="file[1].periodFrom"
+                        />
+                      </div>
+                      <div class="col-lg-6">
+                        <span>To:</span>
+                        <input
+                          type="date"
+                          class="input"
+                          v-model="file[1].periodTo"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <label>Upload Certification</label>
+                    <input
+                      type="file"
+                      class="input"
+                      @change="onFileChange(1)"
+                    />
+                  </div>
+                </div> -->
                 <div v-if="addFile.length">
                   <div
                     class="row add-more-certi"
@@ -1507,27 +1655,47 @@
                       </select>
                     </div>
                     <div class="col-lg-6 mb-3">
-                      <label>Certificte Number</label>
-                      <input type="text" class="input" />
+                      <label>Certificate Number</label>
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="file[newFile].cert_number"
+                      />
                     </div>
                     <div class="col-lg-6 mb-3">
                       <label>Date of Issue</label>
-                      <input type="date" class="input" />
+                      <input
+                        type="date"
+                        class="input"
+                        v-model="file[newFile].dateOfIssue"
+                      />
                     </div>
                     <div class="col-lg-12 mb-3">
                       <label>Name of Issuing Body</label>
-                      <input type="text" class="input" />
+                      <input
+                        type="text"
+                        class="input"
+                        v-model="file[newFile].issuingBody"
+                      />
                     </div>
                     <div class="col-lg-12 mb-3">
                       <label>Validity Period</label>
                       <div class="row">
                         <div class="col-lg-6">
                           <span>From:</span>
-                          <input type="date" class="input" />
+                          <input
+                            type="date"
+                            class="input"
+                            v-model="file[newFile].periodFrom"
+                          />
                         </div>
                         <div class="col-lg-6">
                           <span>To:</span>
-                          <input type="date" class="input" />
+                          <input
+                            type="date"
+                            class="input"
+                            v-model="file[newFile].periodTo"
+                          />
                         </div>
                       </div>
                     </div>
@@ -1547,9 +1715,12 @@
                 <div class="row mt-3">
                   <div class="upload-certi-dynamic"></div>
                 </div>
-                <div class="uploadMore">
+                <div
+                  class="uploadMore"
+                  v-if="addFile.length < 4 - certification.length"
+                >
                   <span @click="addMoreCert"
-                    >Upload More <i class="bi bi-plus-circle"></i
+                    >Upload New Cert. <i class="bi bi-plus-circle"></i
                   ></span>
                 </div>
 
@@ -1566,9 +1737,14 @@
                         <td>Certificate File</td>
                       </tr>
                       <tr v-for="(newCert, i) in file" :key="i">
-                        <td>{{ i }}</td>
-                        <td>{{ newCert.name }}</td>
-                        <td>{{ newCert.img.name }}</td>
+                        <td v-if="newCert.img">{{ i }}</td>
+                        <td v-if="newCert.img">{{ newCert.name }}</td>
+                        <td v-if="newCert.img">{{ newCert.img?.name }}</td>
+                        <td v-if="newCert.img">
+                          <span @click="removeFileUpload(i)" class="removeField"
+                            >Remove Field</span
+                          >
+                        </td>
                       </tr>
                     </table>
                   </div>
@@ -1576,17 +1752,34 @@
 
                 <div class="row">
                   <div class="col-sm-6">
-                    <button type="button" class="btn btn-prev width-100">
+                    <button
+                      type="button"
+                      class="btn btn-prev width-100"
+                      @click="step = 3"
+                    >
                       Previous
                     </button>
                   </div>
                   <div class="col-sm-6">
-                    <button type="button" class="btn btn-next width-100">
+                    <button
+                      type="button"
+                      class="btn btn-next width-100"
+                      @click="step = 5"
+                    >
                       Next
                     </button>
                   </div>
+                  <div
+                    class="col-lg-12 mb-4 mt-2 text-center signuas"
+                    v-show="loading"
+                  >
+                    <span class="spinner-border spinner-border-sm"></span>
+                  </div>
                   <div class="col-sm-12">
-                    <p class="saveAndContinue" @click="updateProduct('save')">
+                    <p
+                      class="saveAndContinue"
+                      @click="handleProductUpload('save')"
+                    >
                       <a>Save & Continue Later</a>
                     </p>
                   </div>
@@ -1605,100 +1798,310 @@
                     product including; Name, variety, description etc.
                   </p>
                 </div>
-                <div class="lineHR"></div>
+                <div class="lineHR lineHRSpe"></div>
                 <div class="row">
                   <div class="col-lg-4 radioDiv mb-2">
                     <input
                       type="checkbox"
-                      @click="setShipping('fluid')"
+                      @click="setShipping('package_type')"
                       name="category"
-                      id="idOil"
-                      v-model="shipping.fluid.check"
+                      id="packageType"
+                      v-model="shipping.package_type.check"
                     />
-                    <label for="idOil" class="radioSpan">Fluid (Liquid)</label>
+                    <label for="packageType" class="radioSpan"
+                      >Package Type</label
+                    >
                   </div>
                   <div class="col-lg-4 radioDiv mb-2">
                     <input
                       type="checkbox"
-                      @click="setShipping('others')"
+                      @click="setShipping('weight')"
                       name="category"
-                      id="idFruit"
-                      v-model="shipping.others.check"
+                      id="weight"
+                      v-model="shipping.weight.check"
                     />
-                    <label class="radioSpan" for="idFruit">Others</label>
+                    <label class="radioSpan" for="weight">Weight</label>
                   </div>
                 </div>
-                <div class="row">
+
+                <!-- Package drop div -->
+                <div class="row" v-if="shipping.package_type.check">
                   <div class="col-lg-6 mt-4 mb-3">
-                    <label>Packaging Unit</label>
+                    <label>Product Unit</label>
+                    <small>Choose product packaging unit.</small>
+                    <div class="divUnit">
+                      <select class="input selectSize" v-model="packages.unit">
+                        <option value="crate">Crate</option>
+                        <option value="box">Box</option>
+                        <option value="pack">Pack</option>
+                        <option value="pallete">Pallete</option>
+                        <option value="carton">Carton</option>
+                        <option value="others">Others</option>
+                      </select>
+                    </div>
+
                     <input
+                      v-if="packages.unit == 'others'"
                       type="text"
                       class="input"
-                      v-model="packages.unit"
+                      v-model="otherPackageUnit"
+                      placeholder="e.g. Bag, Box,Vacuum Pack, Sack, Other"
+                    />
+                    <label v-if="packages.unit && name"
+                      >How many {{ name }} are in 1
+                      {{
+                        otherPackageUnit ? otherPackageUnit : packages.unit
+                      }}?</label
+                    >
+                    <input
+                      v-if="packages.unit && name"
+                      type="text"
+                      class="input"
+                      v-model="packages.per_unit"
                       placeholder="e.g. Bag, Box,Vacuum Pack, Sack, Other"
                     />
                   </div>
-                  <div class="col-lg-6 mt-4 mb-3" v-if="shipping.fluid.check">
+                  <!-- <div class="col-lg-6 mt-4 mb-3" v-if="shipping.fluid.check">
                     <label>Volume of Packaging (litre)</label>
                     <input
                       type="text"
                       class="input"
-                      v-model="packages.pckVol"
+                      v-model="packages.volume"
                     />
-                  </div>
+                  </div> -->
                   <div class="col-lg-6 mt-4 mb-3 categoryInnerDiv">
-                    <label>Weight of Packaging</label>
-                    <input
-                      type="text"
-                      class="input inputSize"
-                      v-model="packages.pckWgt"
-                    />
-                    <select class="input selectSize">
-                      <option>kg</option>
-                      <option>lb</option>
-                    </select>
+                    <div class="row">
+                      <div class="col-lg-12 headerPackOption">
+                        <h5>Packaging Options</h5>
+                      </div>
+                      <div class="col-lg-12 mb-3">
+                        <label>Weight of Packaging</label>
+                        <small
+                          >Enter
+                          <span>{{
+                            packages.unit != "others"
+                              ? packages.unit
+                              : otherPackageUnit
+                          }}</span>
+                          weight in kg or lb.</small
+                        >
+                        <input
+                          type="text"
+                          class="input inputSize"
+                          v-model="packages.weight"
+                        />
+                        <select
+                          class="input selectSize"
+                          v-model="packages.weight_unit"
+                        >
+                          <option value="kg">kg</option>
+                          <option value="lb">lb</option>
+                          <option value="ton">ton</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-12 mt-3">
+                        <label>Price of Packaging ($)</label>
+                        <small
+                          >Enter a price for one
+                          <span>{{
+                            packages.unit != "others"
+                              ? packages.unit
+                              : otherPackageUnit
+                          }}</span>
+                          unit that your are selling.</small
+                        >
+                        <input
+                          type="text"
+                          class="input"
+                          v-model="packages.price"
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-lg-6 mt-4 mb-3">
-                    <label>Price of Packaging ($)</label>
-                    <input
-                      type="text"
-                      class="input"
-                      v-model="packages.pckPrice"
-                    />
+                  <div class="col-lg-12 mt-4 mb-3">
+                    <p
+                      v-if="
+                        name &&
+                        packages.per_unit &&
+                        packages.unit &&
+                        packages.weight &&
+                        packages.weight_unit &&
+                        packages.price
+                      "
+                    >
+                      <strong>Note: </strong>
+                      {{
+                        `1 ${packages.unit} of ${packages.per_unit} ${name}  weighs ${packages.weight}${packages.weight_unit} and your selling price is
+                      ${packages.price}`
+                      }}
+                    </p>
+                  </div>
+                  <div class="col-lg-12 mt-4 mb-3">
+                    <div class="row">
+                      <div class="col-lg-12 headerPackOption">
+                        <h5>Dimension of each product packages</h5>
+                        <!-- <small
+                          >We need the dimension for calculating shipping
+                          costs.</small
+                        > -->
+                      </div>
+                      <div class="col-lg-12">
+                        <label>Select Unit (cm or inches)</label>
+                        <div class="divSelectUnit justify-content-center">
+                          <select
+                            class="input"
+                            v-model="packages.dimension_unit"
+                          >
+                            <option value="cm">cm</option>
+                            <option value="inches">inches</option>
+                          </select>
+                          <div class="divLWH">
+                            <label>Lenght</label>
+                            <input type="number" class="input" v-model="plen" />
+                          </div>
+                          <div class="divLWH">
+                            <label>Width</label>
+                            <input type="number" class="input" v-model="pwid" />
+                          </div>
+                          <div class="divLWH">
+                            <label>Height</label>
+                            <input type="number" class="input" v-model="phgt" />
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="lineHR"></div>
+
+                <!-- Weight drop div -->
+                <div class="row" v-if="shipping.weight.check">
+                  <div class="col-lg-6 mt-4 mb-3">
+                    <label>Product Unit</label>
+                    <select
+                      class="input selectSize"
+                      v-model="packages.weight_unit"
+                    >
+                      <option value="ton">ton</option>
+                      <option value="lb">lb</option>
+                      <option value="kg">kg</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-6 mt-4 mb-3 categoryInnerDiv">
+                    <div class="row">
+                      <div class="col-lg-12 headerPackOption">
+                        <h5>Packaging Options</h5>
+                      </div>
+                      <div class="col-lg-12 mb-3">
+                        <label>Product Weight</label>
+                        <small>Enter weight</small>
+                        <input
+                          type="text"
+                          class="input"
+                          v-model="packages.weight"
+                        />
+                      </div>
+                      <div class="col-lg-12 mb-3" v-if="items.oil.check">
+                        <label>Product Volume</label>
+                        <small>Enter Volume</small>
+                        <input
+                          type="text"
+                          class="input inputSize"
+                          v-model="packages.volume"
+                        />
+                        <select
+                          class="input selectSize"
+                          v-model="packages.weight_unit"
+                        >
+                          <option value="m^3">m<sup>3</sup></option>
+                          <option value="cm^3">cm<sup>3</sup></option>
+                          <option value="L">litre</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-12 mt-3">
+                        <label>Price of Packaging ($)</label>
+                        <small>Enter a price that you are selling.</small>
+                        <input
+                          type="text"
+                          class="input"
+                          v-model="packages.price"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 mt-4 mb-3">
+                    <p
+                      v-if="
+                        name &&
+                        packages.weight &&
+                        packages.weight_unit &&
+                        packages.price
+                      "
+                    >
+                      <strong>Note: </strong>
+                      {{
+                        `${packages.weight}${packages.weight_unit} of ${name} sells at the price of
+                      ${packages.price}`
+                      }}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="lineHRSpe2"></div>
+
+                <!-- Shipment Starts Here -->
                 <div class="col-lg-12 text-center headerH1">
                   <h1>Shipment</h1>
                 </div>
                 <div class="row">
                   <div class="col-lg-6 mt-4 mb-3">
                     <label>Shipment Packaging</label>
-                    <select class="input" v-model="shipment.shipPckng">
+                    <select class="input" v-model="shipment.package">
                       <option hidden>Select</option>
-                      <option>Crate</option>
-                      <option>Box</option>
-                      <option>Bag</option>
-                      <option>Pack</option>
-                      <option>Pallet</option>
-                      <option>Carton</option>
+                      <option value="crate">Crate</option>
+                      <option value="box">Box</option>
+                      <option value="bag">Bag</option>
+                      <option value="pack">Pack</option>
+                      <option value="pallet">Pallet</option>
+                      <option value="carton">Carton</option>
                     </select>
                   </div>
-                  <div class="col-lg-6 mt-4 mb-3">
+                  <div class="col-lg-6 mt-4 mb-3 categoryInnerDiv">
                     <label>Weight of Shipment package</label>
                     <input
                       type="text"
-                      class="input"
-                      v-model="shipment.ShipWgt"
+                      class="input inputSize"
+                      v-model="shipment.weight"
                     />
+                    <select
+                      class="input selectSize"
+                      v-model="shipment.weight_unit"
+                    >
+                      <option value="kg">kg</option>
+                      <option value="lb">lb</option>
+                      <option value="ton">ton</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-6 mt-4 mb-3">
+                    <label>Price of shipment ($)</label>
+
+                    <input type="text" class="input" v-model="shipment.price" />
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
-                    <label>Price of shipment ($)</label>
-                    <input
-                      type="text"
-                      class="input"
-                      v-model="shipment.shipPrice"
-                    />
+                    <p
+                      v-if="
+                        shipment.package &&
+                        shipment.weight &&
+                        shipment.weight_unit &&
+                        shipment.price
+                      "
+                    >
+                      <strong>Note: </strong>
+                      {{
+                        `1 ${shipment.package} weighs ${shipment.weight}${shipment.weight_unit} and your agreed shipping price is
+                      ${shipment.price}`
+                      }}
+                    </p>
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
                     <label>Number Of Units Per Shipment Package</label>
@@ -1706,42 +2109,107 @@
                       type="text"
                       class="input"
                       placeholder="e.g. 12 x 1Ltr bottle in a box"
-                      v-model="shipment.noOfUnits"
+                      v-model="shipment.unit_package_box"
                     />
-                    <input
+                    <!-- <input
                       type="text"
                       class="input"
                       placeholder="e.g. 40 boxes per pallet"
-                      v-model="shipment.noOfUnits"
-                    />
+                      v-model="shipment.unit_package_pallet"
+                    /> -->
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
+                    <div class="row">
+                      <div class="col-lg-12 headerPackOption">
+                        <h5>Dimension of each shipping package</h5>
+                        <small
+                          >We need the dimension for calculating shipping
+                          costs.</small
+                        >
+                      </div>
+                      <div class="col-lg-12">
+                        <label>Select Unit (cm or inches)</label>
+                        <div class="divSelectUnit justify-content-center">
+                          <select
+                            class="input"
+                            v-model="shipment.dimension_unit"
+                          >
+                            <option value="cm">cm</option>
+                            <option value="inches">inches</option>
+                          </select>
+                          <div class="divLWH">
+                            <label>Lenght</label>
+                            <input type="number" class="input" v-model="len" />
+                          </div>
+                          <div class="divLWH">
+                            <label>Width</label>
+                            <input type="number" class="input" v-model="wid" />
+                          </div>
+                          <div class="divLWH">
+                            <label>Height</label>
+                            <input type="number" class="input" v-model="hgt" />
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 mt-4 mb-3 categoryInnerDiv">
                     <label>Shipping in Container</label>
                     <small
-                      >How many units can fit in a 20 foot shipping container?
-                      This is useful information for the buyer to see the size
-                      of the shipment</small
+                      >How many shipping packages can fit in a 20 foot shipping
+                      container? This is useful information for the buyer to see
+                      the size of the shipment</small
                     >
                     <input
                       type="text"
-                      class="input"
-                      v-model="shipment.shipContainer"
+                      class="input inputSize"
+                      v-model="shipment.container_package"
                     />
+                    <select
+                      class="input selectSize"
+                      v-model="shipment.container_unit"
+                    >
+                      <option value="crate">Crate</option>
+                      <option value="box">Box</option>
+                      <option value="pack">Pack</option>
+                      <option value="pallete">Pallete</option>
+                      <option value="carton">Carton</option>
+                    </select>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-sm-6">
-                    <button type="button" class="btn btn-prev width-100">
+                    <button
+                      type="button"
+                      class="btn btn-prev width-100"
+                      @click="step = 4"
+                    >
                       Previous
                     </button>
                   </div>
                   <div class="col-sm-6">
-                    <button type="button" class="btn btn-next width-100">
+                    <button
+                      type="button"
+                      class="btn btn-next width-100"
+                      @click="step = 6"
+                    >
                       Next
                     </button>
                   </div>
+                  <div
+                    class="col-lg-12 mb-4 mt-2 text-center signuas"
+                    v-show="loading"
+                  >
+                    <span class="spinner-border spinner-border-sm"></span>
+                  </div>
                   <div class="col-sm-12">
-                    <p class="saveAndContinue"><a>Save & Continue Later</a></p>
+                    <p
+                      class="saveAndContinue"
+                      @click="handleProductUpload('save')"
+                    >
+                      <a>Save & Continue Later</a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1760,13 +2228,33 @@
                 </div>
                 <div class="lineHR"></div>
                 <div class="row justify-content-center">
-                  <div class="col-lg-7 mb-4">
+                  <div class="col-lg-7 mb-4 categoryInnerDiv">
                     <label>Minimum Order Quantity</label>
                     <small
                       >Minimum number of units customers can request to buy for
                       this product</small
                     >
-                    <input type="text" class="input" v-model="min_quantity" />
+                    <input
+                      type="text"
+                      class="input inputSize"
+                      v-model="min_quantity"
+                    />
+                    <select
+                      class="input selectSize"
+                      v-model="min_quantity_unit"
+                    >
+                      <option value="kg">kg</option>
+                      <option value="lb">lb</option>
+                      <option value="ton">ton</option>
+                      <option value="crate">Crate</option>
+                      <option value="box">Box</option>
+                      <option value="pack">Pack</option>
+                      <option value="pallete">Pallete</option>
+                      <option value="carton">Carton</option>
+                      <option value="carton" v-if="otherPackageUnit">
+                        {{ otherPackageUnit }}
+                      </option>
+                    </select>
                   </div>
                   <div class="col-lg-12 text-center">
                     <label>Supply Ability</label>
@@ -1776,27 +2264,43 @@
                       every month</small
                     >
                     <div class="row mt-2">
-                      <div class="col-lg-6 mb-3">
+                      <div class="col-lg-7 mb-3 categoryInnerDiv">
                         <label>Quantity</label>
                         <input
                           type="text"
-                          class="input"
-                          v-model="supply_ability.qty"
+                          class="input inputSize"
+                          v-model="supply_ability.quantity"
                         />
+                        <select
+                          class="input selectSize"
+                          v-model="supply_ability.qty_unit"
+                        >
+                          <option value="kg">kg</option>
+                          <option value="lb">lb</option>
+                          <option value="ton">ton</option>
+                        </select>
                       </div>
-                      <div class="col-lg-6 mb-3">
+                      <div class="col-lg-5 mb-3">
                         <label>frequency</label>
-                        <select class="input" v-model="supply_ability.freq">
-                          <option>Week</option>
-                          <option>Month</option>
-                          <option>Quarter</option>
-                          <option>Year</option>
+                        <select
+                          class="input"
+                          v-model="supply_ability.frequency"
+                        >
+                          <option value="weekly">Weekly</option>
+                          <option value="monthly">Monthly</option>
+                          <option value="quaterly">Quarterly</option>
+                          <option value="yearly">Yearly</option>
                         </select>
                       </div>
                     </div>
                   </div>
                   <div class="col-lg-12 mt-3 mb-3">
-                    <input type="checkbox" id="acceptTerms" v-model="status" />
+                    <input
+                      type="checkbox"
+                      id="acceptTerms"
+                      required
+                      v-model="status"
+                    />
                     <label for="acceptTerms" class="labelTerms"
                       >By submitting this product, you agree to our
                       <a href="/terms" target="_blank">Terms & conditions</a>
@@ -1808,12 +2312,14 @@
                   </div>
                 </div>
                 <div class="btns-group">
-                  <a href="#" class="btn btn-prev">Previous</a>
+                  <a href="#" class="btn btn-prev" @click="step = 5"
+                    >Previous</a
+                  >
                   <input
                     type="submit"
                     value="Submit"
                     class="btn"
-                    :disabled="!status"
+                    :disabled="!status || loading"
                   />
                 </div>
                 <div
@@ -1993,8 +2499,8 @@ export default {
         others: { check: false },
       },
       shipping: {
-        fluid: { check: false },
-        others: { check: false },
+        package_type: { check: false },
+        weight: { check: false },
       },
       name: null,
       variety: "",
@@ -2021,7 +2527,11 @@ export default {
       shipment: {},
       min_quantity: "",
       supply_ability: {},
-
+      displayImg: [],
+      imgSizeMsg: "",
+      images: [],
+      img_id: [],
+      certification: [],
       status: null,
     };
   },
@@ -2171,18 +2681,55 @@ export default {
       console.log(this.file[n].img);
     },
     onFieldChange(n) {
+      this.imgSizeMsg = "";
       this.image[n] = event.target.files[0];
+      // console.log(this.image[n].size);
+      if (this.image[n].size < 250000) {
+        this.displayImg[n] = URL.createObjectURL(this.image[n]);
+      } else {
+        this.imgSizeMsg =
+          "***File too large, image upload should not be more than 200kb***";
+        delete this.image[n];
+        this.displayImg[n - 1] && this.displayImg.pop();
+      }
+    },
+    removeDispImg(n) {
+      this.displayImg.splice(n, 1);
+      delete this.image[n];
+    },
+    removeField(n) {
+      this.displayImg.splice(n, 1);
+      delete this.image[n];
+      this.addImg.splice(n, 1);
+    },
+    async deleteImg(img_id, index) {
+      this.images.splice(index, 1);
+      this.img_id.splice(index, 1);
+      const res = await fetch(
+        `https://producemart.herokuapp.com/deleteImage/${this.id}?imageId=${img_id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: this.token,
+          },
+        }
+      );
+      const { data } = await res.json();
+      console.log(data);
     },
     addMoreCert() {
-      this.addFile.push(this.addFile.length + 2);
-      this.file[this.addFile.length + 1] = {};
+      this.addFile.push(this.addFile.length + 1);
+      this.file[this.addFile.length] = {};
     },
     removeFile(n) {
       this.addFile.pop();
-      delete this.file[n];
+      if (n >= 2) {
+        delete this.file[n];
+      } else {
+        this.file[n] = { 1: {} };
+      }
     },
     async getProduct() {
-      const product = null;
       const res = await fetch(
         "https://producemart.herokuapp.com/getProductbyUser/" + this.id,
         {
@@ -2216,8 +2763,19 @@ export default {
       this.category = this.product.category;
       this.items[this.category].check = true;
       this.character = this.product.character ? this.product.character : {};
+      this.images = this.product.img_url;
+      this.img_id = this.product.img_id;
+      this.certification = this.product.certification.map((cert) => {
+        cert.dateOfIssue = this.dateFormat(cert.dateOfIssue);
+        cert.validityPeriod.from = this.dateFormat(cert.validityPeriod.from);
+        cert.validityPeriod.to = this.dateFormat(cert.validityPeriod.to);
+        return cert;
+      });
 
-      this.packages = this.product.packages ? this.product.packages : {};
+      this.packages = this.product.package ? this.product.package : {};
+      this.packages?.unit
+        ? (this.shipping.package_type.check = true)
+        : (this.shipping.weight.check = true);
       this.shipment = this.product.shipment ? this.product.shipment : {};
       this.min_quantity = this.product.min_quality;
       (this.supply_ability = this.product.supply_ability
@@ -2225,6 +2783,16 @@ export default {
         : {}),
         (this.status = this.product.status),
         console.log(data);
+    },
+    dateFormat(d) {
+      let newDate = new Date(d);
+      let m =
+        newDate.getMonth() < 10 ? "0" + newDate.getMonth() : newDate.getMonth();
+      let date =
+        newDate.getDate() < 10 ? "0" + newDate.getDate() : newDate.getDate();
+      let format = `${newDate.getFullYear()}-${m}-${date}`;
+      console.log(d);
+      return format;
     },
   },
 };

@@ -22,7 +22,6 @@ import Buyer from "../views/userAuth/Buyer.vue";
 //Admin Login
 import AdminLogin from "../views/adminLogin/Login.vue";
 
-
 //////////Buyer Dashboard
 import DashBuyerHome from "../views/buyerDashboard/Home.vue";
 //notifications
@@ -44,7 +43,6 @@ import DashBuyerOrderViewCompleted from "../views/buyerDashboard/OrderViewComple
 import DashBuyerEditProfileDetails from "../views/buyerDashboard/EditProfileDetails.vue";
 import DashBuyerProfile from "../views/buyerDashboard/Profile.vue";
 import DashBuyerChangePassword from "../views/buyerDashboard/ChangePassword.vue";
-
 
 //////////Supplier Dashboard
 import DashSupplierHome from "../views/supplierDashboard/Home.vue";
@@ -442,8 +440,8 @@ const routes = [
   { path: "/admin/login", name: "AdminLogin", component: AdminLogin },
   { path: "/dashboard/home", name: "DashHome", component: DashHome },
   { path: "/dashboard/profile", name: "DashProfile", component: DashProfile },
-   //notifications
-   {
+  //notifications
+  {
     path: "/dashboard/all-notifications",
     name: "DashAllNotifications",
     component: DashAllNotifications,
@@ -571,12 +569,12 @@ const routes = [
     component: DashQuotes0001,
   },
   {
-    path: "/dashboard/shipping-price",
+    path: "/dashboard/shipping-price/:id",
     name: "DashEnterShippingPrice",
     component: DashEnterShippingPrice,
   },
   {
-    path: "/dashboard/inspection-price",
+    path: "/dashboard/inspection-price/:id",
     name: "DashEnterSInspectionPrice",
     component: DashEnterInspectionPrice,
   },

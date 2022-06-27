@@ -73,29 +73,6 @@
                   </div>
                 </div>
               </div>
-              <div class="row notificationDiv dormatNotification">
-                <div class="col-md-4">
-                  <span class="iconNotify">
-                    <i class="bi bi-three-dots-vertical"></i>
-                    <div class="actionDiv" id="actionDiv">
-                      <a><i class="bi bi-envelope-paper"></i> Mark as unread</a>
-                      <a><i class="bi bi-trash3"></i> Delete notification</a>
-                    </div>
-                  </span>
-                  <span class="titleNotify">
-                    <a class="firstTxt">Buyer</a>
-                  </span>
-                </div>
-                <div class="col-md-8">
-                  <span class="detailNotify">
-                    <a class="mainTxt"
-                      >Lorem ipsum dolor sit amet, consectetur adipiscing
-                      elit.</a
-                    >
-                    <a class="timeTxt">Jun 22</a>
-                  </span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
