@@ -530,8 +530,12 @@
             </div>
           </div>
           <div class="modal-footer modalFooter">
-            <button type="button">Send to Supplier</button>
-            <button type="button">Send to Buyer</button>
+            <button type="button" @click="sendToBuyerOrSupplier">
+              Send to Supplier
+            </button>
+            <button type="button" @click="sendToBuyerOrSupplier">
+              Send to Buyer
+            </button>
           </div>
         </div>
       </div>
@@ -598,6 +602,10 @@ export default {
           body: JSON.stringify(this.orderDetails),
         }
       );
+      if (res.ok) {
+        localStorage.removeItem("orderDetails");
+        localStorage.removeItem("names");
+      }
     },
   },
   mounted() {
