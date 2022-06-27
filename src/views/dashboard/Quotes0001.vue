@@ -587,6 +587,18 @@ export default {
         console.log("Result", result);
       });
     },
+    async sendToBuyerOrSupplier() {
+      const res = await fetch(
+        "https://producemart.herokuapp.com/createOrder/" + this.quoteId,
+        {
+          headers: {
+            Authorization: this.token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(this.orderDetails),
+        }
+      );
+    },
   },
   mounted() {
     window.scrollTo(0, 0);
