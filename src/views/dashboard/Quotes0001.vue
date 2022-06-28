@@ -295,7 +295,7 @@
                               </td>
                               <td class="right">
                                 {{ quote.quantity * product.package?.weight }}
-                                {{ product.package?.unit }}
+                                {{ product.package?.weight_unit }}
                               </td>
                             </tr>
                             <tr>
@@ -749,7 +749,7 @@ export default {
         this.buyer = result.buyer;
         this.destination = result.destination;
         this.quote = result;
-        // console.log("Result", result);
+        console.log("Result", result);
       });
     },
     async getOrder() {
