@@ -58,12 +58,15 @@
                         >
                       </div>
                     </span>
-                    <span class="titleNotify">
+                    <span
+                      class="titleNotify"
+                      @click="goToPage(notification.type)"
+                    >
                       <a class="firstTxt">{{ notification.type }}</a>
                       <a class="statusTxt" v-if="!notification.read">NEW</a>
                     </span>
                   </div>
-                  <div class="col-md-8">
+                  <div class="col-md-8" @click="goToPage(notification.type)">
                     <span class="detailNotify">
                       <a class="mainTxt">{{ notification.message }}</a>
                       <a class="timeTxt">{{
@@ -71,29 +74,6 @@
                       }}</a>
                     </span>
                   </div>
-                </div>
-              </div>
-              <div class="row notificationDiv dormatNotification">
-                <div class="col-md-4">
-                  <span class="iconNotify">
-                    <i class="bi bi-three-dots-vertical"></i>
-                    <div class="actionDiv" id="actionDiv">
-                      <a><i class="bi bi-envelope-paper"></i> Mark as unread</a>
-                      <a><i class="bi bi-trash3"></i> Delete notification</a>
-                    </div>
-                  </span>
-                  <span class="titleNotify">
-                    <a class="firstTxt">Buyer</a>
-                  </span>
-                </div>
-                <div class="col-md-8">
-                  <span class="detailNotify">
-                    <a class="mainTxt"
-                      >Lorem ipsum dolor sit amet, consectetur adipiscing
-                      elit.</a
-                    >
-                    <a class="timeTxt">Jun 22</a>
-                  </span>
                 </div>
               </div>
             </div>
@@ -210,6 +190,15 @@ export default {
         return "Yest.";
       } else {
         return month[d.getMonth()] + " " + d.getDay();
+      }
+    },
+    goToPage(page) {
+      if (page == "quote") {
+        this.$router.push("/dashboard/view-quotes");
+      } else if (page == "product upload") {
+        this.$router.push("/dashboard/pending-products");
+      } else if (page == "active product") {
+        this.$router.push("/dashboard/active-products");
       }
     },
   },

@@ -38,7 +38,7 @@
               <div class="recentDiv">
                 <h5>10 most recent <i class="bi bi-alarm"></i></h5>
               </div>
-              <div v-for="(notification, i) in notifications" :key="i">
+              <div v-for="(notification, i) in displayNotification" :key="i">
                 <div
                   :class="
                     notification.read
@@ -58,12 +58,15 @@
                         >
                       </div>
                     </span>
-                    <span class="titleNotify">
+                    <span
+                      class="titleNotify"
+                      @click="goToPage(notification.type)"
+                    >
                       <a class="firstTxt">{{ notification.type }}</a>
                       <a class="statusTxt" v-if="!notification.read">NEW</a>
                     </span>
                   </div>
-                  <div class="col-md-8">
+                  <div class="col-md-8" @click="goToPage(notification.type)">
                     <span class="detailNotify">
                       <a class="mainTxt">{{ notification.message }}</a>
                       <a class="timeTxt">{{
@@ -75,6 +78,21 @@
               </div>
             </div>
           </div>
+          <nav aria-label="Page navigation example" class="m-2">
+            <ul class="pagination justify-content-end">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
+                  >Previous</a
+                >
+              </li>
+              <li class="page-item" v-for="(a, i) in arr" :key="a">
+                <a class="page-link" href="#" @click="pos = i">{{ i + 1 }}</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
@@ -112,9 +130,18 @@ export default {
   data() {
     return {
       notifications: null,
+      displayNotification: null,
+      arr: null,
       loading: false,
       token: JSON.parse(localStorage.getItem("user")).token,
+      pos: 0,
     };
+  },
+  watch: {
+    pos(val) {
+      console.log(val);
+      this.selectNotification(val);
+    },
   },
   methods: {
     async getAllNotifications() {
@@ -128,8 +155,20 @@ export default {
         }
       );
       const { data } = await res.json();
-      this.notifications = data.splice(0, 10);
+      let len =
+        data.length % 10 != 0 ? Math.floor(data.length / 10 + 1) : data.length;
+      // console.log(len);
+      this.arr = new Array(len).fill(10);
+      // console.log(this.arr);
+      this.notifications = data;
+      this.displayNotification = this.notifications.slice(0, 10);
       //   console.log(this.notifications);
+    },
+    selectNotification(val) {
+      this.displayNotification = this.notifications.slice(
+        val * 10,
+        (val + 1) * 10
+      );
     },
     async markReceipt(id, index) {
       this.notifications[index].read = !this.notifications[index].read;
@@ -172,8 +211,8 @@ export default {
       //     const date2 = new Date('12/15/2010');
       const diffTime = Math.abs(now - d);
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      console.log(diffDays);
-      console.log(d);
+      // console.log(diffDays);
+      // console.log(d);
       if (
         now.getFullYear == d.getFullYear &&
         now.getMonth == d.getMonth &&
@@ -187,6 +226,19 @@ export default {
         return "Yest.";
       } else {
         return month[d.getMonth()] + " " + d.getDay();
+      }
+    },
+    goToPage(page) {
+      if (page == "product upload") {
+        this.$router.push("/supplier-dashboard/pending-products");
+      } else if (page == "unavailable product") {
+        this.$router.push("/supplier-dashboard/disable-products");
+      } else if (page == "rejected product") {
+        this.$router.push("/supplier-dashboard/rejected-products");
+      } else if (page == "order request") {
+        this.$router.push("/supplier-dashboard/open-orders");
+      } else if (page == "available product") {
+        this.$router.push("/supplier-dashboard/published-products");
       }
     },
   },
