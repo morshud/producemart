@@ -330,7 +330,7 @@
                                 >
                               </td>
                             </tr>
-                            <tr>
+                            <tr v-if="!order">
                               <td class="left">
                                 <strong>Shipping Price</strong>
                               </td>
@@ -342,7 +342,22 @@
                                 >
                               </td>
                             </tr>
-                            <tr>
+                            <tr v-else>
+                              <td class="left">
+                                <strong>Shipping Price</strong>
+                              </td>
+                              <td class="right">
+                                <router-link
+                                  :to="
+                                    '/dashboard/edit-shipping-price/' +
+                                    quote._id
+                                  "
+                                  class="enterPricesBtn"
+                                  >Edit Shipping Price</router-link
+                                >
+                              </td>
+                            </tr>
+                            <tr v-if="!order">
                               <td class="left">
                                 <strong>Inspection Price</strong>
                               </td>
@@ -356,7 +371,22 @@
                                 >
                               </td>
                             </tr>
-                            <tr>
+                            <tr v-else>
+                              <td class="left">
+                                <strong>Inspection Price</strong>
+                              </td>
+                              <td class="right">
+                                <router-link
+                                  :to="
+                                    '/dashboard/edit-inspection-price/' +
+                                    quote._id
+                                  "
+                                  class="enterPricesBtn"
+                                  >Edit Inspection Price</router-link
+                                >
+                              </td>
+                            </tr>
+                            <tr v-if="!order">
                               <td class="left">
                                 <strong>Action</strong>
                               </td>

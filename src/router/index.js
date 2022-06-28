@@ -120,7 +120,9 @@ import DashEditInspectorContent from "../views/dashboard/EditInspectorContent.vu
 import DashViewQuotes from "../views/dashboard/ViewQuotes.vue";
 import DashQuotes0001 from "../views/dashboard/Quotes0001.vue";
 import DashEnterShippingPrice from "../views/dashboard/EnterShippingPrice.vue";
+import EditDashEnterShippingPrice from "../views/dashboard/EditEnterShippingPrice.vue";
 import DashEnterInspectionPrice from "../views/dashboard/EnterInspectionPrice.vue";
+import EditDashEnterInspectionPrice from "../views/dashboard/EditEnterInspectionPrice.vue";
 //blogs
 import DashWriteBlog from "../views/dashboard/WriteBlog.vue";
 import DashEditBlogContent from "../views/dashboard/EditBlogContent.vue";
@@ -574,9 +576,19 @@ const routes = [
     component: DashEnterShippingPrice,
   },
   {
+    path: "/dashboard/edit-shipping-price/:id",
+    name: "EditDashEnterShippingPrice",
+    component: EditDashEnterShippingPrice,
+  },
+  {
     path: "/dashboard/inspection-price/:id",
     name: "DashEnterSInspectionPrice",
     component: DashEnterInspectionPrice,
+  },
+  {
+    path: "/dashboard/edit-inspection-price/:id",
+    name: "EditDashEnterSInspectionPrice",
+    component: EditDashEnterInspectionPrice,
   },
   //blogs
   {

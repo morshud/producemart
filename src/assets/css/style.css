@@ -2761,6 +2761,10 @@ p a:hover {
   font-weight: 400;
 }
 
+.backBtn:hover {
+  cursor: pointer;
+}
+
 .status_btn {
   display: inline-block;
   padding: 2px 15px;
