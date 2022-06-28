@@ -122,6 +122,12 @@
                     price</span
                   >
                 </div>
+                <div
+                  class="col-lg-12 mb-4 mt-2 text-center signuas"
+                  v-if="loading"
+                >
+                  <span class="spinner-border spinner-border-sm"></span>
+                </div>
               </div>
             </div>
           </div>
@@ -503,6 +509,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       name: "",
       shipperId: null,
       shippers: null,
@@ -576,6 +583,7 @@ export default {
       console.log(this.order);
     },
     async editShipperPrice() {
+      this.loading = true;
       const res = await fetch(
         "https://producemart.herokuapp.com/updateOrder/" + this.id,
         {
@@ -587,6 +595,7 @@ export default {
           body: JSON.stringify(this.order),
         }
       );
+      this.loading = false;
       if (res.ok) {
         this.$router.push("/dashboard/quotes/" + this.id);
       }

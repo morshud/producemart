@@ -489,34 +489,38 @@
               <h1 class="summaryHead">{{ order?.shipper?.companyName }}</h1>
               <div
                 class="byRoad"
-                v-if="order?.shipment_payment?.road?.road_cost"
+                v-if="
+                  !order?.shipment_payment?.road?.shipping_cost.includes(
+                    'undefined'
+                  )
+                "
               >
                 <p class="summaryHeadSub">by road</p>
                 <table>
                   <tr class="bodyRow">
                     <td class="tdMain">Shipping Cost</td>
                     <td class="tdBody">
-                      ${{
+                      {{
                         order?.shipment_payment &&
-                        order?.shipment_payment?.road?.road_cost
+                        order?.shipment_payment?.road?.shipping_cost
                       }}
                     </td>
                   </tr>
                   <tr class="bodyRow">
                     <td class="tdMain">Initial Deposit</td>
                     <td class="tdBody">
-                      ${{
+                      {{
                         order?.shipment_payment &&
-                        order?.shipment_payment?.road?.road_deposit
+                        order?.shipment_payment?.road?.initial_deposit
                       }}
                     </td>
                   </tr>
                   <tr class="bodyRow">
                     <td class="tdMain">Insurance</td>
                     <td class="tdBody">
-                      ${{
+                      {{
                         order?.shipment_payment &&
-                        order?.shipment_payment?.road?.road_insurance
+                        order?.shipment_payment?.road?.insurance
                       }}
                     </td>
                   </tr>
@@ -525,43 +529,50 @@
                     <td class="tdBody">
                       {{
                         order?.shipment_payment &&
-                        order?.shipment_payment?.road?.road_duration
+                        order?.shipment_payment?.road?.duration
                       }}
                       {{
                         order?.shipment_payment &&
-                        order?.shipment_payment?.road?.road_duration_period
+                        order?.shipment_payment?.road?.duration_period
                       }}
                     </td>
                   </tr>
                 </table>
               </div>
-              <div class="bySea" v-if="order?.shipment_payment?.sea?.sea_cost">
+              <div
+                class="bySea"
+                v-if="
+                  !order?.shipment_payment?.sea?.shipping_cost.includes(
+                    'undefined'
+                  )
+                "
+              >
                 <p class="summaryHeadSub">by sea</p>
                 <table>
                   <tr class="bodyRow">
                     <td class="tdMain">Shipping Cost</td>
                     <td class="tdBody">
-                      ${{
+                      {{
                         order?.shipment_payment &&
-                        order?.shipment_payment?.sea?.sea_cost
+                        order?.shipment_payment?.sea?.shipping_cost
                       }}
                     </td>
                   </tr>
                   <tr class="bodyRow">
                     <td class="tdMain">Initial Deposit</td>
                     <td class="tdBody">
-                      ${{
+                      {{
                         order?.shipment_payment &&
-                        order?.shipment_payment?.sea?.sea_deposit
+                        order?.shipment_payment?.sea?.initial_deposit
                       }}
                     </td>
                   </tr>
                   <tr class="bodyRow">
                     <td class="tdMain">Insurance</td>
                     <td class="tdBody">
-                      ${{
+                      {{
                         order?.shipment_payment &&
-                        order?.shipment_payment?.sea?.sea_insurance
+                        order?.shipment_payment?.sea?.insurance
                       }}
                     </td>
                   </tr>
@@ -570,43 +581,50 @@
                     <td class="tdBody">
                       {{
                         order?.shipment_payment &&
-                        order?.shipment_payment?.sea?.sea_duration
+                        order?.shipment_payment?.sea?.duration
                       }}
                       {{
                         order?.shipment_payment &&
-                        order?.shipment_payment?.sea?.sea_duration_period
+                        order?.shipment_payment?.sea?.duration_period
                       }}
                     </td>
                   </tr>
                 </table>
               </div>
-              <div class="byAir" v-if="order?.shipment_payment?.air?.air_cost">
+              <div
+                class="byAir"
+                v-if="
+                  !order?.shipment_payment?.air?.shipping_cost.includes(
+                    'undefined'
+                  )
+                "
+              >
                 <p class="summaryHeadSub">by air</p>
                 <table>
                   <tr class="bodyRow">
                     <td class="tdMain">Shipping Cost</td>
                     <td class="tdBody">
-                      ${{
+                      {{
                         order?.shipment_payment &&
-                        order?.shipment_payment?.air?.air_cost
+                        order?.shipment_payment?.air?.shipping_cost
                       }}
                     </td>
                   </tr>
                   <tr class="bodyRow">
                     <td class="tdMain">Initial Deposit</td>
                     <td class="tdBody">
-                      ${{
+                      {{
                         order?.shipment_payment &&
-                        order?.shipment_payment?.air?.air_deposit
+                        order?.shipment_payment?.air?.initial_deposit
                       }}
                     </td>
                   </tr>
                   <tr class="bodyRow">
                     <td class="tdMain">Insurance</td>
                     <td class="tdBody">
-                      ${{
+                      {{
                         order?.shipment_payment &&
-                        order?.shipment_payment?.air?.air_insurance
+                        order?.shipment_payment?.air?.insurance
                       }}
                     </td>
                   </tr>
@@ -615,11 +633,11 @@
                     <td class="tdBody">
                       {{
                         order?.shipment_payment &&
-                        order?.shipment_payment?.air?.air_duration
+                        order?.shipment_payment?.air?.duration
                       }}
                       {{
                         order?.shipment_payment &&
-                        order?.shipment_payment?.air?.air_duration_period
+                        order?.shipment_payment?.air?.duration_period
                       }}
                     </td>
                   </tr>
@@ -631,7 +649,7 @@
                 {{ order?.inspector && order?.inspector?.companyName }}
               </h1>
               <div class="byRoad">
-                <p class="summaryHeadSub">Inpection</p>
+                <p class="summaryHeadSub">Inspection</p>
                 <table>
                   <tr class="bodyRow">
                     <td class="tdMain">Inspection Cost</td>
@@ -647,11 +665,11 @@
                     <td class="tdBody">
                       {{
                         order?.inspection_payment &&
-                        order?.inspection_payment?.inspection_duration
+                        order?.inspection_payment?.duration.replace(/\$/g, "")
                       }}
                       {{
                         order?.inspection_payment &&
-                        order?.inspection_payment?.inspection_duration_period
+                        order?.inspection_payment?.duration_period
                       }}
                     </td>
                   </tr>
@@ -660,10 +678,14 @@
             </div>
           </div>
           <div class="modal-footer modalFooter">
-            <button type="button" @click="sendToUser('supplier')">
+            <button
+              type="button"
+              @click="sendToUser('supplier')"
+              v-if="!order?.sent_supplier"
+            >
               Send to Supplier
             </button>
-            <button type="button" @click="sendToUser('buyer')">
+            <button type="button" @click="sendToUser('buyer')" v-else>
               Send to Buyer
             </button>
           </div>
@@ -727,7 +749,7 @@ export default {
         this.buyer = result.buyer;
         this.destination = result.destination;
         this.quote = result;
-        console.log("Result", result);
+        // console.log("Result", result);
       });
     },
     async getOrder() {
@@ -743,6 +765,7 @@ export default {
       const data = await res.json();
       if (data.data) this.order = data.data;
       else this.order = null;
+      console.log(this.order);
     },
     async saveQuote() {
       console.log("submitting");
@@ -773,13 +796,13 @@ export default {
           : "https://producemart.herokuapp.com/sendBuyer/";
       this.loading = true;
       const res = await fetch(API_URL + this.quoteId, {
-        method: "PUT",
         headers: {
           Authorization: this.token,
           "Content-Type": "application/json",
         },
       });
       if (res.ok) {
+        this.order.sent_supplier = true;
         Swal.fire("successful!", `Quote has been sent ${role}!`, "success");
       }
       this.loading = false;
