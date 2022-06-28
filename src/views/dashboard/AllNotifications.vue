@@ -60,13 +60,16 @@
                     </span>
                     <span
                       class="titleNotify"
-                      @click="goToPage(notification.type)"
+                      @click="goToPage(notification.type, notification._id, i)"
                     >
                       <a class="firstTxt">{{ notification.type }}</a>
                       <a class="statusTxt" v-if="!notification.read">NEW</a>
                     </span>
                   </div>
-                  <div class="col-md-8" @click="goToPage(notification.type)">
+                  <div
+                    class="col-md-8"
+                    @click="goToPage(notification.type, notification._id, i)"
+                  >
                     <span class="detailNotify">
                       <a class="mainTxt">{{ notification.message }}</a>
                       <a class="timeTxt">{{
@@ -192,7 +195,8 @@ export default {
         return month[d.getMonth()] + " " + d.getDay();
       }
     },
-    goToPage(page) {
+    goToPage(page, id, index) {
+      this.markReceipt(id, index);
       if (page == "quote") {
         this.$router.push("/dashboard/view-quotes");
       } else if (page == "product upload") {

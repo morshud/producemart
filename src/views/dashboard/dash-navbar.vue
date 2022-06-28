@@ -179,7 +179,7 @@ export default {
     },
     async getAllNotifications() {
       const res = await fetch(
-        "https://producemart.herokuapp.com/getUserNotifications",
+        "https://producemart.herokuapp.com/getAdminNotifications",
         {
           method: "GET",
           headers: {
@@ -188,7 +188,8 @@ export default {
         }
       );
       const { data } = await res.json();
-      this.notifications = data.length;
+      this.notifications = data.filter((prod) => !prod.read).length;
+
       //   console.log(this.notifications);
     },
   },
