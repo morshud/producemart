@@ -79,7 +79,7 @@
                       </thead>
                       <tbody>
                         <tr v-for="(product, i) in rejectedProducts" :key="i">
-                          <th scope="row">***</th>
+                          <th scope="row"><i class="fas fa-warning"></i></th>
                           <td>{{ product.name }}</td>
                           <td>{{ product.status }}</td>
                           <td>
