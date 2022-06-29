@@ -3437,6 +3437,10 @@ table.dataTable.dtr-inline.collapsed
   line-height: 22px;
 }
 
+.ifNotification {
+  background: rgb(216, 64, 64) !important;
+}
+
 @media (max-width: 575.98px) {
   .header_iner .header_right .select_style {
     display: none !important;

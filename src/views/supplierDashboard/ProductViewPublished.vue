@@ -101,7 +101,7 @@
                   </tr>
                 </table>
               </div>
-              <!-- <div class="row mt-4">
+              <div class="row mt-4">
                 <div class="col-lg-6">
                   <span class="spanAction">Enable Product</span>
                   <label class="switchDisable">
@@ -113,9 +113,8 @@
                     <span class="slider round"></span>
                   </label>
                   <span class="spanAction">Disable Product</span>
-
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
 

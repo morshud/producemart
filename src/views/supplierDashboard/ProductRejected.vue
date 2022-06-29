@@ -148,7 +148,7 @@ export default {
     async fetchPublishedProduct() {
       this.products = null;
       const res = await fetch(
-        "https://producemart.herokuapp.com/getProductsbyUser?status=rejected",
+        "https://producemart.herokuapp.com/getPendingProductByUser",
         {
           method: "GET",
           headers: {

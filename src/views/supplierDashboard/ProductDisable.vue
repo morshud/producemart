@@ -1,5 +1,5 @@
 <template>
-  <title>Disabled Products - Supplier Dashboard | Produce Mart</title>
+  <title>Unavailable Products - Supplier Dashboard | Produce Mart</title>
   <dash-sidebar />
 
   <section class="main_content dashboard_part large_header_bg">
@@ -14,7 +14,7 @@
               <div class="row">
                 <div class="col-lg-8">
                   <div class="dashboard_header_title">
-                    <h3>Disabled Products</h3>
+                    <h3>Unavailable Products</h3>
                   </div>
                 </div>
                 <div class="col-lg-4">
@@ -86,7 +86,7 @@
                           <td>{{ product.name }}</td>
                           <td>{{ product.updatedAt }}</td>
                           <td>
-                            <span class="spanAction">Disable</span>
+                            <span class="spanAction">Unavailable</span>
                             <label
                               class="switchDisable"
                               title="Loading..."

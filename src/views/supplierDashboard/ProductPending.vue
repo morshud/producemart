@@ -64,22 +64,40 @@
                       PDF
                     </button>
                   </div>
-                  <div class="QA_table mb_30" v-if="products">
+                  <div
+                    class="QA_table mb_30"
+                    v-if="pendingProducts || rejectedProducts"
+                  >
                     <table class="table lms_table_active">
                       <thead>
                         <tr>
                           <th scope="col">#</th>
                           <th scope="col">Product Name</th>
-                          <th scope="col">Submitted Date</th>
-                          <th scope="col">Action</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Comments</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(product, i) in products" :key="i">
-                          <th scope="row">{{ i + 1 }}</th>
+                        <tr v-for="(product, i) in rejectedProducts" :key="i">
+                          <th scope="row">***</th>
                           <td>{{ product.name }}</td>
-                          <td>{{ product.updatedAt }}</td>
+                          <td>{{ product.status }}</td>
                           <td>
+                            <p
+                              v-for="(fdbk, i) in product.feedback"
+                              :key="i"
+                              style="text-decoration: underline"
+                            >
+                              <router-link
+                                :to="
+                                  '/supplier-dashboard/view-products/' +
+                                  product._id
+                                "
+                                >{{ fdbk.comment }}</router-link
+                              >
+                            </p>
+                          </td>
+                          <!-- <td>
                             <div class="action_btns d-flex">
                               <router-link
                                 :to="
@@ -99,7 +117,34 @@
                                 <i class="fas fa-trash"></i>
                               </span>
                             </div>
-                          </td>
+                          </td> -->
+                        </tr>
+                        <tr v-for="(product, i) in pendingProducts" :key="i">
+                          <th scope="row">{{ i + 1 }}</th>
+                          <td>{{ product.name }}</td>
+                          <td>{{ product.status }}</td>
+                          <td>No feedback</td>
+                          <!-- <td>
+                            <div class="action_btns d-flex">
+                              <router-link
+                                :to="
+                                  '/supplier-dashboard/view-products/' +
+                                  product._id
+                                "
+                                title="View & Edit"
+                                class="action_btn mr_10"
+                              >
+                                <i class="far fa-edit"></i>
+                              </router-link>
+                              <span
+                                @click="deleteProduct(product._id)"
+                                title="Delete"
+                                class="action_btn"
+                              >
+                                <i class="fas fa-trash"></i>
+                              </span>
+                            </div>
+                          </td> -->
                         </tr>
                       </tbody>
                     </table>
@@ -143,14 +188,15 @@ export default {
   data() {
     return {
       token: JSON.parse(localStorage.getItem("user")).token,
-      products: null,
+      pendingProducts: null,
+      rejectedProducts: null,
     };
   },
   methods: {
     async fetchPublishedProduct() {
       this.products = null;
       const res = await fetch(
-        "https://producemart.herokuapp.com/getProductsbyUser?status=pending",
+        "https://producemart.herokuapp.com/getPendingProductByUser",
         {
           method: "GET",
           headers: {
@@ -159,8 +205,10 @@ export default {
         }
       );
       const { data } = await res.json();
-      this.products = data;
-      console.log(data);
+      this.rejectedProducts = data.filter((prod) => prod.status == "rejected");
+      this.pendingProducts = data.filter((prod) => prod.status == "pending");
+
+      console.log(this.pendingProducts);
     },
     async deleteProduct(id) {
       const res = await fetch(

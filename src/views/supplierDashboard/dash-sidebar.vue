@@ -108,11 +108,11 @@
               ><a>Pending Products</a></router-link
             >
           </li>
-          <li>
+          <!-- <li>
             <router-link to="/supplier-dashboard/rejected-products"
               ><a>Rejected Products</a></router-link
             >
-          </li>
+          </li> -->
           <li>
             <router-link to="/supplier-dashboard/disable-products"
               ><a>Unavailable Products</a></router-link

@@ -29,7 +29,9 @@
               <li>
                 <a class="bell_notification_clicker" href="#">
                   <img src="@/assets/img/icon/bell.svg" alt="" />
-                  <span>{{ notifications }}</span>
+                  <span :class="notifications && 'ifNotification'">{{
+                    notifications
+                  }}</span>
                 </a>
                 <div class="Menu_NOtification_Wrap">
                   <div class="notification_Header">

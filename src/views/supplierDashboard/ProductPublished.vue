@@ -81,7 +81,7 @@
                           <td>{{ product.name }}</td>
                           <td>{{ product.updatedAt }}</td>
                           <td>
-                            <span class="spanAction">Disable</span>
+                            <span class="spanAction">Unavailable</span>
                             <label
                               class="switchDisable"
                               title="Loading..."

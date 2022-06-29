@@ -66,7 +66,7 @@ import DashSupplierOrderViewCancelled from "../views/supplierDashboard/OrderView
 import DashSupplierProductUpload from "../views/supplierDashboard/ProductUpload.vue";
 import DashSupplierProductPublished from "../views/supplierDashboard/ProductPublished.vue";
 import DashSupplierProductPending from "../views/supplierDashboard/ProductPending.vue";
-import DashSupplierProductRejected from "../views/supplierDashboard/ProductRejected.vue";
+// import DashSupplierProductRejected from "../views/supplierDashboard/ProductRejected.vue";
 import DashSupplierProductDisable from "../views/supplierDashboard/ProductDisable.vue";
 import DashSupplierProductDraft from "../views/supplierDashboard/ProductDraft.vue";
 import DashSupplierProductDraftContinue from "../views/supplierDashboard/ContinueProductUpload.vue";
@@ -368,11 +368,11 @@ const routes = [
     name: "DashSupplierProductPending",
     component: DashSupplierProductPending,
   },
-  {
-    path: "/supplier-dashboard/rejected-products",
-    name: "DashSupplierProductRejected",
-    component: DashSupplierProductRejected,
-  },
+  // {
+  //   path: "/supplier-dashboard/rejected-products",
+  //   name: "DashSupplierProductRejected",
+  //   component: DashSupplierProductRejected,
+  // },
   {
     path: "/supplier-dashboard/disable-products",
     name: "DashSupplierProductDisable",

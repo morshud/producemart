@@ -232,19 +232,23 @@
                 </div>
                 <h2 class="fs-title">Choose shipping service</h2>
                 <div class="checkboxDiv">
-                  <input type="checkbox" id="air" @click="sendAir()" />
+                  <input type="checkbox" :checked="air" @click="air = !air" />
                   <label for="air">Send by air</label>
                 </div>
                 <div class="checkboxDiv">
-                  <input type="checkbox" id="sea" @click="sendSea()" />
+                  <input type="checkbox" :checked="sea" @click="sea = !sea" />
                   <label for="sea">Send by sea</label>
                 </div>
                 <div class="checkboxDiv">
-                  <input type="checkbox" id="road" @click="sendRoad()" />
+                  <input
+                    type="checkbox"
+                    :checked="road"
+                    @click="road = !road"
+                  />
                   <label for="road">Send by road</label>
                 </div>
                 <!-- Send by air -->
-                <div class="container showDivBelow" id="ifSendAir">
+                <div class="container showDivBelow" v-if="air">
                   <div class="row">
                     <div class="col-lg-12">
                       <h3>Destinations - Send By Air</h3>
@@ -298,7 +302,7 @@
                   </div>
                 </div>
                 <!-- Send by sea -->
-                <div class="container showDivBelow" id="ifSendSea">
+                <div class="container showDivBelow" v-if="sea">
                   <div class="row">
                     <div class="col-lg-12">
                       <h3>Destinations - Send By Sea</h3>
@@ -364,7 +368,7 @@
                   </div>
                 </div>
                 <!-- Send by road -->
-                <div class="container showDivBelow" id="ifSendRoad">
+                <div class="container showDivBelow" v-if="road">
                   <div class="row">
                     <div class="col-lg-12">
                       <h3>Destinations - Send By Road</h3>
@@ -504,7 +508,10 @@
                 <!-- Destination -->
                 <div class="summaryTable">
                   <h1 class="summaryHead">Destination</h1>
-                  <div class="byRoad">
+                  <p v-if="!road || !sea || !road">
+                    No Destination was selected hence Quote cannot be sent
+                  </p>
+                  <div class="byRoad" v-if="road && roadAdd1">
                     <p class="summaryHeadSub">by road</p>
                     <table>
                       <tr class="bodyRow">
@@ -539,7 +546,7 @@
                       </tr>
                     </table>
                   </div>
-                  <div class="bySea">
+                  <div class="bySea" v-if="sea && seaPort">
                     <p class="summaryHeadSub">by sea</p>
                     <table>
                       <tr class="bodyRow">
@@ -556,7 +563,7 @@
                       </tr>
                     </table>
                   </div>
-                  <div class="byAir">
+                  <div class="byAir" v-if="air && airPort">
                     <p class="summaryHeadSub">by air</p>
                     <table>
                       <tr class="bodyRow">
@@ -586,11 +593,14 @@
                   name="submit"
                   class="submit action-button"
                   value="Submit"
+                  v-if="
+                    (road && roadAdd1) || (sea && seaPort) || (road && airPort)
+                  "
                 />
               </fieldset>
             </form>
             <div v-else class="row justify-content-center">
-              <h5>
+              <h5 @click="modal.hide()">
                 Please
                 <router-link to="/login"
                   ><a class="authLogin">Login</a></router-link
@@ -1229,6 +1239,9 @@ export default {
       Navigation,
       modal: null,
       errMessage: "",
+      air: false,
+      road: false,
+      sea: false,
     };
   },
   computed: {
@@ -1303,35 +1316,11 @@ export default {
       const { data } = await res.json();
 
       this.products = data
-        .splice(0, 3)
-        .filter((val) => val.status == "active" && val._id != this.id);
+        .filter((val) => val.status == "active" && val._id != this.id)
+        .splice(0, 3);
 
       // this.products = data;
       // console.log(this.products);
-    },
-    sendAir() {
-      var x = document.getElementById("ifSendAir");
-      if (!x.style.display || x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
-    },
-    sendSea() {
-      var x = document.getElementById("ifSendSea");
-      if (!x.style.display || x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
-    },
-    sendRoad() {
-      var x = document.getElementById("ifSendRoad");
-      if (!x.style.display || x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
     },
   },
 };
