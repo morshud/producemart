@@ -1651,3 +1651,26 @@ input:checked+.slider:before {
 .dormatNotification i{
     color: rgb(134, 134, 134) !important;
 }
+
+
+
+svg { 
+    overflow: visible; 
+}                      
+#lock-shackle {
+    transform: rotateY(0);
+    transition: transform .5s ease-in-out;
+    transform-origin: 82.5px top;
+}
+#lock-shackle .lock-open { 
+    transform: rotateY(.5turn); 
+}
+#wrapper {
+  width: 80px;
+  padding: 10px 30px;
+  overflow: auto;
+  background: #fff;
+}
+svg:hover {
+  cursor: pointer;
+}

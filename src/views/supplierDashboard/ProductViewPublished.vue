@@ -101,6 +101,22 @@
                   </tr>
                 </table>
               </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div id="wrapper">
+                    <svg viewBox="0 -135 100 135" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <g id="lock" fill="currentColor">
+                        <g id="lock-body" @click="lockUnlock">
+                          <path d="M0,0 h100 v-65 l-10, -10 h-80 l-10, 10z" />
+                        </g>
+                        <g id="lock-shackle">
+                          <path d="M10,-75 v-30 q 0,-30,30,-30 h20 q 30,0,30,30 v30 h-15 v-30 q 0,-15,-15,-15 h-20 q -15,0,-15,15 v30z" />
+                        </g>
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+              </div>
               <!-- <div class="row mt-4">
                 <div class="col-lg-6">
                   <span class="spanAction">Enable Product</span>
@@ -1852,6 +1868,10 @@ export default {
   mounted() {
     window.scrollTo(0, 0);
 
+    // document.getElementById('svgPadlock').addEventListener('click', function() {
+    //   this.classList.toggle('lock-open');
+    // });
+
     $(".add-extra-field").click(function () {
       $(".upload-more-image").clone().appendTo(".upload-dynamic");
       $(".upload-dynamic .upload-more-image").addClass("single remove");
@@ -2026,6 +2046,15 @@ export default {
     };
   },
   methods: {
+    lockUnlock(){
+      var x = document.getElementById("lock-shackle");
+      if (x.style.transform === "rotateY(.5turn)") {
+        x.style.transform = "rotateY(0)";
+      } else {
+        x.style.transform = "rotateY(.5turn)";
+      }
+    },
+
     async updateProduct(uploadOrSave) {
       this.loading = true;
       console.log("submitting!!");
