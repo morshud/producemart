@@ -22,7 +22,9 @@
               <img src="@/assets/img/menu-icon/dashboard.png" />
             </div>
             <div class="nav_title">
-              <span>Dashboard</span>
+              <span :class="path == '/dashboard/home' && 'active-nav'"
+                >Dashboard</span
+              >
             </div>
           </a>
         </router-link>
@@ -40,7 +42,7 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li :class="path == '/dashboard/all-notifications' && 'active-nav'">
             <router-link to="/dashboard/all-notifications"
               ><a>All Notifications</a></router-link
             >
@@ -60,29 +62,29 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li :class="path == '/dashboard/buyer-email' && 'active-nav'">
             <router-link to="/dashboard/buyer-email"><a>Buyers</a></router-link>
           </li>
-          <li>
+          <li :class="path == '/dashboard/supplier-email' && 'active-nav'">
             <router-link to="/dashboard/supplier-email"
               ><a>Suppliers</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/inspector-email' && 'active-nav'">
             <router-link to="/dashboard/inspector-email"
               ><a>Inspector</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/shipper-email' && 'active-nav'">
             <router-link to="/dashboard/shipper-email"
               ><a>Shipper</a></router-link
             >
           </li>
-          <li>
+          <!-- <li>
             <router-link to="/dashboard/add-email"
               ><a>Add Email</a></router-link
             >
-          </li>
+          </li> -->
         </ul>
       </li>
       <!--Products-->
@@ -101,17 +103,17 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li :class="path == '/dashboard/active-products' && 'active-nav'">
             <router-link to="/dashboard/active-products"
               ><a>Active Products</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/pending-products' && 'active-nav'">
             <router-link to="/dashboard/pending-products"
               ><a>Pending Products</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/disable-products' && 'active-nav'">
             <router-link to="/dashboard/disable-products"
               ><a>Disable Products</a></router-link
             >
@@ -134,7 +136,7 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li :class="path == '/dashboard/view-orders' && 'active-nav'">
             <router-link to="/dashboard/view-orders"
               ><a>View Orders</a></router-link
             >
@@ -157,17 +159,17 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li :class="path == '/dashboard/active-buyers' && 'active-nav'">
             <router-link to="/dashboard/active-buyers"
               ><a>Active Buyers</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/incomplete-buyers' && 'active-nav'">
             <router-link to="/dashboard/incomplete-buyers"
               ><a>Incomplete Buyers</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/disable-buyers' && 'active-nav'">
             <router-link to="/dashboard/disable-buyers"
               ><a>Disable Buyers</a></router-link
             >
@@ -190,22 +192,24 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li :class="path == '/dashboard/active-suppliers' && 'active-nav'">
             <router-link to="/dashboard/active-suppliers"
               ><a>Active Suppliers</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/pending-suppliers' && 'active-nav'">
             <router-link to="/dashboard/pending-suppliers"
               ><a>Pending Suppliers</a></router-link
             >
           </li>
-          <li>
+          <li
+            :class="path == '/dashboard/incomplete-suppliers' && 'active-nav'"
+          >
             <router-link to="/dashboard/incomplete-suppliers"
               ><a>Incomplete Suppliers</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/disable-suppliers' && 'active-nav'">
             <router-link to="/dashboard/disable-suppliers"
               ><a>Disable Suppliers</a></router-link
             >
@@ -225,12 +229,12 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li :class="path == '/dashboard/add-shipper' && 'active-nav'">
             <router-link to="/dashboard/add-shipper"
               ><a>Add Shipper</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/view-shipper' && 'active-nav'">
             <router-link to="/dashboard/view-shipper"
               ><a>View Shipper</a></router-link
             >
@@ -250,12 +254,12 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li :class="path == '/dashboard/add-inspector' && 'active-nav'">
             <router-link to="/dashboard/add-inspector"
               ><a>Add Inspector</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/view-inspectors' && 'active-nav'">
             <router-link to="/dashboard/view-inspectors"
               ><a>View Inspectors</a></router-link
             >
@@ -278,7 +282,7 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li :class="path == '/dashboard/view-quotes' && 'active-nav'">
             <router-link to="/dashboard/view-quotes"
               ><a>View Quotes</a></router-link
             >
@@ -298,12 +302,12 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li :class="path == '/dashboard/write-blog' && 'active-nav'">
             <router-link to="/dashboard/write-blog"
               ><a>Write Blog</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/view-blog' && 'active-nav'">
             <router-link to="/dashboard/view-blog"
               ><a>View Blog</a></router-link
             >
@@ -323,12 +327,12 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li :class="path == '/dashboard/create-admin' && 'active-nav'">
             <router-link to="/dashboard/create-admin"
               ><a>Create Admin</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/view-admin' && 'active-nav'">
             <router-link to="/dashboard/view-admin"
               ><a>View Admin</a></router-link
             >
@@ -351,27 +355,27 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li :class="path == '/dashboard/user-reports' && 'active-nav'">
             <router-link to="/dashboard/user-reports"
               ><a>User Reports</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/quote-reports' && 'active-nav'">
             <router-link to="/dashboard/quote-reports"
               ><a>Quote Reports</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/order-reports' && 'active-nav'">
             <router-link to="/dashboard/order-reports"
               ><a>Order Reports</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/buyer-reports' && 'active-nav'">
             <router-link to="/dashboard/buyer-reports"
               ><a>Buyer Reports</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/supplier-reports' && 'active-nav'">
             <router-link to="/dashboard/supplier-reports"
               ><a>Supplier Reports</a></router-link
             >
@@ -391,12 +395,14 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li
+            :class="path == '/dashboard/edit-profile-details' && 'active-nav'"
+          >
             <router-link to="/dashboard/edit-profile-details"
               ><a>Edit Profile Details</a></router-link
             >
           </li>
-          <li>
+          <li :class="path == '/dashboard/change-password' && 'active-nav'">
             <router-link to="/dashboard/change-password"
               ><a>Change Password</a></router-link
             >
@@ -429,6 +435,7 @@ export default {
   data() {
     return {
       user: JSON.parse(localStorage.getItem("user")),
+      path: this.$route.path,
     };
   },
 

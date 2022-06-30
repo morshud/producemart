@@ -27,12 +27,15 @@
             <!--Notification-->
             <div class="header_notification_warp d-flex align-items-center">
               <li>
-                <a class="bell_notification_clicker" href="#">
+                <router-link
+                  class="bell_notification_clicker"
+                  to="/dashboard/all-notifications"
+                >
                   <img src="@/assets/img/icon/bell.svg" alt="" />
                   <span :class="notifications && 'ifNotification'">{{
                     notifications
                   }}</span>
-                </a>
+                </router-link>
                 <div class="Menu_NOtification_Wrap">
                   <div class="notification_Header">
                     <h4>Notifications</h4>

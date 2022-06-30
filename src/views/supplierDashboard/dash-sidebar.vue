@@ -21,7 +21,9 @@
             <img src="@/assets/img/menu-icon/dashboard.png" />
           </div>
           <div class="nav_title">
-            <span>Dashboard</span>
+            <span :class="path == '/supplier-dashboard/home' && 'active-nav'"
+              >Dashboard</span
+            >
           </div>
         </router-link>
       </li>
@@ -38,7 +40,11 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li
+            :class="
+              path == '/supplier-dashboard/all-notifications' && 'active-nav'
+            "
+          >
             <router-link to="/supplier-dashboard/all-notifications"
               ><a>All Notifications</a></router-link
             >
@@ -63,17 +69,25 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li
+            :class="path == '/supplier-dashboard/open-orders' && 'active-nav'"
+          >
             <router-link to="/supplier-dashboard/open-orders"
               ><a>Open Orders</a></router-link
             >
           </li>
-          <li>
+          <li
+            :class="path == '/supplier-dashboard/closed-orders' && 'active-nav'"
+          >
             <router-link to="/supplier-dashboard/closed-orders"
               ><a>Closed Orders</a></router-link
             >
           </li>
-          <li>
+          <li
+            :class="
+              path == '/supplier-dashboard/cancelled-orders' && 'active-nav'
+            "
+          >
             <router-link to="/supplier-dashboard/cancelled-orders"
               ><a>Cancelled Orders</a></router-link
             >
@@ -93,17 +107,29 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li
+            :class="
+              path == '/supplier-dashboard/upload-product' && 'active-nav'
+            "
+          >
             <router-link to="/supplier-dashboard/upload-product"
               ><a>Upload Product</a></router-link
             >
           </li>
-          <li>
+          <li
+            :class="
+              path == '/supplier-dashboard/published-products' && 'active-nav'
+            "
+          >
             <router-link to="/supplier-dashboard/published-products"
               ><a>Published Products</a></router-link
             >
           </li>
-          <li>
+          <li
+            :class="
+              path == '/supplier-dashboard/pending-products' && 'active-nav'
+            "
+          >
             <router-link to="/supplier-dashboard/pending-products"
               ><a>Pending Products</a></router-link
             >
@@ -113,12 +139,18 @@
               ><a>Rejected Products</a></router-link
             >
           </li> -->
-          <li>
+          <li
+            :class="
+              path == '/supplier-dashboard/disable-products' && 'active-nav'
+            "
+          >
             <router-link to="/supplier-dashboard/disable-products"
               ><a>Unavailable Products</a></router-link
             >
           </li>
-          <li>
+          <li
+            :class="path == '/supplier-dashboard/draft-producs' && 'active-nav'"
+          >
             <router-link to="/supplier-dashboard/draft-products"
               ><a>Draft Products</a></router-link
             >
@@ -138,7 +170,9 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li
+            :class="path == '/supplier-dashboard/request-audit' && 'active-nav'"
+          >
             <router-link to="/supplier-dashboard/request-audit"
               ><a>Request Audit</a></router-link
             >
@@ -153,7 +187,12 @@
               <img src="@/assets/img/menu-icon/sales-analysis.png" />
             </div>
             <div class="nav_title">
-              <span>Sales Analytics</span>
+              <span
+                :class="
+                  path == '/supplier-dashboard/sales-analytics' && 'active-nav'
+                "
+                >Sales Analytics</span
+              >
             </div>
           </a>
         </router-link>
@@ -171,12 +210,18 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li
+            :class="
+              path == '/supplier-dashboard/add-new-address' && 'active-nav'
+            "
+          >
             <router-link to="/supplier-dashboard/add-new-address"
               ><a>Add New Address</a></router-link
             >
           </li>
-          <li>
+          <li
+            :class="path == '/supplier-dashboard/View-address' && 'active-nav'"
+          >
             <router-link to="/supplier-dashboard/View-address"
               ><a>View All Address</a></router-link
             >
@@ -196,12 +241,20 @@
           </a>
         </router-link>
         <ul>
-          <li>
+          <li
+            :class="
+              path == '/supplier-dashboard/edit-profile-details' && 'active-nav'
+            "
+          >
             <router-link to="/supplier-dashboard/edit-profile-details"
               ><a>Edit Profile Details</a></router-link
             >
           </li>
-          <li>
+          <li
+            :class="
+              path == '/supplier-dashboard/change-password' && 'active-nav'
+            "
+          >
             <router-link to="/supplier-dashboard/change-password"
               ><a>Change Password</a></router-link
             >
@@ -270,7 +323,11 @@ export default {
     document.head.appendChild(externalScriptMetisMenu);
     document.head.appendChild(externalScriptCustom);
   },
-
+  data() {
+    return {
+      path: this.$route.path,
+    };
+  },
   methods: {
     logOut() {
       this.$store.dispatch("auth/logout");

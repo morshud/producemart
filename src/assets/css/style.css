@@ -12022,6 +12022,11 @@ table.lms_table_active3.dataTable thead .sorting_desc::after {
   display: inline-block;
 }
 
+.active-nav {
+  border-bottom: 2px solid #97f29f;
+  padding-bottom: 1px;
+}
+
 .sidebar.mini_sidebar #sidebar_menu > li.mm-active > a.has-arrow::after {
   display: inline-block;
 }

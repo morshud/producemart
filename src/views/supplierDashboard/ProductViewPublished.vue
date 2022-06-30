@@ -99,6 +99,14 @@
                       {{ product.package && product.package.price }}
                     </td>
                   </tr>
+                  <tr>
+                    <td>Comments:</td>
+                    <td>
+                      <p v-for="(fdbk, i) in product.feedback" :key="i">
+                        {{ fdbk.comment }}
+                      </p>
+                    </td>
+                  </tr>
                 </table>
               </div>
               <div class="row mt-4">
