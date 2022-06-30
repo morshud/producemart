@@ -113,7 +113,7 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div id="wrapper">
-                    <svg
+                    <!-- <svg
                       viewBox="0 -135 100 135"
                       xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -128,22 +128,41 @@
                           />
                         </g>
                       </g>
-                    </svg>
+                    </svg> -->
                   </div>
                 </div>
               </div>
-              <div class="row mt-4">
-                <div class="col-lg-6">
-                  <span class="spanAction">Enable Product</span>
+              <div class="row mt-4" v-if="product.status == 'active'">
+                <div class="col-lg-12" @click="lockUnlock">
+                  <span class="spanAction" v-if="lock"
+                    ><i class="fas fa-lock"></i
+                  ></span>
+                  <span class="spanAction" v-else
+                    ><i class="fas fa-unlock"></i
+                  ></span>
+
+                  <span style="padding-left: 10px" v-if="lock"
+                    ><small>Click to Unlock Product to enable editing</small>
+                  </span>
+                  <span style="padding-left: 10px" v-else
+                    ><small>Product Unlocked for editing.</small>
+                  </span>
+                </div>
+                <div class="col-lg-12" v-if="!lock">
                   <label class="switchDisable">
                     <input
                       type="checkbox"
                       id="myCheckbox"
-                      @change="toggleCheck()"
+                      @click="makeUnavailable()"
+                      :checked="prodAvailable"
+                      :disabled="waitAvailabilityResponse"
                     />
                     <span class="slider round"></span>
                   </label>
-                  <span class="spanAction">Disable Product</span>
+                  <span class="spanAction" v-if="!waitAvailabilityResponse">{{
+                    prodAvailable ? "Available" : "Unavailable"
+                  }}</span>
+                  <span class="spanAction" v-else>Please wait...</span>
                 </div>
               </div>
             </div>
@@ -204,7 +223,13 @@
                 <div class="row mt-4 mb-3">
                   <div class="col-lg-6 mb-3">
                     <label>Product Name <span>*</span></label>
-                    <input type="text" class="input" v-model="name" required />
+                    <input
+                      :disabled="lock"
+                      type="text"
+                      class="input"
+                      v-model="name"
+                      required
+                    />
                   </div>
                   <div class="col-lg-6 mb-3">
                     <label>Product Variety <span>*</span></label>
@@ -213,6 +238,7 @@
                       class="input"
                       v-model="variety"
                       required
+                      :disabled="lock"
                     />
                   </div>
                   <div class="col-lg-12 mb-3">
@@ -223,28 +249,29 @@
                       class="input"
                       required
                       v-model="description"
+                      :disabled="lock"
                     ></textarea>
                   </div>
                   <div class="col-lg-6 mb-3">
                     <label>Farming Method <span>*</span></label>
-                    <select class="input" v-model="farmMethod">
+                    <select class="input" v-model="farmMethod" :disabled="lock">
                       <option hidden>Select Method</option>
-                      <option>Organic</option>
-                      <option>Integrated</option>
-                      <option>Conventional</option>
+                      <option value="Organic">Organic</option>
+                      <option value="Integrated">Integrated</option>
+                      <option value="Conventional">Conventional</option>
                     </select>
                   </div>
                   <div class="col-lg-6 mb-3">
                     <label>GMO <span>*</span></label>
-                    <select class="input" v-model="gmo">
+                    <select class="input" v-model="gmo" :disabled="lock">
                       <option hidden>Select</option>
-                      <option>Yes</option>
-                      <option>No</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
                     </select>
                   </div>
                   <div class="col-lg-12 mb-3">
                     <label>Country of origin <span>*</span></label>
-                    <select class="input" v-model="country">
+                    <select class="input" v-model="country" :disabled="lock">
                       <option value="Country" hidden>Select Country</option>
                       <option
                         v-for="(country, i) in countries"
@@ -263,6 +290,7 @@
                       class="input"
                       placeholder="Address"
                       v-model="location"
+                      :disabled="lock"
                     ></textarea>
                   </div>
                   <!-- <div class="col-lg-12 mb-3">
@@ -288,6 +316,7 @@
                         name="available"
                         id="yesAvailable"
                         v-model="yearRoundAvailableStatus"
+                        :disabled="lock"
                       />
                       <label for="yesAvailable" class="radioSpan"
                         >YES, available year round</label
@@ -300,6 +329,7 @@
                         name="available"
                         id="noAvailable"
                         v-model="yearRoundAvailableStatus"
+                        :disabled="lock"
                       />
                       <label for="noAvailable" class="radioSpan"
                         >NO, only available from</label
@@ -308,6 +338,7 @@
                     <div v-if="available">
                       From:
                       <input
+                        :disabled="lock"
                         type="date"
                         class="inputShow"
                         v-model="yearRoundAvailableFrom"
@@ -315,6 +346,7 @@
 
                       To:
                       <input
+                        :disabled="lock"
                         type="date"
                         class="inputShow"
                         v-model="yearRoundAvailableTo"
@@ -325,6 +357,7 @@
                     <label>Special Storage Conditions? <span>*</span></label>
                     <fieldset>
                       <input
+                        :disabled="lock"
                         type="radio"
                         @click="storage = false"
                         name="storage"
@@ -335,6 +368,7 @@
                       <label for="noStorage" class="radioSpan">NO</label>
 
                       <input
+                        :disabled="lock"
                         type="radio"
                         @click="storage = true"
                         name="storage"
@@ -346,6 +380,7 @@
                     </fieldset>
                     <div v-if="storage">
                       <textarea
+                        :disabled="lock"
                         cols="30"
                         rows="3"
                         class="textareaShow"
@@ -361,6 +396,7 @@
                     >
                     <fieldset>
                       <input
+                        :disabled="lock"
                         type="radio"
                         @click="temperature = false"
                         name="temperature"
@@ -370,6 +406,7 @@
                       />
                       <label for="noTemperature" class="radioSpan">NO</label>
                       <input
+                        :disabled="lock"
                         type="radio"
                         @click="temperature = true"
                         name="temperature"
@@ -381,6 +418,7 @@
                     </fieldset>
                     <div v-if="temperature">
                       <textarea
+                        :disabled="lock"
                         cols="30"
                         rows="3"
                         class="textareaShow"
@@ -401,7 +439,11 @@
                     </button>
                   </div>
                   <div class="col-sm-12">
-                    <p class="saveAndContinue" @click="updateProduct('save')">
+                    <p
+                      class="saveAndContinue"
+                      @click="updateProduct('save')"
+                      :disabled="lock"
+                    >
                       <a>Save & Continue Later</a>
                     </p>
                   </div>
@@ -432,6 +474,7 @@
                           name="category"
                           id="idOil"
                           v-model="items.oil.check"
+                          :disabled="lock"
                         />
                         <label for="idOil" class="radioSpan">Oils</label>
                       </div>
@@ -442,6 +485,7 @@
                           name="category"
                           id="idFruit"
                           v-model="items.fruit.check"
+                          :disabled="lock"
                         />
                         <label class="radioSpan" for="idFruit">Fruits</label>
                       </div>
@@ -452,6 +496,7 @@
                           name="category"
                           id="idVegetable"
                           v-model="items.vegetable.check"
+                          :disabled="lock"
                         />
                         <label class="radioSpan" for="idVegetable"
                           >Vegetables</label
@@ -464,6 +509,7 @@
                           name="category"
                           id="idGrain"
                           v-model="items.grain.check"
+                          :disabled="lock"
                         />
                         <label class="radioSpan" for="idGrain"
                           >Grains/Beans/Pulses</label
@@ -476,6 +522,7 @@
                           name="category"
                           id="idNut"
                           v-model="items.nut.check"
+                          :disabled="lock"
                         />
                         <label class="radioSpan" for="idNut">Nuts/Seeds</label>
                       </div>
@@ -486,6 +533,7 @@
                           name="category"
                           id="idCoffee"
                           v-model="items.coffee.check"
+                          :disabled="lock"
                         />
                         <label class="radioSpan" for="idCoffee">Coffee</label>
                       </div>
@@ -496,6 +544,7 @@
                           name="category"
                           id="idFlower"
                           v-model="items.flower.check"
+                          :disabled="lock"
                         />
                         <label class="radioSpan" for="idFlower">Flower</label>
                       </div>
@@ -506,6 +555,7 @@
                           name="category"
                           id="idAnimalFeed"
                           v-model="items.animalFeed.check"
+                          :disabled="lock"
                         />
                         <label class="radioSpan" for="idAnimalFeed"
                           >Animal Feeds</label
@@ -518,6 +568,7 @@
                           name="category"
                           id="idOther"
                           v-model="items.others.check"
+                          :disabled="lock"
                         />
                         <label class="radioSpan" for="idOther">Others</label>
                       </div>
@@ -536,6 +587,7 @@
                         class="input"
                         v-model="character.processType"
                         placeholder="e.g. Cold Pressed, Refined"
+                        :disabled="lock"
                       />
                     </div>
                     <div class="categoryInnerDiv mb-3">
@@ -545,6 +597,7 @@
                         class="input"
                         v-model="character.grade"
                         placeholder="e.g. Extra Virgin, Premium, Extra etc"
+                        :disabled="lock"
                       />
                     </div>
                     <div class="categoryInnerDiv mb-3">
@@ -553,6 +606,7 @@
                         type="text"
                         class="input"
                         v-model="character.purity"
+                        :disabled="lock"
                       />
                     </div>
                     <div class="categoryInnerDiv mb-3">
@@ -561,6 +615,7 @@
                         type="text"
                         class="input"
                         v-model="character.acidity"
+                        :disabled="lock"
                       />
                     </div>
                     <div class="categoryInnerDiv mb-3">
@@ -570,6 +625,7 @@
                         class="input"
                         v-model="character.taste"
                         placeholder="e.g. Sweet Fruity"
+                        :disabled="lock"
                       />
                     </div>
                     <div class="categoryInnerDiv mb-3">
@@ -579,6 +635,7 @@
                         class="input"
                         v-model="character.smell"
                         placeholder="e.g. notes of almond"
+                        :disabled="lock"
                       />
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
@@ -588,6 +645,7 @@
                         class="input"
                         v-model="character.use"
                         placeholder="e.g. Human Food, Animal Feed"
+                        :disabled="lock"
                       />
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
@@ -598,6 +656,7 @@
                         class="input"
                         placeholder="e.g. Extra Specifications"
                         v-model="character.comment"
+                        :disabled="lock"
                       ></textarea>
                     </div>
                   </div>
@@ -613,11 +672,13 @@
                         type="text"
                         class="input"
                         v-model="character.color"
+                        :disabled="lock"
                       />
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>Grade, Style or Quality</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.grade"
@@ -627,6 +688,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>maturity</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.maturity"
@@ -636,14 +698,15 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>size</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input inputSize"
                         v-model="character.size"
                       />
-                      <select class="input selectSize">
-                        <option>cm</option>
-                        <option>mm</option>
-                        <option>inches</option>
+                      <select class="input selectSize" :disabled="lock">
+                        <option value="cm">cm</option>
+                        <option value="mm">mm</option>
+                        <option value="inches">inches</option>
                       </select>
                     </div>
                     <div class="categoryInnerDiv mb-3">
@@ -653,6 +716,7 @@
                         class="input"
                         v-model="character.taste"
                         placeholder="e.g. Sweet, Crisp"
+                        :disabled="lock"
                       />
                     </div>
                     <div class="categoryInnerDiv mb-3">
@@ -662,11 +726,13 @@
                         class="input"
                         v-model="character.weight"
                         placeholder="e.g. 0.38 KG"
+                        :disabled="lock"
                       />
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Additional comment</label>
                       <textarea
+                        :disabled="lock"
                         cols="30"
                         rows="4"
                         class="input"
@@ -687,6 +753,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>processing type</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.gradeprocessType"
@@ -696,6 +763,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>Grade, Style or Quality</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.tyle"
@@ -705,6 +773,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>color</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.color"
@@ -713,6 +782,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>freezing process</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.freezingProcess"
@@ -722,6 +792,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>Taste</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.taste"
@@ -731,6 +802,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>shape</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.shape"
@@ -744,6 +816,7 @@
                         class="input"
                         placeholder="e.g. Extra Specifications"
                         v-model="character.comment"
+                        :disabled="lock"
                       ></textarea>
                     </div>
                   </div>
@@ -756,6 +829,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>color</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.color"
@@ -764,6 +838,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>Grade, Style or Quality</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.grade"
@@ -773,6 +848,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>drying process</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.dryProcess"
@@ -782,6 +858,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>moisture (max %)</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.moisture"
@@ -790,6 +867,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>admixture (max %)</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.admixture"
@@ -798,6 +876,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>broken (max %)</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.broken"
@@ -806,6 +885,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>use</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.use"
@@ -815,6 +895,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>imperfect rate (max %)</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.imperfectRate"
@@ -823,11 +904,12 @@
                     <div class="categoryInnerDivLarge mb-3">
                       <label>size</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input inputSize"
                         v-model="character.size"
                       />
-                      <select class="input selectSize">
+                      <select :disabled="lock" class="input selectSize">
                         <option>cm</option>
                         <option>mm</option>
                         <option>inches</option>
@@ -836,6 +918,7 @@
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Additional comment</label>
                       <textarea
+                        :disabled="lock"
                         cols="30"
                         rows="4"
                         class="input"
@@ -853,6 +936,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>color</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.color"
@@ -861,6 +945,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>style</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.style"
@@ -870,6 +955,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>shell type</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.shellType"
@@ -879,6 +965,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>Grade or Quality</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.grade"
@@ -887,7 +974,11 @@
                     </div>
                     <div class="categoryInnerDiv mb-3">
                       <label>USDA Grade (Applies to Almonds)</label>
-                      <select class="input" v-model="character.usdaGrade">
+                      <select
+                        :disabled="lock"
+                        class="input"
+                        v-model="character.usdaGrade"
+                      >
                         <option hidden>Select</option>
                         <option>US Fancy</option>
                         <option>US Extra N.1</option>
@@ -901,11 +992,12 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>size</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input inputSize"
                         v-model="character.size"
                       />
-                      <select class="input selectSize">
+                      <select :disabled="lock" class="input selectSize">
                         <option>p.oz</option>
                         <option>cm</option>
                         <option>mm</option>
@@ -915,6 +1007,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>form</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.form"
@@ -924,6 +1017,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>moisture (max %)</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.moisture"
@@ -932,6 +1026,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>Kernels per KG</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.kernelsPerKg"
@@ -940,6 +1035,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>Defects (max %)</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.defects"
@@ -948,6 +1044,7 @@
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Additional comment</label>
                       <textarea
+                        :disabled="lock"
                         cols="30"
                         rows="4"
                         class="input"
@@ -965,6 +1062,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>color</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.color"
@@ -973,6 +1071,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>grade</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.grade"
@@ -982,6 +1081,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>coffee type</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.coffeeType"
@@ -991,6 +1091,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>Defects</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.defects"
@@ -999,6 +1100,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>processing type</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.processType"
@@ -1008,11 +1110,12 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>bean size</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input inputSize"
                         v-model="character.beanSize"
                       />
-                      <select class="input selectSize">
+                      <select :disabled="lock" class="input selectSize">
                         <option>cm</option>
                         <option>mm</option>
                         <option>inches</option>
@@ -1021,6 +1124,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>maturity</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.maturity"
@@ -1030,6 +1134,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>Taste</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.taste"
@@ -1039,6 +1144,7 @@
                     <div class="categoryInnerDivLarge mb-3">
                       <label>moisture (max %)</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.moisture"
@@ -1047,6 +1153,7 @@
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Additional comment</label>
                       <textarea
+                        :disabled="lock"
                         cols="30"
                         rows="4"
                         class="input"
@@ -1064,6 +1171,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>color</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.color"
@@ -1072,6 +1180,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>style, grade or quality</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.style"
@@ -1081,6 +1190,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>number of petals</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.noOfPetals"
@@ -1089,11 +1199,12 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>petals size</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input inputSize"
                         v-model="character.petalSize"
                       />
-                      <select class="input selectSize">
+                      <select :disabled="lock" class="input selectSize">
                         <option>cm</option>
                         <option>mm</option>
                         <option>inches</option>
@@ -1102,11 +1213,12 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>bud size (cm)</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input inputSize"
                         v-model="character.budSize"
                       />
-                      <select class="input selectSize">
+                      <select :disabled="lock" class="input selectSize">
                         <option>cm</option>
                         <option>mm</option>
                         <option>inches</option>
@@ -1115,11 +1227,12 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>head size (cm)</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input inputSize"
                         v-model="character.headSize"
                       />
-                      <select class="input selectSize">
+                      <select :disabled="lock" class="input selectSize">
                         <option>cm</option>
                         <option>mm</option>
                         <option>inches</option>
@@ -1128,11 +1241,12 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>sterm lenght</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input inputSize"
                         v-model="character.stermLen"
                       />
-                      <select class="input selectSize">
+                      <select :disabled="lock" class="input selectSize">
                         <option>cm</option>
                         <option>mm</option>
                         <option>inches</option>
@@ -1141,6 +1255,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>stem per bunch</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.stemPerBunch"
@@ -1149,6 +1264,7 @@
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Additional comment</label>
                       <textarea
+                        :disabled="lock"
                         cols="30"
                         rows="4"
                         class="input"
@@ -1169,6 +1285,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>color</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.color"
@@ -1177,6 +1294,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>style, grade or quality</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.style"
@@ -1186,6 +1304,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>drying process</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.dryProcess"
@@ -1195,6 +1314,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>Taste</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.taste"
@@ -1204,6 +1324,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>smell</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.smell"
@@ -1213,6 +1334,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>moisture (max %)</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.mositure"
@@ -1222,6 +1344,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>admixture (max %)</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.admixture"
@@ -1230,6 +1353,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>use</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.use"
@@ -1239,6 +1363,7 @@
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Additional comment</label>
                       <textarea
+                        :disabled="lock"
                         cols="30"
                         rows="4"
                         class="input"
@@ -1256,6 +1381,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>color</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.color"
@@ -1264,6 +1390,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>style, grade or quality</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.style"
@@ -1273,6 +1400,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>processing type</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.processType"
@@ -1281,6 +1409,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>Taste</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.taste"
@@ -1289,6 +1418,7 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>shape</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.shape"
@@ -1297,11 +1427,12 @@
                     <div class="categoryInnerDiv mb-3">
                       <label>size</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input inputSize"
                         v-model="character.size"
                       />
-                      <select class="input selectSize">
+                      <select :disabled="lock" class="input selectSize">
                         <option>cm</option>
                         <option>mm</option>
                         <option>inches</option>
@@ -1310,6 +1441,7 @@
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Defects</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="character.defects"
@@ -1318,6 +1450,7 @@
                     <div class="categoryInnerDivLarge mb-3">
                       <label>Additional comment</label>
                       <textarea
+                        :disabled="lock"
                         cols="30"
                         rows="4"
                         class="input"
@@ -1339,7 +1472,11 @@
                     </button>
                   </div>
                   <div class="col-sm-12">
-                    <p class="saveAndContinue" @click="updateProduct('save')">
+                    <p
+                      class="saveAndContinue"
+                      @click="updateProduct('save')"
+                      :disabled="lock"
+                    >
                       <a>Save & Continue Later</a>
                     </p>
                   </div>
@@ -1371,7 +1508,7 @@
                         <img :src="img" alt="" />
                       </div>
                       <!-- <div class="controls" style="display: none">
-                        <input
+                        <input :disabled="lock"
                           type="file"
                           
                           name="contact_image_1"
@@ -1389,6 +1526,7 @@
                     class="removeImgBtn"
                     type="button"
                     @click="deleteImg(img_id[i])"
+                    v-if="lock"
                   >
                     Remove Image
                   </button>
@@ -1409,7 +1547,7 @@
                         <img :src="displayImg[0]" alt="" />
                       </div>
                       <div class="controls" style="display: none">
-                        <input
+                        <input :disabled="lock"
                           type="file"
                           ref="inputFile"
                           name="contact_image_1"
@@ -1456,6 +1594,7 @@
                       </div>
                       <div class="controls" style="display: none">
                         <input
+                          :disabled="lock"
                           type="file"
                           ref="items"
                           name="contact_image_1"
@@ -1488,7 +1627,7 @@
                 <div class="row mt-3">
                   <div class="upload-dynamic"></div>
                 </div>
-                <div class="uploadMore" v-if="addImg.length < 2">
+                <div class="uploadMore" v-if="addImg.length < 2 || lock">
                   <span @click="addImg.push(addImg.length)"
                     >Upload More <i class="bi bi-plus-circle"></i
                   ></span>
@@ -1514,6 +1653,7 @@
                     <p
                       class="saveAndContinue"
                       @click="handleProductUpload('save')"
+                      :disabled="lock"
                     >
                       <a>Save & Continue Later</a>
                     </p>
@@ -1541,7 +1681,11 @@
                 >
                   <div class="col-lg-12 mt-4 mb-3">
                     <label>Certification Name</label>
-                    <select class="input" v-model="cert.cert_name">
+                    <select
+                      :disabled="lock"
+                      class="input"
+                      v-model="cert.cert_name"
+                    >
                       <option hidden>Select Certificate</option>
                       <option value="option 1">option 1</option>
                       <option value="option 2">option 2</option>
@@ -1552,6 +1696,7 @@
                   <div class="col-lg-6 mb-3">
                     <label>Certificate Number</label>
                     <input
+                      :disabled="lock"
                       type="text"
                       class="input"
                       v-model="cert.cert_number"
@@ -1560,6 +1705,7 @@
                   <div class="col-lg-6 mb-3">
                     <label>Date of Issue</label>
                     <input
+                      :disabled="lock"
                       type="date"
                       class="input"
                       v-model="cert.dateOfIssue"
@@ -1568,6 +1714,7 @@
                   <div class="col-lg-12 mb-3">
                     <label>Name of Issuing Body</label>
                     <input
+                      :disabled="lock"
                       type="text"
                       class="input"
                       v-model="cert.issuingBody"
@@ -1579,6 +1726,7 @@
                       <div class="col-lg-6">
                         <span>From:</span>
                         <input
+                          :disabled="lock"
                           type="date"
                           class="input"
                           v-model="cert.validityPeriod.from"
@@ -1587,6 +1735,7 @@
                       <div class="col-lg-6">
                         <span>To:</span>
                         <input
+                          :disabled="lock"
                           type="date"
                           class="input"
                           v-model="cert.validityPeriod.to"
@@ -1597,77 +1746,14 @@
                   <div class="col-lg-12">
                     <label>Upload Certification</label>
                     <input
+                      :disabled="lock"
                       type="file"
                       class="input"
                       @change="onFileChange(1)"
                     />
                   </div>
                 </div>
-                <!-- <div class="row add-more-certi">
-                  <div class="col-lg-12 mt-4 mb-3">
-                    <label>Certification Name</label>
-                    <select class="input" v-model="file[1].name">
-                      <option hidden>Select Certificate</option>
-                      <option>option 1</option>
-                      <option>option 2</option>
-                      <option>option 3</option>
-                      <option>others</option>
-                    </select>
-                  </div>
-                  <div class="col-lg-6 mb-3">
-                    <label>Certificate Number</label>
-                    <input
-                      type="text"
-                      class="input"
-                      v-model="file[1].cert_number"
-                    />
-                  </div>
-                  <div class="col-lg-6 mb-3">
-                    <label>Date of Issue</label>
-                    <input
-                      type="date"
-                      class="input"
-                      v-model="file[1].dateOfIssue"
-                    />
-                  </div>
-                  <div class="col-lg-12 mb-3">
-                    <label>Name of Issuing Body</label>
-                    <input
-                      type="text"
-                      class="input"
-                      v-model="file[1].issuingBody"
-                    />
-                  </div>
-                  <div class="col-lg-12 mb-3">
-                    <label>Validity Period</label>
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <span>From:</span>
-                        <input
-                          type="date"
-                          class="input"
-                          v-model="file[1].periodFrom"
-                        />
-                      </div>
-                      <div class="col-lg-6">
-                        <span>To:</span>
-                        <input
-                          type="date"
-                          class="input"
-                          v-model="file[1].periodTo"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-12">
-                    <label>Upload Certification</label>
-                    <input
-                      type="file"
-                      class="input"
-                      @change="onFileChange(1)"
-                    />
-                  </div>
-                </div> -->
+
                 <div v-if="addFile.length">
                   <div
                     class="row add-more-certi"
@@ -1676,7 +1762,11 @@
                   >
                     <div class="col-lg-12 mt-4 mb-3">
                       <label>Certification Name{{ newFile }}</label>
-                      <select class="input" v-model="file[newFile].name">
+                      <select
+                        :disabled="lock"
+                        class="input"
+                        v-model="file[newFile].name"
+                      >
                         <option>Select Certificate</option>
                         <option>option 1</option>
                         <option>option 2</option>
@@ -1687,6 +1777,7 @@
                     <div class="col-lg-6 mb-3">
                       <label>Certificate Number</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="file[newFile].cert_number"
@@ -1695,6 +1786,7 @@
                     <div class="col-lg-6 mb-3">
                       <label>Date of Issue</label>
                       <input
+                        :disabled="lock"
                         type="date"
                         class="input"
                         v-model="file[newFile].dateOfIssue"
@@ -1703,6 +1795,7 @@
                     <div class="col-lg-12 mb-3">
                       <label>Name of Issuing Body</label>
                       <input
+                        :disabled="lock"
                         type="text"
                         class="input"
                         v-model="file[newFile].issuingBody"
@@ -1714,6 +1807,7 @@
                         <div class="col-lg-6">
                           <span>From:</span>
                           <input
+                            :disabled="lock"
                             type="date"
                             class="input"
                             v-model="file[newFile].periodFrom"
@@ -1722,6 +1816,7 @@
                         <div class="col-lg-6">
                           <span>To:</span>
                           <input
+                            :disabled="lock"
                             type="date"
                             class="input"
                             v-model="file[newFile].periodTo"
@@ -1732,6 +1827,7 @@
                     <div class="col-lg-12">
                       <label>Upload Certification</label>
                       <input
+                        :disabled="lock"
                         type="file"
                         class="input"
                         @change="onFileChange(newFile)"
@@ -1747,7 +1843,7 @@
                 </div>
                 <div
                   class="uploadMore"
-                  v-if="addFile.length < 4 - certification.length"
+                  v-if="addFile.length < 4 - certification.length || lock"
                 >
                   <span @click="addMoreCert"
                     >Upload New Cert. <i class="bi bi-plus-circle"></i
@@ -1809,6 +1905,7 @@
                     <p
                       class="saveAndContinue"
                       @click="handleProductUpload('save')"
+                      :disabled="lock"
                     >
                       <a>Save & Continue Later</a>
                     </p>
@@ -1832,6 +1929,7 @@
                 <div class="row">
                   <div class="col-lg-4 radioDiv mb-2">
                     <input
+                      :disabled="lock"
                       type="checkbox"
                       @click="setShipping('package_type')"
                       name="category"
@@ -1844,6 +1942,7 @@
                   </div>
                   <div class="col-lg-4 radioDiv mb-2">
                     <input
+                      :disabled="lock"
                       type="checkbox"
                       @click="setShipping('weight')"
                       name="category"
@@ -1860,7 +1959,11 @@
                     <label>Product Unit</label>
                     <small>Choose product packaging unit.</small>
                     <div class="divUnit">
-                      <select class="input selectSize" v-model="packages.unit">
+                      <select
+                        :disabled="lock"
+                        class="input selectSize"
+                        v-model="packages.unit"
+                      >
                         <option value="crate">Crate</option>
                         <option value="box">Box</option>
                         <option value="pack">Pack</option>
@@ -1871,6 +1974,7 @@
                     </div>
 
                     <input
+                      :disabled="lock"
                       v-if="packages.unit == 'others'"
                       type="text"
                       class="input"
@@ -1884,6 +1988,7 @@
                       }}?</label
                     >
                     <input
+                      :disabled="lock"
                       v-if="packages.unit && name"
                       type="text"
                       class="input"
@@ -1893,7 +1998,7 @@
                   </div>
                   <!-- <div class="col-lg-6 mt-4 mb-3" v-if="shipping.fluid.check">
                     <label>Volume of Packaging (litre)</label>
-                    <input
+                    <input :disabled="lock"
                       type="text"
                       class="input"
                       v-model="packages.volume"
@@ -1916,11 +2021,13 @@
                           weight in kg or lb.</small
                         >
                         <input
+                          :disabled="lock"
                           type="text"
                           class="input inputSize"
                           v-model="packages.weight"
                         />
                         <select
+                          :disabled="lock"
                           class="input selectSize"
                           v-model="packages.weight_unit"
                         >
@@ -1941,6 +2048,7 @@
                           unit that your are selling.</small
                         >
                         <input
+                          :disabled="lock"
                           type="text"
                           class="input"
                           v-model="packages.price"
@@ -1979,6 +2087,7 @@
                         <label>Select Unit (cm or inches)</label>
                         <div class="divSelectUnit justify-content-center">
                           <select
+                            :disabled="lock"
                             class="input"
                             v-model="packages.dimension_unit"
                           >
@@ -1987,15 +2096,30 @@
                           </select>
                           <div class="divLWH">
                             <label>Lenght</label>
-                            <input type="number" class="input" v-model="plen" />
+                            <input
+                              :disabled="lock"
+                              type="number"
+                              class="input"
+                              v-model="plen"
+                            />
                           </div>
                           <div class="divLWH">
                             <label>Width</label>
-                            <input type="number" class="input" v-model="pwid" />
+                            <input
+                              :disabled="lock"
+                              type="number"
+                              class="input"
+                              v-model="pwid"
+                            />
                           </div>
                           <div class="divLWH">
                             <label>Height</label>
-                            <input type="number" class="input" v-model="phgt" />
+                            <input
+                              :disabled="lock"
+                              type="number"
+                              class="input"
+                              v-model="phgt"
+                            />
                           </div>
                           <div class="clear"></div>
                         </div>
@@ -2009,6 +2133,7 @@
                   <div class="col-lg-6 mt-4 mb-3">
                     <label>Product Unit</label>
                     <select
+                      :disabled="lock"
                       class="input selectSize"
                       v-model="packages.weight_unit"
                     >
@@ -2026,6 +2151,7 @@
                         <label>Product Weight</label>
                         <small>Enter weight</small>
                         <input
+                          :disabled="lock"
                           type="text"
                           class="input"
                           v-model="packages.weight"
@@ -2035,11 +2161,13 @@
                         <label>Product Volume</label>
                         <small>Enter Volume</small>
                         <input
+                          :disabled="lock"
                           type="text"
                           class="input inputSize"
                           v-model="packages.volume"
                         />
                         <select
+                          :disabled="lock"
                           class="input selectSize"
                           v-model="packages.weight_unit"
                         >
@@ -2052,6 +2180,7 @@
                         <label>Price of Packaging ($)</label>
                         <small>Enter a price that you are selling.</small>
                         <input
+                          :disabled="lock"
                           type="text"
                           class="input"
                           v-model="packages.price"
@@ -2086,7 +2215,11 @@
                 <div class="row">
                   <div class="col-lg-6 mt-4 mb-3">
                     <label>Shipment Packaging</label>
-                    <select class="input" v-model="shipment.package">
+                    <select
+                      :disabled="lock"
+                      class="input"
+                      v-model="shipment.package"
+                    >
                       <option hidden>Select</option>
                       <option value="crate">Crate</option>
                       <option value="box">Box</option>
@@ -2099,11 +2232,13 @@
                   <div class="col-lg-6 mt-4 mb-3 categoryInnerDiv">
                     <label>Weight of Shipment package</label>
                     <input
+                      :disabled="lock"
                       type="text"
                       class="input inputSize"
                       v-model="shipment.weight"
                     />
                     <select
+                      :disabled="lock"
                       class="input selectSize"
                       v-model="shipment.weight_unit"
                     >
@@ -2115,7 +2250,12 @@
                   <div class="col-lg-6 mt-4 mb-3">
                     <label>Price of shipment ($)</label>
 
-                    <input type="text" class="input" v-model="shipment.price" />
+                    <input
+                      :disabled="lock"
+                      type="text"
+                      class="input"
+                      v-model="shipment.price"
+                    />
                   </div>
                   <div class="col-lg-12 mt-4 mb-3">
                     <p
@@ -2136,12 +2276,13 @@
                   <div class="col-lg-12 mt-4 mb-3">
                     <label>Number Of Units Per Shipment Package</label>
                     <input
+                      :disabled="lock"
                       type="text"
                       class="input"
                       placeholder="e.g. 12 x 1Ltr bottle in a box"
                       v-model="shipment.unit_package_box"
                     />
-                    <!-- <input
+                    <!-- <input :disabled="lock"
                       type="text"
                       class="input"
                       placeholder="e.g. 40 boxes per pallet"
@@ -2161,6 +2302,7 @@
                         <label>Select Unit (cm or inches)</label>
                         <div class="divSelectUnit justify-content-center">
                           <select
+                            :disabled="lock"
                             class="input"
                             v-model="shipment.dimension_unit"
                           >
@@ -2169,15 +2311,30 @@
                           </select>
                           <div class="divLWH">
                             <label>Lenght</label>
-                            <input type="number" class="input" v-model="len" />
+                            <input
+                              :disabled="lock"
+                              type="number"
+                              class="input"
+                              v-model="len"
+                            />
                           </div>
                           <div class="divLWH">
                             <label>Width</label>
-                            <input type="number" class="input" v-model="wid" />
+                            <input
+                              :disabled="lock"
+                              type="number"
+                              class="input"
+                              v-model="wid"
+                            />
                           </div>
                           <div class="divLWH">
                             <label>Height</label>
-                            <input type="number" class="input" v-model="hgt" />
+                            <input
+                              :disabled="lock"
+                              type="number"
+                              class="input"
+                              v-model="hgt"
+                            />
                           </div>
                           <div class="clear"></div>
                         </div>
@@ -2192,11 +2349,13 @@
                       the size of the shipment</small
                     >
                     <input
+                      :disabled="lock"
                       type="text"
                       class="input inputSize"
                       v-model="shipment.container_package"
                     />
                     <select
+                      :disabled="lock"
                       class="input selectSize"
                       v-model="shipment.container_unit"
                     >
@@ -2237,6 +2396,7 @@
                     <p
                       class="saveAndContinue"
                       @click="handleProductUpload('save')"
+                      :disabled="lock"
                     >
                       <a>Save & Continue Later</a>
                     </p>
@@ -2265,11 +2425,13 @@
                       this product</small
                     >
                     <input
+                      :disabled="lock"
                       type="text"
                       class="input inputSize"
                       v-model="min_quantity"
                     />
                     <select
+                      :disabled="lock"
                       class="input selectSize"
                       v-model="min_quantity_unit"
                     >
@@ -2297,11 +2459,13 @@
                       <div class="col-lg-7 mb-3 categoryInnerDiv">
                         <label>Quantity</label>
                         <input
+                          :disabled="lock"
                           type="text"
                           class="input inputSize"
                           v-model="supply_ability.quantity"
                         />
                         <select
+                          :disabled="lock"
                           class="input selectSize"
                           v-model="supply_ability.qty_unit"
                         >
@@ -2313,6 +2477,7 @@
                       <div class="col-lg-5 mb-3">
                         <label>frequency</label>
                         <select
+                          :disabled="lock"
                           class="input"
                           v-model="supply_ability.frequency"
                         >
@@ -2326,6 +2491,7 @@
                   </div>
                   <div class="col-lg-12 mt-3 mb-3">
                     <input
+                      :disabled="lock"
                       type="checkbox"
                       id="acceptTerms"
                       required
@@ -2349,7 +2515,7 @@
                     type="submit"
                     value="Submit"
                     class="btn"
-                    :disabled="!status || loading"
+                    :disabled="!status || loading || lock"
                   />
                 </div>
                 <div
@@ -2378,6 +2544,7 @@ import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
 import { countries } from "@/assets/countries";
+import Swal from "sweetalert2";
 export default {
   name: "Produce Mart",
   components: {
@@ -2511,13 +2678,16 @@ export default {
   },
   data() {
     return {
+      lock: false,
+      waitAvailabilityResponse: false,
       token: JSON.parse(localStorage.getItem("user")).token,
       countries: countries,
       id: this.$route.params.id,
       product: null,
       loading: false,
       message: "",
-      available: false,
+      available: null,
+      prodAvailable: false,
       storage: false,
       temperature: false,
       token: JSON.parse(localStorage.getItem("user")).token,
@@ -2571,12 +2741,54 @@ export default {
   },
   methods: {
     lockUnlock() {
-      var x = document.getElementById("lock-shackle");
-      if (x.style.transform === "rotateY(.5turn)") {
-        x.style.transform = "rotateY(0)";
+      this.lock = !this.lock;
+      if (this.lock) {
+        Swal.fire(
+          "Attention!",
+          "You have locked this product and it can not be edited!",
+          "success"
+        );
       } else {
-        x.style.transform = "rotateY(.5turn)";
+        Swal.fire(
+          "Attention!",
+          "You have unlock this product for editing!",
+          "success"
+        );
       }
+    },
+    async makeUnavailable() {
+      this.prodAvailable = !this.prodAvailable;
+      this.waitAvailabilityResponse = true;
+      let title = this.prodAvailable ? "available" : "unavailable";
+      const res = await fetch(
+        "https://producemart.herokuapp.com/productAvailability/" + this.id,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: this.token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ available: this.prodAvailable }),
+        }
+      );
+      if (res.ok) {
+        Swal.fire({
+          title: `Product made ${title}!`,
+          text: `You can view product in the ${title} page and also make change product availability status in the future`,
+          icon: "success",
+          confirmButtonColor: "#97f29f",
+          confirmButtonText: "Ok",
+        });
+      } else {
+        Swal.fire({
+          title: "ooPs!",
+          text: "Unable to change product availability at the moment please try again later",
+          icon: "error",
+          confirmButtonColor: "#97f29f",
+          confirmButtonText: "Ok",
+        });
+      }
+      this.waitAvailabilityResponse = false;
     },
 
     async updateProduct(uploadOrSave) {
@@ -2784,8 +2996,9 @@ export default {
       );
       const { data } = await res.json();
       this.product = data[0];
+      this.lock = this.product.status == "active" ? true : false;
       this.name = this.product.name;
-
+      this.prodAvailable = this.product.available;
       this.variety = this.product.variety;
       this.description = this.product.description;
       this.farmMethod = this.product.farmMethod;

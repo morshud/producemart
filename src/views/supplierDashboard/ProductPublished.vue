@@ -33,8 +33,8 @@
           <!-- <div class="lineHR"></div> -->
           <div class="headerP mb-3">
             <p>
-              The form below can be used to specify the details of your product
-              including; Name, variety, description etc.
+              This page shows all product that have been approved by admin and
+              listed on the website.
             </p>
           </div>
           <!-- <div class="lineHR"></div> -->
@@ -113,7 +113,10 @@
                           <td>
                             <div class="action_btns d-flex">
                               <router-link
-                                to="/supplier-dashboard/view-products"
+                                :to="
+                                  '/supplier-dashboard/view-products/' +
+                                  product._id
+                                "
                                 title="View & Edit"
                                 class="action_btn mr_10"
                               >

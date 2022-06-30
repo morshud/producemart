@@ -31,6 +31,14 @@
             </div>
           </div>
 
+          <div class="headerP mb-3">
+            <p>
+              This page shows all product that waiting admin's review and
+              approval or rejection. It also inlcude product that have been
+              rejected after review
+            </p>
+          </div>
+
           <!--Main-->
           <div class="col-md-12">
             <div class="white_card card_height_100 mb_30 pt-4">

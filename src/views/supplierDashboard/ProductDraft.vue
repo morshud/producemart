@@ -31,6 +31,14 @@
             </div>
           </div>
 
+          <div class="headerP mb-3">
+            <p>
+              This page shows all products saved as draft and needs to be
+              totally updated and submitted for review. Product in this page
+              cannot be listed on the website, they are marked as incomplete.
+            </p>
+          </div>
+
           <!--Main-->
           <div class="col-md-12">
             <div class="white_card card_height_100 mb_30 pt-4">
