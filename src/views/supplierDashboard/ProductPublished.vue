@@ -30,6 +30,14 @@
               </div>
             </div>
           </div>
+          <!-- <div class="lineHR"></div> -->
+          <div class="headerP mb-3">
+            <p>
+              The form below can be used to specify the details of your product
+              including; Name, variety, description etc.
+            </p>
+          </div>
+          <!-- <div class="lineHR"></div> -->
 
           <!--Main-->
           <div class="col-md-12">
