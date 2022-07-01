@@ -141,15 +141,17 @@
           </li> -->
           <li
             :class="
-              path == '/supplier-dashboard/disable-products' && 'active-nav'
+              path == '/supplier-dashboard/unavailable-products' && 'active-nav'
             "
           >
-            <router-link to="/supplier-dashboard/disable-products"
+            <router-link to="/supplier-dashboard/unavailable-products"
               ><a>Unavailable Products</a></router-link
             >
           </li>
           <li
-            :class="path == '/supplier-dashboard/draft-producs' && 'active-nav'"
+            :class="
+              path == '/supplier-dashboard/draft-products' && 'active-nav'
+            "
           >
             <router-link to="/supplier-dashboard/draft-products"
               ><a>Draft Products</a></router-link

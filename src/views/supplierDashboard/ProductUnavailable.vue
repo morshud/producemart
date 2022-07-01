@@ -32,8 +32,9 @@
           </div>
           <div class="headerP mb-3">
             <p>
-              This page shows all product that have been disabled by admin or
-              unavailable.
+              This page shows all products that you made unavailable or have
+              been disabled by admin. These products can not be viewed by
+              Buyers.
             </p>
           </div>
           <!--Main-->
@@ -76,7 +77,7 @@
                           <th scope="col">#</th>
                           <th scope="col">Product Name</th>
                           <th scope="col">Unavailable Date</th>
-                          <th scope="col">Product Availability</th>
+                          <!-- <th scope="col">Product Availability</th> -->
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
@@ -89,8 +90,8 @@
                             {{ i + 1 }}
                           </th>
                           <td>{{ product.name }}</td>
-                          <td>{{ product.updatedAt }}</td>
-                          <td>
+                          <td>{{ dateFormat(product.updatedAt) }}</td>
+                          <!-- <td>
                             <span class="spanAction">Unavailable</span>
                             <label
                               class="switchDisable"
@@ -117,7 +118,7 @@
                             </label>
 
                             <span class="spanAction">Available</span>
-                          </td>
+                          </td> -->
 
                           <td>
                             <div class="action_btns d-flex">
@@ -147,9 +148,9 @@
                           </th>
 
                           <td>{{ product.name }}</td>
-                          <td>{{ product.updatedAt }}</td>
+                          <td>{{ dateFormat(product.updatedAt) }}</td>
 
-                          <td>product disabled</td>
+                          <!-- <td>product disabled</td> -->
 
                           <td><p>Disabled by admin</p></td>
                         </tr>
@@ -175,7 +176,7 @@
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
-import Swal from "sweetalert2";
+import { month } from "@/assets/months";
 export default {
   name: "Produce Mart",
   components: {
@@ -216,41 +217,41 @@ export default {
       this.disabledProducts = data.filter((prod) => prod.status == "disabled");
       console.log(this.unavailableProducts);
     },
-    async makeUnavailable(id) {
-      this.id = id;
-      this.loading = true;
-      const res = await fetch(
-        "https://producemart.herokuapp.com/productAvailability/" + id,
-        {
-          method: "PATCH",
-          headers: {
-            Authorization: this.token,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ available: true }),
-        }
-      );
-      if (res.ok) {
-        this.loading = false;
-        this.fetchPublishedProduct();
-        Swal.fire({
-          title: "Product made available!",
-          text: "You can view product in the published product page.",
-          icon: "success",
-          confirmButtonColor: "#97f29f",
-          confirmButtonText: "Ok",
-        });
-      } else {
-        this.loading = false;
-        Swal.fire({
-          title: "ooPs!",
-          text: "Unable to make product available at the moment please try again later",
-          icon: "error",
-          confirmButtonColor: "#97f29f",
-          confirmButtonText: "Ok",
-        });
-      }
-    },
+    // async makeUnavailable(id) {
+    //   this.id = id;
+    //   this.loading = true;
+    //   const res = await fetch(
+    //     "https://producemart.herokuapp.com/productAvailability/" + id,
+    //     {
+    //       method: "PATCH",
+    //       headers: {
+    //         Authorization: this.token,
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({ available: true }),
+    //     }
+    //   );
+    //   if (res.ok) {
+    //     this.loading = false;
+    //     this.fetchPublishedProduct();
+    //     Swal.fire({
+    //       title: "Product made available!",
+    //       text: "You can view product in the published product page.",
+    //       icon: "success",
+    //       confirmButtonColor: "#97f29f",
+    //       confirmButtonText: "Ok",
+    //     });
+    //   } else {
+    //     this.loading = false;
+    //     Swal.fire({
+    //       title: "ooPs!",
+    //       text: "Unable to make product available at the moment please try again later",
+    //       icon: "error",
+    //       confirmButtonColor: "#97f29f",
+    //       confirmButtonText: "Ok",
+    //     });
+    //   }
+    // },
     async deleteProduct(id) {
       const res = await fetch(
         "https://producemart.herokuapp.com/deleteProduct/" + id,
@@ -263,6 +264,16 @@ export default {
       );
       const data = await res.json();
       this.fetchPublishedProduct();
+    },
+    dateFormat(date) {
+      let d = new Date(date);
+      return (
+        (d.getDay() < 10 ? "0" + d.getDay() : d.getDay()) +
+        "-" +
+        month[d.getMonth()] +
+        "-" +
+        d.getFullYear()
+      );
     },
   },
 };

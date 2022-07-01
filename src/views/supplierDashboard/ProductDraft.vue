@@ -33,9 +33,10 @@
 
           <div class="headerP mb-3">
             <p>
-              This page shows all products saved as draft and needs to be
-              totally updated and submitted for review. Product in this page
-              cannot be listed on the website, they are marked as incomplete.
+              This page shows all draft products. You are still uploading these
+              products and they have not yet been submitted to the admin for
+              review and approval. Buyers are not yet able to view or request
+              these products.
             </p>
           </div>
 
@@ -64,14 +65,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="fileDownloadOption mb-3">
+                  <!-- <div class="fileDownloadOption mb-3">
                     <button type="button" title="Download as CSV file">
                       CSV
                     </button>
                     <button type="button" title="Download as PDF file">
                       PDF
                     </button>
-                  </div>
+                  </div> -->
                   <div class="QA_table mb_30" v-if="products">
                     <table class="table lms_table_active">
                       <thead>
@@ -86,7 +87,7 @@
                         <tr v-for="(product, i) in products" :key="i">
                           <th scope="row">{{ i + 1 }}</th>
                           <td>{{ product.name }}</td>
-                          <td>{{ product.updatedAt }}</td>
+                          <td>{{ dateFormat(product.updatedAt) }}</td>
                           <td>
                             <div class="action_btns d-flex">
                               <router-link
@@ -130,6 +131,7 @@
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
+import { month } from "@/assets/months";
 export default {
   name: "Produce Mart",
   components: {
@@ -167,7 +169,7 @@ export default {
         }
       );
       const { data } = await res.json();
-      this.products = data;
+      this.products = data.filter((prod) => prod.available);
       // console.log(data);
     },
     async deleteProduct(id) {
@@ -183,6 +185,16 @@ export default {
       const data = await res.json();
       console.log(data);
       this.fetchPublishedProduct();
+    },
+    dateFormat(date) {
+      let d = new Date(date);
+      return (
+        (d.getDay() < 10 ? "0" + d.getDay() : d.getDay()) +
+        "-" +
+        month[d.getMonth()] +
+        "-" +
+        d.getFullYear()
+      );
     },
   },
 };

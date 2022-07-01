@@ -193,10 +193,17 @@
                       </option>
                     </select>
                     <p class="mt-1 mb-1">
-                      <router-link to="/supplier-dashboard/add-new-address">
+                      <router-link
+                        to="/supplier-dashboard/add-new-address"
+                        target="_blank"
+                      >
                         <i class="bi bi-plus-circle-fill"></i>
                         Add new address.
                       </router-link>
+                      <span class="address-refresh" @click="getAddress"
+                        ><i class="bi bi-arrow-clockwise"></i> Refresh
+                        address.</span
+                      >
                     </p>
                   </div>
                   <!-- <div class="col-lg-12 mb-3">
@@ -2289,7 +2296,7 @@ export default {
   },
   data() {
     return {
-      componentKey: 0,
+      componentKey: 1,
       step: 1,
       disableNxt: true,
       address: null,
@@ -2510,8 +2517,7 @@ export default {
             }
           });
         } else {
-          (this.address = null),
-            (this.loading = false),
+          (this.loading = false),
             (this.message = ""),
             (this.available = false),
             (this.storage = false),
@@ -2599,7 +2605,7 @@ export default {
         }
       );
       const { data } = await res.json();
-      console.log(data);
+      // console.log(data);
       this.address = data;
     },
     setCategory(item) {
@@ -2612,7 +2618,7 @@ export default {
     },
     reload() {
       // this.$router.go(0);
-      this.componentKey += 1;
+      this.componentKey += this.componentKey;
       this.step = 1;
     },
     setShipping(cat) {

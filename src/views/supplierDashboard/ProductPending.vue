@@ -33,9 +33,9 @@
 
           <div class="headerP mb-3">
             <p>
-              This page shows all product that waiting admin's review and
-              approval or rejection. It also inlcude product that have been
-              rejected after review
+              This page shows all pending products that are awaiting the admin's
+              review. It also includes products that have been rejected and
+              require further action, after a review.
             </p>
           </div>
 
@@ -64,14 +64,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="fileDownloadOption mb-3">
+                  <!-- <div class="fileDownloadOption mb-3">
                     <button type="button" title="Download as CSV file">
                       CSV
                     </button>
                     <button type="button" title="Download as PDF file">
                       PDF
                     </button>
-                  </div>
+                  </div> -->
                   <div
                     class="QA_table mb_30"
                     v-if="pendingProducts || rejectedProducts"
@@ -82,6 +82,7 @@
                           <th scope="col">#</th>
                           <th scope="col">Product Name</th>
                           <th scope="col">Status</th>
+                          <th>Date Of Submission</th>
                           <th scope="col">Comments</th>
                         </tr>
                       </thead>
@@ -90,6 +91,7 @@
                           <th scope="row"><i class="fas fa-warning"></i></th>
                           <td>{{ product.name }}</td>
                           <td>{{ product.status }}</td>
+                          <td>{{ dateFormat(product.updatedAt) }}</td>
                           <td>
                             <p
                               v-for="(fdbk, i) in product.feedback"
@@ -131,7 +133,8 @@
                           <th scope="row">{{ i + 1 }}</th>
                           <td>{{ product.name }}</td>
                           <td>{{ product.status }}</td>
-                          <td>No feedback</td>
+                          <td>{{ dateFormat(product.updatedAt) }}</td>
+                          <td>Awaiting review by Admin</td>
                           <!-- <td>
                             <div class="action_btns d-flex">
                               <router-link
@@ -175,6 +178,7 @@
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
+import { month } from "@/assets/months";
 export default {
   name: "Produce Mart",
   components: {
@@ -213,10 +217,14 @@ export default {
         }
       );
       const { data } = await res.json();
-      this.rejectedProducts = data.filter((prod) => prod.status == "rejected");
-      this.pendingProducts = data.filter((prod) => prod.status == "pending");
+      this.rejectedProducts = data.filter(
+        (prod) => prod.status == "rejected" && prod.available
+      );
+      this.pendingProducts = data.filter(
+        (prod) => prod.status == "pending" && prod.available
+      );
 
-      console.log(this.pendingProducts);
+      // console.log(this.pendingProducts);
     },
     async deleteProduct(id) {
       const res = await fetch(
@@ -230,6 +238,16 @@ export default {
       );
       const data = await res.json();
       this.fetchPublishedProduct();
+    },
+    dateFormat(date) {
+      let d = new Date(date);
+      return (
+        (d.getDay() < 10 ? "0" + d.getDay() : d.getDay()) +
+        "-" +
+        month[d.getMonth()] +
+        "-" +
+        d.getFullYear()
+      );
     },
   },
 };

@@ -79,7 +79,7 @@
                           <th scope="col">#</th>
                           <th scope="col">Product Name</th>
                           <th scope="col">Published Date</th>
-                          <th scope="col">Product Availability</th>
+                          <!-- <th scope="col">Product Availability</th> -->
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
@@ -88,7 +88,7 @@
                           <th scope="row">{{ i + 1 }}</th>
                           <td>{{ product.name }}</td>
                           <td>{{ product.updatedAt }}</td>
-                          <td>
+                          <!-- <td>
                             <span class="spanAction">Unavailable</span>
                             <label
                               class="switchDisable"
@@ -109,7 +109,7 @@
                               <span class="slider round"></span>
                             </label>
                             <span class="spanAction">Available</span>
-                          </td>
+                          </td> -->
                           <td>
                             <div class="action_btns d-flex">
                               <router-link
@@ -197,41 +197,41 @@ export default {
       this.products = data.filter((prod) => prod.available);
       console.log(data);
     },
-    async makeUnavailable(id) {
-      this.id = id;
-      this.loading = true;
-      const res = await fetch(
-        "https://producemart.herokuapp.com/productAvailability/" + id,
-        {
-          method: "PATCH",
-          headers: {
-            Authorization: this.token,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ available: false }),
-        }
-      );
-      if (res.ok) {
-        this.loading = false;
-        this.fetchPublishedProduct();
-        Swal.fire({
-          title: "Product made unavailable!",
-          text: "You can view product in the unavailable page and also make available when product is available",
-          icon: "success",
-          confirmButtonColor: "#97f29f",
-          confirmButtonText: "Ok",
-        });
-      } else {
-        this.loading = false;
-        Swal.fire({
-          title: "ooPs!",
-          text: "Unable to make product unavailable at the moment please try again later",
-          icon: "error",
-          confirmButtonColor: "#97f29f",
-          confirmButtonText: "Ok",
-        });
-      }
-    },
+    // async makeUnavailable(id) {
+    //   this.id = id;
+    //   this.loading = true;
+    //   const res = await fetch(
+    //     "https://producemart.herokuapp.com/productAvailability/" + id,
+    //     {
+    //       method: "PATCH",
+    //       headers: {
+    //         Authorization: this.token,
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({ available: false }),
+    //     }
+    //   );
+    //   if (res.ok) {
+    //     this.loading = false;
+    //     this.fetchPublishedProduct();
+    //     Swal.fire({
+    //       title: "Product made unavailable!",
+    //       text: "You can view product in the unavailable page and also make available when product is available",
+    //       icon: "success",
+    //       confirmButtonColor: "#97f29f",
+    //       confirmButtonText: "Ok",
+    //     });
+    //   } else {
+    //     this.loading = false;
+    //     Swal.fire({
+    //       title: "ooPs!",
+    //       text: "Unable to make product unavailable at the moment please try again later",
+    //       icon: "error",
+    //       confirmButtonColor: "#97f29f",
+    //       confirmButtonText: "Ok",
+    //     });
+    //   }
+    // },
     async deleteProduct(id) {
       const res = await fetch(
         "https://producemart.herokuapp.com/deleteProduct/" + id,

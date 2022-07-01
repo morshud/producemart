@@ -209,7 +209,9 @@ export default {
       );
       const { data } = await res.json();
 
-      this.products = data.filter((val) => val.status == "pending");
+      this.products = data.filter(
+        (val) => val.status == "pending" && val.available
+      );
       console.log(this.products);
     },
     async activateOrDeact(id, action, name) {

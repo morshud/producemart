@@ -14,7 +14,7 @@
               <div class="row">
                 <div class="col-lg-8">
                   <div class="dashboard_header_title">
-                    <h3>Product Name Here</h3>
+                    <h3>{{ product?.name }}</h3>
                   </div>
                 </div>
                 <div class="col-lg-4">
@@ -23,11 +23,9 @@
                       <router-link to="/supplier-dashboard/home"
                         ><a>Dashboard</a></router-link
                       >
-                      <i class="fas fa-caret-right"></i>
-                      <router-link to="/supplier-dashboard/view-products"
-                        ><a>Published Products</a></router-link
-                      >
-                      <i class="fas fa-caret-right"></i> Product Name Here
+                      <!-- <i class="fas fa-caret-right"></i>
+                      <span><a>Published Products</a></span>
+                      <i class="fas fa-caret-right"></i> {{ product?.name }} -->
                     </p>
                   </div>
                 </div>
@@ -38,11 +36,8 @@
           <!--Main-->
           <div class="col-md-12">
             <div class="mb-3">
-              <router-link
-                to="/supplier-dashboard/published-products"
-                class="backToPage"
-                ><i class="bi bi-arrow-bar-left"></i> Back to Published
-                Products</router-link
+              <span @click="$router.back()" class="backToPage"
+                ><i class="bi bi-arrow-bar-left"></i> Back</span
               >
             </div>
             <div
@@ -132,7 +127,10 @@
                   </div>
                 </div>
               </div>
-              <div class="row mt-4" v-if="product.status == 'active'">
+              <div
+                class="row mt-4"
+                v-if="product.status == 'active' || !product.available"
+              >
                 <div class="col-lg-12" @click="lockUnlock">
                   <span class="spanAction" v-if="lock"
                     ><i class="fas fa-lock"></i
@@ -174,22 +172,59 @@
               class="form"
               @submit.prevent="updateProduct('upload')"
               enctype="multipart/form-data"
+              :key="refresh"
             >
               <!-- Progress bar -->
               <div class="progressbar">
                 <div class="progress" id="progress"></div>
                 <div
-                  class="progress-step progress-step-active"
+                  :class="
+                    step == 1 || step > 1
+                      ? 'progress-step progress-step-active'
+                      : 'progress-step'
+                  "
                   data-title="Product Details"
                 ></div>
                 <div
-                  class="progress-step"
+                  :class="
+                    step == 2 || step > 2
+                      ? 'progress-step progress-step-active'
+                      : 'progress-step'
+                  "
                   data-title="Product Characteristics"
                 ></div>
-                <div class="progress-step" data-title="Image Selection"></div>
-                <div class="progress-step" data-title="Certifications"></div>
-                <div class="progress-step" data-title="Packaging"></div>
-                <div class="progress-step" data-title="Minimum Order"></div>
+                <div
+                  :class="
+                    step == 3 || step > 3
+                      ? 'progress-step progress-step-active'
+                      : 'progress-step'
+                  "
+                  data-title="Image Selection"
+                ></div>
+                <div
+                  :class="
+                    step == 4 || step > 4
+                      ? 'progress-step progress-step-active'
+                      : 'progress-step'
+                  "
+                  data-title="Certifications"
+                ></div>
+                <div
+                  :class="
+                    step == 5 || step > 5
+                      ? 'progress-step progress-step-active'
+                      : 'progress-step'
+                  "
+                  data-title="Packaging"
+                ></div>
+                <div
+                  :class="
+                    step == 6 || step > 6
+                      ? 'progress-step progress-step-active'
+                      : 'progress-step'
+                  "
+                  data-title="Minimum Order"
+                ></div>
               </div>
               <div
                 class="alert alert-warning alert-dismissible fade show"
@@ -207,10 +242,14 @@
 
               <!-- Step 1 - Product Details -->
               <div
-                class="row form-step form-step-active justify-content-center"
+                :class="
+                  step == 1
+                    ? 'row form-step form-step-active justify-content-center'
+                    : 'row form-step justify-content-center'
+                "
               >
                 <div class="col-lg-12 text-center headerH1">
-                  <h1>Product Details</h1>
+                  <h1 @click="refresh += refresh">Product Details</h1>
                 </div>
                 <div class="lineHR"></div>
                 <div class="headerP">
@@ -284,6 +323,39 @@
                   </div>
                   <div class="col-lg-12 mb-3">
                     <label>Location Of Produce <span>*</span></label>
+                    <select
+                      class="input"
+                      v-model="location"
+                      v-if="address"
+                      :disabled="lock"
+                    >
+                      <option hidden>Choose Address</option>
+                      <option
+                        v-for="(add, i) in address"
+                        :key="i"
+                        :value="add.city + ' ' + add.country"
+                      >
+                        {{ add.name }}: {{ add.street }} {{ add.city }}
+                        {{ add.state }}
+                        {{ add.country }}
+                      </option>
+                    </select>
+                    <p class="mt-1 mb-1">
+                      <router-link
+                        to="/supplier-dashboard/add-new-address"
+                        target="_blank"
+                      >
+                        <i class="bi bi-plus-circle-fill"></i>
+                        Add new address.
+                      </router-link>
+                      <span class="address-refresh" @click="getAddress"
+                        ><i class="bi bi-arrow-clockwise"></i> Refresh
+                        address.</span
+                      >
+                    </p>
+                  </div>
+                  <!-- <div class="col-lg-12 mb-3">
+                    <label>Location Of Produce <span>*</span></label>
                     <textarea
                       cols="30"
                       rows="4"
@@ -292,7 +364,7 @@
                       v-model="location"
                       :disabled="lock"
                     ></textarea>
-                  </div>
+                  </div> -->
                   <!-- <div class="col-lg-12 mb-3">
                     <label>intercoms</label>
                     <input
@@ -434,6 +506,7 @@
                     <button
                       type="button"
                       class="btn btn-next width-100 ml-auto"
+                      @click="step = 2"
                     >
                       Next
                     </button>
@@ -451,7 +524,13 @@
               </div>
 
               <!-- Step 2 - Product Characteristics -->
-              <div class="row form-step">
+              <div
+                :class="
+                  step == 2
+                    ? 'row form-step form-step-active '
+                    : 'row form-step'
+                "
+              >
                 <div class="col-lg-12 text-center headerH1">
                   <h1>Product Characteristics</h1>
                 </div>
@@ -910,9 +989,9 @@
                         v-model="character.size"
                       />
                       <select :disabled="lock" class="input selectSize">
-                        <option>cm</option>
-                        <option>mm</option>
-                        <option>inches</option>
+                        <option value="cm">cm</option>
+                        <option value="mm">mm</option>
+                        <option value="inches">inches</option>
                       </select>
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
@@ -980,13 +1059,21 @@
                         v-model="character.usdaGrade"
                       >
                         <option hidden>Select</option>
-                        <option>US Fancy</option>
-                        <option>US Extra N.1</option>
-                        <option>US N.1 (Supreme)</option>
-                        <option>US Select Shelter Run</option>
-                        <option>US Standard Shelter Run</option>
-                        <option>US No. 1 Whole & Broken</option>
-                        <option>US No. 1 Pieces</option>
+                        <option value="US Fancy">US Fancy</option>
+                        <option value="US Extra N.1">US Extra N.1</option>
+                        <option value="US N.1 (Supreme)">
+                          US N.1 (Supreme)
+                        </option>
+                        <option value="US Select Shelter Run">
+                          US Select Shelter Run
+                        </option>
+                        <option value="US Standard Shelter Run">
+                          US Standard Shelter Run
+                        </option>
+                        <option value="US No. 1 Whole & Broken">
+                          US No. 1 Whole & Broken
+                        </option>
+                        <option value="US No. 1 Piece">US No. 1 Pieces</option>
                       </select>
                     </div>
                     <div class="categoryInnerDiv mb-3">
@@ -998,10 +1085,10 @@
                         v-model="character.size"
                       />
                       <select :disabled="lock" class="input selectSize">
-                        <option>p.oz</option>
-                        <option>cm</option>
-                        <option>mm</option>
-                        <option>inches</option>
+                        <option value="p.oz">p.oz</option>
+                        <option value="cm">cm</option>
+                        <option value="mm">mm</option>
+                        <option value="inches">inches</option>
                       </select>
                     </div>
                     <div class="categoryInnerDiv mb-3">
@@ -1116,9 +1203,9 @@
                         v-model="character.beanSize"
                       />
                       <select :disabled="lock" class="input selectSize">
-                        <option>cm</option>
-                        <option>mm</option>
-                        <option>inches</option>
+                        <option value="cm">cm</option>
+                        <option value="mm">mm</option>
+                        <option value="inches">inches</option>
                       </select>
                     </div>
                     <div class="categoryInnerDiv mb-3">
@@ -1205,9 +1292,9 @@
                         v-model="character.petalSize"
                       />
                       <select :disabled="lock" class="input selectSize">
-                        <option>cm</option>
-                        <option>mm</option>
-                        <option>inches</option>
+                        <option value="cm">cm</option>
+                        <option value="mm">mm</option>
+                        <option value="inches">inches</option>
                       </select>
                     </div>
                     <div class="categoryInnerDiv mb-3">
@@ -1219,9 +1306,9 @@
                         v-model="character.budSize"
                       />
                       <select :disabled="lock" class="input selectSize">
-                        <option>cm</option>
-                        <option>mm</option>
-                        <option>inches</option>
+                        <option value="cm">cm</option>
+                        <option value="mm">mm</option>
+                        <option value="inches">inches</option>
                       </select>
                     </div>
                     <div class="categoryInnerDiv mb-3">
@@ -1233,9 +1320,9 @@
                         v-model="character.headSize"
                       />
                       <select :disabled="lock" class="input selectSize">
-                        <option>cm</option>
-                        <option>mm</option>
-                        <option>inches</option>
+                        <option value="cm">cm</option>
+                        <option value="mm">mm</option>
+                        <option value="inches">inches</option>
                       </select>
                     </div>
                     <div class="categoryInnerDiv mb-3">
@@ -1247,9 +1334,10 @@
                         v-model="character.stermLen"
                       />
                       <select :disabled="lock" class="input selectSize">
-                        <option>cm</option>
-                        <option>mm</option>
-                        <option>inches</option>
+                        <option value="cm">cm</option>
+                        <option value="mm">mm</option>
+                        <option value="inches">inches</option>
+                        >
                       </select>
                     </div>
                     <div class="categoryInnerDiv mb-3">
@@ -1433,9 +1521,9 @@
                         v-model="character.size"
                       />
                       <select :disabled="lock" class="input selectSize">
-                        <option>cm</option>
-                        <option>mm</option>
-                        <option>inches</option>
+                        <option value="cm">cm</option>
+                        <option value="mm">mm</option>
+                        <option value="inches">inches</option>
                       </select>
                     </div>
                     <div class="categoryInnerDivLarge mb-3">
@@ -1462,12 +1550,20 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-6">
-                    <button type="button" class="btn btn-prev width-100">
+                    <button
+                      type="button"
+                      class="btn btn-prev width-100"
+                      @click="step = 1"
+                    >
                       Previous
                     </button>
                   </div>
                   <div class="col-sm-6">
-                    <button type="button" class="btn btn-next width-100">
+                    <button
+                      type="button"
+                      class="btn btn-next width-100"
+                      @click="step = 3"
+                    >
                       Next
                     </button>
                   </div>
@@ -1484,7 +1580,13 @@
               </div>
 
               <!-- Step 3 - Image Selection -->
-              <div class="row form-step">
+              <div
+                :class="
+                  step == 3
+                    ? 'row form-step form-step-active '
+                    : 'row form-step'
+                "
+              >
                 <div class="col-lg-12 text-center headerH1">
                   <h1>Product Image</h1>
                 </div>
@@ -1526,7 +1628,7 @@
                     class="removeImgBtn"
                     type="button"
                     @click="deleteImg(img_id[i])"
-                    v-if="lock"
+                    v-if="!lock"
                   >
                     Remove Image
                   </button>
@@ -1627,19 +1729,27 @@
                 <div class="row mt-3">
                   <div class="upload-dynamic"></div>
                 </div>
-                <div class="uploadMore" v-if="addImg.length < 2 || lock">
-                  <span @click="addImg.push(addImg.length)"
+                <div class="uploadMore" v-if="addImg.length < 2">
+                  <span @click="addImg.push(addImg.length)" v-if="!lock"
                     >Upload More <i class="bi bi-plus-circle"></i
                   ></span>
                 </div>
                 <div class="row">
                   <div class="col-sm-6">
-                    <button type="button" class="btn btn-prev width-100">
+                    <button
+                      type="button"
+                      class="btn btn-prev width-100"
+                      @click="step = 2"
+                    >
                       Previous
                     </button>
                   </div>
                   <div class="col-sm-6">
-                    <button type="button" class="btn btn-next width-100">
+                    <button
+                      type="button"
+                      class="btn btn-next width-100"
+                      @click="step = 4"
+                    >
                       Next
                     </button>
                   </div>
@@ -1662,7 +1772,13 @@
               </div>
 
               <!-- Step 4 - Certification -->
-              <div class="row form-step">
+              <div
+                :class="
+                  step == 4
+                    ? 'row form-step form-step-active '
+                    : 'row form-step'
+                "
+              >
                 <div class="col-lg-12 text-center headerH1">
                   <h1>Certification</h1>
                 </div>
@@ -1744,14 +1860,22 @@
                     </div>
                   </div>
                   <div class="col-lg-12">
-                    <label>Upload Certification</label>
-                    <input
+                    <a :href="cert.file_url" target="_blank"
+                      >View Certification</a
+                    >
+                    <!-- <input
                       :disabled="lock"
                       type="file"
                       class="input"
                       @change="onFileChange(1)"
-                    />
+                    /> -->
                   </div>
+                  <span
+                    @click="deleteFile(cert._id, i)"
+                    class="removeField"
+                    v-if="!lock"
+                    >Delete Cert</span
+                  >
                 </div>
 
                 <div v-if="addFile.length">
@@ -1768,10 +1892,10 @@
                         v-model="file[newFile].name"
                       >
                         <option>Select Certificate</option>
-                        <option>option 1</option>
-                        <option>option 2</option>
-                        <option>option 3</option>
-                        <option>others</option>
+                        <option value="option 1">option 1</option>
+                        <option value="option 2">option 2</option>
+                        <option value="option 3">option 3</option>
+                        <option value="others">others</option>
                       </select>
                     </div>
                     <div class="col-lg-6 mb-3">
@@ -1843,9 +1967,9 @@
                 </div>
                 <div
                   class="uploadMore"
-                  v-if="addFile.length < 4 - certification.length || lock"
+                  v-if="addFile.length < 4 - certification.length"
                 >
-                  <span @click="addMoreCert"
+                  <span @click="addMoreCert" v-if="!lock"
                     >Upload New Cert. <i class="bi bi-plus-circle"></i
                   ></span>
                 </div>
@@ -1914,7 +2038,13 @@
               </div>
 
               <!-- Step 5 - Packaging -->
-              <div class="row form-step">
+              <div
+                :class="
+                  step == 5
+                    ? 'row form-step form-step-active '
+                    : 'row form-step'
+                "
+              >
                 <div class="col-lg-12 text-center headerH1">
                   <h1>Packaging</h1>
                 </div>
@@ -2352,7 +2482,7 @@
                       :disabled="lock"
                       type="text"
                       class="input inputSize"
-                      v-model="shipment.container_package"
+                      v-model="shipment.unit_container"
                     />
                     <select
                       :disabled="lock"
@@ -2405,7 +2535,13 @@
               </div>
 
               <!-- Step 6 - Minimum Order -->
-              <div class="row form-step">
+              <div
+                :class="
+                  step == 6
+                    ? 'row form-step form-step-active '
+                    : 'row form-step'
+                "
+              >
                 <div class="col-lg-12 text-center headerH1">
                   <h1>Minimum Order</h1>
                 </div>
@@ -2428,12 +2564,12 @@
                       :disabled="lock"
                       type="text"
                       class="input inputSize"
-                      v-model="min_quantity"
+                      v-model="order.min_quantity"
                     />
                     <select
                       :disabled="lock"
                       class="input selectSize"
-                      v-model="min_quantity_unit"
+                      v-model="order.qty_unit"
                     >
                       <option value="kg">kg</option>
                       <option value="lb">lb</option>
@@ -2555,129 +2691,20 @@ export default {
   mounted() {
     window.scrollTo(0, 0);
 
-    // document.getElementById('svgPadlock').addEventListener('click', function() {
-    //   this.classList.toggle('lock-open');
-    // });
-
-    $(".add-extra-field").click(function () {
-      $(".upload-more-image").clone().appendTo(".upload-dynamic");
-      $(".upload-dynamic .upload-more-image").addClass("single remove");
-      $(".single .add-extra-field").remove();
-      $(".single").append(
-        '<a href="#" id="p2" class="remove-field btn-remove-field">Remove Field</a>'
-      );
-      $(".upload-dynamic > .single").attr("class", "remove");
-      $(".upload-dynamic input").each(function () {
-        var count = 0;
-        var fieldname = $(this).attr("name");
-        $(this).attr("name", fieldname + count);
-        count++;
-      });
-    });
-    $(document).on("click", ".remove-field", function (e) {
-      $(this).parent(".remove").remove();
-      e.preventDefault();
-    });
-
-    $(".add-certi").click(function () {
-      $(".add-more-certi").clone().appendTo(".upload-certi-dynamic");
-      $(".upload-certi-dynamic .add-more-certi").addClass("single remove");
-      $(".single .add-certi").remove();
-      $(".single").append(
-        '<a href="#" id="p2" class="remove-field btn-remove-field">Remove Field</a>'
-      );
-      $(".upload-certi-dynamic > .single").attr("class", "remove");
-      $(".upload-certi-dynamic input").each(function () {
-        var count = 0;
-        var fieldname = $(this).attr("name");
-        $(this).attr("name", fieldname + count);
-        count++;
-      });
-    });
-    $(document).on("click", ".remove-field", function (e) {
-      $(this).parent(".remove").remove();
-      e.preventDefault();
-    });
-
-    const prevBtns = document.querySelectorAll(".btn-prev");
-    const nextBtns = document.querySelectorAll(".btn-next");
-    const progress = document.getElementById("progress");
-    const formSteps = document.querySelectorAll(".form-step");
-    const progressSteps = document.querySelectorAll(".progress-step");
-
-    let formStepsNum = 0;
-
-    nextBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        formStepsNum++;
-        updateFormSteps();
-        updateProgressbar();
-      });
-    });
-
-    prevBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        formStepsNum--;
-        updateFormSteps();
-        updateProgressbar();
-      });
-    });
-
-    function updateFormSteps() {
-      formSteps.forEach((formStep) => {
-        formStep.classList.contains("form-step-active") &&
-          formStep.classList.remove("form-step-active");
-      });
-
-      formSteps[formStepsNum].classList.add("form-step-active");
-    }
-
-    function updateProgressbar() {
-      progressSteps.forEach((progressStep, idx) => {
-        if (idx < formStepsNum + 1) {
-          progressStep.classList.add("progress-step-active");
-        } else {
-          progressStep.classList.remove("progress-step-active");
-        }
-      });
-
-      const progressActive = document.querySelectorAll(".progress-step-active");
-
-      progress.style.width =
-        ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
-    }
-
     let externalScriptCustom = document.createElement("script");
     externalScriptCustom.setAttribute(
       "src",
       "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
     );
     document.head.appendChild(externalScriptCustom);
-    $(".image-box").click(function (event) {
-      var previewImg = $(this).children("img");
 
-      $(this).siblings().children("input").trigger("click");
-
-      $(this)
-        .siblings()
-        .children("input")
-        .change(function () {
-          var reader = new FileReader();
-
-          reader.onload = function (e) {
-            var urll = e.target.result;
-            $(previewImg).attr("src", urll);
-            previewImg.parent().css("background", "transparent");
-            previewImg.show();
-            previewImg.siblings("p").hide();
-          };
-          reader.readAsDataURL(this.files[0]);
-        });
-    });
+    this.getAddress();
     this.getProduct();
   },
   data() {
     return {
+      step: 1,
+      address: null,
       lock: false,
       waitAvailabilityResponse: false,
       token: JSON.parse(localStorage.getItem("user")).token,
@@ -2727,9 +2754,15 @@ export default {
       cert_name: "",
       file: { 1: {} },
       addFile: [],
+      plen: "",
+      pwid: "",
+      phgt: "",
       packages: {},
+      len: "",
+      wid: "",
+      hgt: "",
       shipment: {},
-      min_quantity: "",
+      order: {},
       supply_ability: {},
       displayImg: [],
       imgSizeMsg: "",
@@ -2737,9 +2770,24 @@ export default {
       img_id: [],
       certification: [],
       status: null,
+      refresh: 1,
     };
   },
   methods: {
+    async getAddress() {
+      const res = await fetch(
+        "https://producemart.herokuapp.com/getUserAddress/",
+        {
+          method: "GET",
+          headers: {
+            Authorization: this.token,
+          },
+        }
+      );
+      const { data } = await res.json();
+      console.log(data);
+      this.address = data;
+    },
     lockUnlock() {
       this.lock = !this.lock;
       if (this.lock) {
@@ -2774,7 +2822,11 @@ export default {
       if (res.ok) {
         Swal.fire({
           title: `Product made ${title}!`,
-          text: `You can view product in the ${title} page and also make change product availability status in the future`,
+          html: `You have now made this product ${title}. ${
+            this.prodAvailable
+              ? "The admin will review and approve any changes. You can view this product on the <a href='/supplier-dashboard/pending-products'>pending page.</a>"
+              : "This product is now unavailable. Buyers can no longer view or request it. You can view and manage this product on the <a href='/supplier-dashboard/unavailable-products'>unavailable product page</a>"
+          }`,
           icon: "success",
           confirmButtonColor: "#97f29f",
           confirmButtonText: "Ok",
@@ -2856,6 +2908,11 @@ export default {
         for (let cert in this.file) {
           fd.append("file", this.file[cert].img);
           fd.append("cert_name", this.file[cert].name);
+          fd.append("cert_number", this.file[cert].cert_number);
+          fd.append("dateOfIssue", this.file[cert].dateOfIssue);
+          fd.append("issuingBody", this.file[cert].issuingBody);
+          fd.append("periodFrom", this.file[cert].periodFrom);
+          fd.append("periodTo", this.file[cert].periodTo);
         }
       }
       if (this.image) {
@@ -2878,7 +2935,9 @@ export default {
 
       this.packages && fd.append("package", JSON.stringify(this.packages));
       this.shipment && fd.append("shipment", JSON.stringify(this.shipment));
-      this.min_quantity && fd.append("min_quantity", this.min_quantity);
+      this.order.min_quantity && fd.append("min_quantity", this.min_quantity);
+      this.order.min_quantity_unit &&
+        fd.append("min_quantity", this.min_quantity_unit);
       this.supply_ability &&
         fd.append("supply_ability", JSON.stringify(this.supply_ability));
       uploadOrSave == "upload"
@@ -2895,23 +2954,48 @@ export default {
           body: fd,
         }
       );
+      this.loading = false;
+      let viewInDraftOrUnavailable = this.available ? "draft" : "unavailable";
       if (res.ok) {
         console.log(res);
         const data = await res.json();
         if (uploadOrSave == "save") {
-          this.loading = false;
-          if (data.status)
-            this.$router.push("/supplier-dashboard/draft-products");
-          else
+          if (data.status) {
+            Swal.fire({
+              title: "Product Saved!",
+              text: `Click Yes to view product in ${viewInDraftOrUnavailable} page or Cancel to continue editing`,
+              icon: "success",
+              confirmButtonColor: "#97f29f",
+              confirmButtonText: "Yes",
+              showCancelButton: true,
+              cancelButtonColor: "#d33",
+              cancelButtonText: "Cancel",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.$router.push(
+                  `/supplier-dashboard/${viewInDraftOrUnavailable}-products`
+                );
+              } else {
+                this.refresh += this.refresh;
+                this.step = 1;
+              }
+            });
+          } else
             data.message
               ? (this.message = data.message)
               : (this.message = "Please try again.");
         } else {
-          this.loading = false;
-          this.$router.push("/supplier-dashboard/pending-products");
+          Swal.fire({
+            title: "Great Job!",
+            text: "Product updated successfully and has been submitted for Admin's review",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonColor: "#97f29f",
+          });
+          this.refresh += this.refresh;
+          this.step = 1;
         }
       } else {
-        this.loading = false;
         this.message =
           "We are unable to save your response at the moment, please try again.";
       }
@@ -2959,9 +3043,23 @@ export default {
     },
     async deleteImg(img_id, index) {
       this.images.splice(index, 1);
-      this.img_id.splice(index, 1);
+      // this.img_id.splice(index, 1);
       const res = await fetch(
         `https://producemart.herokuapp.com/deleteImage/${this.id}?imageId=${img_id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: this.token,
+          },
+        }
+      );
+      const { data } = await res.json();
+      console.log(data);
+    },
+    async deleteFile(cert_id, index) {
+      this.certification.splice(index, 1);
+      const res = await fetch(
+        `https://producemart.herokuapp.com/deleteCert/${this.id}?certId=${cert_id}`,
         {
           method: "DELETE",
           headers: {
@@ -2996,7 +3094,10 @@ export default {
       );
       const { data } = await res.json();
       this.product = data[0];
-      this.lock = this.product.status == "active" ? true : false;
+      this.lock =
+        this.product.status == "active" || !this.product.available
+          ? true
+          : false;
       this.name = this.product.name;
       this.prodAvailable = this.product.available;
       this.variety = this.product.variety;
@@ -3004,7 +3105,13 @@ export default {
       this.farmMethod = this.product.farmMethod;
       this.gmo = this.product.GMO;
       this.country = this.product.country;
-      this.location = this.product.location;
+      console.log(this.product.location);
+      console.log(this.address);
+      let getLocation = this.address.filter((loc) =>
+        this.product.location.includes(loc.city)
+      )[0];
+      this.location = `${getLocation.city} ${getLocation.country}`;
+      console.log("Location", this.location);
       this.yearRoundAvailableStatus = this.product.yearRoundAvailable.status;
       this.yearRoundAvailableFrom = this.product.yearRoundAvailable.from;
       this.yearRoundAvailableTo = this.product.yearRoundAvailable.to;
@@ -3032,8 +3139,24 @@ export default {
       this.packages?.unit
         ? (this.shipping.package_type.check = true)
         : (this.shipping.weight.check = true);
+      let pDim = this.packages?.dimension?.replace(/\s/g, "");
+      // console.log(dim);
+      this.plen = pDim ? pDim.slice(0, pDim.indexOf("x")) : "";
+      this.pwid = pDim
+        ? pDim.slice(pDim.indexOf("x") + 1, pDim.lastIndexOf("x"))
+        : "";
+      this.phgt = pDim ? pDim.slice(pDim.lastIndexOf("x") + 1) : "";
+      // console.log(this.len, this.wid, this.hgt);
       this.shipment = this.product.shipment ? this.product.shipment : {};
-      this.min_quantity = this.product.min_quality;
+      let dim = this.shipment?.dimension.replace(/\s/g, "");
+      // console.log(dim);
+      this.len = dim ? dim.slice(0, dim.indexOf("x")) : "";
+      this.wid = dim
+        ? dim.slice(dim.indexOf("x") + 1, dim.lastIndexOf("x"))
+        : "";
+      this.hgt = dim ? dim.slice(dim.lastIndexOf("x") + 1) : "";
+      // console.log(this.len, this.wid, this.hgt);
+      this.order = this.product.order;
       (this.supply_ability = this.product.supply_ability
         ? this.product.supply_ability
         : {}),

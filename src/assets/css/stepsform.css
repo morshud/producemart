@@ -299,6 +299,9 @@
   color: #38653b;
   font-weight: 600;
 }
+.address-refresh:hover {
+  cursor: pointer;
+}
 .labelTerms {
   font-size: 15px;
   font-weight: 400;
