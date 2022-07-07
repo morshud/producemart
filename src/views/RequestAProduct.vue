@@ -90,19 +90,19 @@
                   <div class="modal-body">
                     <section class="formSec">
                       <div class="container">
-                        <div v-if="userAuth" class="row justify-content-center">
+                        <div class="row justify-content-center">
                           <div class="col-lg-12">
-                            <form @submit.prevent="requestQuote">
+                            <form>
                               <div class="row">
                                 <!--Product Name-->
                                 <div class="col-lg-12 mb-4">
                                   <label>Product Name</label>
-                                  <input type="text" required v-model="productName" placeholder="Enter your product name" class="input">
+                                  <input type="text" placeholder="Enter your product name" class="input">
                                 </div>
                                 <!--Price-->
                                 <div class="col-lg-6 mb-4">
                                   <label>Price <small>(in $)</small></label>
-                                  <input type="text" v-model="price" required list="price" class="input">
+                                  <input type="text" list="price" class="input">
                                   <datalist id="price">
                                       <option value="Negotiable"></option>
                                   </datalist>
@@ -110,33 +110,27 @@
                                 <!--Product Variety-->
                                 <div class="col-lg-6 mb-4">
                                   <label>Product Variety</label>
-                                  <input required v-model="productVariety" type="text" placeholder="Enter your product variety" class="input">
+                                  <input type="text" placeholder="Enter your product variety" class="input">
                                 </div>
                                 <!--Product Description-->
                                 <div class="col-lg-12 mb-4">
                                   <label>Product Description</label>
-                                  <textarea v-model="productDesc" required rows="3" placeholder="Enter your product description" class="input"></textarea>
+                                  <textarea rows="3" placeholder="Enter your product description" class="input"></textarea>
                                 </div>
                                 <!--Food Category-->
                                 <div class="col-lg-6 mb-4">
                                   <label>Food Category</label>
-                                  <select required v-model="productCategory" class="input">
+                                  <select class="input">
                                     <option hidden>Choose Category</option>
-                                    <option value="vegetable">Vegetable</option>
-                                    <option value="fruit">Fruits</option>
-                                    <option value="oil">Oil</option>
-                                    <option value="grain">Grain</option>
-                                    <option value="nut">Nut</option>
-                                    <option value="coffee">Coffee</option>
-                                    <option value="flower">Flower</option>
-                                    <option value="feed">Feed</option>
-                                    <option value="others">Others</option>
+                                    <option>Vegetable</option>
+                                    <option>Fruits</option>
+                                    <option>Oil</option>
                                   </select>
                                 </div>
                                 <!--Supply Frequency-->
                                 <div class="col-lg-6 mb-4">
                                   <label>Supply Frequency</label>
-                                  <select required v-model="supplyFrequency" class="input">
+                                  <select class="input">
                                     <option hidden>Select Supply Frequency</option>
                                     <option>One-off</option>
                                     <option>Frequent</option>
@@ -145,12 +139,12 @@
                                 <!--Quantity-->
                                 <div class="col-lg-6 mb-4">
                                   <label>Quantity</label>
-                                  <input required v-model="quantity" type="number" placeholder="Enter your product variety" class="input">
+                                  <input type="number" placeholder="Enter your product variety" class="input">
                                 </div>
                                 <!--Weight-->
                                 <div class="col-lg-6 mb-4">
                                   <label>Weight</label>
-                                  <select required v-model="weight" class="input">
+                                  <select class="input">
                                     <option hidden>Specify Weight</option>
                                     <option>Kilogram (KG)</option>
                                     <option>LB</option>
@@ -166,23 +160,23 @@
                                     </div>
                                     <div class="col-md-6">
                                       <label class="innerLabel">Start Date</label>
-                                      <input required v-model="startDate" type="date" class="input">
+                                      <input type="date" class="input">
                                     </div>
                                     <div class="col-md-6">
                                       <label class="innerLabel">End Date</label>
-                                      <input required v-model="endDate" type="date" class="input">
+                                      <input type="date" class="input">
                                     </div>
                                   </div>
                                 </div>
                                 <!--Product Characteristics-->
                                 <div class="col-lg-12 mb-4">
                                   <label>Product Characteristics</label>
-                                  <textarea required v-model="productCharacter" rows="3" placeholder="Enter your product characteristics" class="input"></textarea>
+                                  <textarea rows="3" placeholder="Enter your product characteristics" class="input"></textarea>
                                 </div>
                                 <!--Destination Country-->
                                 <div class="col-lg-6 mb-4">
                                   <label>Destination Country</label>
-                                  <select required v-model="destination" class="input">
+                                  <select class="input">
                                     <option hidden>Select Country</option>
                                     <option value="Afganistan">Afghanistan</option>
                                     <option value="Albania">Albania</option>
@@ -435,7 +429,7 @@
                                 <!--Incoterms-->
                                 <div class="col-lg-6 mb-4">
                                   <label>Incoterms</label>
-                                  <select required v-model="incoterm" class="input">
+                                  <select class="input">
                                     <option>Select</option>
                                     <option>Option here</option>
                                     <option>Option here</option>
@@ -444,18 +438,14 @@
                                 <!--Additional Specification-->
                                 <div class="col-lg-12 mb-4">
                                   <label>Additional Specification</label>
-                                  <textarea required v-model="addSpec" rows="3" placeholder="Additional spec..." class="input"></textarea>
+                                  <textarea rows="3" placeholder="Additional spec..." class="input"></textarea>
                                 </div>
                                 <div class="col-lg-12">
                                   <button type="submit">Request Quote</button>
                                 </div>
-                                 
                               </div>
                             </form>
                           </div>
-                        </div>
-                        <div v-else class="row justify-content-center">
-                          <h5>Please <router-link to="/login"><a class="authLogin">Login</a></router-link> to request a product quote</h5>
                         </div>
                       </div>
                     </section>
@@ -680,15 +670,11 @@
 
   <mainFooter/>
 </template>
-<style scoped src="@/assets/css/styleFrontend.css"></style>
-<style scoped src="@/assets/css/bootstrap.css"></style>
 <script>
     import MainHeader from './mainHeader.vue'
     import SearchHeader from './searchHeader.vue'
     import MainFooter from './mainFooter.vue'
     import SearchInner from './searchInner.vue'
-    import QUOTE from './../service/quote-service'
-    import Swal from 'sweetalert2';
     export default {
       name: "Produce Mart",
       components:{
@@ -696,87 +682,6 @@
       'searchHeader': SearchHeader,
       'mainFooter': MainFooter,
       'searchInner': SearchInner,
-      },
-      data(){
-        return{
-          productName: '',
-          price: '',
-          productVariety: '',
-          productDesc: '',
-          productCategory: '',
-          supplyFrequency: '',
-          quantity: '',
-          weight: '',
-          startDate: '',
-          endDate: '',
-          productCharacter: '',
-          destination: '',
-          incoterm: '',
-          addSpec: '',
-          statusMessage: false,
-          modal: 'modal fade show'
-        }
-      },
-      computed:{
-        userAuth(){
-          const user = JSON.parse(localStorage.getItem("user"));
-          if(user && user.token){
-            return true
-          }
-          else{
-            return false
-          }
-        }
-      },
-      methods: {
-        requestQuote(){
-          
-          const quoteRequests = {
-            "name": this.productName,
-            "price": this.price,
-            "variety": this.productVariety,
-            "description": this.productDesc,
-            "category": this.productCategory,
-            "quantity": this.quantity,
-            "start_date": this.startDate,
-            "end_date": this.endDate,
-            "characteristics": this.productCharacter,
-            "frequency": this.supplyFrequency,
-            "additional_info": this.addSpec,
-            "country": this.destination,
-            "weight": this.weight,
-            "intercoms": this.incoterm
-          }
-          QUOTE.CreateQuote(quoteRequests).then(res => {
-            Swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: `${res.data.message}`,
-              showConfirmButton: false,
-              timer: 3500
-            })
-            this.clearForm()
-          })
-          .catch(err => {
-            console.log(err);
-          })
-        },
-        clearForm(){
-          this.productName = ''
-          this.price = ''
-          this.productVariety = ''
-          this.productDesc = ''
-          this.productCategory = ''
-          this.supplyFrequency = ''
-          this.quantity = ''
-          this.weight = ''
-          this.startDate = ''
-          this.endDate = ''
-          this.productCharacter = ''
-          this.destination = ''
-          this.incoterm = ''
-          this.addSpec = ''
-        }
       },
       mounted(){
         window.scrollTo(0,0)

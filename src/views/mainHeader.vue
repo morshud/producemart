@@ -54,8 +54,6 @@
         </nav>
     </header>
 </template>
-<style scoped src="@/assets/css/styleFrontend.css"></style>
-<style scoped src="@/assets/css/bootstrap.css"></style>
 <script>
     import SearchInner from './searchInner.vue'
     export default {

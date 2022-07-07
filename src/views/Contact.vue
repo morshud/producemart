@@ -171,8 +171,6 @@
         </div>
   </footer>
 </template>
-<style scoped src="@/assets/css/styleFrontend.css"></style>
-<style scoped src="@/assets/css/bootstrap.css"></style>
 <script>
     import MainHeader from './mainHeader.vue'
     import SearchHeader from './searchHeader.vue'

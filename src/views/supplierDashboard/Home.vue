@@ -70,7 +70,7 @@
                         </div>
                     </div>
                     <!--Table-->
-                    <div class="col-lg-12">
+                    <div class="col-lg-9">
                         <div class="white_card card_height_100 mb_30">
                             <div class="white_card_header">
                                 <div class="box_header m-0">
@@ -145,8 +145,64 @@
                             </div>
                         </div>
                     </div>
+                    <!--Recent Notification-->
+                    <div class="col-xl-3">
+                        <div class="white_card card_height_100 mb_30">
+                            <div class="white_card_header">
+                                <div class="box_header m-0">
+                                    <div class="main-title">
+                                    <h3 class="m-0">Recent Notification</h3>
+                                    </div>
+                                    <div class="header_more_tool">
+                                        <div class="dropdown">
+                                            <span class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-three-dots"></i>
+                                            </span>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="#"> <i class="bi bi-printer"></i> Print</a>
+                                                <a class="dropdown-item" href="#"> <i class="bi bi-download"></i> Download</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="white_card_body">
+                                <div class="Activity_timeline">
+                                    <ul>
+                                        <li>
+                                            <div class="activity_bell"></div>
+                                            <div class="timeLine_inner d-flex align-items-center">
+                                                <div class="activity_wrap">
+                                                    <h6>5 min ago</h6>
+                                                    <p>You've gotten a new notification</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="activity_bell "></div>
+                                            <div class="timeLine_inner d-flex align-items-center">
+                                                <div class="activity_wrap">
+                                                    <h6>5 min ago</h6>
+                                                    <p>You've gotten a new notification</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="activity_bell "></div>
+                                            <div class="timeLine_inner d-flex align-items-center">
+                                                <div class="activity_wrap">
+                                                    <h6>5 min ago</h6>
+                                                    <p>You've gotten a new notification</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!--Chart Bar-->
-                    <!-- <div class="col-xl-7">
+                    <div class="col-xl-7">
                         <div class="white_card mb_30 card_height_100">
                             <div class="white_card_header">
                                 <div class="row align-items-center justify-content-between flex-wrap">
@@ -161,10 +217,9 @@
                                 <div id="chartBar"></div>
                             </div>
                         </div>
-                    </div> -->
-
+                    </div>
                     <!--Chart Circle-->
-                    <!-- <div class="col-xl-4">
+                    <div class="col-xl-4">
                         <div class="white_card card_height_100 mb_30">
                         <div class="white_card_header">
                             <div class="box_header m-0">
@@ -177,7 +232,7 @@
                             <div id="chartCircle"></div>
                         </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>

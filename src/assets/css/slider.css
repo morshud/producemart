@@ -233,8 +233,8 @@ fieldset h3 span{
 }
 .summaryTable .summaryHeadSub{
 	font-weight: 600 !important;
-	font-size: 17px;
-	text-transform: capitalize;
+	font-size: 18px;
+	text-transform: uppercase;
 	padding: 7px 5px !important;
 	text-align: left !important;
 	width: 100%;

@@ -1473,11 +1473,10 @@ p{
     border-radius: 10px 10px 0px 0px;
 }
 .productInnerMain .detailsMore h1{
-    font-size: 20px;
+    font-size: 22px;
     color: #000;
     font-weight: 600;
     margin-top: 30px;
-    text-transform: capitalize;
 }
 .productInnerMain .detailsMore p{
     font-size: 16px;
@@ -1634,64 +1633,6 @@ p{
     margin-top: -5px;
     font-size: 16px;
     font-weight: 400;
-}
-
-.productInnerMain .detailsMore .theadFeedback th{
-    font-weight: 600;
-    font-size: 16px;
-    padding: 10px 20px !important;
-    width: 30%;
-    border: 2px solid #000;
-}
-.productInnerMain .detailsMore .tbodyFeedback td{
-    font-weight: 500;
-    font-size: 16px;
-    padding: 10px 20px !important;
-    width: 30%;
-    border: 1px solid #000;
-    text-align: center;
-}
-.productInnerMain .detailsMoreFeedback tr{
-    background-color: #ffffff !important;
-}
-.productInnerMain .detailsMore .tbodyFeedback td .action_btn{
-    font-size: 16px;
-    padding: 10px;
-    cursor: pointer;
-}
-@media(max-width: 386px){
-    .productInnerMain .detailsMore .tbodyFeedback td .action_btn{
-        padding: 10px 5px;
-    }
-}
-.feedBackBox form label{
-    padding-bottom: 4px;
-    font-size: 16px;
-    font-weight: 500;
-    color: #000;
-    text-transform: capitalize;
-}
-.feedBackBox form textarea{
-    width: 100%;
-    border: 2px solid rgb(80, 80, 80);
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 500;
-    color: #000;
-    padding: 10px 20px;
-}
-.feedBackBox form .feedBackBtn{
-    width: 150px;
-    background-color: #a1faa9;
-    color: #000;
-    padding: 10px 5px;
-    border: none;
-    border-radius: 5px;
-    transition: 0.6s;
-}
-.feedBackBox form .feedBackBtn:hover{
-    background-color: #000;
-    color: #fff;
 }
   
 
@@ -2213,9 +2154,6 @@ p{
 /**BLOG PAGE**/
 /*************************/
 /*************************/
-.cardHeight{
-    height: 17.7em;
-}
 .blogPageBread{
     background-image: linear-gradient(90deg,  #00000098, #4e793b91), url('../img/breadcrumbBlog.jpg');
 }
@@ -2224,8 +2162,7 @@ p{
 }
 .blogContent .blogs .imgHouse{
     width: 100%;
-    height: 17.7em;
-    border-right: 2px solid #74ce7c;
+    height: 100%;
 }
 .blogContent .blogs .imgHouse img{
     width: 100%;
@@ -2254,22 +2191,10 @@ p{
     font-size: 13px;
     font-weight: 400;
 }
-@media(max-width: 1199px){
-    .cardHeight{
-        height: 20.2em;
-    }
+@media(max-width: 767px){
     .blogContent .blogs .imgHouse{
-        height: 20.2em;
-    }
-}
-@media(max-width: 991px){
-    .blogContent .blogs .imgHouse{
+        width: 100%;
         height: 250px;
-        border-right: none !important;
-        border-bottom: 2px solid #74ce7c;
-    }
-    .cardHeight{
-        height: auto;
     }
 }
 /*************************/
