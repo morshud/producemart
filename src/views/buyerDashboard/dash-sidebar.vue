@@ -32,11 +32,7 @@
                     </a>
                 </router-link>
                 <ul>
-                    <li><router-link to="/buyer-dashboard/mail-box"><a>Mail Box</a></router-link></li>
-                    <li><router-link to="/buyer-dashboard/compose-mail"><a>Compose Mail</a></router-link></li>
-                    <li><router-link to="/buyer-dashboard/sent-mail"><a>Sent Mail</a></router-link></li>
-                    <li><router-link to="/buyer-dashboard/draft-mail"><a>Drafts</a></router-link></li>
-                    <li><router-link to="/buyer-dashboard/trash-mail"><a>Trash</a></router-link></li>
+                    <li><router-link to="/buyer-dashboard/all-notifications"><a>All Notifications</a></router-link></li>
                 </ul>
             </li>
             <!--Orders-->

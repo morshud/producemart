@@ -1,1206 +1,1673 @@
-.certificationArea{
-    margin-top: -30px;
+.certificationArea {
+  margin-top: -30px;
 }
-.certificationArea .noteArea p{
-    font-size: 16px;
-    font-weight: 400;
-    color: #000;
+.certificationArea .noteArea p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #000;
 }
-.certificationArea h2{
-    font-size: 22px;
-    font-weight: 500;
-    color: #000;
+.certificationArea h2 {
+  font-size: 22px;
+  font-weight: 500;
+  color: #000;
 }
-.certiBox{
-    width: 100%;
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 30px 30px;
-    margin-bottom: 30px;
+.certiBox {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px 30px;
+  margin-bottom: 30px;
 }
-.certiBox img{
-    width: 60px;
-    display: block;
-    margin: auto;
+.certiBox img {
+  width: 60px;
+  display: block;
+  margin: auto;
 }
-.certiBox h3{
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: 23px;
-    color: #000;
-    text-align: center;
-    padding: 20px 1px 10px 1px;
+.certiBox h3 {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 23px;
+  color: #000;
+  text-align: center;
+  padding: 20px 1px 10px 1px;
 }
-.certiBox .lineHr{
-    background-color: #000;
-    width: 100%;
-    height: 2px;
-    margin-bottom: 20px;
+.certiBox .lineHr {
+  background-color: #000;
+  width: 100%;
+  height: 2px;
+  margin-bottom: 20px;
 }
-.certiBox .detailsBoxArea{
-    width: 100%;
-    margin-bottom: 20px;
+.certiBox .detailsBoxArea {
+  width: 100%;
+  margin-bottom: 20px;
 }
-.certiBox .markIcon{
-    width: 15%;
+.certiBox .markIcon {
+  width: 15%;
 }
-.certiBox .markIcon i{
-    font-size: 40px;
-    color: #97F29F;
+.certiBox .markIcon i {
+  font-size: 40px;
+  color: #97f29f;
 }
-.certiBox .textSpace{
-    width: 85%;
-    font-size: 16px;
-    color: #000;
-    font-weight: 500;
-    padding-top: 5px;
+.certiBox .textSpace {
+  width: 85%;
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+  padding-top: 5px;
 }
-.certiBox .markIcon, .certiBox .textSpace{
-    float: left;
+.certiBox .markIcon,
+.certiBox .textSpace {
+  float: left;
 }
-.certiBox .clear{
-    clear: both;
+.certiBox .clear {
+  clear: both;
 }
-.certiBox .btnDiv{
-    width: 100%;
-    margin-bottom: 30px;
+.certiBox .btnDiv {
+  width: 100%;
+  margin-bottom: 30px;
 }
-.certiBox .btnDiv a{
-    background-color: #97F29F;
-    color: #000;
-    font-size: 16px;
-    font-weight: 500;
-    padding: 15px 35px;
-    border-radius: 10px;
-    text-decoration: none;
-    text-align: center;
+.certiBox .btnDiv a {
+  background-color: #97f29f;
+  color: #000;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 15px 35px;
+  border-radius: 10px;
+  text-decoration: none;
+  text-align: center;
 }
-.certiBox .btnDiv a i{
-    padding-left: 5px;
+.certiBox .btnDiv a i {
+  padding-left: 5px;
 }
-@media(max-width: 1399px){
-    .certiBox{
-        padding: 30px 20px;
-    }
-    .certiBox h3{
-        font-size: 18px;
-    }
-    .certiBox .markIcon i{
-        font-size: 30px;
-    }
-    .certiBox .textSpace{
-        font-size: 15px;
-    }
-    .certiBox .btnDiv a{
-        font-size: 15px;
-        padding: 12px 30px;
-    }
+@media (max-width: 1399px) {
+  .certiBox {
+    padding: 30px 20px;
+  }
+  .certiBox h3 {
+    font-size: 18px;
+  }
+  .certiBox .markIcon i {
+    font-size: 30px;
+  }
+  .certiBox .textSpace {
+    font-size: 15px;
+  }
+  .certiBox .btnDiv a {
+    font-size: 15px;
+    padding: 12px 30px;
+  }
 }
 
 /****************/
 /****************/
 /****************/
-.uploadMore{
-    margin: 20px 0px 20px 0px;
+.uploadMore {
+  margin: 20px 0px 20px 0px;
 }
-.uploadMore a{
-    background-color: #0044ff;
-    color: #fff;
-    border-radius: 5px;
-    padding: 8px 15px;
-    font-size: 14px;
-    font-weight: 400;
-    cursor: pointer;
+.uploadMore span {
+  background-color: #0044ff;
+  color: #fff;
+  border-radius: 5px;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
 }
-.remove-field .btn-remove-field{
-    background-color: #e70000;
-    color: #fff;
-    border-radius: 5px;
-    padding: 8px 15px;
-    font-size: 14px;
-    font-weight: 400;
+.removeField {
+  background-color: #e70000;
+  color: #fff;
+  border-radius: 5px;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  width: 250px;
 }
 
-
-.dashboardMainLink{
-    padding-left: 30px !important;
+.dashboardMainLink {
+  padding-left: 30px !important;
 }
 
 /******ORDERS (SELLERS DASHBOARD) ******/
-.btn-awaiting{
-    background-color: #0044ff;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 300;
-    padding: 3px 8px;
-    border-radius: 5px;
+.btn-awaiting {
+  background-color: #0044ff;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 3px 8px;
+  border-radius: 5px;
 }
-.btn-completed{
-    background-color: #006b17;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 300;
-    padding: 3px 8px;
-    border-radius: 5px;
+.btn-completed {
+  background-color: #006b17;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 3px 8px;
+  border-radius: 5px;
 }
-.btn-cancelled{
-    background-color: #660000;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 300;
-    padding: 3px 8px;
-    border-radius: 5px;
+.btn-cancelled {
+  background-color: #660000;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 3px 8px;
+  border-radius: 5px;
 }
-.btn-quotes{
-    background-color: #000;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 300;
-    padding: 3px 8px;
-    border-radius: 5px;
+.btn-quotes {
+  background-color: #000;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 3px 8px;
+  border-radius: 5px;
 }
-.btn-inspection{
-    background-color: #0044ff;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 300;
-    padding: 3px 8px;
-    border-radius: 5px;
+.btn-inspection {
+  background-color: #0044ff;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 3px 8px;
+  border-radius: 5px;
 }
-.viewOrder{
-    color: #000000;
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: underline;
-    text-decoration-color: #000;
+.viewOrder {
+  color: #000000;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: #000;
 }
 /*******************/
-.backToPage{
-    color: #000000;
-    text-decoration: underline;
-    font-size: 15px;
-    font-weight: 600;
+.backToPage {
+  color: #000000;
+  text-decoration: underline;
+  font-size: 15px;
+  font-weight: 600;
 }
-.summaryBox{
-    background-color: #ffffff;
-    padding: 40px 30px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px #0000002c;
+.backToPage:hover {
+  cursor: pointer;
 }
-.summaryBox h1{
-    font-size: 25px;
-    font-weight: 600;
-    color: #000000;
-    text-align: center;
-    text-transform: uppercase;
+.summaryBox {
+  background-color: #ffffff;
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #0000002c;
 }
-.summaryBox .lineHr{
-    background-color: #80e989;
-    width: 80px;
-    height: 2px;
-    margin: auto;
+.summaryBox h1 {
+  font-size: 25px;
+  font-weight: 600;
+  color: #000000;
+  text-align: center;
+  text-transform: uppercase;
+}
+.summaryBox .lineHr {
+  background-color: #80e989;
+  width: 80px;
+  height: 2px;
+  margin: auto;
+  margin-bottom: 30px;
+}
+.summaryBox .productImgDiv {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+  margin: auto;
+}
+.summaryBox .productImgDiv img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 3px solid #80e989;
+}
+@media (max-width: 991px) {
+  .summaryBox .productImgDiv {
     margin-bottom: 30px;
+  }
 }
-.summaryBox .productImgDiv{
-    width: 100%;
-    height: 200px;
-    border-radius: 10px;
-    margin: auto;
+.summaryBox .titleText {
+  padding-top: 70px;
 }
-.summaryBox .productImgDiv img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-    border: 3px solid #80e989;
+.summaryBox .titleText h5 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+  text-transform: uppercase;
+  margin-top: 5px;
 }
-@media(max-width: 991px){
-    .summaryBox .productImgDiv{
-        margin-bottom: 30px;
-    }
+.summaryBox .titleText h5 span {
+  color: #252525;
+  text-transform: none;
+  font-weight: 700;
 }
-.summaryBox .titleText{
-    padding-top: 70px;
+.summaryBox table {
+  border-collapse: collapse !important;
+  width: 100%;
+  color: #000000;
 }
-.summaryBox .titleText h5{
-    font-size: 18px;
-    font-weight: 600;
-    color: #000;
-    text-transform: uppercase;
-    margin-top: 5px;
+.summaryBox table tr {
+  border-bottom: 1px solid #cccccc;
 }
-.summaryBox .titleText h5 span{
-    color: #252525;
-    text-transform: none;
-    font-weight: 700;
+.summaryBox table td {
+  padding: 10px 1px;
 }
-.summaryBox table{
-    border-collapse: collapse !important;
-    width: 100%;
-    color: #000000;
+.summaryBox table .mainText {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+  text-transform: capitalize;
+  width: 60%;
 }
-.summaryBox table tr{
-    border-bottom: 1px solid #cccccc;
+.summaryBox table .contentText {
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
+  width: 40%;
 }
-.summaryBox table td{
-    padding: 10px 1px;
+.summaryBox table .statustable {
+  color: #660000;
 }
-.summaryBox table .mainText{
-    font-size: 14px;
-    font-weight: 500;
-    color: #000;
-    text-transform: capitalize;
-    width: 60%;
+.summaryBox .successDiv img {
+  width: 250px;
+  display: block;
+  margin: auto;
+  margin-bottom: 10px;
 }
-.summaryBox table .contentText{
-    font-size: 14px;
-    font-weight: 400;
-    color: #000;
-    width: 40%;
+.summaryBox .successDiv p {
+  font-size: 21px;
+  font-weight: 600;
+  color: #000;
+  text-transform: uppercase;
 }
-.summaryBox table .statustable{
-    color: #660000;
+.summaryBox .btnCancel {
+  background-color: #00000000;
+  border: 1px solid rgb(229, 0, 0);
+  padding: 8px 15px;
+  border-radius: 5px;
+  color: rgb(229, 0, 0);
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.5s;
 }
-.summaryBox .successDiv img{
-    width: 250px;
-    display: block;
-    margin: auto;
-    margin-bottom: 10px;
+.summaryBox .btnCancel:hover {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #000;
 }
-.summaryBox .successDiv p{
-    font-size: 21px;
-    font-weight: 600;
-    color: #000;
-    text-transform: uppercase;
-}
-.summaryBox .btnCancel{
-    background-color: #00000000;
-    border: 1px solid rgb(229, 0, 0);
-    padding: 8px 15px;
-    border-radius: 5px;
-    color: rgb(229, 0, 0);
-    font-size: 15px;
-    font-weight: 500;
-    transition: 0.5s;
-}
-.summaryBox .btnCancel:hover{
-    background-color: #000;
-    color: #fff;
-    border: 1px solid #000;
-}
-.summaryBox .btnCancel i{
-    padding-right: 7px;
+.summaryBox .btnCancel i {
+  padding-right: 7px;
 }
 .modal-container {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    z-index: 999 !important;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  z-index: 999 !important;
 }
 .modal-box {
-    width: 50%;
-    height: auto;
-    background-color: #fff;
-    border-radius: 1em;
-    margin: auto !important;
-    margin-top: 60px !important;
+  width: 50%;
+  height: auto;
+  background-color: #fff;
+  border-radius: 1em;
+  margin: auto !important;
+  margin-top: 60px !important;
 }
-@media(max-width: 575px){
-    .modal-box {
-        width: 85%;
-        margin-top: 40px !important;
-    }
+@media (max-width: 575px) {
+  .modal-box {
+    width: 85%;
+    margin-top: 40px !important;
+  }
 }
-.modal-header {
-    width: 100%;
-    height: 80px;
-    background-color: rgb(255, 72, 72);
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
-    box-sizing: border-box;
-    padding: 5px 30px; 
+.modal-header-order {
+  width: 100%;
+  height: 80px;
+  background-color: rgb(255, 72, 72);
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+  box-sizing: border-box;
+  padding: 5px 30px;
 }
-.modal-header h2 {
-      color: #fff;
-      font-size: 25px;
-      letter-spacing: 1px;
-      max-width: 70%;
+.modal-header-order h2 {
+  color: #fff;
+  font-size: 25px;
+  letter-spacing: 1px;
+  max-width: 70%;
+  padding-top: 20px;
 }
-.modal-content {
-    padding: 15px 30px;
-    padding-bottom: 25px;
+.modal-content-order {
+  padding: 15px 30px;
+  padding-bottom: 25px;
 }
-.modal-content h3{
-    font-size: 18px;
-    font-weight: 500;
-    color: #000;
+.modal-content-order h3 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #000;
 }
-.modal-content textarea{
-    display: block;
-    width: 100%;
-    border: 1px solid #9b9b9b;
-    border-radius: 5px;
-    padding: 10px 15px !important;
-    margin-top: 5px;
+.modal-content-order textarea {
+  display: block;
+  width: 100%;
+  border: 1px solid #9b9b9b;
+  border-radius: 5px;
+  padding: 10px 15px !important;
+  margin-top: 5px;
 }
-.modal-content button{
-    background-color: #000000;
-    color: #ffffff;
-    padding: 10px 5px;
-    width: 150px;
-    border-radius: 5px;
-    border: none;
+.modal-content-order button {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 10px 5px;
+  width: 150px;
+  border-radius: 5px;
+  border: none;
 }
-.btn_close {
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    background-color: black;
-    border-radius: 50%;
-    color: #fff;
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: bolder;
-    text-align: center;
-    float: right; 
+.btn_close-order {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background-color: black;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bolder;
+  text-align: center;
+  float: right;
+  margin-top: -40px;
 }
-.btn_close:hover {
-    animation-name: btn_close;
-    animation-duration: 1s;
-    font-size: 23px; 
+.btn_close-order:hover {
+  animation-name: btn_close;
+  animation-duration: 1s;
+  font-size: 23px;
 }
-  
-  @keyframes btn_close {
-    0% {
-      transform: rotate(-20deg); }
-    50% {
-      transform: rotate(20deg); }
-    100% {
-      transform: rotate(0deg); } }
-  @media (max-width: 600px) {
-    .modal-box {
-      width: 90%; } }
+
+@keyframes btn_close {
+  0% {
+    transform: rotate(-20deg);
+  }
+  50% {
+    transform: rotate(20deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@media (max-width: 600px) {
+  .modal-box {
+    width: 90%;
+  }
+}
 
 /*********************/
 /********************/
 /********************/
 #msform {
-    text-align: center;
-    position: relative;
-    margin-top: 20px;
-    background-color: #fff !important;
-    padding: 20px 40px !important;
+  text-align: center;
+  position: relative;
+  margin-top: 20px;
+  background-color: #fff !important;
+  padding: 20px 40px !important;
 }
 
 #msform fieldset {
-    background: white;
-    border: 0 none;
-    border-radius: 0.5rem;
-    box-sizing: border-box;
-    width: 100%;
-    margin: 0;
-    padding-bottom: 20px;
-    position: relative
+  background: white;
+  border: 0 none;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding-bottom: 20px;
+  position: relative;
 }
 .orderProcessSteps .form-card {
-    text-align: left
+  text-align: left;
 }
-.form-card h3{
-    font-size: 23px;
-    font-weight: 500;
+.form-card h3 {
+  font-size: 23px;
+  font-weight: 500;
 }
 #msform fieldset:not(:first-of-type) {
-    display: none
+  display: none;
 }
 
 #msform .input,
 #msform .textarea {
-    padding: 8px 15px 8px 15px;
-    border: 1px solid #ccc;
-    border-radius: 0px;
-    margin-bottom: 25px;
-    margin-top: 2px;
-    width: 100%;
-    box-sizing: border-box;
-    color: #000;
-    background-color: #ECEFF1;
-    font-size: 16px;
-    letter-spacing: 1px
+  padding: 8px 15px 8px 15px;
+  border: 1px solid #ccc;
+  border-radius: 0px;
+  margin-bottom: 25px;
+  margin-top: 2px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #000;
+  background-color: #eceff1;
+  font-size: 16px;
+  letter-spacing: 1px;
 }
 
 #msform input:focus,
 #msform textarea:focus {
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    border: 1px solid #82dd89;
-    outline-width: 0
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 1px solid #82dd89;
+  outline-width: 0;
 }
 
 #msform .action-button {
-    width: 100px;
-    background: #82dd89;
-    font-weight: bold;
-    color: #fff;
-    border: 0 none;
-    border-radius: 0px;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 0px 10px 5px;
-    float: right
+  width: 100px;
+  background: #82dd89;
+  font-weight: bold;
+  color: #fff;
+  border: 0 none;
+  border-radius: 0px;
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 10px 0px 10px 5px;
+  float: right;
 }
 
 #msform .action-button:hover,
 #msform .action-button:focus {
-    background-color: #5eac65
+  background-color: #5eac65;
 }
 
 #msform .action-button-previous {
-    width: 100px;
-    background: #616161;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 0px;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 5px 10px 0px;
-    float: right
+  width: 100px;
+  background: #616161;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 0px;
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 10px 5px 10px 0px;
+  float: right;
 }
 
 #msform .action-button-previous:hover,
 #msform .action-button-previous:focus {
-    background-color: #000000
+  background-color: #000000;
 }
 
 .orderProcessSteps .card {
-    z-index: 0;
-    border: none;
-    position: relative;
-    box-shadow: 0px 0px 10px #0000002c;
-    border-radius: 10px;
+  z-index: 0;
+  border: none;
+  position: relative;
+  box-shadow: 0px 0px 10px #0000002c;
+  border-radius: 10px;
 }
 
 .orderProcessSteps .fs-title {
-    font-size: 23px;
-    color: #000;
-    margin-bottom: 15px;
-    font-weight: 600;
-    text-align: center;
-    text-transform: uppercase;
+  font-size: 23px;
+  color: #000;
+  margin-bottom: 15px;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
 }
 .orderProcessSteps .steps {
-    font-size: 25px;
-    color: gray;
-    margin-bottom: 10px;
-    font-weight: normal;
-    text-align: right
+  font-size: 25px;
+  color: gray;
+  margin-bottom: 10px;
+  font-weight: normal;
+  text-align: right;
 }
 
 .orderProcessSteps .fieldlabels {
-    color: gray;
-    text-align: left
+  color: gray;
+  text-align: left;
 }
 
 #progressbar {
-    margin-bottom: 30px;
-    overflow: hidden;
-    color: lightgrey;
+  margin-bottom: 30px;
+  overflow: hidden;
+  color: lightgrey;
 }
 
 #progressbar .active {
-    color: #000;
+  color: #000;
 }
 
 #progressbar li {
-    list-style-type: none;
-    font-size: 15px;
-    width: 25%;
-    float: left;
-    position: relative;
-    font-weight: 300;
-    z-index: 10;
+  list-style-type: none;
+  font-size: 15px;
+  width: 25%;
+  float: left;
+  position: relative;
+  font-weight: 300;
+  z-index: 10;
 }
-@media(max-width: 500px){
-    #progressbar li {
-        font-size: 14px;
-        font-weight: 400;
-    }
+@media (max-width: 500px) {
+  #progressbar li {
+    font-size: 14px;
+    font-weight: 400;
+  }
 }
 
 #progressbar #account:before {
-    font-family: FontAwesome;
-    content: "\f00c"
+  font-family: FontAwesome;
+  content: "\f00c";
 }
 
 #progressbar #personal:before {
-    font-family: FontAwesome;
-    content: "\f00c"
+  font-family: FontAwesome;
+  content: "\f00c";
 }
 
 #progressbar #payment:before {
-    font-family: FontAwesome;
-    content: "\f00c"
+  font-family: FontAwesome;
+  content: "\f00c";
 }
 
 #progressbar #confirm:before {
-    font-family: FontAwesome;
-    content: "\f00c"
+  font-family: FontAwesome;
+  content: "\f00c";
 }
 
 #progressbar li:before {
-    width: 50px;
-    height: 50px;
-    line-height: 45px;
-    display: block;
-    font-size: 20px;
-    color: #ffffff;
-    background: lightgray;
-    border-radius: 50%;
-    margin: 0 auto 10px auto;
-    padding: 2px
+  width: 50px;
+  height: 50px;
+  line-height: 45px;
+  display: block;
+  font-size: 20px;
+  color: #ffffff;
+  background: lightgray;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
+  padding: 2px;
 }
-@media(max-width: 510px){
-    #progressbar li:before {
-        width: 35px;
-        height: 35px;
-        line-height: 35px;
-        font-size: 18px;
-    }
+@media (max-width: 510px) {
+  #progressbar li:before {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 18px;
+  }
 }
 
 #progressbar li:after {
-    content: '';
-    width: 100%;
-    background: lightgray;
-    position: absolute;
-    left: 0;
-    top: 25px;
-    z-index: -1
+  content: "";
+  width: 100%;
+  background: lightgray;
+  position: absolute;
+  left: 0;
+  top: 25px;
+  z-index: -1;
 }
 
 #progressbar li.active:before,
 #progressbar li.active:after {
-    background: #82dd89;
-    color: #fff;
+  background: #82dd89;
+  color: #fff;
 }
 
 .orderProcessSteps .progress {
-    width: 75%;
-    height: 12px;
-    margin: auto;
-    margin-bottom: 30px;
-    position: relative;
-    top: -95px;
-    margin-bottom: -10px;
+  width: 75%;
+  height: 12px;
+  margin: auto;
+  margin-bottom: 30px;
+  position: relative;
+  top: -95px;
+  margin-bottom: -10px;
 }
 
 .orderProcessSteps .progress-bar {
-    background-color: #82dd89;
-    color: #00000000;
+  background-color: #82dd89;
+  color: #00000000;
 }
 
-
-
-.orderProcessSteps .shippingBox{
-    background-color: #ffff!important;
-    padding: 30px !important;
-    border-bottom: 2px solid #000000;
+.orderProcessSteps .shippingBox {
+  background-color: #ffff !important;
+  padding: 30px !important;
+  border-bottom: 2px solid #000000;
 }
 [type="radio"]:checked,
 [type="radio"]:not(:checked) {
-    position: absolute;
-    left: -9999px;
+  position: absolute;
+  left: -9999px;
 }
 [type="radio"]:checked + label,
-[type="radio"]:not(:checked) + label
-{
-    position: relative;
-    padding-left: 28px;
-    cursor: pointer;
-    line-height: 20px;
-    display: inline-block;
-    color: #666;
+[type="radio"]:not(:checked) + label {
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+  line-height: 20px;
+  display: inline-block;
+  color: #666;
 }
 [type="radio"]:checked + label:before,
 [type="radio"]:not(:checked) + label:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 21px;
-    height: 21px;
-    border: 2px solid #252525;
-    border-radius: 100%;
-    background: #fff;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 21px;
+  height: 21px;
+  border: 2px solid #252525;
+  border-radius: 100%;
+  background: #fff;
 }
 [type="radio"]:checked + label:after,
 [type="radio"]:not(:checked) + label:after {
-    content: '';
-    width: 11px;
-    height: 11px;
-    background: #000;
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    border-radius: 100%;
-    -webkit-transition: all 0.2s ease;
-    transition: all 0.2s ease;
+  content: "";
+  width: 11px;
+  height: 11px;
+  background: #000;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  border-radius: 100%;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 [type="radio"]:not(:checked) + label:after {
-    opacity: 0;
-    -webkit-transform: scale(0);
-    transform: scale(0);
+  opacity: 0;
+  -webkit-transform: scale(0);
+  transform: scale(0);
 }
 [type="radio"]:checked + label:after {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    transform: scale(1);
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
 }
-.labelShipping{
-    color: #000 !important;
-    font-size: 17px;
-    font-weight: 600;
+.labelShipping {
+  color: #000 !important;
+  font-size: 17px;
+  font-weight: 600;
 }
-.labelShipping span{
-    padding-left: 8px;
-    font-weight: 500;
+.labelShipping span {
+  padding-left: 8px;
+  font-weight: 500;
 }
-.orderProcessSteps table{
-    border-collapse: collapse !important;
-    width: 100%;
-    color: #000000;
-    margin-top: 30px;
+.orderProcessSteps table {
+  border-collapse: collapse !important;
+  width: 100%;
+  color: #000000;
+  margin-top: 30px;
 }
-.orderProcessSteps table .mainRow{
-    border: 1px solid #222222;
+.orderProcessSteps table .mainRow {
+  border: 1px solid #222222;
 }
-.orderProcessSteps table td{
-    text-transform: capitalize;
-    width: 50%;
-    padding: 7px 10px !important;
-    font-size: 16px;
-    font-weight: 500;
-    font-size: 15px;
+.orderProcessSteps table td {
+  text-transform: capitalize;
+  width: 50%;
+  padding: 7px 10px !important;
+  font-size: 16px;
+  font-weight: 500;
+  font-size: 15px;
 }
-.orderProcessSteps table .mainHead{
-    font-size: 17px !important;
-    font-weight: 600;
-    color: #000;
+.orderProcessSteps table .mainHead {
+  font-size: 17px !important;
+  font-weight: 600;
+  color: #000;
 }
-.orderProcessSteps table td .alert{
-    color: #d60000;
-    font-weight: 500;
-    margin-left: -15px !important;
+.orderProcessSteps table td .alert {
+  color: #d60000;
+  font-weight: 500;
+  margin-left: -15px !important;
 }
-.orderProcessSteps table .footTable td{
-    font-size: 14px;
-    font-weight: 600;
-    color: #414141;
+.orderProcessSteps table .footTable td {
+  font-size: 14px;
+  font-weight: 600;
+  color: #414141;
 }
-.orderProcessSteps .separator{
-    display:flex;
-    align-items: center;
-    width: 100% !important;
-    margin-top: 17px;
-    margin-bottom: 17px;
+.orderProcessSteps .separator {
+  display: flex;
+  align-items: center;
+  width: 100% !important;
+  margin-top: 17px;
+  margin-bottom: 17px;
 }
-.orderProcessSteps .separator .line{
-    height: 1px;
-    flex: 1;
-    background-color: #000;
+.orderProcessSteps .separator .line {
+  height: 1px;
+  flex: 1;
+  background-color: #000;
 }
-.orderProcessSteps .separator p{
-    padding: 0 1rem;
+.orderProcessSteps .separator p {
+  padding: 0 1rem;
 }
 /*****************************/
 /****************************/
-.orderProcessSteps .boxTranpo{
-    width: 100%;
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0px 0px 10px #0000001f;
-    padding: 25px 15px !important;
-    margin-bottom: 20px;
+.orderProcessSteps .boxTranpo {
+  width: 100%;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px #0000001f;
+  padding: 25px 15px !important;
+  margin-bottom: 20px;
 }
-.orderProcessSteps .boxTranpo .title{
-    font-size: 16px;
-    font-weight: 500;
-    padding: 0px 8px 3px 8px;
-    border: none;
-    background-color: transparent;
-    border-bottom: 2px solid #5eac65;
-    cursor: none;
+.orderProcessSteps .boxTranpo .title {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0px 8px 3px 8px;
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid #5eac65;
+  cursor: none;
 }
-.orderProcessSteps .boxTranpo .lineHr{
-    width: 60px;
-    height: 2px;
-    background-color: #5eac65;
-    margin: auto;
-    margin-bottom: 25px;
+.orderProcessSteps .boxTranpo .lineHr {
+  width: 60px;
+  height: 2px;
+  background-color: #5eac65;
+  margin: auto;
+  margin-bottom: 25px;
 }
-.orderProcessSteps .boxTranpo table td{
-    font-size: 13px;
-    padding: 10px 2px !important;
+.orderProcessSteps .boxTranpo table td {
+  font-size: 13px;
+  padding: 10px 2px !important;
 }
-.orderProcessSteps .boxTranpo table td:nth-child(1){
-    color: #363636;
+.orderProcessSteps .boxTranpo table td:nth-child(1) {
+  color: #363636;
 }
-.orderProcessSteps .boxTranpo .proceedBtn{
-    font-size: 14px;
-    font-weight: 500;
-    padding: 10px 3px;
-    width: 85%;
-    background-color: transparent;
-    border: 1px solid #5eac65;
-    color: #5eac65;
-    border-radius: 10px;
+.orderProcessSteps .boxTranpo .proceedBtn {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 3px;
+  width: 85%;
+  background-color: transparent;
+  border: 1px solid #5eac65;
+  color: #5eac65;
+  border-radius: 10px;
 }
-.orderProcessSteps .boxTranpo .proceedBtn:hover{
-    background-color: #5eac65;
-    border: 1px solid #fff;
-    color: #fff;
+.orderProcessSteps .boxTranpo .proceedBtn:hover {
+  background-color: #5eac65;
+  border: 1px solid #fff;
+  color: #fff;
 }
-
 
 /************************/
 /***********************/
-.paymentSumDiv{
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0px 0px 10px #0000001f;
-    padding: 20px 10px 30px 10px !important;
-    margin-top: 30px;
-    margin-bottom: 20px;
+.paymentSumDiv {
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px #0000001f;
+  padding: 20px 10px 30px 10px !important;
+  margin-top: 30px;
+  margin-bottom: 20px;
 }
-.paymentBoxBorder{
-    border-left: 1px solid #989898;
-    padding-left: 30px !important;
+.paymentBoxBorder {
+  border-left: 1px solid #989898;
+  padding-left: 30px !important;
 }
-@media(max-width: 991px){
-    .paymentBoxBorder{
-        border-left: none;
-        padding-left: 10px !important;
-    }
+@media (max-width: 991px) {
+  .paymentBoxBorder {
+    border-left: none;
+    padding-left: 10px !important;
+  }
 }
 .paymentBox {
-    padding-bottom: 10px !important;
+  padding-bottom: 10px !important;
 }
-.paymentSumDiv .paymentBox .title{
-    font-size: 16px;
-    font-weight: 500;
-    padding: 0px 2px;
-    border: none;
-    background-color: transparent;
-    border-bottom: 2px solid #5eac65;
-    cursor: none;
-    margin-top: 10px;
+.paymentSumDiv .paymentBox .title {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0px 2px;
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid #5eac65;
+  cursor: none;
+  margin-top: 10px;
 }
-.paymentBox h5{
-    font-size: 18px;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: #000000;
+.paymentBox h5 {
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #000000;
 }
 .paymentBox table {
-    margin-top: 10px;
+  margin-top: 10px;
 }
-.paymentBox table  td{
-    font-size: 13px;
+.paymentBox table td {
+  font-size: 13px;
 }
-.paymentBox table button{
-    background-color: transparent;
-    border: none;
-    color: #660000;
-    border-top: 1px solid #660000;
-    border-bottom: 1px solid #660000;
-    padding: 10px 5px;
+.paymentBox table button {
+  background-color: transparent;
+  border: none;
+  color: #660000;
+  border-top: 1px solid #660000;
+  border-bottom: 1px solid #660000;
+  padding: 10px 5px;
 }
-.paymentBox table .completed{
-    color: #00ab03;
-    font-size: 14px;
-    font-weight: 600;
+.paymentBox table .completed {
+  color: #00ab03;
+  font-size: 14px;
+  font-weight: 600;
 }
-.borderTopDiv{
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0px 0px 10px #0000001f;
-    padding: 30px 30px !important;
-    margin-top: 30px;
-    margin-bottom: 30px;
+.borderTopDiv {
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px #0000001f;
+  padding: 30px 30px !important;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
-.borderTopDiv h6{
-    font-size: 16px;
-    font-weight: 600;
+.borderTopDiv h6 {
+  font-size: 16px;
+  font-weight: 600;
 }
-.borderTopDiv label{
-    font-size: 15px;
-    font-weight: 400;
+.borderTopDiv label {
+  font-size: 15px;
+  font-weight: 400;
 }
-.borderTopDiv .btnDiv{
-    margin-top: 20px;
+.borderTopDiv .btnDiv {
+  margin-top: 20px;
 }
-.borderTopDiv .btnDiv button{
-    padding: 10px 15px;
-    border: none;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 500;
-    margin: 5px;
-    text-transform: uppercase;
-    color: #ffff;
-    
+.borderTopDiv .btnDiv button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 5px;
+  text-transform: uppercase;
+  color: #ffff;
 }
-.borderTopDiv .btnFirst{
-    background-color: #066b1c;  
+.borderTopDiv .btnFirst {
+  background-color: #066b1c;
 }
-.borderTopDiv .btnSecond{
-    background-color: #000000;
-}
-
-.paymentCom{
-    background-color: #fff;
-    padding: 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px #0000001f;
-    margin-bottom: 20px;
-}
-.paymentCom img{
-    width: 280px;
-    margin-bottom: 30px;
-}
-.paymentCom p{
-    font-size: 17px;
-    font-weight: 600;
-    color: #000;
-}
-.paymentCom .payTable{
-    border-top: 1px solid #000;
-    margin-top: 25px;
-}
-.paymentCom button{
-    padding: 10px 15px;
-    border: none;
-    border-radius: 10px;
-    font-size: 15px;
-    color: #ffff;
-    background-color: #044612;
+.borderTopDiv .btnSecond {
+  background-color: #000000;
 }
 
-
-.btnFeedback{
-    padding: 10px 30px;
-    border-radius: 10px;
-    font-size: 14px;
-    color: #ffff;
-    background-color: #044612;
+.paymentCom {
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #0000001f;
+  margin-bottom: 20px;
+}
+.paymentCom img {
+  width: 280px;
+  margin-bottom: 30px;
+}
+.paymentCom p {
+  font-size: 17px;
+  font-weight: 600;
+  color: #000;
+}
+.paymentCom .payTable {
+  border-top: 1px solid #000;
+  margin-top: 25px;
+}
+.paymentCom button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #ffff;
+  background-color: #044612;
 }
 
+.btnFeedback {
+  padding: 10px 30px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #ffff;
+  background-color: #044612;
+}
 
 .accordion-item {
-    display: flex;
-    flex-direction: column;
-    padding: 0 1rem;
-    border-radius: 10px;
-    border: 1px solid rgb(146, 146, 146);
-    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.09);
-    cursor: pointer;
-    background: #fff;
-    margin-bottom: 0.5em;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+  border-radius: 10px;
+  border: 1px solid rgb(146, 146, 146);
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.09);
+  cursor: pointer;
+  background: #fff;
+  margin-bottom: 0.5em;
 }
 .item-header {
-    display: flex;
-    justify-content: space-between;
-    column-gap: 0.2em;
-    padding: 6px 0px;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 0.2em;
+  padding: 6px 0px;
 }
 .item-question {
-    font-size: 18px;
-    padding-top: 8px;
-    font-weight: 500;
-  }
+  font-size: 18px;
+  padding-top: 8px;
+  font-weight: 500;
+}
 .item-icon {
-    margin-top: 5px;
-    flex: 0 0 25px;
-    display: grid;
-    place-items: center;
-    font-size: 1.25rem;
-    height: 25px;
-    width: 25px;
-    border-radius: 4px;
-    background: #dedede;
-    cursor: pointer;
-    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.09);
+  margin-top: 5px;
+  flex: 0 0 25px;
+  display: grid;
+  place-items: center;
+  font-size: 1.25rem;
+  height: 25px;
+  width: 25px;
+  border-radius: 4px;
+  background: #dedede;
+  cursor: pointer;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.09);
 }
 .item-icon i {
-    transition: all 0.25s cubic-bezier(0.5, 0, 0.1, 1);
+  transition: all 0.25s cubic-bezier(0.5, 0, 0.1, 1);
 }
 .active .item-icon i {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 .active .item-question {
-    font-weight: 500;
+  font-weight: 500;
 }
 .item-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: all 300ms ease;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 300ms ease;
 }
 .item-answer {
-    line-height: 150%;
-    font-weight: 600;
-    font-size: 17px;
-    padding-bottom: 10px;
+  line-height: 150%;
+  font-weight: 600;
+  font-size: 17px;
+  padding-bottom: 10px;
 }
 /************************/
 /************************/
 /************************/
-.boxWhite{
-    background-color: #fff;
-    padding: 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px #0000001f;
-    margin-bottom: 20px;
+.boxWhite {
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #0000001f;
+  margin-bottom: 20px;
 }
-.boxWhite h5{
-    font-size: 17px;
-    font-weight: 600;
-    color: #000;
-    text-align: center;
+.boxWhite h5 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #000;
+  text-align: center;
 }
-#iflessSupply{
-    display: none;
+#iflessSupply {
+  display: none;
 }
-.boxWhite .inputTextArea{
-    width: 100%;
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 30px;
+.boxWhite .inputTextArea {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
 }
-.boxWhite button{
-    background-color: #000;
-    color: #fff;
-    border-radius: 10px;
-    width: 150px;
-    padding: 10px 15px;
-    border: none;
-    font-size: 14px;
-    font-weight: 400;
+.boxWhite button {
+  background-color: #000;
+  color: #fff;
+  border-radius: 10px;
+  width: 150px;
+  padding: 10px 15px;
+  border: none;
+  font-size: 14px;
+  font-weight: 400;
 }
-.boxWhite .btnA{
-    background-color: #000;
-    color: #fff;
-    border-radius: 10px;
-    padding: 10px 25px;
-    border: none;
-    font-size: 14px;
-    font-weight: 400;
+.boxWhite .btnA {
+  background-color: #000;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 25px;
+  border: none;
+  font-size: 14px;
+  font-weight: 400;
 }
-.boxWhite img{
-    width: 250px;
-    margin: auto;
-    display: block;
-    margin-bottom: 30px;
+.boxWhite img {
+  width: 250px;
+  margin: auto;
+  display: block;
+  margin-bottom: 30px;
 }
-.boxWhite h6{
-    font-size: 17px;
-    font-weight: 500;
-    color: black;
-    line-height: 30px;
-    margin-bottom: 10px;
+.boxWhite h6 {
+  font-size: 17px;
+  font-weight: 500;
+  color: black;
+  line-height: 30px;
+  margin-bottom: 10px;
 }
-.boxWhite span{
-    font-size: 17px;
-    font-weight: 400;
-    color: rgb(64, 64, 64);
-    display: block;
-    padding-bottom: 20px;
+.boxWhite span {
+  font-size: 17px;
+  font-weight: 400;
+  color: rgb(64, 64, 64);
+  display: block;
+  padding-bottom: 20px;
 }
-.completedPayment{
-    background-color: #fff;
-    padding: 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px #0000001f;
-    margin-bottom: 20px;
+.completedPayment {
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #0000001f;
+  margin-bottom: 20px;
 }
-.completedPayment h3{
-    font-size: 18px;
+.completedPayment h3 {
+  font-size: 18px;
 }
-.completedPayment .title{
-    font-size: 16px;
-    font-weight: 500;
-    padding: 0px 8px 3px 8px;
-    border: none;
-    background-color: transparent;
-    border-bottom: 2px solid #5eac65;
-    cursor: none;
+.completedPayment .title {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0px 8px 3px 8px;
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid #5eac65;
+  cursor: none;
 }
-.completedPayment h6{
-    font-size: 15px;
-    font-weight: 500;
-    color: #000;
-    margin-top: 10px;
+.completedPayment h6 {
+  font-size: 15px;
+  font-weight: 500;
+  color: #000;
+  margin-top: 10px;
 }
-.completedPayment textarea{
-    width: 100%;
-    padding: 15px;
-    border-radius: 5px;
+.completedPayment textarea {
+  width: 100%;
+  padding: 15px;
+  border-radius: 5px;
 }
-.completedPayment .submitReview{
-    background-color: #000;
-    color: #fff;
-    width: 130px;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    float: right;
+.completedPayment .submitReview {
+  background-color: #000;
+  color: #fff;
+  width: 130px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  float: right;
 }
 
 .switchDisable {
-    position: relative;
-    display: inline-block;
-    width: 48px;
-    height: 20px;
-    background-color: transparent !important;
-    top: 5px;
-    margin-left: 7px !important;
-    margin-right: 7px !important;
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 20px;
+  background-color: transparent !important;
+  top: 5px;
+  margin-left: 7px !important;
+  margin-right: 7px !important;
 }
 .switchDisable::after {
-    background-color: transparent !important;
+  background-color: transparent !important;
 }
 .switchDisable input {
-    display: none;
+  display: none;
 }
 .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 .slider:before {
-    position: absolute;
-    content: "";
-    height: 12px;
-    width: 12px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
-input:checked+.slider {
-    background-color: #006b17;
+input:checked + .slider {
+  background-color: #006b17;
 }
-input:focus+.slider {
-    box-shadow: 0 0 1px #006b17;
+input:focus + .slider {
+  box-shadow: 0 0 1px #006b17;
 }
-input:checked+.slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
 }
 .slider.round {
-    border-radius: 34px;
+  border-radius: 34px;
 }
 .slider.round:before {
-    border-radius: 50%;
+  border-radius: 50%;
 }
-#aLink{
-    display: block;
+#aLink {
+  display: block;
 }
-.spanAction{
-    font-size: 13px;
-    font-weight: 500;
-    color: #000;
+.spanAction {
+  font-size: 13px;
+  font-weight: 500;
+  color: #000;
 }
 
-  
 .disableBtn a {
-    font-size: 18px;
-    font-weight: 500;
-    display: inline-block;
-    padding: 15px 30px;
-    background-color: #fff;
-    color: #333;
-    text-transform: uppercase;
-    text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #fff;
+  color: #333;
+  text-transform: uppercase;
+  text-decoration: none;
 }
 .disable-box {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    visibility: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.675);
-    transition: all 0.3s ease-in-out;
-    z-index: 9999 !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.675);
+  transition: all 0.3s ease-in-out;
+  z-index: 9999 !important;
 }
 .disable-box:target {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 .disable-content {
-    position: relative;
-    top: -33%;
-    width: 50%;
-    height: auto;
-    background-color: #fff;
-    padding: 20px 30px;
-    border-radius: 10px;
+  position: relative;
+  top: -33%;
+  width: 50%;
+  height: auto;
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 10px;
 }
-.disable-content h1{
-    font-size: 20px;
-    text-transform: capitalize;
-    margin-bottom: 15px;
+.disable-content h1 {
+  font-size: 20px;
+  text-transform: capitalize;
+  margin-bottom: 15px;
 }
-.disable-content p{
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 26px;
-    padding-bottom: 5px;
+.disable-content p {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 26px;
+  padding-bottom: 5px;
 }
-.actionBtn{
-    width: 100%;
+.actionBtn {
+  width: 100%;
 }
-.actionBtn a{
-    font-size: 15px;
-    font-weight: 500;
-    text-align: left !important;
-    padding: 10px;
-    border-radius: 5px;
+.actionBtn a {
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left !important;
+  padding: 10px;
+  border-radius: 5px;
 }
-.actionBtn .cancel-btn{
-    float: left;
-    background-color: #9affb0;
-    color: #000;
+.actionBtn .cancel-btn {
+  float: left;
+  background-color: #9affb0;
+  color: #000;
 }
-.actionBtn .disable-btn{
-    float: right;
-    background-color: #006b17;
-    color: #fff;
+.actionBtn .disable-btn {
+  float: right;
+  background-color: #006b17;
+  color: #fff;
 }
 .modal__close {
-    font-size: 20px;
-    font-weight: 700;
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    color: red;
-    text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: red;
+  text-decoration: none;
+}
+
+.modal-body-box {
+  padding: 30px 50px !important;
+  border-radius: 3px !important;
+  background: #fff !important;
+  text-align: center !important;
+}
+.modal-body-box .bi-exclamation-triangle {
+  font-size: 90px;
+  color: #f90f0f;
+}
+.modal-body-box h2 {
+  color: #000;
+  font-size: 30px;
+  font-weight: 700;
+}
+.modal-body-box p {
+  color: rgb(46, 46, 46);
+  font-size: 17px;
+  font-weight: 400;
+  padding-bottom: 40px;
+}
+.modal-body-box .popBtn {
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #fff;
+  margin: 10px;
+  cursor: pointer;
+}
+.modal-body-box .popBtnCancel {
+  background-color: #0044ff;
+}
+.modal-body-box .popBtnDelete {
+  background-color: #ff0000;
+}
+.modal-body-box .popBtn:hover {
+  opacity: 0.8;
+}
+.modal-content {
+  z-index: 999 !important;
+  position: relative !important;
+}
+@media (max-width: 484px) {
+  .modal-body-box {
+    padding: 30px 10px !important;
+  }
+  .modal-body-box .bi-exclamation-triangle {
+    font-size: 70px;
+  }
+  .modal-body-box h2 {
+    font-size: 25px;
+  }
+  .modal-body-box p {
+    font-size: 15px;
+    padding-bottom: 30px;
+  }
+  .modal-body-box .popBtn {
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    margin: 5px;
+  }
+}
+
+.productStatusAdmin h3 {
+  font-size: 20px;
+  font-weight: 600;
+  padding-bottom: 30px;
+}
+.productStatusAdmin h3 span {
+  color: #5eac65;
+}
+.productStatusAdmin label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #000;
+}
+.productStatusAdmin select {
+  width: 100%;
+  padding: 15px 10px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 5px;
+  border: none;
+  border: 1px solid #000;
+  background-color: #fff !important;
+}
+.productStatusAdmin button {
+  width: 160px;
+  background-color: #000;
+  padding: 10px 5px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.formFilter {
+  float: right;
+  margin-bottom: 20px;
+}
+.formFilter label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #000;
+  padding-right: 10px;
+}
+.formFilter select {
+  width: 150px;
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #000;
+  cursor: pointer;
+}
+.notifyText {
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  color: #000 !important;
+}
+
+.enterPricesBtn {
+  font-size: 13px;
+  font-weight: 400;
+  background-color: #000;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.viewBoxBtn {
+  font-size: 13px;
+  font-weight: 500;
+  background-color: rgb(230, 230, 230);
+  color: #000;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-title {
+  text-transform: capitalize;
+}
+.modalShipper button.active {
+  color: #000 !important;
+  background-color: #fff !important;
+  padding: 7px 10px 7px 10px;
+  border-radius: 5px 5px 0px 0px;
+  border: 1px solid #5eac65 !important;
+  font-size: 14px;
+  font-weight: 500;
+}
+.modalShipper .tabs-button {
+  background-color: transparent !important;
+  color: #000 !important;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 7px 10px 7px 10px;
+  border-radius: 5px 5px 0px 0px;
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+.modalShipper .tabs-button:focus {
+  background-color: #fff !important;
+  border-radius: 5px 5px 0px 0px;
+  border: 1px solid #5eac65 !important;
+}
+
+.priForm {
+  padding: 10px 10px 30px 10px;
+}
+.priForm label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #000;
+  text-transform: capitalize;
+  padding-bottom: 4px;
+}
+.priForm .input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(91, 91, 91);
+  font-size: 15px;
+  font-weight: 500;
+  color: #000;
+}
+.customInput {
+  width: 70% !important;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(91, 91, 91);
+  font-size: 15px;
+  font-weight: 500;
+  color: #000;
+}
+.custSlt {
+  width: 30% !important;
+  padding: 10px 5px;
+  border-radius: 5px;
+  border: 1px solid rgb(91, 91, 91);
+  font-size: 15px;
+  font-weight: 500;
+  color: #000;
+}
+.modalFooter {
+  justify-content: center !important;
+}
+.modalFooter button {
+  background-color: #000;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 8px 5px;
+  width: 130px;
+  border: none;
+  border-radius: 5px;
+}
+
+.lblCheck {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+.iptCheck {
+  position: absolute;
+  transform: scale(0);
+}
+.iptCheck:checked ~ .checkboxSpan {
+  transform: rotate(45deg);
+  width: 20px;
+  margin: -5px 7px 0 8px;
+  border-color: #24c78e;
+  border-width: 4px;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-radius: 0;
+}
+.checkboxSpan {
+  display: block;
+  width: inherit;
+  height: inherit;
+  border: 2px solid #999;
+  border-radius: 4px;
+  transition: all 0.2s cubic-bezier(0, 0.01, 0.23, 0.8);
+}
+
+.sendToSupplier {
+  background-color: #000;
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px 10px;
+  border: none;
+  font-size: 14px;
+}
+
+.faq-section .faq-box {
+  width: 100% !important;
+  margin-bottom: 5px;
+}
+.faq-section summary {
+  font-size: 17px;
+  font-weight: 600;
+  background-color: #fff;
+  box-shadow: 0px 0px 20px -10px #c8c8c873;
+  color: #000000;
+  padding: 15px;
+  margin-bottom: 1rem;
+  outline: none;
+  border-radius: 5px;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  border: 1px solid #acacac;
+  width: 100%;
+}
+.faq-section .faq-content {
+  background-color: #ffffff;
+  padding: 10px 15px 10px 15px;
+  margin-top: -16px;
+  margin-bottom: 10px;
+  border-left: 2px solid #74ce7c;
+  border-right: 2px solid #74ce7c;
+  border-bottom: 2px solid #74ce7c;
+  border-radius: 0px 0px 5px 5px;
+  box-shadow: 0px 0px 20px -10px #c8c8c873;
+}
+.faq-section .faq-content p {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 27px;
+}
+.faq-section details > summary::after {
+  position: absolute;
+  content: "+";
+  right: 20px;
+}
+.faq-section details[open] > summary {
+  border-radius: 5px 5px 0px 0px;
+  border: 2px solid #74ce7c;
+}
+.faq-section details[open] > summary::after {
+  position: absolute;
+  content: "-";
+  right: 20px;
+}
+.faq-section details > .faq-section summary::-webkit-details-marker {
+  display: none;
+}
+
+/********************/
+.tableBox {
+  border-top: 1px solid #808080;
+}
+
+/************************/
+.recentDiv {
+  float: right;
+}
+.recentDiv h5 {
+  font-size: 15px;
+  font-weight: 400;
+  color: rgb(99, 99, 99);
+}
+.notificationDiv {
+  width: 100%;
+  background-color: #e8ffe9;
+  padding: 10px 5px;
+  border-radius: 20px;
+  border: 1px solid #fff;
+  transition: 0.5s;
+  cursor: pointer;
+  margin-bottom: 6px;
+}
+.notificationDiv:hover {
+  background-color: #d7fdd9;
+  border: 2px solid #74ce7c;
+}
+.notificationDiv a {
+  color: #000;
+}
+.notificationDiv i {
+  color: #000;
+}
+.notificationDiv .iconNotify {
+  padding-right: 20px;
+  cursor: pointer;
+}
+.notificationDiv .iconNotify i {
+  font-size: 22px;
+}
+.actionDiv {
+  width: 200px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px #c9c9c9;
+  position: absolute;
+  margin-left: -10px;
+  margin-top: -5px;
+  z-index: 100;
+  display: none;
+}
+.actionDiv a {
+  display: block;
+  padding: 10px 20px;
+  border-bottom: 1px solid #3e3e3e;
+  font-size: 14px;
+  color: #000;
+  background-color: #fff;
+}
+.actionDiv a i {
+  font-size: 13px !important;
+  padding-right: 5px;
+}
+.actionDiv a:hover {
+  background-color: #000;
+  color: #fff;
+}
+.actionDiv a:hover i {
+  color: #fff;
+}
+.notificationDiv .iconNotify:hover .actionDiv {
+  display: block;
+}
+.notificationDiv .titleNotify {
+  position: relative;
+  top: -3px;
+}
+.notificationDiv .titleNotify .firstTxt {
+  padding-right: 10px;
+  font-size: 17px;
+  font-weight: 600;
+}
+.notificationDiv .titleNotify .statusTxt {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ec0000;
+}
+.notificationDiv .detailNotify {
+  position: relative;
+  top: 2px;
+}
+.notificationDiv .detailNotify .mainTxt {
+  font-size: 17px;
+  font-weight: 600;
+}
+.notificationDiv .detailNotify .timeTxt {
+  font-size: 17px;
+  font-weight: 600;
+  float: right;
+}
+@media (max-width: 1038px) {
+  .notificationDiv .detailNotify .timeTxt {
+    position: relative;
+    margin-top: 10px;
+    font-size: 15px;
+  }
+  .notificationDiv .detailNotify .mainTxt {
+    font-size: 15px;
+  }
+}
+
+.dormatNotification {
+  background-color: #f1f1f1 !important;
+  border: none !important;
+}
+.dormatNotification:hover {
+  background-color: #f1f1f1 !important;
+  border: none !important;
+}
+.dormatNotification a {
+  color: rgb(134, 134, 134) !important;
+}
+.dormatNotification i {
+  color: rgb(134, 134, 134) !important;
+}
+
+svg {
+  overflow: visible;
+}
+#lock-shackle {
+  transform: rotateY(0);
+  transition: transform 0.5s ease-in-out;
+  transform-origin: 82.5px top;
+}
+#lock-shackle .lock-open {
+  transform: rotateY(0.5turn);
+}
+#wrapper {
+  width: 80px;
+  padding: 10px 30px;
+  overflow: auto;
+  background: #fff;
+}
+svg:hover {
+  cursor: pointer;
 }
