@@ -1,4 +1,5 @@
 <template>
+<div>
   <title>Active Suppliers - Super Admin Dashboard | Produce Mart</title>
   <dash-sidebar />
 
@@ -65,35 +66,25 @@
                     <table class="table lms_table_active">
                       <thead>
                         <tr>
-                          <th scope="col">Supplier's ID</th>
                           <th scope="col">First Name</th>
                           <th scope="col">Last Name</th>
                           <th scope="col">Username</th>
                           <th scope="col">Email</th>
                           <th scope="col">Company<br />Name</th>
-                          <th scope="col">All Address</th>
-                          <th scope="col">Date Account<br />Creation</th>
-                          <th scope="col">Last Order Date</th>
-                          <th scope="col">View Orders</th>
+                          <th scope="col">Phone No</th>
                           <th scope="col">Status</th>
                           <th scope="col">Action</th>
-                          <th scope="col">Products</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="(user, i) in users" :key="i">
-                          <th scope="row">
-                            {{ user.supplierVerification._id }}
-                          </th>
+                          
                           <td>{{ user.firstname }}</td>
                           <td>{{ user.lastname }}</td>
                           <td>{{ user.username }}</td>
                           <td>{{ user.email }}</td>
                           <td>{{ user.company_name }}</td>
-                          <td></td>
-                          <td>{{ user.createdAt }}</td>
-                          <td>{{ user.updatedAt }}</td>
-                          <td></td>
+                          <td>{{ user.phone_no }}</td>
                           <td><a href="#" class="status_btn">Active</a></td>
                           <td>
                             <div class="action_btns d-flex">
@@ -106,7 +97,6 @@
                               </a>
                             </div>
                           </td>
-                          <td><a href="#">productID100</a></td>
                         </tr>
                       </tbody>
                     </table>
@@ -121,6 +111,7 @@
 
     <dash-footer />
   </section>
+</div>
 </template>
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>
@@ -167,10 +158,9 @@ export default {
       );
       const { data } = await res.json();
       const active = data.filter(
-        (user) => user.supplierVerification.status == "active"
+        (user) => user.status == "active"
       );
       this.users = active;
-      console.log("users", this.users);
     },
   },
 };

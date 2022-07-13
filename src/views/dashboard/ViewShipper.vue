@@ -1,4 +1,5 @@
 <template>
+<div>
   <title>View Shipper - Super Admin Dashboard | Produce Mart</title>
   <dash-sidebar />
 
@@ -65,7 +66,7 @@
                     <table class="table lms_table_active">
                       <thead>
                         <tr>
-                          <th scope="col">Shipper ID</th>
+                          <!-- <th scope="col">Shipper ID</th> -->
                           <th scope="col">Company Name</th>
                           <th scope="col">First Name</th>
                           <th scope="col">Last Name</th>
@@ -82,12 +83,14 @@
                           :key="i"
                           v-show="shippers"
                         >
-                          <th scope="row">{{ shipper._id }}</th>
                           <td>{{ shipper.companyName }}</td>
                           <td>{{ shipper.firstName }}</td>
                           <td>{{ shipper.lastName }}</td>
-                          <td>{{ shipper.email }}</td>
-                          <td>{{ shipper.phone }}</td>
+                          <td>
+                            <div v-for="item in shipper.email" :key="item">
+                            <span>{{item.email}}</span></div>
+                          </td>
+                          <td>{{ shipper.phone_no }}</td>
                           <td>{{ shipper.address }}</td>
                           <td><a href="#" class="status_btn">Active</a></td>
                           <td>
@@ -123,6 +126,7 @@
 
     <dash-footer />
   </section>
+</div>
 </template>
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>

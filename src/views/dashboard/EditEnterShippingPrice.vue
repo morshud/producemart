@@ -1,4 +1,5 @@
 <template>
+<div>
   <title>Edit Shipping Price - Super Admin Dashboard | Produce Mart</title>
   <dash-sidebar />
 
@@ -61,7 +62,10 @@
                           <td>
                             {{ shipper.firstName }} {{ shipper.lastName }}
                           </td>
-                          <td>{{ shipper.email }}</td>
+                          <td>
+                            <div v-for="item in shipper.email" :key="item">
+                            <span>{{item.email}}</span></div>
+                          </td>
                           <td>
                             <a
                               class="enterPricesBtn"
@@ -476,6 +480,7 @@
 
     <dash-footer />
   </section>
+</div>
 </template>
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>

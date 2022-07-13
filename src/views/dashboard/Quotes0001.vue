@@ -1,4 +1,5 @@
 <template>
+<div>
   <title>Quotes - Super Admin Dashboard | Produce Mart</title>
   <dash-sidebar />
 
@@ -92,23 +93,23 @@
                         <thead>
                           <tr>
                             <th class="center">#</th>
-                            <th class="center">Quote ID</th>
+                            <th class="center">Product ID</th>
                             <th class="center">Product Name</th>
                             <th class="center">Product Variety</th>
-                            <th class="center">
-                              Quantity <br />
-                              Ordered
-                            </th>
-                            <th class="right">Price of Product ($)</th>
-                            <th class="right">Total ($)</th>
+                            <th class="center">Product Dimension</th>
+                            <th class="right">Weight</th>
+                            <th class="right">Product Quantity</th>
+                            <th class="right">Minimum Quantity</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
                             <td class="center">#</td>
-                            <td class="left strong">#{{ quote._id }}</td>
+                            <!-- <td class="left strong">#{{ product._id }}</td> -->
                             <td class="left strong">{{ product.name }}</td>
                             <td class="right">{{ product.variety }}</td>
+                            <td class="right">{{ product.package.dimension }}</td>
+                            <td class="right">{{ product.package.weight }}{{ product.package.weight_unit }}</td>
                             <td class="center">
                               {{ quote.quantity }}{{ product.order?.qty_unit }}
                             </td>
@@ -116,10 +117,8 @@
                               {{ product && product.package?.price }}
                             </td>
                             <td class="right">
-                              ${{
-                                product &&
-                                quote.quantity * product.package?.price.slice(1)
-                              }}
+                                {{ product && product.order?.min_quantity }}
+                                {{ product && product.order?.qty_unit }}
                             </td>
                           </tr>
                         </tbody>
@@ -224,6 +223,55 @@
                                         {{ destination.road?.incoterm }}
                                       </td>
                                     </tr>
+                                    <tbody
+                                      class="byRoad"
+                                      v-if="
+                                        !order?.shipment_payment?.road?.shipping_cost.includes(
+                                          'undefined'
+                                        )
+                                      "
+                                    >
+                                    <tr class="bodyRow">
+                                      <td class="tdMain">Shipping Cost</td>
+                                      <td class="tdBody">
+                                        ${{
+                                          order?.shipment_payment &&
+                                          order?.shipment_payment?.road?.shipping_cost
+                                        }}
+                                      </td>
+                                    </tr>
+                                    <tr class="bodyRow">
+                                      <td class="tdMain">Initial Deposit</td>
+                                      <td class="tdBody">
+                                        ${{
+                                          order?.shipment_payment &&
+                                          order?.shipment_payment?.road?.initial_deposit
+                                        }}
+                                      </td>
+                                    </tr>
+                                    <tr class="bodyRow">
+                                      <td class="tdMain">Insurance</td>
+                                      <td class="tdBody">
+                                        ${{
+                                          order?.shipment_payment &&
+                                          order?.shipment_payment?.road?.insurance
+                                        }}
+                                      </td>
+                                    </tr>
+                                    <tr class="bodyRow">
+                                      <td class="tdMain">Estimated Duration</td>
+                                      <td class="tdBody">
+                                        {{
+                                          order?.shipment_payment &&
+                                          order?.shipment_payment?.road?.duration
+                                        }}
+                                        {{
+                                          order?.shipment_payment &&
+                                          order?.shipment_payment?.road?.duration_period
+                                        }}
+                                      </td>
+                                    </tr>
+                                    </tbody>
                                   </table>
                                 </div>
                                 <div
@@ -250,6 +298,55 @@
                                         {{ destination.sea?.incoterm }}
                                       </td>
                                     </tr>
+                                    <tbody
+                                      class="bySea"
+                                      v-if="
+                                        !order?.shipment_payment?.sea?.shipping_cost.includes(
+                                          'undefined'
+                                        )
+                                      "
+                                    >
+                                      <tr class="bodyRow">
+                                        <td class="tdMain">Shipping Cost</td>
+                                        <td class="tdBody">
+                                          ${{
+                                            order?.shipment_payment &&
+                                            order?.shipment_payment?.sea?.shipping_cost
+                                          }}
+                                        </td>
+                                      </tr>
+                                      <tr class="bodyRow">
+                                        <td class="tdMain">Initial Deposit</td>
+                                        <td class="tdBody">
+                                          ${{
+                                            order?.shipment_payment &&
+                                            order?.shipment_payment?.sea?.initial_deposit
+                                          }}
+                                        </td>
+                                      </tr>
+                                      <tr class="bodyRow">
+                                        <td class="tdMain">Insurance</td>
+                                        <td class="tdBody">
+                                          ${{
+                                            order?.shipment_payment &&
+                                            order?.shipment_payment?.sea?.insurance
+                                          }}
+                                        </td>
+                                      </tr>
+                                      <tr class="bodyRow">
+                                        <td class="tdMain">Estimated Duration</td>
+                                        <td class="tdBody">
+                                          {{
+                                            order?.shipment_payment &&
+                                            order?.shipment_payment?.sea?.duration
+                                          }}
+                                          {{
+                                            order?.shipment_payment &&
+                                            order?.shipment_payment?.sea?.duration_period
+                                          }}
+                                        </td>
+                                      </tr>
+                                    </tbody>
                                   </table>
                                 </div>
                                 <div
@@ -276,6 +373,54 @@
                                         {{ destination.air?.incoterm }}
                                       </td>
                                     </tr>
+                                    <tbody
+                                      v-if="
+                                        !order?.shipment_payment?.air?.shipping_cost.includes(
+                                          'undefined'
+                                        )
+                                      "
+                                    >
+                                      <tr class="bodyRow">
+                                        <td class="tdMain">Shipping Cost</td>
+                                        <td class="tdBody">
+                                          ${{
+                                            order?.shipment_payment &&
+                                            order?.shipment_payment?.air?.shipping_cost
+                                          }}
+                                        </td>
+                                      </tr>
+                                      <tr class="bodyRow">
+                                        <td class="tdMain">Initial Deposit</td>
+                                        <td class="tdBody">
+                                          ${{
+                                            order?.shipment_payment &&
+                                            order?.shipment_payment?.air?.initial_deposit
+                                          }}
+                                        </td>
+                                      </tr>
+                                      <tr class="bodyRow">
+                                        <td class="tdMain">Insurance</td>
+                                        <td class="tdBody">
+                                          ${{
+                                            order?.shipment_payment &&
+                                            order?.shipment_payment?.air?.insurance
+                                          }}
+                                        </td>
+                                      </tr>
+                                      <tr class="bodyRow">
+                                        <td class="tdMain">Estimated Duration</td>
+                                        <td class="tdBody">
+                                          {{
+                                            order?.shipment_payment &&
+                                            order?.shipment_payment?.air?.duration
+                                          }}
+                                          {{
+                                            order?.shipment_payment &&
+                                            order?.shipment_payment?.air?.duration_period
+                                          }}
+                                        </td>
+                                      </tr>
+                                    </tbody>
                                   </table>
                                 </div>
                               </div>
@@ -289,7 +434,7 @@
                       <div class="col-lg-6 ml-auto QA_section">
                         <table class="table table-clear QA_table tableBox">
                           <tbody>
-                            <tr>
+                            <!-- <tr>
                               <td class="left">
                                 <strong>Total Weight</strong>
                               </td>
@@ -329,7 +474,7 @@
                                   ></strong
                                 >
                               </td>
-                            </tr>
+                            </tr> -->
                             <tr v-if="!order">
                               <td class="left">
                                 <strong>Shipping Price</strong>
@@ -698,6 +843,7 @@
 
     <dash-footer />
   </section>
+</div>
 </template>
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>
@@ -725,7 +871,9 @@ export default {
       buyer: {},
       destination: {},
       supplier: {},
-      product: {},
+      product: {
+        package: {}
+      },
       quote: "",
       orderDetails: null,
       names: null,

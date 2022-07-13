@@ -1,4 +1,5 @@
 <template>
+<div>
   <title>Add Inspector - Super Admin Dashboard | Produce Mart</title>
   <dash-sidebar />
 
@@ -76,7 +77,9 @@
                         <input
                           v-model="email"
                           type="text"
-                          placeholder="Email Address"
+                          placeholder="Use Comma to Seperate Emails"
+                          multiple
+                          @keyup="splitArray"
                         />
                       </div>
                     </div>
@@ -120,6 +123,7 @@
 
     <dash-footer />
   </section>
+</div>
 </template>
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>
@@ -157,6 +161,9 @@ export default {
     };
   },
   methods: {
+    splitArray(){
+      this.email = this.email.split(',')
+    },
     async saveInspector() {
       const body = {
         companyName: this.companyName,
@@ -166,7 +173,7 @@ export default {
         phone_no: this.phone_no,
         address: this.address,
       };
-      console.log(body);
+      //console.log(body);
       // const fd = new FormData();
       // fd.append("companyName", this.companyName);
       // fd.append("firstName", this.firstName);

@@ -1,16 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
-import About from "../views/About.vue";
-import RequestAProduct from "../views/RequestAProduct.vue";
-import Products from "../views/Products.vue";
-import InnerProductPage from "../views/InnerProductPage.vue";
 
-import Faq from "../views/Faq.vue";
-import Blog from "../views/Blog.vue";
-import BlogContent from "../views/BlogContent.vue";
-import Contact from "../views/Contact.vue";
-import Terms from "../views/Terms.vue";
-import Privacy from "../views/Privacy.vue";
 import Cookies from "../views/Cookies.vue";
 import EmailVerify from "../views/EmailVerify.vue";
 //User Auth
@@ -158,26 +147,26 @@ import DashChangePassword from "../views/dashboard/ChangePassword.vue";
 import NotFound from "../views/NotFound.vue";
 
 const routes = [
-  { path: "/", name: "Home", component: Home },
-  { path: "/about", name: "About", component: About },
+  { path: "/", name: "Home", component: () => import('@/views/Home') },
+  { path: "/about", name: "About", component: () => import('@/views/About') },
   {
     path: "/request-a-product",
     name: "RequestAProduct",
-    component: RequestAProduct,
+    component: () => import('@/views/RequestAProduct'),
   },
-  { path: "/products", name: "Products", component: Products },
+  { path: "/products", name: "Products", component: () => import('@/views/Products') },
   {
     path: "/products/inner-product/:id",
     name: "InnerProductPage",
-    component: InnerProductPage,
+    component: () => import('@/views/InnerProductPage'),
   },
 
-  { path: "/faq", name: "Faq", component: Faq },
-  { path: "/blog", name: "Blog", component: Blog },
-  { path: "/blog-content/:title", name: "BlogContent", component: BlogContent },
-  { path: "/contact", name: "Contact", component: Contact },
-  { path: "/terms", name: "Terms", component: Terms },
-  { path: "/privacy", name: "Privacy", component: Privacy },
+  { path: "/faq", name: "Faq", component: () => import('@/views/Faq') },
+  { path: "/blog", name: "Blog", component: () => import('@/views/Blog') },
+  { path: "/blog-content/:title", name: "BlogContent", component: () => import('@/views/BlogContent') },
+  { path: "/contact", name: "Contact", component: () => import('@/views/Contact') },
+  { path: "/terms", name: "Terms", component: () => import('@/views/Terms') },
+  { path: "/privacy", name: "Privacy", component: () => import('@/views/Privacy') },
   { path: "/cookies", name: "Cookies", component: Cookies },
   { path: "/verify-email", name: "EmailVerify", component: EmailVerify },
   //User Auth
@@ -508,7 +497,7 @@ const routes = [
     component: DashViewSuppliersActive,
   },
   {
-    path: "/dashboard/edit-supplier-content",
+    path: "/dashboard/edit-supplier-content/:id",
     name: "DashEditSupplierContent",
     component: DashEditSupplierContent,
   },
@@ -520,7 +509,7 @@ const routes = [
   {
     path: "/dashboard/incomplete-suppliers",
     name: "DashViewSuppliersIncomplete",
-    component: DashViewSuppliersIncomplete,
+    component: () => import('@/views/dashboard/ViewSuppliersIncomplete'),
   },
   {
     path: "/dashboard/disable-suppliers",
