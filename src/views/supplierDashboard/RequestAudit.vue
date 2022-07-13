@@ -1,4 +1,5 @@
 <template>
+<div>
     <title>Request Audit - Supplier Dashboard | Produce Mart</title>
     <dash-sidebar/>
 
@@ -14,7 +15,7 @@
                             <div class="row">
                                 <div class="col-lg-8">
                                     <div class="dashboard_header_title">
-                                    <h3>Request Audit</h3>
+                                    <h3>Why you need an Audit ?</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -32,7 +33,7 @@
                     <div class="col-lg-12 certificationArea">
                         <div class="row justify-content-center">
                             <div class="col-lg-12 noteArea mb-3 mt-2">
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut quod error corrupti ratione numquam tempore voluptate provident quidem molestias velit eos dignissimos pariatur nam est.</p>
+                                <p>As a supplier on produce mart, you are required too have an audit in order to gain more trust from buyers</p>
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <h2>Choose a certification level you would like to acquire:</h2>
@@ -276,6 +277,7 @@
 
         <dash-footer/>
     </section>
+</div>
 </template>
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>
