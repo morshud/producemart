@@ -1,4 +1,5 @@
 <template>
+<div>
   <title>Add Shipper - Super Admin Dashboard | Produce Mart</title>
   <dash-sidebar />
 
@@ -76,7 +77,9 @@
                         <input
                           v-model="email"
                           type="text"
-                          placeholder="Email Address"
+                          multiple
+                          @keyup="splitArray"
+                          placeholder="Use Comma to Seperate Emails"
                         />
                       </div>
                     </div>
@@ -120,6 +123,7 @@
 
     <dash-footer />
   </section>
+</div>
 </template>
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>
@@ -150,13 +154,16 @@ export default {
       companyName: "",
       firstName: "",
       lastName: "",
-      email: "",
+      email: [],
       phone_no: "",
       address: "",
       token: JSON.parse(localStorage.getItem("user")).token,
     };
   },
   methods: {
+    splitArray(){
+      this.email = this.email.split(',')
+    },
     async saveShipper() {
       const body = {
         companyName: this.companyName,
@@ -166,7 +173,7 @@ export default {
         phone_no: this.phone_no,
         address: this.address,
       };
-      console.log(body);
+      //console.log(body);
       // const fd = new FormData();
       // fd.append("companyName", this.companyName);
       // fd.append("firstName", this.firstName);

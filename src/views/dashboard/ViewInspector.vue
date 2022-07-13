@@ -1,4 +1,5 @@
 <template>
+<div>
   <title>View Inspector - Super Admin Dashboard | Produce Mart</title>
   <dash-sidebar />
 
@@ -65,7 +66,7 @@
                     <table class="table lms_table_active">
                       <thead>
                         <tr>
-                          <th scope="col">Shipper ID</th>
+                          <!-- <th scope="col">Shipper ID</th> -->
                           <th scope="col">Company Name</th>
                           <th scope="col">First Name</th>
                           <th scope="col">Last Name</th>
@@ -78,11 +79,14 @@
                       </thead>
                       <tbody>
                         <tr v-for="(inspector, i) in inspectors" :key="i">
-                          <th scope="row">{{ inspector._id }}</th>
+                          <!-- <th scope="row">{{ inspector._id }}</th> -->
                           <td>{{ inspector.companyName }}</td>
                           <td>{{ inspector.firstName }}</td>
                           <td>{{ inspector.lastName }}</td>
-                          <td>{{ inspector.email }}</td>
+                          <td>
+                            <div v-for="item in inspector.email" :key="item">
+                            <span>{{item.email}}</span></div>
+                          </td>
                           <td>{{ inspector.phone_no }}</td>
                           <td>{{ inspector.address }}</td>
                           <td><a href="#" class="status_btn">Active</a></td>
@@ -119,6 +123,7 @@
 
     <dash-footer />
   </section>
+</div>
 </template>
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>
