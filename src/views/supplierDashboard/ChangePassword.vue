@@ -1,4 +1,5 @@
 <template>
+<div>
   <title>Change Password - Supplier Dashboard | Produce Mart</title>
   <dash-sidebar />
 
@@ -89,6 +90,7 @@
 
     <dash-footer />
   </section>
+</div>
 </template>
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>

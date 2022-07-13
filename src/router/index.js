@@ -384,6 +384,16 @@ const routes = [
   },
   //certifications
   {
+    path: "/supplier-dashboard/certification",
+    name: "DashSupplierCertification",
+    component: () => import('@/views/supplierDashboard/certification'),
+  },
+  {
+    path: "/supplier-dashboard/uploadCertificate",
+    name: "DashSupplierUploadCertification",
+    component: () => import('@/views/supplierDashboard/uploadCertificate'),
+  },
+  {
     path: "/supplier-dashboard/request-audit",
     name: "DashSupplierRequestAudit",
     component: DashSupplierRequestAudit,

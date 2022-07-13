@@ -741,6 +741,8 @@
                 v-if="
                   !order?.shipment_payment?.air?.shipping_cost.includes(
                     'undefined'
+                  ) || !order?.shipment_payment?.air?.shipping_cost.includes(
+                    'mull'
                   )
                 "
               >
@@ -875,8 +877,8 @@ export default {
         package: {}
       },
       quote: "",
-      orderDetails: null,
-      names: null,
+      orderDetails: '',
+      names: '',
       token: JSON.parse(localStorage.getItem("user")).token,
     };
   },

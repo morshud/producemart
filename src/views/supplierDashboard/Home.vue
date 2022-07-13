@@ -1,4 +1,6 @@
 <template>
+<div>
+
     <title>Supplier Dashboard | Produce Mart</title>
     <dash-sidebar/>
     <!--Main Content-->
@@ -30,7 +32,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-12 text-center alertDashMessage mb-4">
-                        <p><i class="bi bi-info-circle-fill"></i> <router-link to="/supplier-dashboard/request-audit">Complete your audit so you can upload your products.</router-link></p>
+                        <p><i class="bi bi-info-circle-fill"></i> <router-link to="/supplier-dashboard/certification">Complete your audit so you can upload your products.</router-link></p>
                     </div>  
                     <!--Top 4 Boxes-->
                     <div class="col-xl-12">
@@ -184,6 +186,8 @@
 
         <dash-footer/>
     </section>
+        
+</div>
 </template>
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>
