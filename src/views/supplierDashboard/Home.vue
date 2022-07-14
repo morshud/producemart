@@ -39,7 +39,7 @@
                         <div class="white_card card_height_100 mb_30 user_crm_wrapper">
                             <div class="row">
                                 <div class="col-lg-3">
-                                    <router-link to="/supplier-dashboard/request-audit">
+                                    <router-link to="/supplier-dashboard/certification">
                                         <div class="crm_box crmBoxDanger">
                                             <h4>Audit</h4>
                                             <p>Certifications</p>

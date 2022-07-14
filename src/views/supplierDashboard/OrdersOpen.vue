@@ -1,4 +1,5 @@
 <template>
+<div>
   <title>Open Orders - Supplier Dashboard | Produce Mart</title>
   <dash-sidebar />
 
@@ -88,7 +89,7 @@
                             <router-link
                               :to="
                                 '/supplier-dashboard/view-open-order/' +
-                                order._id
+                                order.quote._id
                               "
                               class="viewOrder"
                               >View Order</router-link
@@ -108,6 +109,7 @@
 
     <dash-footer />
   </section>
+</div>
 </template>
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>
@@ -156,7 +158,7 @@ export default {
       );
       const { data } = await res.json();
       this.orders = data.filter((order) => order.sent_supplier);
-      console.log(data);
+      //console.log(data);
     },
   },
 };
