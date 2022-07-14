@@ -71,7 +71,7 @@
                   </tr>
                   <tr>
                     <td class="mainText">time of request:</td>
-                    <td class="contentText">10:00am</td>
+                    <td class="contentText">{{getTime(quote.createdAt)}}</td>
                   </tr>
                 </table>
               </div>
@@ -79,7 +79,7 @@
                 <table>
                   <tr>
                     <td class="mainText">date of request:</td>
-                    <td class="contentText">25-May-2022</td>
+                    <td class="contentText">{{getDate(quote.createdAt)}}</td>
                   </tr>
                   <tr>
                     <td class="mainText">estimated cost:</td>
@@ -126,37 +126,39 @@
                               <div class="col-lg-4 mb-3">
                                 <input
                                   type="radio"
-                                  name="quantity"
-                                  value="yesSupply"
-                                  v-model="haveSupply"
+                                  name="let"
+                                  class="mr-3"
+                                  value="yes"
+                                  v-model="hasSupply"
                                 />
                                 <label for="yesSupply">Yes, I have</label>
                               </div>
                               <div class="col-lg-4 mb-3">
                                 <input
                                   type="radio"
-                                  name="quantity"
-                                  value="noSupply"
-                                  v-model="haveSupply"
+                                  name="let"
+                                  class="mr-3"
+                                  value="no"
+                                  v-model="hasSupply"
                                 />
                                 <label for="noSupply">No, I don't have</label>
                               </div>
                               <div class="col-lg-4 mb-3">
                                 <input
                                   type="radio"
-                                  name="quantity"
-                                  value="lessSupply"
-                                  v-model="haveSupply"
+                                  name="let"
+                                  value="less"
+                                  class="mr-3"
+                                  v-model="hasSupply"
                                 />
                                 <label for="lessSupply">I have less</label>
+                                <div class="row">
+                                  <div class="col-lg-12 mb-3" v-if="hasSupply == 'less'">
+                                    <input type="number" class="form-control" v-model="available_no" id="">
+                                  </div>
+                                </div>
                               </div>
-                              <div class="col-lg-12 mb-3" v-if="haveSupply == 'lessSupply'">
-                                <textarea
-                                  cols="30"
-                                  rows="3"
-                                  class="inputTextArea"
-                                ></textarea>
-                              </div>
+                              
                               <div class="col-lg-12 mt-3 text-center">
                                 <button @click="nextAction" :disabled="isDisabled" type="button">Next</button>
                               </div>
@@ -164,19 +166,19 @@
                           </div>
                         </div>
                       </div>
-                      <input
+                      <!-- <input
                         type="button"
                         name="next"
                         class="next action-button"
                         value="Next"
-                      />
+                      /> -->
                     </fieldset>
 
                     <fieldset v-if="termsAndConditions">
                       <div class="form-card">
                         <div class="row">
                           <div class="col-12 mb-2">
-                            <h2 class="fs-title">Terms & Conditions</h2>
+                            <h4 class="" style="font-size: 16px;font-weight: 400;text-decoration: underline;">Terms & Conditions</h4>
                           </div>
                           <div class="col-12 boxWhite text-left">
                             <h5>Tick the following boxes to agree with the Supplier terms & condition</h5>
@@ -215,6 +217,24 @@
                               </div>
                               <div class="col-lg-12 mt-3 text-center">
                                 <button @click="submitTerms" :disabled="isDisableSumit" type="button">Submit</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset v-if="response">
+                      <div class="form-card">
+                        <div class="row">
+                          <div class="col-12 mb-2">
+                            <h4 class="" style="font-size: 16px;font-weight: 400;text-decoration: underline;">Response Status</h4>
+                          </div>
+                          <div class="col-12 boxWhite text-left">
+                            <div class="row mt-4 text-center">
+                              <img src="@/assets/img/response.png" alt="" srcset="">
+                              <h5 style="font-weight: 400;font-size: 16px;">Thanks for Submitting your response, the admin will have a look <br> and get back to you</h5>
+                              <div class="col-lg-12 mt-3 text-center">
+                                <button style="width: 26%;font-weight: 600;font-size: 13px;" @click="$router.push('/suplier-dashboard/home')" type="button">Back to Dashboard</button>
                               </div>
                             </div>
                           </div>
@@ -579,10 +599,11 @@ export default {
   data() {
     return {
       order: [],
-      orderId: this.$route.params.id,
+      quoteId: this.$route.params.id,
+      orderId: '',
       token: JSON.parse(localStorage.getItem("user")).token,
-      haveSupply: '',
       termsAndConditions: false,
+      response: false,
       buyerRequest: true,
       hold_product: '',
       pay_inspection: '',
@@ -590,23 +611,25 @@ export default {
       pay_admin:'',
       available_no: '',
       product: {
-        package: ''
+        package: '',
       },
+      quote: [],
+      hasSupply: '',
     };
   },
   computed:{
     isDisabled(){
-      if (this.haveSupply == '') {
-        return false
-      } else {
+      if (this.hasSupply == '') {
         return true
+      } else {
+        return false
       }
     },
     isDisableSumit(){
       if (this.hold_product == '' || this.pay_admin == '' || this.pay_inspection == '' || this.product_available == '') {
-        return false
-      } else {
         return true
+      } else {
+        return false
       }
     }
   },
@@ -622,30 +645,68 @@ export default {
     },
     //Is produce available all year round?
     nextAction() {
-      if (haveSupply == 'yesSupply') {
+      if (this.hasSupply == 'yes') {
         this.buyerRequest = false;
         this.termsAndConditions = true
       }
-      if (haveSupply == 'noSupply') {
+      else if (this.hasSupply == 'no') {
         
       }
-      if (haveSupply == 'lessSupply') {
+      else if (this.hasSupply == 'less') {
         this.buyerRequest = false;
         this.termsAndConditions = true
       }
+      else{
+        console.log('nothing');
+      }
     },
-    submitTerms(){},
-    getOrder() {
-      axios.get(`https://producemart.herokuapp.com/getOrder/${this.orderId}`, {
+    submitTerms(){
+      this.buyerRequest = false;
+      this.termsAndConditions = false
+      this.response = true
+      let data = {
+        "available": this.hasSupply,
+        "available_no": this.available_no,
+        "hold_product": true,
+        "pay_inspection": true,
+        "product_available": true,
+        "pay_admin": true
+      }
+      console.log(data);
+      axios.put(`https://producemart.herokuapp.com/orderAvailable/${this.orderId}`, data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: this.token,
         },
       })
       .then(res => {
-        let data = res.data.data
-        this.product = data.quote.product
-        console.log(data);
+        this.getOrder()
+      })
+    },
+    getOrder() {
+      axios.get(`https://producemart.herokuapp.com/getOrder/${this.quoteId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: this.token,
+        },
+      })
+      .then(res => {
+        let datas = res.data.data
+        let question = datas.questions.pay_admin
+        this.orderId = res.data.data._id
+        this.product = datas.quote.product
+        this.quote = datas.quote
+        console.log(question)
+        if (question == true) {
+          this.buyerRequest = false;
+          this.termsAndConditions = false
+          this.response = true
+        }
+        else{
+          this.buyerRequest = true;
+          this.termsAndConditions = false
+          this.response = false
+        }
       })
     },
   },
