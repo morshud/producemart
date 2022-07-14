@@ -623,55 +623,30 @@
   padding: 30px !important;
   border-bottom: 2px solid #000000;
 }
-[type="radio"]:checked,
-[type="radio"]:not(:checked) {
-  position: absolute;
-  left: -9999px;
-}
-[type="radio"]:checked + label,
-[type="radio"]:not(:checked) + label {
-  position: relative;
-  padding-left: 28px;
+
+input[type='radio']{
+  display: inline;
+  width: 18px;
+  height: 18px;
+  margin: -1px 7px;
   cursor: pointer;
-  line-height: 20px;
+}
+input[type='radio'] + label span{
   display: inline-block;
-  color: #666;
-}
-[type="radio"]:checked + label:before,
-[type="radio"]:not(:checked) + label:before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 21px;
-  height: 21px;
-  border: 2px solid #252525;
-  border-radius: 100%;
+  width: 15px;
+  height: 15px;
+  margin: -1px 4px 0 0;
+  vertical-align: middle;
   background: #fff;
-}
-[type="radio"]:checked + label:after,
-[type="radio"]:not(:checked) + label:after {
-  content: "";
-  width: 11px;
-  height: 11px;
-  background: #000;
-  position: absolute;
-  top: 5px;
-  left: 5px;
+  border: 2px solid green;
+  cursor: pointer;
   border-radius: 100%;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
 }
-[type="radio"]:not(:checked) + label:after {
-  opacity: 0;
-  -webkit-transform: scale(0);
-  transform: scale(0);
+
+input[type='radio']:checked + label span {
+  background: #000;
 }
-[type="radio"]:checked + label:after {
-  opacity: 1;
-  -webkit-transform: scale(1);
-  transform: scale(1);
-}
+
 .labelShipping {
   color: #000 !important;
   font-size: 17px;
@@ -734,8 +709,8 @@
   width: 100%;
   border-radius: 10px;
   background-color: #fff;
-  box-shadow: 0px 0px 10px #0000001f;
-  padding: 25px 15px !important;
+  box-shadow: 0px 0px 1px #0000001f;
+  padding: 25px 13px !important;
   margin-bottom: 20px;
 }
 .orderProcessSteps .boxTranpo .title {

@@ -1,4 +1,5 @@
 <template>
+<div>
   <title>View Order - Supplier Dashboard | Produce Mart</title>
   <dash-sidebar />
 
@@ -14,7 +15,7 @@
               <div class="row">
                 <div class="col-lg-8">
                   <div class="dashboard_header_title">
-                    <h3>Order Product Name Here</h3>
+                    <h3>{{product.name}}</h3>
                   </div>
                 </div>
                 <div class="col-lg-4">
@@ -27,7 +28,8 @@
                       <router-link to="/supplier-dashboard/open-orders"
                         ><a>Open Orders</a></router-link
                       >
-                      <i class="fas fa-caret-right"></i> Order Product Name Here
+                      <i class="fas fa-caret-right"></i>
+                      {{product.name}}
                     </p>
                   </div>
                 </div>
@@ -60,16 +62,16 @@
                   <tr>
                     <td class="mainText">Product Name:</td>
                     <td class="contentText">
-                      <span class="statustable">Bana- 197621</span>
+                      <span class="statustable">{{product.name}}</span>
                     </td>
                   </tr>
                   <tr>
-                    <td class="mainText">estimated weight:</td>
-                    <td class="contentText">200kg</td>
+                    <td class="mainText">Package weight:</td>
+                    <td class="contentText">{{product.package.weight}}{{product.package.weight_unit}}</td>
                   </tr>
                   <tr>
                     <td class="mainText">time of request:</td>
-                    <td class="contentText">10:00am</td>
+                    <td class="contentText">{{getTime(quote.createdAt)}}</td>
                   </tr>
                 </table>
               </div>
@@ -77,11 +79,11 @@
                 <table>
                   <tr>
                     <td class="mainText">date of request:</td>
-                    <td class="contentText">25-May-2022</td>
+                    <td class="contentText">{{getDate(quote.createdAt)}}</td>
                   </tr>
                   <tr>
                     <td class="mainText">estimated cost:</td>
-                    <td class="contentText">$100,000</td>
+                    <td class="contentText">${{product.package.price}}</td>
                   </tr>
                 </table>
               </div>
@@ -112,7 +114,7 @@
                     </div>
 
                     <!-- fieldsets -->
-                    <fieldset>
+                    <fieldset v-if="buyerRequest">
                       <div class="form-card">
                         <div class="row">
                           <div class="col-12 mb-2">
@@ -124,39 +126,115 @@
                               <div class="col-lg-4 mb-3">
                                 <input
                                   type="radio"
-                                  @click="quantityRequested()"
-                                  name="quantity"
-                                  id="yesSupply"
+                                  name="let"
+                                  class="mr-3"
+                                  value="yes"
+                                  v-model="hasSupply"
                                 />
                                 <label for="yesSupply">Yes, I have</label>
                               </div>
                               <div class="col-lg-4 mb-3">
                                 <input
                                   type="radio"
-                                  @click="quantityRequested()"
-                                  name="quantity"
-                                  id="noSupply"
+                                  name="let"
+                                  class="mr-3"
+                                  value="no"
+                                  v-model="hasSupply"
                                 />
                                 <label for="noSupply">No, I don't have</label>
                               </div>
                               <div class="col-lg-4 mb-3">
                                 <input
                                   type="radio"
-                                  @click="quantityRequested()"
-                                  name="quantity"
-                                  id="lessSupply"
+                                  name="let"
+                                  value="less"
+                                  class="mr-3"
+                                  v-model="hasSupply"
                                 />
                                 <label for="lessSupply">I have less</label>
+                                <div class="row">
+                                  <div class="col-lg-12 mb-3" v-if="hasSupply == 'less'">
+                                    <input type="number" class="form-control" v-model="available_no" id="">
+                                  </div>
+                                </div>
                               </div>
-                              <div class="col-lg-12 mb-3" id="iflessSupply">
-                                <textarea
-                                  cols="30"
-                                  rows="3"
-                                  class="inputTextArea"
-                                ></textarea>
+                              
+                              <div class="col-lg-12 mt-3 text-center">
+                                <button @click="nextAction" :disabled="isDisabled" type="button">Next</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- <input
+                        type="button"
+                        name="next"
+                        class="next action-button"
+                        value="Next"
+                      /> -->
+                    </fieldset>
+
+                    <fieldset v-if="termsAndConditions">
+                      <div class="form-card">
+                        <div class="row">
+                          <div class="col-12 mb-2">
+                            <h4 class="" style="font-size: 16px;font-weight: 400;text-decoration: underline;">Terms & Conditions</h4>
+                          </div>
+                          <div class="col-12 boxWhite text-left">
+                            <h5>Tick the following boxes to agree with the Supplier terms & condition</h5>
+                            <div class="row mt-4 text-left">
+                              <div class="col-md-12 mb-3">
+                                <input
+                                  type="radio"
+                                  value="true"
+                                  v-model="hold_product"
+                                />
+                                <label for="yesSupply">I will hold the product for at least 15 working days after the Buyer pays into escrow </label>
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                <input
+                                  type="radio"
+                                  value="true"
+                                  v-model="pay_inspection"
+                                />
+                                <label for="noSupply">I will pay for the inspection of the order (which has to happen before handover to a shipper)</label>
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                <input
+                                  type="radio"
+                                  value="true"
+                                  v-model="product_available"
+                                />
+                                <label for="lessSupply">If I am unable to make the product available after the buyer pays into escrow, I will have to pay a penalty fee<!--  ($ 30) -->.</label>
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                <input
+                                  type="radio"
+                                  value="true"
+                                  v-model="pay_admin"
+                                />
+                                <label for="lessSupply">I will pay an admin fee of $50 charged to proceed with this transaction</label>
                               </div>
                               <div class="col-lg-12 mt-3 text-center">
-                                <button type="submit">Submit</button>
+                                <button @click="submitTerms" :disabled="isDisableSumit" type="button">Submit</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset v-if="response">
+                      <div class="form-card">
+                        <div class="row">
+                          <div class="col-12 mb-2">
+                            <h4 class="" style="font-size: 16px;font-weight: 400;text-decoration: underline;">Response Status</h4>
+                          </div>
+                          <div class="col-12 boxWhite text-left">
+                            <div class="row mt-4 text-center">
+                              <img src="@/assets/img/response.png" alt="" srcset="">
+                              <h5 style="font-weight: 400;font-size: 16px;">Thanks for Submitting your response, the admin will have a look <br> and get back to you</h5>
+                              <div class="col-lg-12 mt-3 text-center">
+                                <button style="width: 26%;font-weight: 600;font-size: 13px;" @click="$router.push('/suplier-dashboard/home')" type="button">Back to Dashboard</button>
                               </div>
                             </div>
                           </div>
@@ -388,9 +466,10 @@
         </div>
       </div>
     </div>
-
+    
     <dash-footer />
   </section>
+</div>
 </template>
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>
@@ -400,6 +479,7 @@
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
+import axios from "axios";
 export default {
   name: "Produce Mart",
   components: {
@@ -518,33 +598,116 @@ export default {
   },
   data() {
     return {
-      order: null,
+      order: [],
+      quoteId: this.$route.params.id,
+      orderId: '',
       token: JSON.parse(localStorage.getItem("user")).token,
+      termsAndConditions: false,
+      response: false,
+      buyerRequest: true,
+      hold_product: '',
+      pay_inspection: '',
+      product_available: '',
+      pay_admin:'',
+      available_no: '',
+      product: {
+        package: '',
+      },
+      quote: [],
+      hasSupply: '',
     };
+  },
+  computed:{
+    isDisabled(){
+      if (this.hasSupply == '') {
+        return true
+      } else {
+        return false
+      }
+    },
+    isDisableSumit(){
+      if (this.hold_product == '' || this.pay_admin == '' || this.pay_inspection == '' || this.product_available == '') {
+        return true
+      } else {
+        return false
+      }
+    }
   },
   methods: {
     doneOrderProgress() {
       document.getElementById("orderProgress").style.display = "none";
     },
-    //Is produce available all year round?
-    quantityRequested() {
-      if (document.getElementById("lessSupply").checked) {
-        document.getElementById("iflessSupply").style.display = "block";
-      } else document.getElementById("iflessSupply").style.display = "none";
+    getDate(value){
+      return new Date(value).toLocaleDateString()
     },
-    async getOrder() {
-      const res = await fetch(
-        "https://producemart.herokuapp.com/getOrder/" + this.id,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: this.token,
-          },
+    getTime(value){
+      return new Date(value).toLocaleTimeString()
+    },
+    //Is produce available all year round?
+    nextAction() {
+      if (this.hasSupply == 'yes') {
+        this.buyerRequest = false;
+        this.termsAndConditions = true
+      }
+      else if (this.hasSupply == 'no') {
+        
+      }
+      else if (this.hasSupply == 'less') {
+        this.buyerRequest = false;
+        this.termsAndConditions = true
+      }
+      else{
+        console.log('nothing');
+      }
+    },
+    submitTerms(){
+      this.buyerRequest = false;
+      this.termsAndConditions = false
+      this.response = true
+      let data = {
+        "available": this.hasSupply,
+        "available_no": this.available_no,
+        "hold_product": true,
+        "pay_inspection": true,
+        "product_available": true,
+        "pay_admin": true
+      }
+      console.log(data);
+      axios.put(`https://producemart.herokuapp.com/orderAvailable/${this.orderId}`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: this.token,
+        },
+      })
+      .then(res => {
+        this.getOrder()
+      })
+    },
+    getOrder() {
+      axios.get(`https://producemart.herokuapp.com/getOrder/${this.quoteId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: this.token,
+        },
+      })
+      .then(res => {
+        let datas = res.data.data
+        let question = datas.questions.pay_admin
+        this.orderId = res.data.data._id
+        this.product = datas.quote.product
+        this.quote = datas.quote
+        console.log(question)
+        if (question == true) {
+          this.buyerRequest = false;
+          this.termsAndConditions = false
+          this.response = true
         }
-      );
-      //   const data = await res;
-
-      //   console.log(data);
+        else{
+          this.buyerRequest = true;
+          this.termsAndConditions = false
+          this.response = false
+        }
+      })
     },
   },
 };

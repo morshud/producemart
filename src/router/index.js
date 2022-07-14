@@ -237,7 +237,7 @@ const routes = [
     component: DashBuyerOrdersCancelled,
   },
   {
-    path: "/buyer-dashboard/view-open-order",
+    path: "/buyer-dashboard/view-open-order/:id",
     name: "DashBuyerOrderViewOpen",
     component: DashBuyerOrderViewOpen,
   },
