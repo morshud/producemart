@@ -160,7 +160,7 @@
                       </li>
                       <li id="personal" :class="{active: shipping_summary}"><strong>Order</strong></li>
                       <li id="payment" :class="{active: shipping_summary}"><strong>Shipping</strong></li>
-                      <li id="confirm" :class="{active: shipping_summary}"><strong>Release Fund</strong></li>
+                      <li id="confirm"><strong>Release Fund</strong></li>
                     </ul>
                     <div class="progress">
                       <div
