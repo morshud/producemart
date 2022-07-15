@@ -158,8 +158,8 @@
                       <li class="active" id="account">
                         <strong>Quote</strong>
                       </li>
-                      <li id="personal"><strong>Order</strong></li>
-                      <li id="payment"><strong>Shipping</strong></li>
+                      <li id="personal" :class="{active: shipping_summary}"><strong>Order</strong></li>
+                      <li id="payment" :class="{active: shipping_summary}"><strong>Shipping</strong></li>
                       <li id="confirm"><strong>Release Fund</strong></li>
                     </ul>
                     <div class="progress">
@@ -172,7 +172,7 @@
                     </div>
 
                     <!-- fieldsets -->
-                    <fieldset>
+                    <fieldset v-if="quote_type">
                       <div class="form-card">
                         <div class="row">
                           <div class="col-12 mb-2">
@@ -190,71 +190,112 @@
                                     <tr>
                                       <td>Sea Delivery:</td>
                                       <td>
-                                        <span v-if="shipment_payment.sea">
-                                            <a>${{shipment_payment.sea.shipping_cost}}</a>
-                                        </span>
-                                        <span v-else-if="!shipment_payment.sea">
+                                        <div v-if="seaDestination">
+                                          <span v-if="shipment_payment.sea">
+                                              <a>${{shipment_payment.sea.shipping_cost}}</a>
+                                          </span>
+                                          <span v-else-if="!shipment_payment.sea">
+                                              <a class="alert">Not Included</a>
+                                          </span>
+                                          <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
+                                        <div v-else>
                                             <a class="alert">Not Included</a>
-                                        </span>
-                                        <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
                                       </td>
                                     </tr>
                                     <tr>
                                       <td>Initial Deposit:</td>
                                       <td>
-                                         <span v-if="shipment_payment.sea">
-                                            <a>${{shipment_payment.sea.initial_deposit}}</a>
-                                        </span>
-                                        <span v-else-if="!shipment_payment.sea">
+                                        <div v-if="seaDestination">
+                                          <span v-if="shipment_payment.sea">
+                                              <a>${{shipment_payment.sea.initial_deposit}}</a>
+                                          </span>
+                                          <span v-else-if="!shipment_payment.sea">
+                                              <a class="alert">Not Included</a>
+                                          </span>
+                                          <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
+                                        <div v-else>
                                             <a class="alert">Not Included</a>
-                                        </span>
-                                        <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
                                       </td>
                                     </tr>
                                     <tr>
                                       <td>Insurance:</td>
                                       <td>
-                                         <span v-if="shipment_payment.sea">
-                                            <a>${{shipment_payment.sea.insurance}}</a>
-                                        </span>
-                                        <span v-else-if="!shipment_payment.sea">
+                                        <div v-if="seaDestination">
+                                          <span v-if="shipment_payment.sea">
+                                              <a>${{shipment_payment.sea.insurance}}</a>
+                                          </span>
+                                          <span v-else-if="!shipment_payment.sea">
+                                              <a class="alert">Not Included</a>
+                                          </span>
+                                          <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
+                                        <div v-else>
                                             <a class="alert">Not Included</a>
-                                        </span>
-                                        <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
                                       </td>
                                     </tr>
                                     <tr>
                                       <td>Duration:</td>
                                       <td>
-                                        <span v-if="shipment_payment.sea">
-                                            <a>{{shipment_payment.sea.duration}} {{shipment_payment.sea.duration_period}}</a>
+                                        <div v-if="seaDestination">
+                                          <span v-if="shipment_payment.sea">
+                                              <a>{{shipment_payment.sea.duration}} {{shipment_payment.sea.duration_period}}</a>
+                                          </span>
+                                          <span v-else-if="!shipment_payment.sea">
+                                              <a class="alert">Not Included</a>
+                                          </span>
+                                          <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
+                                        <div v-else>
+                                            <a class="alert">Not Included</a>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                    <!-- <tr>
+                                      <td>Destination:</td>
+                                      <td>Oyo State</td>
+                                    </tr> -->
+                                    <tr>
+                                      <td>Port:</td>
+                                      <td>
+                                        <span v-if="seaDestination">
+                                            <a>{{destination.sea.port}}</a>
                                         </span>
-                                        <span v-else-if="!shipment_payment.sea">
+                                        <span v-else>
                                             <a class="alert">Not Included</a>
                                         </span>
-                                        <span v-else><a class="alert">Awaiting Response</a></span>
                                       </td>
                                     </tr>
                                     <tr>
-                                      <td>Destination:</td>
-                                      <td>Oyo State</td>
-                                    </tr>
-                                    <tr>
-                                      <td>Port:</td>
-                                      <td>Apapa Port</td>
-                                    </tr>
-                                    <tr>
                                       <td>Country:</td>
-                                      <td>Nigeria</td>
+                                      <td>
+                                        <span v-if="seaDestination">
+                                            <a>{{destination.sea.country}}</a>
+                                        </span>
+                                        <span v-else>
+                                            <a class="alert">Not Included</a>
+                                        </span>
+                                      </td>
                                     </tr>
                                     <tr>
                                       <td>Intercoms:</td>
-                                      <td></td>
+                                      <td>
+                                        <span v-if="seaDestination">
+                                            <a>{{destination.sea.incoterm}}</a>
+                                        </span>
+                                        <span v-else>
+                                            <a class="alert">Not Included</a>
+                                        </span>
+                                      </td>
                                     </tr>
                                   </table>
                                 </div>
                                 <div class="col-lg-12 text-center mt-3">
-                                  <button type="button" class="proceedBtn">
+                                  <button type="button" @click="sendShipmentType('sea')" :disabled='!seaDestination' style="margin-top: 38px;" class="proceedBtn">
                                     Proceed with Sea Freight
                                   </button>
                                 </div>
@@ -273,71 +314,119 @@
                                     <tr>
                                       <td>Air Delivery:</td>
                                       <td>
-                                        <span v-if="shipment_payment.air">
-                                            <a>${{shipment_payment.air.shipping_cost}}</a>
-                                        </span>
-                                        <span v-else-if="!shipment_payment.air">
+                                        <div v-if="airDestination">
+                                          <span v-if="shipment_payment.air">
+                                              <a>${{shipment_payment.air.shipping_cost}}</a>
+                                          </span>
+                                          <span v-else-if="!shipment_payment.air">
+                                              <a class="alert">Not Included</a>
+                                          </span>
+                                          <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
+                                        <div v-else>
                                             <a class="alert">Not Included</a>
-                                        </span>
-                                        <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
                                       </td>
                                     </tr>
                                     <tr>
                                       <td>Initial Deposit:</td>
                                       <td>
-                                         <span v-if="shipment_payment.air">
-                                            <a>${{shipment_payment.air.initial_deposit}}</a>
-                                        </span>
-                                        <span v-else-if="!shipment_payment.air">
+                                        <div v-if="airDestination">
+                                          <span v-if="shipment_payment.air">
+                                              <a>${{shipment_payment.air.initial_deposit}}</a>
+                                          </span>
+                                          <span v-else-if="!shipment_payment.air">
+                                              <a class="alert">Not Included</a>
+                                          </span>
+                                          <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
+                                        <div v-else>
                                             <a class="alert">Not Included</a>
-                                        </span>
-                                        <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
                                       </td>
                                     </tr>
                                     <tr>
                                       <td>Insurance:</td>
                                       <td>
-                                         <span v-if="shipment_payment.air">
-                                            <a>${{shipment_payment.air.insurance}}</a>
-                                        </span>
-                                        <span v-else-if="!shipment_payment.air">
+                                        <div v-if="airDestination">
+                                          <span v-if="shipment_payment.air">
+                                              <a>${{shipment_payment.air.insurance}}</a>
+                                          </span>
+                                          <span v-else-if="!shipment_payment.air">
+                                              <a class="alert">Not Included</a>
+                                          </span>
+                                          <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
+                                        <div v-else>
                                             <a class="alert">Not Included</a>
-                                        </span>
-                                        <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
                                       </td>
                                     </tr>
                                     <tr>
                                       <td>Duration:</td>
                                       <td>
-                                        <span v-if="shipment_payment.air">
+                                        <div v-if="airDestination">
+                                          <span v-if="shipment_payment.air">
                                             <a>{{shipment_payment.air.duration}} {{shipment_payment.air.duration_period}}</a>
+                                          </span>
+                                          <span v-else-if="!shipment_payment.air">
+                                                <a class="alert">Not Included</a>
+                                          </span>
+                                          <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
+                                        <div v-else>
+                                            <a class="alert">Not Included</a>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                    <!-- <tr>
+                                      <td>Destination:</td>
+                                      <td>
+                                        <span v-if="airDestination">
+                                            <a>{{destination.air.port}}</a>
                                         </span>
-                                        <span v-else-if="!shipment_payment.air">
+                                        <span v-else>
                                             <a class="alert">Not Included</a>
                                         </span>
-                                        <span v-else><a class="alert">Awaiting Response</a></span>
+                                      </td>
+                                    </tr> -->
+                                    <tr>
+                                      <td>Port:</td>
+                                      <td>
+                                        <span v-if="airDestination">
+                                            <a>{{destination.air.port}}</a>
+                                        </span>
+                                        <span v-else>
+                                            <a class="alert">Not Included</a>
+                                        </span>
                                       </td>
                                     </tr>
                                     <tr>
-                                      <td>Destination:</td>
-                                      <td>Oyo State</td>
-                                    </tr>
-                                    <tr>
-                                      <td>Port:</td>
-                                      <td>Moshood Abiola</td>
-                                    </tr>
-                                    <tr>
                                       <td>Country:</td>
-                                      <td>Nigeria</td>
+                                      <td>
+                                        <span v-if="airDestination">
+                                            <a>{{destination.air.country}}</a>
+                                        </span>
+                                        <span v-else>
+                                            <a class="alert">Not Included</a>
+                                        </span>
+                                      </td>
                                     </tr>
                                     <tr>
                                       <td>Intercoms:</td>
-                                      <td></td>
+                                      <td>
+                                        <span v-if="airDestination">
+                                            <a>{{destination.air.incoterm}}</a>
+                                        </span>
+                                        <span v-else>
+                                            <a class="alert">Not Included</a>
+                                        </span>
+                                      </td>
                                     </tr>
                                   </table>
                                 </div>
                                 <div class="col-lg-12 text-center mt-3">
-                                  <button type="button" class="proceedBtn">
+                                  <button type="button" :disabled='!airDestination' @click="sendShipmentType('air')" style="margin-top: 20px;" class="proceedBtn">
                                     Proceed with Air Freight
                                   </button>
                                 </div>
@@ -356,83 +445,119 @@
                                     <tr>
                                       <td>Road Delivery:</td>
                                       <td>
-                                        <span v-if="shipment_payment.road">
-                                            <a>${{shipment_payment.road.shipping_cost}}</a>
-                                        </span>
-                                        <span v-else-if="!shipment_payment.road">
+                                        <div v-if="roadDestination">
+                                          <span v-if="shipment_payment.road">
+                                              <a>${{shipment_payment.road.shipping_cost}}</a>
+                                          </span>
+                                          <span v-else-if="!shipment_payment.road">
+                                              <a class="alert">Not Included</a>
+                                          </span>
+                                          <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
+                                        <div v-else>
                                             <a class="alert">Not Included</a>
-                                        </span>
-                                        <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
                                       </td>
                                     </tr>
                                     <tr>
                                       <td>Initial Deposit:</td>
                                       <td>
-                                         <span v-if="shipment_payment.road">
-                                            <a>${{shipment_payment.road.initial_deposit}}</a>
-                                        </span>
-                                        <span v-else-if="!shipment_payment.road">
+                                        <div v-if="roadDestination">
+                                          <span v-if="shipment_payment.road">
+                                              <a>${{shipment_payment.road.initial_deposit}}</a>
+                                          </span>
+                                          <span v-else-if="!shipment_payment.road">
+                                              <a class="alert">Not Included</a>
+                                          </span>
+                                          <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
+                                        <div v-else>
                                             <a class="alert">Not Included</a>
-                                        </span>
-                                        <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
                                       </td>
                                     </tr>
                                     <tr>
                                       <td>Insurance:</td>
                                       <td>
-                                         <span v-if="shipment_payment.road">
-                                            <a>${{shipment_payment.road.insurance}}</a>
-                                        </span>
-                                        <span v-else-if="!shipment_payment.road">
+                                        <div v-if="roadDestination">
+                                          <span v-if="shipment_payment.road">
+                                              <a>${{shipment_payment.road.insurance}}</a>
+                                          </span>
+                                          <span v-else-if="!shipment_payment.road">
+                                              <a class="alert">Not Included</a>
+                                          </span>
+                                          <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
+                                        <div v-else>
                                             <a class="alert">Not Included</a>
-                                        </span>
-                                        <span v-else><a class="alert">Awaiting Response</a></span>
+                                        </div>
                                       </td>
                                     </tr>
                                     <tr>
                                       <td>Duration:</td>
                                       <td>
-                                        <!-- <div v-if="destination.road.state != ''">
-                                            <span v-if="shipment_payment.road">
+                                        <div v-if="roadDestination">
+                                          <span v-if="shipment_payment.road">
                                             <a>{{shipment_payment.road.duration}} {{shipment_payment.road.duration_period}}</a>
-                                            </span>
-                                            <span v-else-if="!shipment_payment.road">
+                                          </span>
+                                          <span v-else-if="!shipment_payment.road">
                                                 <a class="alert">Not Included</a>
-                                            </span>
-                                            <span v-else><a class="alert">Awaiting Response</a></span>
+                                          </span>
+                                          <span v-else><a class="alert">Awaiting Response</a></span>
                                         </div>
                                         <div v-else>
                                             <a class="alert">Not Included</a>
-                                        </div> -->
+                                        </div>
                                       </td>
                                     </tr>
                                     <tr>
                                       <td>Destination:</td>
                                       <td>
-                                        <!-- <span v-if="destination.road.state != ''">
+                                        <span v-if="roadDestination">
                                             <a>{{destination.road.state}}</a>
                                         </span>
                                         <span v-else>
                                             <a class="alert">Not Included</a>
-                                        </span> -->
+                                        </span>
                                     </td>
                                     </tr>
                                     <tr>
                                       <td>City:</td>
-                                      <td>Ibadan</td>
+                                      <td>
+                                        <span v-if="roadDestination">
+                                            <a>{{destination.road.city}}</a>
+                                        </span>
+                                        <span v-else>
+                                            <a class="alert">Not Included</a>
+                                        </span>
+                                      </td>
                                     </tr>
                                     <tr>
                                       <td>Country:</td>
-                                      <td>Nigeria</td>
+                                      <td>
+                                        <span v-if="roadDestination">
+                                            <a>{{destination.road.country}}</a>
+                                        </span>
+                                        <span v-else>
+                                            <a class="alert">Not Included</a>
+                                        </span>
+                                      </td>
                                     </tr>
                                     <tr>
                                       <td>Zip Code:</td>
-                                      <td>10001</td>
+                                      <td>
+                                        <span v-if="roadDestination">
+                                            <a>{{destination.road.postal_code}}</a>
+                                        </span>
+                                        <span v-else>
+                                            <a class="alert">Not Included</a>
+                                        </span>
+                                      </td>
                                     </tr>
                                   </table>
                                 </div>
                                 <div class="col-lg-12 text-center mt-3">
-                                  <button type="button" class="proceedBtn">
+                                  <button type="button" @click="sendShipmentType('road')" :disabled='!roadDestination' class="proceedBtn">
                                     Proceed with Road Delivery
                                   </button>
                                 </div>
@@ -441,22 +566,22 @@
                           </div>
                         </div>
                       </div>
-                      <input
+                      <!-- <input
                         type="button"
                         name="next"
                         class="next action-button"
                         value="Next"
-                      />
+                      /> -->
                     </fieldset>
 
-                    <fieldset>
+                    <fieldset v-if="shipment_type">
                       <div class="form-card">
                         <div class="row justify-content-center">
-                          <div class="col-12 mb-2">
+                          <!-- <div class="col-12 mb-2">
                             <h2 class="fs-title">Orders</h2>
-                          </div>
-                          <div class="col-lg-12 text-center">
-                            <h3>Service & Payment Summary</h3>
+                          </div> -->
+                          <div class="col-lg-12 mb-n1 text-decoration-underline text-left">
+                            <h5 class="fw-normal">Service & Payment Summary</h5>
                           </div>
                           <div class="col-lg-12 paymentSumDiv">
                             <div class="row justify-content-center">
@@ -529,27 +654,28 @@
                               to accept and proceed to payment into
                               <span>escrow?</span>
                             </h6>
-                            <input type="radio" id="accept" />
-                            <label for="accept"
-                              >By selecting this option, you agree to the quote
-                              prices, our <a href="#">Terms & Conditions</a> and
-                              those of our
-                              <a href="#"
-                                >3rd party Inspection service providers</a
-                              ></label
-                            >
+                            <div class="row mt-4 text-left">
+                              <div class="col-md-12 mb-3">
+                                <input type="radio" required v-model="agree" value="yes" style="position: absolute;margin-top: 3px; margin-left: -36px;" id="accept" />
+                                <label for="accept"
+                                  >By selecting this option, you agree to the quote
+                                  prices, our <a href="#">Terms & Conditions</a> and
+                                  those of our <br>
+                                  <a href="#"
+                                    >3rd party Inspection service providers</a
+                                  ></label
+                              >
+                              </div>
+                            </div>
                             <div class="btnDiv text-center">
-                              <button type="button" class="btnFirst">
-                                Agree & Continue
-                              </button>
-                              <button type="button" class="btnSecond">
-                                Cancel Order
+                              <button type="button" @click="proceedPayment" :disabled="agreeTerms" class="btnFirst">
+                                Proceed Payment
                               </button>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <input
+                      <!-- <input
                         type="button"
                         name="next"
                         class="next action-button"
@@ -560,10 +686,10 @@
                         name="previous"
                         class="previous action-button-previous"
                         value="Previous"
-                      />
+                      /> -->
                     </fieldset>
 
-                    <fieldset>
+                    <fieldset v-if="shipping_summary">
                       <div class="form-card">
                         <div class="row justify-content-center">
                           <div class="col-12 mb-2">
@@ -731,6 +857,7 @@ import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
 import axios from "axios";
+import { exportDefaultSpecifier } from "@babel/types";
 export default {
   name: "Produce Mart",
   components: {
@@ -740,21 +867,44 @@ export default {
   },
   data() {
     return {
-        order: [],
+      order: [],
       quoteId: this.$route.params.id,
       orderId: '',
       token: JSON.parse(localStorage.getItem("user")).token,
       product: {
         package: '',
       },
-      quote: [],
+      quote: {
+
+      },
       shipment_payment: '',
-      destination: '',
+      destination: {
+        road: '',
+        sea: '',
+        air: ''
+      },
+      agree: '',
+      roadDestination: true,
+      airDestination: true,
+      seaDestination: true,
+      shipment_type: false,
+      quote_type: true,
+      shipping_summary: false,
+    }
+  },
+  computed: {
+    agreeTerms(){
+      if (this.agree == '') {
+        return true
+      } else {
+        return false
+      }
     }
   },
   mounted() {
     window.scrollTo(0, 0);
     this.getOrder();
+    this.checkRouteQuery();
     $(document).ready(function () {
       var current_fs, next_fs, previous_fs; //fieldsets
       var opacity;
@@ -870,6 +1020,22 @@ export default {
     getTime(value){
       return new Date(value).toLocaleTimeString()
     },
+    checkRouteQuery(){
+      let query = this.$route.query
+      if (query.project_id) {
+        axios.get(`https://producemart.herokuapp.com/escrow/verify`, {
+          params: {
+            project_id: query.project_id,
+            checkout_id: query.checkout_id
+          }
+        }).then(res => {
+          console.log(res)
+          this.getOrder();
+        })
+      } else {
+        console.log('not found')
+      }
+    },
     getOrder() {
       axios.get(`https://producemart.herokuapp.com/getOrder/${this.quoteId}`, {
         headers: {
@@ -881,11 +1047,60 @@ export default {
         let datas = res.data.data
         this.shipment_payment = datas.shipment_payment
         this.orderId = res.data.data._id
+        let type = res.data.data.shipment_type
+        let escrowpay = res.data.data.escrow_paid
         this.product = datas.quote.product
         this.destination = datas.quote.destination
+        let destination = datas.quote.destination
+        if (destination.road.state == '') {
+          this.roadDestination = false
+        }
+        if(destination.sea.port == ''){
+          this.seaDestination = false
+        }
+        if(destination.air.port == ''){
+          this.airDestination = false
+        }
+        if (type != undefined || type != '') {
+          this.shipment_type = true
+          this.quote_type = false
+          this.shipping_summary = false
+        } 
+        if (escrowpay == true) {
+          this.shipment_type = false
+          this.quote_type = false
+          this.shipping_summary = true
+        }
         this.quote = datas.quote
       })
     },
+    sendShipmentType(value){
+      let type = {
+        "type": value
+      }
+      axios.put(`https://producemart.herokuapp.com/selectShipmentType/${this.orderId}`, type, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: this.token,
+        },
+      })
+      .then(res => {
+        console.log(res)
+        this.getOrder();
+      })
+    },
+    proceedPayment(){
+      axios.get(`https://producemart.herokuapp.com/escrow/pay/${this.orderId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: this.token,
+        },
+      })
+      .then(res => {
+        console.log(res.data.data)
+        window.location.href = res.data.data.checkout_url
+      })
+    }
   },
 };
 </script>
