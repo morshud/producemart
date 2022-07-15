@@ -362,7 +362,7 @@
                           </div>
                         </div>
                       </div>
-                      <input
+                      <!-- <input
                         type="button"
                         name="next"
                         class="next action-button"
@@ -373,7 +373,7 @@
                         name="previous"
                         class="previous action-button-previous"
                         value="Previous"
-                      />
+                      /> -->
                     </fieldset>
 
                     <fieldset>
