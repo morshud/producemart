@@ -100,8 +100,8 @@
                       <li class="active" id="account">
                         <strong>Quote</strong>
                       </li>
-                      <li id="personal"><strong>Order</strong></li>
-                      <li id="payment"><strong>Shipping</strong></li>
+                      <li id="personal" :class="{active: !order_status}"><strong>Order</strong></li>
+                      <li id="payment" :class="{active: summary}"><strong>Shipping</strong></li>
                       <li id="confirm"><strong>Release Fund</strong></li>
                     </ul>
                     <div class="progress">
@@ -240,15 +240,15 @@
                           </div>
                         </div>
                       </div>
-                      <input
+                      <!-- <input
                         type="button"
                         name="next"
                         class="next action-button"
                         value="Next"
-                      />
+                      /> -->
                     </fieldset>
 
-                    <fieldset>
+                    <fieldset v-if="order_status">
                       <div class="form-card">
                         <div class="row justify-content-center">
                           <div class="col-12 mb-2">
@@ -266,13 +266,13 @@
                                   produce is picked up
                                 </h6>
                                 <span>Proceed to know the pick up date. </span>
-                                <button>Proceed</button>
+                                <button type="button" @click="proceedPayment">Proceed</button>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <input
+                      <!-- <input
                         type="button"
                         name="next"
                         class="next action-button"
@@ -283,10 +283,10 @@
                         name="previous"
                         class="previous action-button-previous"
                         value="Previous"
-                      />
+                      /> -->
                     </fieldset>
 
-                    <fieldset>
+                    <fieldset v-if="summary">
                       <div class="form-card">
                         <div class="row justify-content-center">
                           <div class="col-12 mb-2">
@@ -362,7 +362,7 @@
                           </div>
                         </div>
                       </div>
-                      <input
+                      <!-- <input
                         type="button"
                         name="next"
                         class="next action-button"
@@ -373,7 +373,7 @@
                         name="previous"
                         class="previous action-button-previous"
                         value="Previous"
-                      />
+                      /> -->
                     </fieldset>
 
                     <fieldset>
@@ -489,7 +489,7 @@ export default {
   },
   mounted() {
     window.scrollTo(0, 0);
-
+    this.checkRouteQuery();
     $(document).ready(function () {
       var current_fs, next_fs, previous_fs; //fieldsets
       var opacity;
@@ -604,6 +604,8 @@ export default {
       token: JSON.parse(localStorage.getItem("user")).token,
       termsAndConditions: false,
       response: false,
+      order_status: false,
+      summary: false,
       buyerRequest: true,
       hold_product: '',
       pay_inspection: '',
@@ -660,6 +662,38 @@ export default {
         console.log('nothing');
       }
     },
+    proceedPayment(){
+      axios.get(`https://producemart.herokuapp.com/admin-fee/pay/${this.orderId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: this.token,
+        },
+      })
+      .then(res => {
+        //console.log(res.data.checkoutUrl)
+        window.location.href = res.data.checkoutUrl
+      })
+    },
+    checkRouteQuery(){
+      let query = this.$route.query
+      if (query.status) {
+        axios.get(`https://producemart.herokuapp.com/admin-fee/success`, {
+          params: {
+            status: query.status,
+            userId: query.userId,
+            orderId: query.orderId,
+            paymentId: query.paymentId,
+            token: query.token,
+            PayerID: query.PayerID,
+          }
+        }).then(res => {
+          this.$router.push('/supplier-dashboard/view-open-order/' + this.quoteId)
+          this.getOrder();
+        })
+      } else {
+        console.log('not found')
+      }
+    },
     submitTerms(){
       this.buyerRequest = false;
       this.termsAndConditions = false
@@ -694,6 +728,8 @@ export default {
         let datas = res.data.data
         let question = datas.questions.pay_admin
         this.orderId = res.data.data._id
+        let escrowpay = res.data.data.escrow_paid
+        let admin_fee = res.data.data.admin_fee
         this.product = datas.quote.product
         this.quote = datas.quote
         console.log(question)
@@ -702,10 +738,18 @@ export default {
           this.termsAndConditions = false
           this.response = true
         }
-        else{
-          this.buyerRequest = true;
+        if(escrowpay == true){
+          this.buyerRequest = false;
           this.termsAndConditions = false
           this.response = false
+          this.order_status = true
+        }
+        if(admin_fee == true){
+          this.buyerRequest = false;
+          this.termsAndConditions = false
+          this.response = false
+          this.order_status = false
+          this.summary = true
         }
       })
     },
