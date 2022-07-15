@@ -14,7 +14,7 @@
               <div class="row">
                 <div class="col-lg-8">
                   <div class="dashboard_header_title">
-                    <h3>Order Product Name Here</h3>
+                    <h3>{{product.name}}</h3>
                   </div>
                 </div>
                 <div class="col-lg-4">
@@ -27,7 +27,7 @@
                       <router-link to="/buyer-dashboard/open-orders"
                         ><a>Open Orders</a></router-link
                       >
-                      <i class="fas fa-caret-right"></i> Order Product Name Here
+                      <i class="fas fa-caret-right"></i> {{product.name}}
                     </p>
                   </div>
                 </div>
@@ -58,24 +58,24 @@
                   <tr>
                     <td class="mainText">Product Name:</td>
                     <td class="contentText">
-                      <span class="statustable">Bana- 197621</span>
+                      <span class="statustable">{{product.name}}</span>
                     </td>
                   </tr>
                   <tr>
                     <td class="mainText">Order ID:</td>
                     <td class="contentText">
-                      <span class="statustable">Bana- 197621</span>
+                      <span class="statustable">{{order._id}}</span>
                     </td>
                   </tr>
                   <tr>
                     <td class="mainText">Product Availability:</td>
                     <td class="contentText">
-                      <span class="statustable">Awaiting Response</span>
+                      <span class="statustable">{{order.available}}</span>
                     </td>
                   </tr>
                   <tr>
                     <td class="mainText">Quantity requested:</td>
-                    <td class="contentText">10 bags</td>
+                    <td class="contentText">{{order.estimate.quantity}}</td>
                   </tr>
                 </table>
               </div>
@@ -83,19 +83,19 @@
                 <table>
                   <tr>
                     <td class="mainText">estimated weight:</td>
-                    <td class="contentText">200kg</td>
+                    <td class="contentText">{{order.estimate.weight}}</td>
                   </tr>
                   <tr>
                     <td class="mainText">time of request:</td>
-                    <td class="contentText">9:10am</td>
+                    <td class="contentText">{{getTime(quote.createdAt)}}</td>
                   </tr>
                   <tr>
                     <td class="mainText">date of request:</td>
-                    <td class="contentText">05-May-2022</td>
+                    <td class="contentText">{{getDate(quote.createdAt)}}</td>
                   </tr>
                   <tr>
                     <td class="mainText">estimated cost:</td>
-                    <td class="contentText">$100,000</td>
+                    <td class="contentText">${{order.estimate.total_price}}</td>
                   </tr>
                 </table>
               </div>
@@ -591,31 +591,31 @@
                                 <table>
                                   <tr>
                                     <td>Quantity Requested:</td>
-                                    <td>10 Bags</td>
+                                    <td>{{order.estimate.quantity}}</td>
                                   </tr>
                                   <tr>
                                     <td>Estimated weight:</td>
-                                    <td>200kg</td>
+                                    <td>{{order.estimate.weight}}</td>
                                   </tr>
                                   <tr>
                                     <td>estimated cost:</td>
-                                    <td>$100,000</td>
+                                    <td>${{order.estimate.product_price}}</td>
                                   </tr>
                                   <tr>
                                     <td>Serive charge:</td>
-                                    <td>$20</td>
+                                    <td>${{order.estimate.fee}}</td>
                                   </tr>
-                                  <tr>
+                                  <!-- <tr>
                                     <td>processing fee:</td>
                                     <td>$90</td>
-                                  </tr>
+                                  </tr> -->
                                   <tr>
                                     <td></td>
                                     <td></td>
                                   </tr>
                                   <tr>
                                     <td>PAYMENT STATUS:</td>
-                                    <td><a class="completed">COMPLETED</a></td>
+                                    <td><a class="incomplete">INCOMPLETE</a></td>
                                   </tr>
                                 </table>
                               </div>
@@ -624,20 +624,20 @@
                                 <button class="title">Shipping Details</button>
                                 <table>
                                   <tr>
-                                    <td>sea freight:</td>
-                                    <td>$500</td>
+                                    <td>{{order.shipment_type}} freight:</td>
+                                    <td>${{order.estimate.shipping_price}}</td>
                                   </tr>
                                   <tr>
                                     <td>insurance:</td>
-                                    <td>$200</td>
+                                    <td>${{order.estimate.insurance_price}}</td>
                                   </tr>
                                   <tr>
                                     <td>service charge:</td>
-                                    <td>$20</td>
+                                    <td>${{order.estimate.fee}}</td>
                                   </tr>
                                   <tr>
-                                    <td>processing fee:</td>
-                                    <td>$90</td>
+                                    <td>Total payment:</td>
+                                    <td>${{order.estimate.total_price}}</td>
                                   </tr>
                                   <tr>
                                     <td></td>
@@ -707,15 +707,15 @@
                                   </tr>
                                   <tr>
                                     <td>insurance:</td>
-                                    <td>yes</td>
+                                    <td>${{order.estimate.insurance_price}}</td>
                                   </tr>
                                   <tr>
                                     <td>estimated cost:</td>
-                                    <td>$100,000</td>
+                                    <td>${{order.estimate.total_price}}</td>
                                   </tr>
                                   <tr>
                                     <td>duration:</td>
-                                    <td>7 days</td>
+                                    <td>{{order.estimate.duration}}</td>
                                   </tr>
                                   <tr>
                                     <td>Pick up date:</td>
@@ -733,21 +733,25 @@
                                       >
                                     </td>
                                   </tr>
-                                  <tr>
+                                  <!-- <tr>
                                     <td>Destinations:</td>
-                                    <td>Yes</td>
-                                  </tr>
+                                    <td>{{Yes}}</td>
+                                  </tr> -->
                                   <tr>
                                     <td>Port:</td>
-                                    <td>Apapa Port</td>
+                                    <td>{{order.shipping_address.port}}</td>
                                   </tr>
                                   <tr>
                                     <td>Country:</td>
-                                    <td>Nigeria</td>
+                                    <td>{{order.shipping_address.country}}</td>
                                   </tr>
                                   <tr>
-                                    <td>Postal Code:</td>
-                                    <td>10001</td>
+                                    <td>Incoterm:</td>
+                                    <td>{{order.shipping_address.incoterm}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>PAYMENT STATUS:</td>
+                                    <td><a class="completed">COMPLETE</a></td>
                                   </tr>
                                 </table>
                               </div>
@@ -796,7 +800,7 @@
                           </div>
                         </div>
                       </div>
-                      <input
+                      <!-- <input
                         type="button"
                         name="next"
                         class="next action-button"
@@ -807,7 +811,7 @@
                         name="previous"
                         class="previous action-button-previous"
                         value="Previous"
-                      />
+                      /> -->
                     </fieldset>
 
                     <fieldset>
@@ -881,7 +885,9 @@ export default {
     return {
       order: {
         buyer: '',
-        shipper: ''
+        shipper: '',
+        estimate: '',
+        shipping_address: ''
       },
       quoteId: this.$route.params.id,
       orderId: '',
