@@ -160,7 +160,7 @@
                       </li>
                       <li id="personal" :class="{active: shipping_summary}"><strong>Order</strong></li>
                       <li id="payment" :class="{active: shipping_summary}"><strong>Shipping</strong></li>
-                      <li id="confirm"><strong>Release Fund</strong></li>
+                      <li id="confirm" :class="{active: shipping_summary}"><strong>Release Fund</strong></li>
                     </ul>
                     <div class="progress">
                       <div
@@ -692,8 +692,8 @@
                     <fieldset v-if="shipping_summary">
                       <div class="form-card">
                         <div class="row justify-content-center">
-                          <div class="col-12 mb-2">
-                            <h2 class="fs-title">Shipping</h2>
+                          <div class="col-lg-12 mb-n1 text-decoration-underline text-left">
+                            <h5 class="fw-normal">Shipping Summary</h5>
                           </div>
                           <div class="col-lg-12 paymentSumDiv">
                             <div class="row justify-content-center">
@@ -703,7 +703,7 @@
                                 <table>
                                   <tr>
                                     <td>shipping type:</td>
-                                    <td>sea freight</td>
+                                    <td>{{order.shipment_type}} freight</td>
                                   </tr>
                                   <tr>
                                     <td>insurance:</td>
@@ -757,26 +757,38 @@
                                 <table>
                                   <tr>
                                     <td>first name:</td>
-                                    <td>Ali</td>
+                                    <td>{{order.buyer.firstname}}</td>
                                   </tr>
                                   <tr>
                                     <td>last name:</td>
-                                    <td>Ayo</td>
+                                    <td>{{order.buyer.lastname}}</td>
                                   </tr>
                                   <tr>
                                     <td>Company Name:</td>
-                                    <td>Futuristic Transporters</td>
+                                    <td>{{order.buyer.company_name}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Email:</td>
+                                    <td>{{order.buyer.email}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Phone No:</td>
+                                    <td>{{order.buyer.phone_no}}</td>
                                   </tr>
                                 </table>
                                 <button class="title">Shippers Details</button>
                                 <table>
                                   <tr>
                                     <td>shipping company:</td>
-                                    <td>
-                                      <span class="alert"
-                                        >Awaiting response</span
-                                      >
-                                    </td>
+                                    <td>{{order.shipper.companyName}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>first name:</td>
+                                    <td>{{order.shipper.firstName}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>last name:</td>
+                                    <td>{{order.shipper.lastName}}</td>
                                   </tr>
                                 </table>
                               </div>
@@ -834,7 +846,7 @@
                         class="next action-button"
                         value="Done"
                         @click="doneOrderProgress()"
-                      />
+                      />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
                     </fieldset>
                   </form>
                 </div>
@@ -867,16 +879,17 @@ export default {
   },
   data() {
     return {
-      order: [],
+      order: {
+        buyer: '',
+        shipper: ''
+      },
       quoteId: this.$route.params.id,
       orderId: '',
       token: JSON.parse(localStorage.getItem("user")).token,
       product: {
         package: '',
       },
-      quote: {
-
-      },
+      quote: '',
       shipment_payment: '',
       destination: {
         road: '',
@@ -1029,7 +1042,7 @@ export default {
             checkout_id: query.checkout_id
           }
         }).then(res => {
-          console.log(res)
+          this.$router.push('/buyer-dashboard/view-open-order/' + this.quoteId)
           this.getOrder();
         })
       } else {
@@ -1047,6 +1060,7 @@ export default {
         let datas = res.data.data
         this.shipment_payment = datas.shipment_payment
         this.orderId = res.data.data._id
+        this.order = res.data.data
         let type = res.data.data.shipment_type
         let escrowpay = res.data.data.escrow_paid
         this.product = datas.quote.product
