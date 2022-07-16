@@ -1068,6 +1068,7 @@ export default {
         this.orderId = res.data.data._id
         this.order = res.data.data
         let type = res.data.data.shipment_type
+        //console.log(type)
         let escrowpay = res.data.data.escrow_paid
         this.product = datas.quote.product
         this.destination = datas.quote.destination
@@ -1081,10 +1082,11 @@ export default {
         if(destination.air.port == ''){
           this.airDestination = false
         }
-        if (type != undefined || type != '') {
+        if (type != undefined) {
           this.shipment_type = true
           this.quote_type = false
           this.shipping_summary = false
+          //console.log('helo')
         } 
         if (escrowpay == true) {
           this.shipment_type = false
