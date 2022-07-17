@@ -133,71 +133,6 @@
                   </div>
                 </div>
                 <div class="row my-3">
-                  <!-- <div class="row add-more-certi">
-                    <div class="col-lg-12 mt-4 mb-3">
-                      <label>Certification Name</label>
-                      <select class="input" v-model="file[1].name">
-                        <option hidden>Select Certificate</option>
-                        <option>option 1</option>
-                        <option>option 2</option>
-                        <option>option 3</option>
-                        <option>others</option>
-                      </select>
-                    </div>
-                    <div class="col-lg-6 mb-3">
-                      <label>Certificate Number</label>
-                      <input
-                        type="text"
-                        class="input"
-                        v-model="file[1].cert_number"
-                      />
-                    </div>
-                    <div class="col-lg-6 mb-3">
-                      <label>Date of Issue</label>
-                      <input
-                        type="date"
-                        class="input"
-                        v-model="file[1].dateOfIssue"
-                      />
-                    </div>
-                    <div class="col-lg-12 mb-3">
-                      <label>Name of Issuing Body</label>
-                      <input
-                        type="text"
-                        class="input"
-                        v-model="file[1].issuingBody"
-                      />
-                    </div>
-                    <div class="col-lg-12 mb-3">
-                      <label>Validity Period</label>
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <span>From:</span>
-                          <input
-                            type="date"
-                            class="input"
-                            v-model="file[1].periodFrom"
-                          />
-                        </div>
-                        <div class="col-lg-6">
-                          <span>To:</span>
-                          <input
-                            type="date"
-                            class="input"
-                            v-model="file[1].periodTo"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-12">
-                      <label>Upload Certification</label>
-                      <input
-                        type="file"
-                        class="input"
-                        @change="onFileChange(1)"
-                      />
-                    </div>
-                  </div> -->
                   <div v-if="addFile.length">
                     <div
                       class="row add-more-certi"
@@ -339,6 +274,8 @@
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
+import Swal from 'sweetalert2';
+import axios from "axios";
 export default {
   name: "Produce Mart",
   components: {
@@ -349,6 +286,7 @@ export default {
   data() {
     return {
       audit: "",
+      token: JSON.parse(localStorage.getItem("user")).token,
       image: {},
       imgSizeMsg: "",
       addImg: [],
@@ -370,10 +308,38 @@ export default {
   methods: {
     uploadAuditCert() {
       console.log(this.file);
+      const fd = new FormData();
+      if (this.file) {
+        for (let cert in this.file) {
+          fd.append("file", this.file[cert].img);
+          fd.append("cert_name", this.file[cert].name);
+          fd.append("cert_no", this.file[cert].cert_number);
+          fd.append("dateOfIssue", this.file[cert].dateOfIssue);
+          fd.append("issuingBody", this.file[cert].issuingBody);
+          fd.append("periodFrom", this.file[cert].periodFrom);
+          fd.append("periodTo", this.file[cert].periodTo);
+        }
+      }
+      axios.post('https://producemart.herokuapp.com/addAudit', fd, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: this.token,
+        },
+      })
+      .then(res => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: `Certificate upload successful`,
+          showConfirmButton: false,
+          timer: 3500
+        })
+        this.$router.push('/supplier-dashboard/home')
+      })
     },
     onFileChange(n) {
       this.file[n].img = event.target.files[0];
-      console.log(this.file);
+      //console.log(this.file);
     },
     onFieldChange(n) {
       this.imgSizeMsg = "";
