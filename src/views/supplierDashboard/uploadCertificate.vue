@@ -306,9 +306,9 @@ export default {
     }, */
   },
   methods: {
-    uploadAuditCert() {
+    async uploadAuditCert() {
       console.log(this.file);
-      const fd = new FormData();
+      var fd = new FormData();
       if (this.file) {
         for (let cert in this.file) {
           fd.append("file", this.file[cert].img);
@@ -320,10 +320,12 @@ export default {
           fd.append("periodTo", this.file[cert].periodTo);
         }
       }
-      axios.post('https://producemart.herokuapp.com/addAudit', fd, {
+      await fetch('https://producemart.herokuapp.com/addAudit', {
+        method: "POST",
         headers: {
           Authorization: this.token,
         },
+        body: fd,  
       })
       .then(res => {
       console.log(res);
