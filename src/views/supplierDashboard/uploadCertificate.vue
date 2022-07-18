@@ -322,11 +322,11 @@ export default {
       }
       axios.post('https://producemart.herokuapp.com/addAudit', fd, {
         headers: {
-          "Content-Type": "application/json",
           Authorization: this.token,
         },
       })
       .then(res => {
+      console.log(res);
         Swal.fire({
           position: 'top-end',
           icon: 'success',
