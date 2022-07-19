@@ -107,7 +107,7 @@
             </div>
           </div>
           <!--Table-->
-          <div class="col-lg-12">
+          <div class="col-lg-8">
             <div class="white_card card_height_100 mb_30">
               <div class="white_card_header">
                 <div class="box_header m-0"></div>
@@ -147,12 +147,12 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(user, i) in filteredUsers" :key="user._id">
+                        <tr v-for="(user, i) in activeUser.slice(0, 5)" :key="user._id">
                           <th scope="row">{{ i + 1 }}</th>
                           <td>{{ user.firstname }} {{ user.lastname }}</td>
                           <td>{{ user.email }}</td>
-                          <td>2022--03-30</td>
-                          <td><a href="#" class="status_btn">Active</a></td>
+                          <td>{{ getDate(user.createdAt) }}</td>
+                          <td><a href="#" :class="[user.status == 'active' ? 'status_btn' : 'is-outlined']">{{user.status}}</a></td>
                         </tr>
                       </tbody>
                     </table>
@@ -161,8 +161,8 @@
               </div>
             </div>
           </div>
-          <!-- Recent Notification
-          <div class="col-xl-3">
+          <!-- Recent Notification -->
+          <div class="col-xl-4">
             <div class="white_card card_height_100 mb_30">
               <div class="white_card_header">
                 <div class="box_header m-0">
@@ -183,12 +183,12 @@
                         class="dropdown-menu dropdown-menu-right"
                         aria-labelledby="dropdownMenuButton"
                       >
-                        <a class="dropdown-item" href="#">
+                        <!-- <a class="dropdown-item" href="#">
                           <i class="bi bi-printer"></i> Print</a
                         >
                         <a class="dropdown-item" href="#">
                           <i class="bi bi-download"></i> Download</a
-                        >
+                        > -->
                       </div>
                     </div>
                   </div>
@@ -196,31 +196,15 @@
               </div>
               <div class="white_card_body">
                 <div class="Activity_timeline">
-                  <ul>
-                    <li>
+                  <ul v-for="(item, i) in notifications" :key="i">
+                    <li style="cursor: pointer" @click="readNotice(item._id)">
                       <div class="activity_bell"></div>
                       <div class="timeLine_inner d-flex align-items-center">
                         <div class="activity_wrap">
-                          <h6>5 min ago</h6>
-                          <p>You've gotten a new notification</p>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="activity_bell"></div>
-                      <div class="timeLine_inner d-flex align-items-center">
-                        <div class="activity_wrap">
-                          <h6>5 min ago</h6>
-                          <p>You've gotten a new notification</p>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="activity_bell"></div>
-                      <div class="timeLine_inner d-flex align-items-center">
-                        <div class="activity_wrap">
-                          <h6>5 min ago</h6>
-                          <p>You've gotten a new notification</p>
+                          <h6>{{
+                        dateFormat(item.createdAt)
+                      }}</h6>
+                          <p>{{ item.message }}</p>
                         </div>
                       </div>
                     </li>
@@ -228,10 +212,10 @@
                 </div>
               </div>
             </div>
-          </div> -->
+          </div>
 
           <!--Chart Bar-->
-          <!-- <div class="col-xl-7">
+          <div class="col-xl-7">
             <div class="white_card mb_30 card_height_100">
               <div class="white_card_header">
                 <div
@@ -248,10 +232,10 @@
                 <div id="chartBar"></div>
               </div>
             </div>
-          </div> -->
+          </div>
 
           <!--Chart Pie-->
-          <!-- <div class="col-xl-5">
+          <div class="col-xl-5">
             <div class="white_card card_height_100 mb_30">
               <div class="white_card_header">
                 <div class="box_header m-0">
@@ -264,10 +248,10 @@
                 <div id="chartPie"></div>
               </div>
             </div>
-          </div> -->
+          </div>
 
           <!--New Users-->
-          <!-- <div class="col-xl-8">
+          <div class="col-xl-8">
             <div class="white_card card_height_100 mb_30">
               <div class="white_card_header">
                 <div class="row align-items-center">
@@ -287,12 +271,12 @@
                           class="dropdown-menu dropdown-menu-right"
                           aria-labelledby="dropdownMenuButton"
                         >
-                          <a class="dropdown-item" href="#">
+                          <!-- <a class="dropdown-item" href="#">
                             <i class="bi bi-printer"></i> Print</a
                           >
                           <a class="dropdown-item" href="#">
                             <i class="bi bi-download"></i> Download</a
-                          >
+                          > -->
                         </div>
                       </div>
                     </div>
@@ -308,7 +292,7 @@
                         <div
                           class="serach_field-area theme_bg d-flex align-items-center"
                         >
-                          <div class="search_inner">
+                          <!-- <div class="search_inner">
                             <form action="#">
                               <div class="search_field">
                                 <input type="text" placeholder="Search" />
@@ -320,7 +304,7 @@
                                 />
                               </button>
                             </form>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                     </div>
@@ -330,6 +314,7 @@
               <div class="white_card_body">
                 <div
                   class="single_user_pil d-flex align-items-center justify-content-between mb-0"
+                  v-for="(user, i) in newUser.slice(0, 5)" :key="user._id"
                 >
                   <div class="user_pils_thumb d-flex align-items-center">
                     <div class="thumb_34 mr_15 mt-0">
@@ -339,119 +324,24 @@
                         alt=""
                       />
                     </div>
-                    <span class="f_s_14 f_w_400 text_color_11">John Smith</span>
+                    <span class="f_s_14 f_w_400 text_color_11">{{user.firstname}} {{user.lastname}}</span>
                   </div>
-                  <div class="user_info">Seller</div>
+                  <div class="user_info" style="text-transform: capitalize">{{user.role}}</div>
                   <div class="action_btns d-flex">
                     <a href="#" class="action_btn mr_10">
-                      <i class="far fa-edit"></i>
+                      <i class="far fa-eye"></i>
                     </a>
-                    <a href="#" class="action_btn">
+                    <!-- <a href="#" class="action_btn">
                       <i class="fas fa-trash"></i>
-                    </a>
+                    </a> -->
                   </div>
                 </div>
-                <div
-                  class="single_user_pil d-flex align-items-center justify-content-between mb-0"
-                >
-                  <div class="user_pils_thumb d-flex align-items-center">
-                    <div class="thumb_34 mr_15 mt-0">
-                      <img
-                        class="@/assets/img-fluid radius_50"
-                        src="@/assets/img/customers/1.png"
-                        alt=""
-                      />
-                    </div>
-                    <span class="f_s_14 f_w_400 text_color_11"
-                      >Victor Smart</span
-                    >
-                  </div>
-                  <div class="user_info">Seller</div>
-                  <div class="action_btns d-flex">
-                    <a href="#" class="action_btn mr_10">
-                      <i class="far fa-edit"></i>
-                    </a>
-                    <a href="#" class="action_btn">
-                      <i class="fas fa-trash"></i>
-                    </a>
-                  </div>
-                </div>
-                <div
-                  class="single_user_pil d-flex align-items-center justify-content-between mb-0"
-                >
-                  <div class="user_pils_thumb d-flex align-items-center">
-                    <div class="thumb_34 mr_15 mt-0">
-                      <img
-                        class="@/assets/img-fluid radius_50"
-                        src="@/assets/img/customers/1.png"
-                        alt=""
-                      />
-                    </div>
-                    <span class="f_s_14 f_w_400 text_color_11">Chukka Eke</span>
-                  </div>
-                  <div class="user_info">Buyer</div>
-                  <div class="action_btns d-flex">
-                    <a href="#" class="action_btn mr_10">
-                      <i class="far fa-edit"></i>
-                    </a>
-                    <a href="#" class="action_btn">
-                      <i class="fas fa-trash"></i>
-                    </a>
-                  </div>
-                </div>
-                <div
-                  class="single_user_pil d-flex align-items-center justify-content-between mb-0"
-                >
-                  <div class="user_pils_thumb d-flex align-items-center">
-                    <div class="thumb_34 mr_15 mt-0">
-                      <img
-                        class="@/assets/img-fluid radius_50"
-                        src="@/assets/img/customers/1.png"
-                        alt=""
-                      />
-                    </div>
-                    <span class="f_s_14 f_w_400 text_color_11">Nath Timi</span>
-                  </div>
-                  <div class="user_info">Buyer</div>
-                  <div class="action_btns d-flex">
-                    <a href="#" class="action_btn mr_10">
-                      <i class="far fa-edit"></i>
-                    </a>
-                    <a href="#" class="action_btn">
-                      <i class="fas fa-trash"></i>
-                    </a>
-                  </div>
-                </div>
-                <div
-                  class="single_user_pil d-flex align-items-center justify-content-between mb-0"
-                >
-                  <div class="user_pils_thumb d-flex align-items-center">
-                    <div class="thumb_34 mr_15 mt-0">
-                      <img
-                        class="@/assets/img-fluid radius_50"
-                        src="@/assets/img/customers/1.png"
-                        alt=""
-                      />
-                    </div>
-                    <span class="f_s_14 f_w_400 text_color_11"
-                      >Promise Stephen</span
-                    >
-                  </div>
-                  <div class="user_info">Seller</div>
-                  <div class="action_btns d-flex">
-                    <a href="#" class="action_btn mr_10">
-                      <i class="far fa-edit"></i>
-                    </a>
-                    <a href="#" class="action_btn">
-                      <i class="fas fa-trash"></i>
-                    </a>
-                  </div>
-                </div>
+                
               </div>
             </div>
-          </div> -->
+          </div>
           <!--Chart Circle-->
-          <!-- <div class="col-xl-4">
+          <div class="col-xl-4">
             <div class="white_card card_height_100 mb_30">
               <div class="white_card_header">
                 <div class="box_header m-0">
@@ -505,7 +395,7 @@
                 </div>
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
@@ -520,6 +410,7 @@
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
+import axios from "axios";
 export default {
   name: "Produce Mart",
   components: {
@@ -529,11 +420,6 @@ export default {
   },
   name: "dashboard",
   computed: {},
-  mounted() {
-    if (!this.currentUser) {
-      this.$router.push("/login");
-    }
-  },
 
   data() {
     return {
@@ -541,6 +427,9 @@ export default {
       dashboardParams: null,
       admin: JSON.parse(localStorage.getItem("user")),
       search: "",
+      notifications: [],
+      activeUser: [],
+      newUser: []
     };
   },
   computed: {
@@ -559,6 +448,59 @@ export default {
       this.$store.dispatch("auth/logout");
       this.$router.push("/admin//login");
     },
+    getDate(value){
+      return new Date(value).toLocaleDateString()
+    },
+    readNotice(id){
+      let data = {
+        "read": true
+      }
+      axios.patch(`https://producemart.herokuapp.com/toggleRead/${id}`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: this.admin.token,
+        }
+      })
+      .then(() => {
+        this.getAllNotifications();
+      })
+    },
+    dateFormat(date) {
+      let d = new Date(date);
+      let now = new Date();
+      //   const date1 = new Date('7/13/2010');
+      //     const date2 = new Date('12/15/2010');
+      const diffTime = Math.abs(now - d);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      //console.log(diffDays);
+      //console.log(d);
+      if (
+        now.getFullYear == d.getFullYear &&
+        now.getMonth == d.getMonth &&
+        now.getDay == d.getDay
+      ) {
+        let h = d.getHours() < 10 ? `0${d.getHours()}` : d.getHours();
+        let m = d.getMinutes() < 10 ? `0${d.getMinutes()}` : d.getMinutes();
+        let time = h + ":" + m;
+        return time;
+      } else if (diffDays >= 1 && diffDays < 2) {
+        return "Yest.";
+      } else {
+        return month[d.getMonth()] + " " + d.getDay();
+      }
+    },
+    getAllNotifications(){
+      axios.get(`https://producemart.herokuapp.com/getAdminNotifications`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: this.admin.token,
+        }
+      }).then(res => {
+        let new_data = res.data.data.filter((unread) => unread.read == false)
+        //console.log(new_data)
+        this.notifications = new_data.splice(0, 4)
+      })
+    },
     async fetchUsers() {
       this.users = null;
       const res = await fetch("https://producemart.herokuapp.com/getAllUsers");
@@ -569,19 +511,59 @@ export default {
           : data.filter(
               (admin) => admin.role == "supplier" || admin.role == "buyer"
             );
-      console.log(this.users[0].role);
-      console.log(data);
+      //console.log(this.users[0].role);
+      let active = this.users.filter(el => el.status == 'active')
+      this.activeUser = active
+      //console.log(this.activeUser)
+      this.newUser = this.users
     },
     async getDashboardParam() {
       const res = await fetch("https://producemart.herokuapp.com/getDashboard");
       const { data } = await res.json();
-      console.log(data);
+      //console.log(data);
       this.dashboardParams = data;
+    },
+    getDashboard() {
+      axios.get("https://producemart.herokuapp.com/adminDashboard", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: this.admin.token,
+        },
+      })
+      .then(res => {
+        const { data } = res;
+        //console.log(data);
+        this.item = data;
+        ////chartPie
+        var options = {
+          chart: {
+            height: 280,
+            type: "pie",
+            toolbar: {
+              show: true,
+              tools: {
+                download: true,
+              },
+              autoSelected: "zoom",
+            },
+          },
+          series: Object.values(data.statistics),
+          labels: Object.keys(data.statistics),
+        };
+        var chart = new ApexCharts(document.querySelector("#chartPie"), options);
+        chart.render();
+      })
+      
     },
   },
   mounted() {
     this.fetchUsers();
+    /*if (!this.currentUser) {
+      this.$router.push("/login");
+    }*/
     this.getDashboardParam();
+    this.getDashboard();
+    this.getAllNotifications();
     ////chartBar
     var options = {
       chart: {
@@ -683,24 +665,7 @@ export default {
       return series;
     }
 
-    ////chartPie
-    var options = {
-      chart: {
-        height: 280,
-        type: "pie",
-        toolbar: {
-          show: true,
-          tools: {
-            download: true,
-          },
-          autoSelected: "zoom",
-        },
-      },
-      series: [1, 3, 2],
-      labels: ["Buyers", "Sellers", "Orders"],
-    };
-    var chart = new ApexCharts(document.querySelector("#chartPie"), options);
-    chart.render();
+    
 
     ////chartCircle
     var options = {

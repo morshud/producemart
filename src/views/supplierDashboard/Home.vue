@@ -49,21 +49,21 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="crm_box">
-                                        <h4>5,455</h4>
+                                        <h4>{{item.num_of_order}}</h4>
                                         <p>Total Orders</p>
                                         <img src="@/assets/img/dashboard-img/totalOrder.png" ondragstart="return false;">
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="crm_box">
-                                        <h4>100,000</h4>
+                                        <h4>{{item.total_sales}}</h4>
                                         <p>Total Sales</p>
                                         <img src="@/assets/img/dashboard-img/totalSales.png" ondragstart="return false;">
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="crm_box">
-                                        <h4>5,300</h4>
+                                        <h4>{{item.num_of_product}}</h4>
                                         <p>Total Products</p>
                                         <img src="@/assets/img/dashboard-img/totalProduct.png" ondragstart="return false;">
                                     </div>
@@ -107,16 +107,23 @@
                                                 <th scope="col">Order Status</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody v-for="(item, i) in orderList" :key='item._id'>
                                             <tr>
-                                                <th scope="row">1</th>
-                                                <td>Cocoa-QBL-38L20</td>
-                                                <td>Cocoa</td>
-                                                <td>100 bags</td>
-                                                <td>2022--03-31</td>
-                                                <td><a href="#" class="status_await">Awaiting Inspection</a></td>
+                                                <th scope="row">{{i + 1}}</th>
+                                                <td>{{item._id}}</td>
+                                                <td>{{item.quote.product.name}}</td>
+                                                <td>{{item.quote.quantity}} {{item.quote.product.order.qty_unit}}</td>
+                                                <td>{{getDate(item.createdAt)}}</td>
+                                                <td>
+                                                    <span v-if="item.status == 'open'">
+                                                        <a href="#" class="status_await">Open</a>
+                                                    </span>
+                                                    <span v-if="item.status == 'closed'">
+                                                        <a href="#" class="status_btn">Closed</a>
+                                                    </span>
+                                                </td>
                                             </tr>
-                                            <tr>
+                                            <!-- <tr>
                                                 <th scope="row">2</th>
                                                 <td>Banana-BNL-324LL</td>
                                                 <td>Banana</td>
@@ -139,7 +146,7 @@
                                                 <td>50 bags</td>
                                                 <td>2022--03-10</td>
                                                 <td><a href="#" class="status_btn">Delivered</a></td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                     </div>
@@ -148,7 +155,7 @@
                         </div>
                     </div>
                     <!--Chart Bar-->
-                    <!-- <div class="col-xl-7">
+                    <div class="col-xl-7">
                         <div class="white_card mb_30 card_height_100">
                             <div class="white_card_header">
                                 <div class="row align-items-center justify-content-between flex-wrap">
@@ -160,13 +167,13 @@
                                 </div>
                             </div>
                             <div class="white_card_body">
-                                <div id="chartBar"></div>
+                                <apexchart width="500" type="area" :options="options" :series="series"></apexchart>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
 
                     <!--Chart Circle-->
-                    <!-- <div class="col-xl-4">
+                    <div class="col-xl-5">
                         <div class="white_card card_height_100 mb_30">
                         <div class="white_card_header">
                             <div class="box_header m-0">
@@ -179,7 +186,7 @@
                             <div id="chartCircle"></div>
                         </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -196,6 +203,7 @@
     import DashSidebar from './dash-sidebar.vue'
     import DashNavbar from './dash-navbar.vue'
     import DashFooter from './dash-footer.vue'
+    import axios from 'axios'
     export default {
       name: "Produce Mart",
       components:{
@@ -203,111 +211,65 @@
       'dash-navbar': DashNavbar,
       'dash-footer': DashFooter,
       },
-      mounted(){
-          ////chartBar
-          var options = {
-            chart: {
-                type: "area",
-                height: 300,
-                foreColor: "#000",
-                stacked: true,
-                dropShadow: {
-                enabled: true,
-                enabledSeries: [0],
-                top: -2,
-                left: 2,
-                blur: 5,
-                opacity: 0.06
-                }
-            },
-            colors: ["#00E396", "#008FFB"],
-            stroke: {
-                curve: "smooth",
-                width: 3
-            },
-            dataLabels: {
-                enabled: false
-            },
-            series: [
-                {
-                name: "Total Sales",
-                data: generateDayWiseTimeSeries(0, 18)
+      data(){
+        return{
+            user: JSON.parse(localStorage.getItem("user")) || '',
+            supplierId: '',
+            item: '',
+            options: {
+                chart: {
+                  id: 'vuechart-example'
                 },
-                {
-                name: "Total Views",
-                data: generateDayWiseTimeSeries(1, 18)
-                }
-            ],
-            markers: {
-                size: 0,
-                strokeColor: "#fff",
-                strokeWidth: 3,
-                strokeOpacity: 1,
-                fillOpacity: 1,
-                hover: {
-                size: 6
+                xaxis: {
+                  categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
                 }
             },
-            xaxis: {
-                type: "datetime",
-                axisBorder: {
-                show: false
-                },
-                axisTicks: {
-                show: false
+            series: [{
+                name: 'series-1',
+                data: [30, 40, 45, 50, 49, 60, 70, 91]
+            }],
+            orderList: '',
+            orderSales: {
+                quote: {
+                    product: {
+                        order: ''
+                    }
                 }
             },
-            yaxis: {
-                labels: {
-                offsetX: 14,
-                offsetY: -5
-                },
-                tooltip: {
-                enabled: true
-                }
-            },
-            grid: {
-                padding: {
-                left: -5,
-                right: 5
-                }
-            },
-            tooltip: {
-                x: {
-                format: "dd MMM yyyy"
-                }
-            },
-            legend: {
-                position: "top",
-                horizontalAlign: "left"
-            },
-            fill: {
-                type: "solid",
-                fillOpacity: 0.7
+        }
+      },
+      methods: {
+        getUser(){
+            if (this.user.role == 'supplier'){
+                this.supplierId = this.user._id
+                this.getDashboard()
             }
-            };
-            var chart = new ApexCharts(document.querySelector("#chartBar"), options);
-            chart.render();
-
-            function generateDayWiseTimeSeries(s, count) {
-            var values = [
-                [2, 3, 8, 7, 22, 16, 23, 7, 11, 5, 12, 5, 10, 4, 15, 2, 6, 2],
-                [4, 3, 10, 9, 29, 19, 25, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5],
+        },
+        getDate(value){
+          return new Date(value).toLocaleDateString()
+        },
+        getDashboard(){
+            axios.get(`https://producemart.herokuapp.com/supplierDashboard/${this.supplierId}?length=5`, {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: this.user.token,
+                },
+            })
+            .then(res => {
+                //
+                let dashData = res.data
+                //console.log(dashData)
+                this.item = dashData
+                this.orderList = dashData.orderlist
+                this.orderSales = dashData.order_sales
+                let sales_analysis = dashData.sales_analysis
+                let dates = sales_analysis.map(res => {
+                    //console.log(res.createdAt)
+                    return res.createdAt
+                })
+                console.log(dates)
                 
-            ];
-            var i = 0;
-            var series = [];
-            var x = new Date("03 Mar 2022").getTime();
-            while (i < count) {
-                series.push([x, values[s][i]]);
-                x += 86400000;
-                i++;
-            }
-            return series;
-            }
-
-            ////chartCircle
-            var options = {
+                var options = {
                 chart: {
                     type: "donut",
                      "toolbar": {
@@ -321,8 +283,8 @@
                 dataLabels: {
                     enabled: false
                 },
-                series: [18, 18, 18, 45],
-                "labels": ["Cocoa", "Banana", "Palm Oil", "Beans"],
+                series: Object.values(this.orderSales),
+                "labels": Object.keys(this.orderSales),
                 responsive: [
                     {
                     breakpoint: 480,
@@ -345,6 +307,16 @@
             };
             var chart = new ApexCharts(document.querySelector("#chartCircle"), options);
             chart.render();
+            })
+        }
+      },
+      mounted(){
+            this.getUser();
+          ////chartBar
+          
+
+            ////chartCircle
+            
 
             ////Scroll To Top
             window.scrollTo(0,0)

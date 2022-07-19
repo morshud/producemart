@@ -48,10 +48,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="fileDownloadOption mb-3">
+                                    <!-- <div class="fileDownloadOption mb-3">
                                         <button type="button" title="Download as CSV file">CSV</button>
                                         <button type="button" title="Download as PDF file">PDF</button>
-                                    </div>
+                                    </div> -->
                                     <div class="QA_table mb_30">
                                         <table class="table lms_table_active ">
                                             <thead>
@@ -64,13 +64,21 @@
                                                 <th scope="col">Rate Order</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody v-for="(item, i) in items" :key='item._id'>
                                             <tr>
+                                                <th scope="row">{{item._id}}</th>
+                                                <td>{{item.quote.product.name}}</td>
+                                                <td>{{getDate(item.createdAt)}}</td>
+                                                <td><a class="btn-completed">{{item.status}}</a></td>
+                                                <td><router-link :to="'/buyer-dashboard/view-open-order/' + item.quote._id" class="viewOrder">View Order</router-link></td>
+                                                <td><a href="#" class="viewOrder">Your Review</a></td>
+                                            </tr>
+                                            <!-- <tr>
                                                 <th scope="row">Q60077</th>
                                                 <td>Cocoa - QBL1878</td>
                                                 <td>01-05-2022</td>
                                                 <td><a class="btn-completed">Completed</a></td>
-                                                <td><a href="/buyer-dashboard/view-order/completed" class="viewOrder">View Order</a></td>
+                                                <td><a href="#" class="viewOrder">View Order</a></td>
                                                 <td><a href="/buyer-dashboard/order-review/review" class="viewOrder">Your Review</a></td>
                                             </tr>
                                             <tr>
@@ -80,15 +88,7 @@
                                                 <td><a class="btn-completed">Completed</a></td>
                                                 <td><a href="#" class="viewOrder">View Order</a></td>
                                                 <td><a href="/buyer-dashboard/order-review/review" class="viewOrder">Your Review</a></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Q60077</th>
-                                                <td>Cocoa - QBL1878</td>
-                                                <td>01-05-2022</td>
-                                                <td><a class="btn-completed">Completed</a></td>
-                                                <td><a href="#" class="viewOrder">View Order</a></td>
-                                                <td><a href="/buyer-dashboard/order-review/review" class="viewOrder">Your Review</a></td>
-                                            </tr>
+                                            </tr> -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -111,6 +111,7 @@
     import DashSidebar from './dash-sidebar.vue'
     import DashNavbar from './dash-navbar.vue'
     import DashFooter from './dash-footer.vue'
+    import axios from 'axios'
     export default {
       name: "Produce Mart",
       components:{
@@ -118,9 +119,43 @@
       'dash-navbar': DashNavbar,
       'dash-footer': DashFooter,
       },
+      data(){
+        return{
+            user: JSON.parse(localStorage.getItem('user')) || '',
+            items: '',
+            buyerId: '',
+        }
+      },
+      methods: {
+        getUser(){
+            if (this.user.role == 'buyer'){
+                this.buyerId = this.user._id
+                this.getClosedOrder()
+            }
+        },
+        getDate(value){
+          return new Date(value).toLocaleDateString()
+        },
+        getClosedOrder(){
+            axios.get(`https://producemart.herokuapp.com/getBuyersOrders/${this.buyerId}`, {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: this.user.token,
+                },
+            }).then(res => {
+                //console.log(res.data.data)
+                let response = res.data.data.filter((el) => {
+                    return el.status == 'closed'
+                })
+
+                this.items = response
+                console.log(this.items)
+            })
+        }
+      },    
       mounted(){
         window.scrollTo(0,0)
-
+        this.getUser()
         let externalScriptCustom = document.createElement('script')
         externalScriptCustom.setAttribute('src', 'https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js')
         document.head.appendChild(externalScriptCustom)

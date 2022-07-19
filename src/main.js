@@ -4,7 +4,8 @@ import router from "./router";
 import Vuex from "vuex";
 import store from "./store";
 import CKEditor from "@ckeditor/ckeditor5-vue";
+import VueApexCharts from "vue3-apexcharts";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 
-createApp(App).use(CKEditor).use(router).use(Vuex).use(store).mount("#app");
+createApp(App).use(CKEditor).use(router).use(VueApexCharts).use(Vuex).use(store).mount("#app");

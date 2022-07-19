@@ -139,7 +139,7 @@ export default {
     },
     async markReceipt(id, index) {
       this.notifications[index].read = !this.notifications[index].read;
-      console.log(this.notifications[index].read);
+      //console.log(this.notifications[index].read);
       this.loading = true;
       const res = await fetch(
         "https://producemart.herokuapp.com/toggleRead/" + id,
@@ -178,8 +178,8 @@ export default {
       //     const date2 = new Date('12/15/2010');
       const diffTime = Math.abs(now - d);
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      console.log(diffDays);
-      console.log(d);
+      //console.log(diffDays);
+      //console.log(d);
       if (
         now.getFullYear == d.getFullYear &&
         now.getMonth == d.getMonth &&
