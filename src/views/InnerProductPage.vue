@@ -508,9 +508,9 @@
                 <!-- Destination -->
                 <div class="summaryTable">
                   <h1 class="summaryHead">Destination</h1>
-                  <p v-if="!road || !sea || !road">
+                  <!-- <p v-if="!road || !sea || !road">
                     No Destination was selected hence Quote cannot be sent
-                  </p>
+                  </p> -->
                   <div class="byRoad" v-if="road && roadAdd1">
                     <p class="summaryHeadSub">by road</p>
                     <table>
@@ -1280,7 +1280,7 @@ export default {
       };
       QUOTE.addProductQuote(data, this.id)
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           this.modal.hide();
           Swal.fire({
             position: "top-end",
@@ -1291,7 +1291,7 @@ export default {
           });
         })
         .catch((err) => {
-          console.log(err);
+          //console.log(err);
         });
     },
     minimum(item) {

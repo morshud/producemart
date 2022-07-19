@@ -42,22 +42,22 @@
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="crm_box">
-                                        <h4>55</h4>
+                                        <h4>{{item.total_order}}</h4>
                                         <p>Total Orders</p>
                                         <img src="@/assets/img/dashboard-img/icon-buyer-totalorder.png" ondragstart="return false;">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="crm_box">
-                                        <h4>10</h4>
-                                        <p>Pending Orders</p>
+                                        <h4>{{item.open_order}}</h4>
+                                        <p>Open Orders</p>
                                         <img src="@/assets/img/dashboard-img/icon-buyer-pendingorder.png" ondragstart="return false;">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="crm_box">
-                                        <h4>45</h4>
-                                        <p>Order History</p>
+                                        <h4>{{item.closed_order}}</h4>
+                                        <p>Closed Order</p>
                                         <img src="@/assets/img/dashboard-img/icon-buyer-orderhistory.png" ondragstart="return false;">
                                     </div>
                                 </div>
@@ -95,19 +95,28 @@
                                                 <th scope="col">#</th>
                                                 <th scope="col">Order ID</th>
                                                 <th scope="col">Product Name</th>
+                                                <th scope="col">Quantity    </th>
                                                 <th scope="col">Date</th>
                                                 <th scope="col">Order Status</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody v-for="(item, i) in orderList" :key='item._id'>
                                             <tr>
-                                                <th scope="row">1</th>
-                                                <td>Cocoa-QBL-38L20</td>
-                                                <td>Cocoa</td>
-                                                <td>2022--03-31</td>
-                                                <td><a href="#" class="status_await">Awaiting Inspection</a></td>
+                                                <th scope="row">{{i + 1}}</th>
+                                                <td>{{item._id}}</td>
+                                                <td>{{item.quote.product.name}}</td>
+                                                <td>{{item.quote.quantity}} {{item.quote.product.order.qty_unit}}</td>
+                                                <td>{{getDate(item.createdAt)}}</td>
+                                                <td>
+                                                    <span v-if="item.status == 'open'">
+                                                        <a href="#" class="status_await">Open</a>
+                                                    </span>
+                                                    <span v-if="item.status == 'closed'">
+                                                        <a href="#" class="status_btn">Closed</a>
+                                                    </span>
+                                                </td>
                                             </tr>
-                                            <tr>
+                                            <!-- <tr>
                                                 <th scope="row">2</th>
                                                 <td>Banana-BNL-324LL</td>
                                                 <td>Banana</td>
@@ -127,7 +136,7 @@
                                                 <td>Beans</td>
                                                 <td>2022--03-10</td>
                                                 <td><a href="#" class="status_btn">Delivered</a></td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                     </div>
@@ -204,6 +213,7 @@
 <script>
     import DashSidebar from './dash-sidebar.vue'
     import DashNavbar from './dash-navbar.vue'
+    import axios from 'axios'
     import DashFooter from './dash-footer.vue'
     export default {
       name: "Produce Mart",
@@ -212,8 +222,48 @@
       'dash-navbar': DashNavbar,
       'dash-footer': DashFooter,
       },
+      data(){
+        return{
+            user: JSON.parse(localStorage.getItem("user")) || '',
+            orderSales: {
+                quote: {
+                    product: {
+                        order: ''
+                    }
+                }
+            },
+            item: '',
+            buyerId: '',
+            orderList: '',
+        }
+      },
+      methods: {
+        getUser(){
+            if (this.user.role == 'buyer'){
+                this.buyerId = this.user._id
+                this.getDashboard()
+            }
+        },
+        getDate(value){
+          return new Date(value).toLocaleDateString()
+        },
+        getDashboard(){
+            axios.get(`https://producemart.herokuapp.com/buyerDashboard/${this.buyerId}?length=5`, {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: this.user.token,
+                },
+            }).then(res => {
+                console.log(res)
+                let dashData = res.data
+                this.item = dashData
+                this.orderList = dashData.orderlist
+                this.orderSales = dashData.order_sales
+            })
+        }
+      },
       mounted(){
-
+        this.getUser();
             ////Scroll To Top
             window.scrollTo(0,0)
 

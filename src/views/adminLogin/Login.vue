@@ -107,7 +107,7 @@ export default {
         this.message = data.message;
         return;
       }
-      console.log(data);
+      //console.log(data);
       {
         data.user && localStorage.setItem("user", JSON.stringify(data.user));
       }

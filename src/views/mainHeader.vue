@@ -45,8 +45,18 @@
                         </ul>
                         <searchInner/>
                         <div class="authDiv desktopAuthDiv">
-                            <router-link to="/login"><a class="authLogin">Login</a></router-link>
-                            <router-link to="buyer-registration"><a class="authSignup">Sign Up</a></router-link>
+                            <div v-if="userLogin == 'buyer'">
+                                <router-link to="/buyer-dashboard/home"><a class="authLogin">Dashboard</a></router-link>
+                                <a style="cursor: pointer" @click="logOut" class="authSignup">Logout</a>
+                            </div>
+                            <div v-else-if="userLogin == 'supplier'">
+                                <router-link to="/supplier-dashboard/home"><a class="authLogin">Dashboard</a></router-link>
+                                <a style="cursor: pointer" @click="logOut" class="authSignup">Logout</a>
+                            </div>
+                            <div v-else>
+                                <router-link to="/login"><a class="authLogin">Login</a></router-link>
+                                <router-link to="buyer-registration"><a class="authSignup">Sign Up</a></router-link>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -63,8 +73,35 @@
       components:{
       'searchInner': SearchInner,
       },
+      data(){
+        return {
+            user: JSON.parse(localStorage.getItem("user")) || '',
+            userLogin: ''
+        }
+      },
+      methods: {
+        logOut() {
+          this.$store.dispatch("auth/logout");
+          this.$router.push("/login");
+        },
+        getUser(){
+            if(this.user.role == 'buyer'){
+                this.userLogin = 'buyer'
+                //console.log(this.userLogin)
+            }
+            else if(this.user.role == 'supplier'){
+                this.userLogin = 'supplier'
+                //console.log(this.userLogin)
+            }
+            else{
+
+            }
+
+        }
+      },
       mounted(){
         window.scrollTo(0,0)
+        this.getUser();
       }
     }
 </script>
