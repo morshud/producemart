@@ -181,7 +181,7 @@ export default {
         },
       })
       .then(res => {
-        console.log(res.data)
+        //console.log(res.data)
       })
     },
     rejectAudit(value){

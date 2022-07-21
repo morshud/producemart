@@ -81,11 +81,17 @@
                                                 <!-- <td>{{item.estimate.shipping_price}}</td> -->
                                                 <td>{{item.estimate.total_price}}</td>
                                                 <td>
-                                                    <router-link :to="'/dashboard/view-order/' + item._id"
-                                                      ><button class="status_view">
-                                                        View
-                                                      </button></router-link
-                                                    >
+                                                    <div v-if="item.shipment_type != null">
+                                                        <router-link :to="'/dashboard/view-order/' + item._id"
+                                                          ><button class="status_view">
+                                                            View
+                                                          </button></router-link
+                                                        >
+                                                    </div>
+                                                    <div v-else>
+                                                        Not Available
+                                                    </div>
+                                                    
                                                 </td>
                                             </tr>
                                             </tbody>
