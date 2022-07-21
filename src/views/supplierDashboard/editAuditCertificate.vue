@@ -1,6 +1,6 @@
 <template>
   <div>
-    <title>Certification - Supplier Dashboard | Produce Mart</title>
+    <title>Edit Certification - Supplier Dashboard | Produce Mart</title>
     <dash-sidebar />
     <section class="main_content dashboard_part large_header_bg">
       <dash-navbar />
@@ -14,7 +14,7 @@
                 <div class="row">
                   <div class="col-lg-8">
                     <div class="dashboard_header_title">
-                      <h3>Upload Certificate</h3>
+                      <h3>Edit Certificate</h3>
                     </div>
                   </div>
                   <div class="col-lg-4">
@@ -33,12 +33,12 @@
             <!--Mail Sidebar-->
             <div class="col-lg-12 mb-3">
               <h5 class="">
-                Provide your certification info and documents to become a
+                Edit your certification info and documents to become a
                 certified supplier
               </h5>
             </div>
             <div class="col-md-12 white_box editProfile">
-              <form @submit.prevent="uploadAuditCert">
+              <form @submit.prevent="updateAuditCert">
               <div class="row d-flex">
                 <div class="row my-3">
                   <div class="col">
@@ -131,7 +131,7 @@
                       />
                     </div>
                   </div>
-                </div>
+                </div><!-- 
                 <div class="row my-3">
                   <div v-if="addFile.length">
                     <div
@@ -247,7 +247,7 @@
                       >Upload More <i class="bi bi-plus-circle"></i
                     ></span>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="row mt-3">
                   <div class="col d-grid gap-2">
@@ -294,6 +294,7 @@ export default {
       file: { 1: {} },
       addFile: [],
       displayImg: [],
+      certId: this.$route.params.id
     };
   },
   computed: {
@@ -306,7 +307,7 @@ export default {
     }, */
   },
   methods: {
-    async uploadAuditCert() {
+    async updateAuditCert() {
       //console.log(this.file);
       var fd = new FormData();
       if (this.file) {
@@ -320,8 +321,8 @@ export default {
           fd.append("periodTo", this.file[cert].periodTo);
         }
       }
-      await fetch('https://producemart.herokuapp.com/addAudit', {
-        method: "POST",
+      await fetch(`https://producemart.herokuapp.com/updateAudit/${this.certId}`, {
+        method: "PUT",
         headers: {
           Authorization: this.token,
         },
@@ -332,7 +333,7 @@ export default {
         Swal.fire({
           position: 'top-end',
           icon: 'success',
-          title: `Certificate upload successful`,
+          title: `Certificate Updated successfully`,
           showConfirmButton: false,
           timer: 3500
         })

@@ -54,7 +54,7 @@
               </div>
               <div class="col-lg-3">
                 <div class="productImgDiv">
-                  <img src="@/assets/img/products/product1.png" />
+                  <img :src="product.img_url[0]" />
                 </div>
               </div>
               <div class="col-lg-4">
@@ -614,6 +614,7 @@ export default {
       available_no: '',
       product: {
         package: '',
+        img_url: ''
       },
       quote: [],
       hasSupply: '',

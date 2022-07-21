@@ -50,7 +50,7 @@
               </div>
               <div class="col-lg-3">
                 <div class="productImgDiv">
-                  <img src="@/assets/img/products/product1.png" />
+                  <img :src="product.img_url[0]" />
                 </div>
               </div>
               <div class="col-lg-4">
@@ -873,6 +873,7 @@ import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
 import axios from "axios";
+import Swal from 'sweetalert2';
 import { exportDefaultSpecifier } from "@babel/types";
 export default {
   name: "Produce Mart",
@@ -894,6 +895,7 @@ export default {
       token: JSON.parse(localStorage.getItem("user")).token,
       product: {
         package: '',
+        img_url: ''
       },
       quote: '',
       shipment_payment: '',
@@ -1100,28 +1102,54 @@ export default {
       let type = {
         "type": value
       }
-      axios.put(`https://producemart.herokuapp.com/selectShipmentType/${this.orderId}`, type, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: this.token,
-        },
+      Swal.fire({
+        title: `Are you sure you want to select ${value} Freight?`,
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Proceed!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.put(`https://producemart.herokuapp.com/selectShipmentType/${this.orderId}`, type, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: this.token,
+            },
+          })
+          .then(res => {
+            //console.log(res)
+            this.getOrder();
+          })
+        }
       })
-      .then(res => {
-        console.log(res)
-        this.getOrder();
-      })
+      
     },
     proceedPayment(){
-      axios.get(`https://producemart.herokuapp.com/escrow/pay/${this.orderId}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: this.token,
-        },
+      Swal.fire({
+        title: `Are you sure you want to proceed Payment?`,
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Proceed!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.get(`https://producemart.herokuapp.com/escrow/pay/${this.orderId}`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: this.token,
+            },
+          })
+          .then(res => {
+            console.log(res.data.data)
+            window.location.href = res.data.data.checkout_url
+          })
+        }
       })
-      .then(res => {
-        console.log(res.data.data)
-        window.location.href = res.data.data.checkout_url
-      })
+      
     }
   },
 };

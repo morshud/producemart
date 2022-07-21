@@ -69,12 +69,12 @@
                     <table class="table lms_table_active">
                       <thead>
                         <tr>
-                          <th scope="col">Product ID</th>
+                          <th scope="col">#</th>
                           <th scope="col">Product Name</th>
                           <!-- <th scope="col">Product Variety</th>
                           <th scope="col">Product Weight</th>
                           <th scope="col">Product Dimension</th> -->
-                          <th scope="col">Supplier ID</th>
+                          <!-- <th scope="col">Supplier ID</th> -->
                           <th scope="col">Price($)</th>
                           <th scope="col">Category</th>
                           <!-- <th scope="col">Product Detail</th>
@@ -90,12 +90,12 @@
                       </thead>
                       <tbody>
                         <tr v-for="(product, i) in filteredProducts" :key="i">
-                          <td>{{ product._id }}</td>
+                          <td>{{ i+1 }}</td>
                           <td>{{ product.name }}</td>
                           <!-- <td>{{ product.variety }}</td>
                           <td>{{ product.weight }}</td>
                           <td>{{ product.dimension }}</td> -->
-                          <td>{{ product.userId._id }}</td>
+                          <!-- <td>{{ product.userId._id }}</td> -->
                           <td>{{ product.package.price }}</td>
                           <td>{{ product.category }}</td>
                           <!-- <td scope="row">{{ product.farmMethod }}</td>

@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-12 text-center alertDashMessage mb-4">
+                    <div class="col-xl-12 text-center alertDashMessage mb-4" v-if="supplierAudit == false">
                         <p><i class="bi bi-info-circle-fill"></i> <router-link to="/supplier-dashboard/certification">Complete your audit so you can upload your products.</router-link></p>
                     </div>  
                     <!--Top 4 Boxes-->
@@ -39,13 +39,18 @@
                         <div class="white_card card_height_100 mb_30 user_crm_wrapper">
                             <div class="row">
                                 <div class="col-lg-3">
-                                    <router-link to="/supplier-dashboard/certification">
+                                    <router-link to="/supplier-dashboard/certification" v-if="supplierAudit == 'pending'">
                                         <div class="crm_box crmBoxDanger">
                                             <h4>Audit</h4>
                                             <p>Certifications</p>
                                             <img src="@/assets/img/dashboard-img/dash-certificate.png" ondragstart="return false;">
                                         </div>
                                     </router-link>
+                                    <div class="crm_box" v-else>
+                                        <h4>Audit</h4>
+                                        <p>Certifications</p>
+                                        <img src="@/assets/img/dashboard-img/dash-certificate.png" ondragstart="return false;">
+                                    </div>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="crm_box">
@@ -236,6 +241,7 @@
                     }
                 }
             },
+            supplierAudit: null,
         }
       },
       methods: {
@@ -243,7 +249,22 @@
             if (this.user.role == 'supplier'){
                 this.supplierId = this.user._id
                 this.getDashboard()
+                this.getUserDetails()
             }
+        },
+        getUserDetails(){
+            axios.get(`https://producemart.herokuapp.com/user/${this.supplierId}`, {
+               headers: {
+                  "Content-Type": "application/json",
+                  Authorization: this.user.token,
+                }, 
+            })
+            .then(res => {
+                //console.log(res.data.data)
+                let supplierAudit = res.data.data.status
+                this.supplierAudit = supplierAudit
+
+            })
         },
         getDate(value){
           return new Date(value).toLocaleDateString()
@@ -263,11 +284,7 @@
                 this.orderList = dashData.orderlist
                 this.orderSales = dashData.order_sales
                 let sales_analysis = dashData.sales_analysis
-                let dates = sales_analysis.map(res => {
-                    //console.log(res.createdAt)
-                    return res.createdAt
-                })
-                console.log(dates)
+                //console.log(dates)
                 
                 var options = {
                 chart: {

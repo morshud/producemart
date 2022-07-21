@@ -1,6 +1,6 @@
 <template>
   <div>
-    <title>Certification - Supplier Dashboard | Produce Mart</title>
+    <title>Supplier Certificate - Admin Dashboard | Produce Mart</title>
     <dash-sidebar />
     <section class="main_content dashboard_part large_header_bg">
       <dash-navbar />
@@ -14,13 +14,13 @@
                 <div class="row">
                   <div class="col-lg-8">
                     <div class="dashboard_header_title">
-                      <h3>Upload Certificate</h3>
+                      <h3>Upload Supplier Certificate</h3>
                     </div>
                   </div>
                   <div class="col-lg-4">
                     <div class="dashboard_breadcam text-right">
                       <p>
-                        <router-link to="/supplier-dashboard/home"
+                        <router-link to="/dashboard/home"
                           ><a>Dashboard</a>
                         </router-link>
                       </p>
@@ -33,8 +33,8 @@
             <!--Mail Sidebar-->
             <div class="col-lg-12 mb-3">
               <h5 class="">
-                Provide your certification info and documents to become a
-                certified supplier
+                Provide certification info and documents for supplier to become a
+                certified
               </h5>
             </div>
             <div class="col-md-12 white_box editProfile">
@@ -294,6 +294,7 @@ export default {
       file: { 1: {} },
       addFile: [],
       displayImg: [],
+      supplierId: this.$route.params.id
     };
   },
   computed: {
@@ -307,7 +308,7 @@ export default {
   },
   methods: {
     async uploadAuditCert() {
-      //console.log(this.file);
+      console.log(this.file);
       var fd = new FormData();
       if (this.file) {
         for (let cert in this.file) {
@@ -320,7 +321,7 @@ export default {
           fd.append("periodTo", this.file[cert].periodTo);
         }
       }
-      await fetch('https://producemart.herokuapp.com/addAudit', {
+      await fetch(`https://producemart.herokuapp.com/addAuditAdmin/${this.supplierId}`, {
         method: "POST",
         headers: {
           Authorization: this.token,
@@ -328,7 +329,7 @@ export default {
         body: fd,  
       })
       .then(res => {
-      //console.log(res);
+      console.log(res);
         Swal.fire({
           position: 'top-end',
           icon: 'success',
@@ -336,7 +337,7 @@ export default {
           showConfirmButton: false,
           timer: 3500
         })
-        this.$router.push('/supplier-dashboard/home')
+        this.$router.push('/dashboard/home')
       })
     },
     onFileChange(n) {
