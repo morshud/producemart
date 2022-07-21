@@ -179,6 +179,20 @@
               ><a>Request Audit</a></router-link
             >
           </li>
+          <li
+            :class="path == '/supplier-dashboard/view-supplier-audit' && 'active-nav'"
+          >
+            <router-link to="/supplier-dashboard/view-supplier-audit"
+              ><a>View Audit</a></router-link
+            >
+          </li>
+          <li
+            :class="path == '/supplier-dashboard/uploadCertificate' && 'active-nav'"
+          >
+            <router-link to="/supplier-dashboard/uploadCertificate"
+              ><a>Upload Audit</a></router-link
+            >
+          </li>
         </ul>
       </li>
       <!--Sales Analytics-->

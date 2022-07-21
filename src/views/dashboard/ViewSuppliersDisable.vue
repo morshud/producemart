@@ -72,7 +72,6 @@
                           <th scope="col">Email</th>
                           <th scope="col">Company<br />Name</th>
                           <th scope="col">Phone No</th>
-                          <th scope="col">View Orders</th>
                           <th scope="col">Status</th>
                           <th scope="col">Action</th>
                         </tr>
@@ -86,16 +85,13 @@
                           <td>{{ user.company_name }}</td>
                           <td>{{ user.phone_no }}</td>
                           <td><a href="#" style="background: red" class="status_btn">Disabled</a></td>
-                          <!-- <td>
-                            <div class="action_btns d-flex">
-                              <a href="#" title="Edit" class="action_btn mr_10">
-                                <i class="far fa-edit"></i>
-                              </a>
-                              <a href="#" title="Delete" class="action_btn">
-                                <i class="fas fa-trash"></i>
-                              </a>
+                          <td>
+                            <div class="action_btns d-flex justify-content-center">
+                              <router-link :to="'/dashboard/view-supplier-content/'+user._id" title="View Supplier" class="action_btn mr_10">
+                                <i class="far fa-eye"></i>
+                              </router-link>
                             </div>
-                          </td> -->
+                          </td>
                         </tr>
                       </tbody>
                     </table>

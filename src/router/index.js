@@ -394,6 +394,21 @@ const routes = [
     component: () => import('@/views/supplierDashboard/uploadCertificate'),
   },
   {
+    path: "/supplier-dashboard/view-supplier-audit",
+    name: "DashSupplierViewAudit",
+    component: () => import('@/views/supplierDashboard/viewSupplierAudit'),
+  },
+  {
+    path: "/supplier-dashboard/view-audit-content/:id",
+    name: "DashSupplierViewAuditContent",
+    component: () => import('@/views/supplierDashboard/viewSupplierAuditContent'),
+  },
+  {
+    path: "/supplier-dashboard/edit-audit/:id",
+    name: "DashSupplierEditAudit",
+    component: () => import('@/views/supplierDashboard/editAuditCertificate'),
+  },
+  {
     path: "/supplier-dashboard/request-audit",
     name: "DashSupplierRequestAudit",
     component: DashSupplierRequestAudit,
@@ -510,6 +525,26 @@ const routes = [
     path: "/dashboard/edit-supplier-content/:id",
     name: "DashEditSupplierContent",
     component: DashEditSupplierContent,
+  },
+  {
+    path: "/dashboard/view-supplier-content/:id",
+    name: "DashViewSupplierContent",
+    component: () => import('@/views/dashboard/viewSupplierContent'),
+  },
+  {
+    path: "/dashboard/view-buyer-content/:id",
+    name: "DashViewBuyerContent",
+    component: () => import('@/views/dashboard/viewBuyerContent'),
+  },
+  {
+    path: "/dashboard/view-audit/:id",
+    name: "DashViewAudit",
+    component: () => import('@/views/dashboard/viewAudit'),
+  },
+  {
+    path: "/dashboard/addSupplierAudit/:id",
+    name: "DashAddSupplierAudit",
+    component: () => import('@/views/dashboard/addSupplierAudit'),
   },
   {
     path: "/dashboard/pending-suppliers",

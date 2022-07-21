@@ -87,6 +87,16 @@
                           <td>{{ user.phone_no }}</td>
                           <td><a href="#" class="status_btn">Active</a></td>
                           <td>
+                            <div class="action_btns d-flex justify-content-center">
+                              <router-link :to="'/dashboard/view-supplier-content/'+user._id" title="View Supplier" class="action_btn mr_10">
+                                <i class="far fa-eye"></i>
+                              </router-link>
+                              <!-- <a href="#" title="Delete" class="action_btn">
+                                <i class="fas fa-trash"></i>
+                              </a> -->
+                            </div>
+                          </td>
+                          <!-- <td>
                             <div class="action_btns d-flex">
                               <router-link to="/dashboard/edit-supplier-content"
                                 ><a title="Edit" class="action_btn mr_10">
@@ -96,7 +106,7 @@
                                 <i class="fas fa-trash"></i>
                               </a>
                             </div>
-                          </td>
+                          </td> -->
                         </tr>
                       </tbody>
                     </table>

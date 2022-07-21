@@ -5195,7 +5195,11 @@ body::-webkit-scrollbar {
   font-weight: 400;
   padding: 10px 15px;
   vertical-align: middle;
-  border: 1px solid #dee2e6;
+  border: 0px solid #dee2e6;
+}
+
+.table > :not(:first-child){
+  border: 0 !important;
 }
 
 .QA_section .QA_table .question_content {
@@ -5298,35 +5302,27 @@ body::-webkit-scrollbar {
 }
 
 .QA_section .QA_table .table thead th {
-  border-bottom: 0 solid transparent;
   padding: 9px 15px;
-  border: 0 solid transparent;
+  border: 0 !important;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 400;
   color: #000;
-  white-space: nowrap;
   text-transform: capitalize;
   font-family: "Poppins", sans-serif;
-  border: 0;
-  background: #fff;
-  border: 0 !important;
-  background: 0 0;
-  border-top: 1px solid #e5ecff !important;
-  border-bottom: 1px solid #e5ecff !important;
-  position: relative;
+  background: #F5F5FF;
 }
 .QA_section .QA_table .table thead td p {
   font-size: 13px !important;
 }
 
 .QA_section .QA_table .table thead th:first-child {
-  border-radius: 5px 0 0 5px;
-  border-left: 1px solid #e5ecff !important;
+  border-radius: 10px 0 0 10px;
+  border-left: 0 !important;
 }
 
 .QA_section .QA_table .table thead th:last-child {
-  border-radius: 0 5px 5px 0;
-  border-right: 1px solid #e5ecff !important;
+  border-radius: 0 10px 10px 0;
+  border-right: 0px !important;
 }
 .QA_section .QA_compose h3 {
   font-size: 18px;

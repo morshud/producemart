@@ -534,6 +534,8 @@ export default {
         const { data } = res;
         //console.log(data);
         this.item = data;
+        let sales = data.sales
+        //console.log(sales.date)
         ////chartPie
         var options = {
           chart: {

@@ -1,5 +1,5 @@
 <template>
-  <title>Disable Buyers - Super Admin Dashboard | Produce Mart</title>
+  <title>Disabled Buyers - Super Admin Dashboard | Produce Mart</title>
   <dash-sidebar />
 
   <section class="main_content dashboard_part large_header_bg">
@@ -14,7 +14,7 @@
               <div class="row">
                 <div class="col-lg-8">
                   <div class="dashboard_header_title">
-                    <h3>Disable Buyers</h3>
+                    <h3>Disabled Buyers</h3>
                   </div>
                 </div>
                 <div class="col-lg-4">
@@ -23,7 +23,7 @@
                       <router-link to="/dashboard/home"
                         ><a>Dashboard</a></router-link
                       >
-                      <i class="fas fa-caret-right"></i> Disable Buyers
+                      <i class="fas fa-caret-right"></i> Disabled Buyers
                     </p>
                   </div>
                 </div>
@@ -37,7 +37,7 @@
               <div class="white_card_body">
                 <div class="QA_section">
                   <div class="white_box_tittle list_header">
-                    <h4>Disable Buyers List</h4>
+                    <h4>Disabled Buyers List</h4>
                     <div class="box_right d-flex lms_block">
                       <div class="serach_field_2">
                         <div class="search_inner">
@@ -54,52 +54,60 @@
                     </div>
                   </div>
                   <!-- <div class="fileDownloadOption mb-3">
-                                        <button type="button" title="Download as CSV file">CSV</button>
-                                        <button type="button" title="Download as PDF file">PDF</button>
-                                    </div> -->
+                    <button type="button" title="Download as CSV file">
+                      CSV
+                    </button>
+                    <button type="button" title="Download as PDF file">
+                      PDF
+                    </button>
+                  </div> -->
                   <div class="QA_table mb_30">
                     <table class="table lms_table_active">
                       <thead>
                         <tr>
-                          <th scope="col">Buyer ID</th>
+                          <th scope="col">#</th>
                           <th scope="col">First Name</th>
                           <th scope="col">Last Name</th>
                           <th scope="col">Username</th>
                           <th scope="col">Email</th>
-                          <th scope="col">Company<br />Name</th>
+                          <th scope="col">Company<br />Name</th><!-- 
                           <th scope="col">Address</th>
                           <th scope="col">Date Account<br />Creation</th>
                           <th scope="col">Last Order Date</th>
                           <th scope="col">View Quotes</th>
-                          <th scope="col">View Orders</th>
+                          <th scope="col">View Orders</th> -->
                           <th scope="col">Status</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th scope="row">Samson1001</th>
-                          <td>Samson</td>
-                          <td>Henry</td>
-                          <td>Samson1122</td>
-                          <td>myemail@email.com</td>
-                          <td>Sam Co.Ltd</td>
-                          <td>No 1, street name, state and country</td>
-                          <td>2022-04-01</td>
-                          <td>2022-04-30</td>
+                        <tr v-for="(user, i) in users" :key="i">
+                          <th scope="row">
+                            {{ i+1 }}
+                          </th>
+                          <td>{{ user.firstname }}</td>
+                          <td>{{ user.lastname }}</td>
+                          <td>{{ user.username }}</td>
+                          <td>{{ user.email }}</td>
+                          <td>{{ user.company_name }}</td><!-- 
                           <td></td>
-                          <td></td>
+                          <td>{{ user.createdAt }}</td>
+                          <td>{{ user.updatedAt }}</td>
+                          <td></td> -->
+                          <td><a href="#" style="background: red" class="status_btn">Disabled</a></td>
                           <td>
-                            <a href="#" class="status_btn-danger">Disable</a>
-                          </td>
-                          <td>
-                            <div class="action_btns d-flex">
+                            <!-- <div class="action_btns d-flex">
                               <a href="#" title="Edit" class="action_btn mr_10">
                                 <i class="far fa-edit"></i>
                               </a>
                               <a href="#" title="Delete" class="action_btn">
                                 <i class="fas fa-trash"></i>
                               </a>
+                            </div> -->
+                            <div class="action_btns d-flex justify-content-center">
+                              <router-link :to="'/dashboard/view-buyer-content/'+user._id" title="View Buyer" class="action_btn mr_10">
+                                <i class="far fa-eye"></i>
+                              </router-link>
                             </div>
                           </td>
                         </tr>
@@ -140,6 +148,31 @@ export default {
       "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
     );
     document.head.appendChild(externalScriptCustom);
+    this.fetchbuyers();
+  },
+  data() {
+    return {
+      users: null,
+      token: JSON.parse(localStorage.getItem("user")).token,
+    };
+  },
+  methods: {
+    async fetchbuyers() {
+      this.users = null;
+      const res = await fetch(
+        "https://producemart.herokuapp.com/getUsersByRole?role=buyer",
+        {
+          method: "GET",
+          headers: {
+            Authorization: this.token,
+          },
+        }
+      );
+      const { data } = await res.json();
+
+      this.users = data.filter((user) => user.emailVerified == true && user.status == 'disabled');
+      console.log("users", this.users);
+    },
   },
 };
 </script>

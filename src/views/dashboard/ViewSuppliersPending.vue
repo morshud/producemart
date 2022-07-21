@@ -86,13 +86,13 @@
                           <td>{{ user.phone_no }}</td>
                           <td v-if="user.status == 'pending'"><a href="#" style="background: #f98c00;" class="status_btn">{{user.status}}</a></td>
                           <td>
-                            <div class="action_btns d-flex">
-                              <router-link to="/dashboard/edit-supplier-content" title="Edit" class="action_btn mr_10">
-                                <i class="far fa-edit"></i>
+                            <div class="action_btns d-flex justify-content-center">
+                              <router-link :to="'/dashboard/view-supplier-content/'+user._id" title="View Supplier" class="action_btn mr_10">
+                                <i class="far fa-eye"></i>
                               </router-link>
-                              <a href="#" title="Delete" class="action_btn">
+                              <!-- <a href="#" title="Delete" class="action_btn">
                                 <i class="fas fa-trash"></i>
-                              </a>
+                              </a> -->
                             </div>
                           </td>
                         </tr>
