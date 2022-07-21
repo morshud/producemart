@@ -664,15 +664,27 @@ export default {
       }
     },
     proceedPayment(){
-      axios.get(`https://producemart.herokuapp.com/admin-fee/pay/${this.orderId}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: this.token,
-        },
-      })
-      .then(res => {
-        //console.log(res.data.checkoutUrl)
-        window.location.href = res.data.checkoutUrl
+      Swal.fire({
+        title: `Are you sure you want to proceed Admin $50 Payment?`,
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Proceed!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.get(`https://producemart.herokuapp.com/admin-fee/pay/${this.orderId}`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: this.token,
+            },
+          })
+          .then(res => {
+            //console.log(res.data.checkoutUrl)
+            window.location.href = res.data.checkoutUrl
+          })
+        }
       })
     },
     checkRouteQuery(){
