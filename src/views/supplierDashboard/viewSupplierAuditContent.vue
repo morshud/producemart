@@ -93,9 +93,7 @@
                   <div class="row mb-4">
                     <div class="col-md-12">
                       <ul>
-                        <li>Lorem ipsum</li>
-                        <li>Lorem ipsum</li>
-                        <li>Lorem ipsum</li>
+                        <li v-for="(item, i) in feedbacks" :key="item._id">{{item.comment}}</li>
                       </ul>
                     </div>
                   </div>

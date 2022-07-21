@@ -190,13 +190,13 @@
             :class="path == '/supplier-dashboard/uploadCertificate' && 'active-nav'"
           >
             <router-link to="/supplier-dashboard/uploadCertificate"
-              ><a>Upload Audit</a></router-link
+              ><a>Upload Certificate</a></router-link
             >
           </li>
         </ul>
       </li>
       <!--Sales Analytics-->
-      <li class="">
+      <!-- <li class="">
         <router-link to="/supplier-dashboard/sales-analytics">
           <a aria-expanded="false">
             <div class="nav_icon_small">
@@ -212,7 +212,7 @@
             </div>
           </a>
         </router-link>
-      </li>
+      </li> -->
       <!--Settings-->
       <li class="">
         <router-link to="#" class="has-arrow">

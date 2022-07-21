@@ -48,50 +48,45 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="fileDownloadOption mb-3">
+                                    <!-- <div class="fileDownloadOption mb-3">
                                         <button type="button" title="Download as CSV file">CSV</button>
                                         <button type="button" title="Download as PDF file">PDF</button>
-                                    </div>
+                                    </div> -->
                                     <div class="QA_table mb_30">
                                         <table class="table lms_table_active ">
                                             <thead>
                                             <tr>
-                                                <th scope="col">Order No</th>
+                                                <th scope="col">#</th>
                                                 <th scope="col">Order Date</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Buyer Name</th>
                                                 <th scope="col">Supplier Name</th>
                                                 <th scope="col">Freight Type</th>
-                                                <th scope="col">Destination</th>
-                                                <th scope="col">Inspection Amount ($)</th>
-                                                <th scope="col">Shipping Amount ($)</th>
-                                                <th scope="col">Order Amount ($)</th>
+                                                <!-- <th scope="col">Destination</th> -->
+                                                <th scope="col">Shipper <br>Name</th>
+                                                <th scope="col">Order <br>Amount</th>
+                                                <th scope="col">Action</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <th scope="row">330345</th>
-                                                <td>2022-04-05</td>
-                                                <td>Delivered</td>
-                                                <td>Ali</td>
-                                                <td>Sade</td>
-                                                <td>Air</td>
-                                                <td>Canada</td>
-                                                <td>10</td>
-                                                <td>100</td>
-                                                <td>50</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">303405</th>
-                                                <td>2022-03-28</td>
-                                                <td>Cancelled</td>
-                                                <td>Ayomide</td>
-                                                <td>Felix</td>
-                                                <td>Road</td>
-                                                <td>Nigeria</td>
-                                                <td>5</td>
-                                                <td>50</td>
-                                                <td>20</td>
+                                            <tr v-for="(item, i) in orders" :key="i">
+                                                <th scope="row">{{i+1}}</th>
+                                                <td>{{getDate(item.createdAt)}}</td>
+                                                <td>{{item.status}}</td>
+                                                <td>{{item.buyer.username}}</td>
+                                                <td>{{item.supplier.username}}</td>
+                                                <td style="text-transform: capitalize">{{item.shipment_type}}</td>
+                                                <!-- <td>{{item.shipping_address.country ?? ''}}</td> -->
+                                                <td>{{item.shipper.companyName}}</td>
+                                                <!-- <td>{{item.estimate.shipping_price}}</td> -->
+                                                <td>{{item.estimate.total_price}}</td>
+                                                <td>
+                                                    <router-link :to="'/dashboard/view-order/' + item._id"
+                                                      ><button class="status_view">
+                                                        View
+                                                      </button></router-link
+                                                    >
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -114,6 +109,7 @@
     import DashSidebar from './dash-sidebar.vue'
     import DashNavbar from './dash-navbar.vue'
     import DashFooter from './dash-footer.vue'
+    import axios from 'axios'
     export default {
       name: "Produce Mart",
       components:{
@@ -121,9 +117,35 @@
       'dash-navbar': DashNavbar,
       'dash-footer': DashFooter,
       },
+      data(){
+        return {
+            token: JSON.parse(localStorage.getItem("user")).token,
+            orders: []
+        }
+      },
+      methods: {
+        async getAllOrder() {
+        //this.inspectors = null;
+          const res = await fetch(
+            "https://producemart.herokuapp.com/getAllOrders",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "applicaiton/json",
+                Authorization: this.token,
+              },
+            }
+          );
+          const { data } = await res.json();
+          this.orders = data;
+        },
+        getDate(value){
+          return new Date(value).toLocaleDateString()
+        },
+      },
       mounted(){
         window.scrollTo(0,0)
-
+        this.getAllOrder()
         let externalScriptCustom = document.createElement('script')
         externalScriptCustom.setAttribute('src', 'https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js')
         document.head.appendChild(externalScriptCustom)

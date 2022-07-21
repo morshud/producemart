@@ -89,7 +89,7 @@
                         </tr>
                       </tbody>
                     </table>
-                    <nav aria-label="Page navigation example" class="m-2">
+                    <!-- <nav aria-label="Page navigation example" class="m-2">
                       <ul class="pagination justify-content-end">
                         <li class="page-item disabled">
                           <a
@@ -113,7 +113,7 @@
                           <a class="page-link" href="#">Next</a>
                         </li>
                       </ul>
-                    </nav>
+                    </nav> -->
                   </div>
                 </div>
               </div>

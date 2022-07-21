@@ -494,6 +494,11 @@ const routes = [
     name: "DashViewOrders",
     component: DashViewOrders,
   },
+  {
+    path: "/dashboard/view-order/:id",
+    name: "DashViewOrderSingleOrder",
+    component: () => import('@/views/dashboard/view-order'),
+  },
   //buyers
   {
     path: "/dashboard/active-buyers",

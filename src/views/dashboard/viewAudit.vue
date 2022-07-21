@@ -117,25 +117,13 @@
                     <div class="row mb-4">
                       <div class="col-md-12">
                         <ul>
-                          <li>
+                          <li v-for="(item, i) in feedbacks" :key="item._id">
                             <div class="row">
                               <div class="col-md-10">
-                                <span>Lorem Ipsum</span>
+                                <span>{{item.comment}}</span>
                               </div>
                               <div class="col-md-2">
-                                <a href="#" @click="deleteFeedback" title="Delete Feedback" class="action_btn">
-                                  <i class="fas fa-trash"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </li>
-                          <li>
-                            <div class="row">
-                              <div class="col-md-10">
-                                <span>Lorem Ipsum</span>
-                              </div>
-                              <div class="col-md-2">
-                                <a href="#" @click="deleteFeedback" title="Delete Feedback" class="action_btn">
+                                <a @click="deleteFeedback(item._id)" title="Delete Feedback" class="action_btn">
                                   <i class="fas fa-trash"></i>
                                 </a>
                               </div>
@@ -196,12 +184,29 @@ export default {
       },
       token: JSON.parse(localStorage.getItem("user")).token,
       certId: this.$route.params.id,
-      comment: ''
+      comment: '',
+      feedbacks: []
     };
   },
   methods: {
-    deleteFeedback(){
-
+    deleteFeedback(value){
+      //console.log(value)
+      axios.delete(`https://producemart.herokuapp.com/deleteAuditFeedback/${value}`, {
+        headers: {
+          Authorization: this.token,
+        },
+      })
+      .then(() => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: `Comment Deleted`,
+          showConfirmButton: false,
+          timer: 3500
+        })
+        this.fetchAudit()
+        this.getFeedBacks()
+      })
     },
     getFeedBacks(){
       axios.get(`https://producemart.herokuapp.com/getAuditFeedbackByAuditId/${this.certId}`, {
@@ -211,7 +216,8 @@ export default {
         },
       })
       .then(res => {
-        console.log(res)
+        //console.log(res.data.data)
+        this.feedbacks = res.data.data
       })
     },
     approveAudit(value){
@@ -233,7 +239,6 @@ export default {
           timer: 3500
         })
         this.fetchAudit();
-        this.$router.push('/dashboard/view-audit/'+this.certId)
       })
     },
     rejectAudit(value){
@@ -267,7 +272,6 @@ export default {
           this.fetchAudit();
           this.getFeedBacks();
           this.comment = ''
-          this.$router.push('/dashboard/view-audit/'+this.certId)
         })
         
       })
