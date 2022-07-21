@@ -83,7 +83,7 @@
                             {{ order.quote.quantity }}
                             {{ order.quote.product.package.unit }}
                           </td>
-                          <td><a class="btn-quotes">Quotes</a> <a class="btn-awaiting">Awaiting Quotes</a></td>
+                          <td><a class="btn-awaiting">Open</a></td>
                           <td>
                             <router-link
                               :to="

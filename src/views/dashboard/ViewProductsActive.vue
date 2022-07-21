@@ -205,13 +205,13 @@ export default {
       const { data } = await res.json();
 
       this.products = data.filter((val) => val.status == "active");
-      console.log(this.products);
+      //console.log(this.products);
 
       // this.products = data;
       // console.log(this.products);
     },
     async activateOrDeact(id) {
-      console.log(id);
+      //console.log(id);
       const res = await fetch(
         "https://producemart.herokuapp.com/verifyProduct/" + id,
         {

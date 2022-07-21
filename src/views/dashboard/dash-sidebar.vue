@@ -340,7 +340,7 @@
         </ul>
       </li>
       <!--Reports-->
-      <li
+      <!-- <li
         class=""
         v-if="user.role == 'superadmin' || user.role == 'reportingadmin'"
       >
@@ -381,7 +381,7 @@
             >
           </li>
         </ul>
-      </li>
+      </li> -->
       <!--Settings-->
       <li class="">
         <router-link to="#" class="has-arrow">

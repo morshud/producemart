@@ -43,7 +43,7 @@
                 Orders</router-link
               >
             </div>
-            <div class="row justify-content-center summaryBox">
+            <div class="row justify-content-center summaryBox" v-if="order.shipment_type != ''">
               <div class="col-lg-12">
                 <h1>Quote Summary</h1>
                 <div class="lineHr"></div>
@@ -146,6 +146,49 @@
                 </div>
               </div>
             </div>
+            <div class="row justify-content-center summaryBox" v-else>
+              <div class="col-lg-12">
+                <h1>Quote Summary</h1>
+                <div class="lineHr"></div>
+              </div>
+              <div class="col-lg-3">
+                <div class="productImgDiv">
+                  <img :src="product.img_url[0]" />
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <table>
+                  <tr>
+                    <td class="mainText">Product Name:</td>
+                    <td class="contentText">
+                      <span class="statustable">{{product.name}}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="mainText">Package weight:</td>
+                    <td class="contentText">{{product.package.weight}}{{product.package.weight_unit}}</td>
+                  </tr>
+                  <tr>
+                    <td class="mainText">time of request:</td>
+                    <td class="contentText">{{getTime(quote.createdAt)}}</td>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-lg-4">
+                <table>
+                  <tr>
+                    <td class="mainText">date of request:</td>
+                    <td class="contentText">{{getDate(quote.createdAt)}}</td>
+                  </tr>
+                  <tr>
+                    <td class="mainText">estimated cost:</td>
+                    <td class="contentText">${{product.package.price}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+
           </div>
 
           <div class="container-fluid orderProcessSteps" id="orderProgress">

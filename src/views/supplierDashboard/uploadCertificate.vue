@@ -336,7 +336,7 @@ export default {
           showConfirmButton: false,
           timer: 3500
         })
-        this.$router.push('/supplier-dashboard/home')
+        this.$router.push('/supplier-dashboard/view-supplier-audit')
       })
     },
     onFileChange(n) {

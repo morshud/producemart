@@ -181,7 +181,7 @@ export default {
       const { data } = await res.json();
 
       this.users = data.filter((user) => user.emailVerified == true && user.status == 'active');
-      console.log("users", this.users);
+      //console.log("users", this.users);
     },
   },
 };
