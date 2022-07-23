@@ -198,7 +198,7 @@ export default {
       const { data } = await res.json();
 
       this.products = data.filter((val) => val.status == "disabled");
-      console.log(this.products);
+      //console.log(this.products);
     },
     async activateOrDeact(id, action) {
       // console.log(this.token);

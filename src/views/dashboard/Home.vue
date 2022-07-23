@@ -197,12 +197,12 @@
               <div class="white_card_body">
                 <div class="Activity_timeline">
                   <ul v-for="(item, i) in notifications" :key="i">
-                    <li style="cursor: pointer" @click="readNotice(item._id)">
+                    <li style="cursor: pointer" @click="readNotice(item.type, item._id)">
                       <div class="activity_bell"></div>
                       <div class="timeLine_inner d-flex align-items-center">
                         <div class="activity_wrap">
-                          <h6>{{
-                        dateFormat(item.createdAt)
+                          <h6 style="font-size: 12px;">{{
+                        dayDiff(item.createdAt)
                       }}</h6>
                           <p>{{ item.message }}</p>
                         </div>
@@ -411,6 +411,7 @@ import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
 import axios from "axios";
+import moment from 'moment'
 export default {
   name: "Produce Mart",
   components: {
@@ -446,12 +447,15 @@ export default {
   methods: {
     logOut() {
       this.$store.dispatch("auth/logout");
-      this.$router.push("/admin//login");
+      this.$router.push("/admin/login");
     },
     getDate(value){
       return new Date(value).toLocaleDateString()
     },
-    readNotice(id){
+    dayDiff(value) {
+      return moment(value).fromNow();
+    },
+    readNotice(page, id){
       let data = {
         "read": true
       }
@@ -463,6 +467,14 @@ export default {
       })
       .then(() => {
         this.getAllNotifications();
+        if (page == "quote") {
+          this.$router.push("/dashboard/view-quotes");
+        } else if (page == "product upload") {
+          this.$router.push("/dashboard/pending-products");
+        } else if (page == "active product") {
+          this.$router.push("/dashboard/active-products");
+        }
+        
       })
     },
     dateFormat(date) {

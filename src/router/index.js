@@ -488,6 +488,17 @@ const routes = [
     name: "AdminProductReview",
     component: AdminProductReview,
   },
+  //Transaction 
+  {
+    path: "/dashboard/transaction",
+    name: "DashTranaction",
+    component: () => import('@/views/dashboard/transaction'),
+  },
+  {
+    path: "/dashboard/transactionDetails/:id",
+    name: "DashTransactionDetails",
+    component: () => import('@/views/dashboard/transactionDetails'),
+  },
   //orders
   {
     path: "/dashboard/view-orders",

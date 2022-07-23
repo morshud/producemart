@@ -150,7 +150,7 @@
                                 title="Disable"
                                 class="action_btn"
                               >
-                                <i class="fas fa-trash"></i>
+                                <!-- <i class="fas fa-trash"></i> -->
                               </span>
                             </div>
                           </td>
@@ -177,6 +177,7 @@ import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
 import Swal from "sweetalert2";
+import axios from "axios";
 export default {
   name: "Produce Mart",
   components: {
@@ -212,38 +213,46 @@ export default {
       this.products = data.filter(
         (val) => val.status == "pending" && val.available
       );
-      console.log(this.products);
+      //console.log(this.products);
     },
     async activateOrDeact(id, action, name) {
       // console.log(this.token);
-      const res = await fetch(
-        "https://producemart.herokuapp.com/verifyProduct/" + id,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: this.token,
-          },
-          body: JSON.stringify({ verify: action }),
+      Swal.fire({
+        title: `Are you sure you want to activate ${name}?`,
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Proceed!'
+      }).then((result) => {
+
+        if (result.isConfirmed) {
+          axios.patch(`https://producemart.herokuapp.com/verifyProduct/${id}`,{ verify: action }, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: this.token,
+            },
+          })
+          .then(() => {
+            this.getAllproducts();
+            Swal.fire({
+              title: name + " has been activated!",
+              text: "Product is now listed for buyers",
+              icon: "success",
+              showCancelButton: true,
+              confirmButtonColor: "#97f29f",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Activate more",
+              cancelButtonText: "Active products",
+            }).then((result) => {
+              if (!result.isConfirmed) {
+                this.$router.push("/dashboard/active-products");
+              }
+            });
+          })
         }
-      );
-      if (res.ok) {
-        this.getAllproducts();
-        Swal.fire({
-          title: name + " has been activated!",
-          text: "Product is now listed for buyers",
-          icon: "success",
-          showCancelButton: true,
-          confirmButtonColor: "#97f29f",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Activate more",
-          cancelButtonText: "Active products",
-        }).then((result) => {
-          if (!result.isConfirmed) {
-            this.$router.push("/dashboard/active-products");
-          }
-        });
-      }
+      })
     },
   },
   computed: {

@@ -87,6 +87,23 @@
           </li> -->
         </ul>
       </li>
+
+      <!-- Transaction  -->
+      <li class="">
+        <router-link to="/dashboard/transaction">
+          <a aria-expanded="false">
+            <div class="nav_icon_small">
+              <img src="@/assets/img/menu-icon/transaction.png" />
+            </div>
+            <div class="nav_title">
+              <span :class="path == '/dashboard/transaction' && 'active-nav'"
+                >Transactions</span
+              >
+            </div>
+          </a>
+        </router-link>
+      </li>
+
       <!--Products-->
       <li
         class=""

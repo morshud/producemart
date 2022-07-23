@@ -114,13 +114,13 @@
                               >
                                 <i class="far fa-eye"></i>
                               </router-link>
-                              <span
+                              <!-- <span
                                 @click="activateOrDeact(product._id)"
                                 title="Disable"
                                 class="action_btn"
                               >
                                 <i class="fas fa-trash"></i>
-                              </span>
+                              </span> -->
                             </div>
                           </td>
                         </tr>

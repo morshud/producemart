@@ -1,5 +1,5 @@
 <template>
-  <title>Prdoduct review | Produce Mart</title>
+  <title>Product Review | ProduceMart</title>
   <!-- <mainHeader />
   <searchHeader /> -->
 

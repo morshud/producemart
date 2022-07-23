@@ -38,7 +38,7 @@
               <div class="white_card_body">
                 <div class="QA_section">
                   <div class="white_box_tittle list_header">
-                    <h4>buyer Details</h4>
+                    <h4>Buyer Details</h4>
                   </div>
                   <div class="row mb-4">
                     <div class="col-sm-6">
