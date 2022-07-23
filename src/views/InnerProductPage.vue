@@ -722,7 +722,7 @@
                       <td class="tbody">{{ product && product.location }}</td>
                     </tr>
                     <tr>
-                      <td class="thead">GMO (Genetically Modified Organism)</td>
+                      <td class="thead">GMO</td>
                       <td class="tbody">{{ product && product.GMO }}</td>
                     </tr>
                     <tr>

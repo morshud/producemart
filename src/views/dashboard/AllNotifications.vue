@@ -72,8 +72,8 @@
                   >
                     <span class="detailNotify">
                       <a class="mainTxt">{{ notification.message }}</a>
-                      <a class="timeTxt">{{
-                        dateFormat(notification.createdAt)
+                      <a class="timeTxt" style="font-size: 12px;">{{
+                        dayDiff(notification.createdAt) 
                       }}</a>
                     </span>
                   </div>
@@ -97,6 +97,7 @@ import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
 import { month } from "@/assets/months";
+import moment from 'moment'
 export default {
   name: "Produce Mart",
   components: {
@@ -123,6 +124,9 @@ export default {
     };
   },
   methods: {
+    dayDiff(value) {
+      return moment(value).fromNow();
+    },
     async getAllNotifications() {
       const res = await fetch(
         "https://producemart.herokuapp.com/getAdminNotifications",

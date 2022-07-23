@@ -73,8 +73,8 @@
                                                 <th scope="row">{{i+1}}</th>
                                                 <td>{{getDate(item.createdAt)}}</td>
                                                 <td>{{item.status}}</td>
-                                                <td>{{item.buyer.username}}</td>
-                                                <td>{{item.supplier.username}}</td>
+                                                <td><router-link :to="'/dashboard/view-buyer-content/'+item.buyer._id">{{item.buyer.username}}</router-link></td>
+                                                <td><router-link :to="'/dashboard/view-supplier-content/'+item.supplier._id">{{item.supplier.username}}</router-link></td>
                                                 <td style="text-transform: capitalize">{{item.shipment_type}}</td>
                                                 <!-- <td>{{item.shipping_address.country ?? ''}}</td> -->
                                                 <td>{{item.shipper.companyName}}</td>

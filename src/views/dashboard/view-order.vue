@@ -72,6 +72,12 @@
                     </td>
                   </tr>
                   <tr>
+                    <td class="mainText">Quote ID:</td>
+                    <td class="contentText">
+                      <span class="statustable">{{quote._id}}</span>
+                    </td>
+                  </tr>
+                  <tr>
                     <td class="mainText">Product Availability:</td>
                     <td class="contentText">
                       <span class="statustable">{{order.available}}</span>
@@ -103,11 +109,11 @@
                   </tr>
                 </table>
               </div>
-              <div class="col-lg-12 text-center mt-4">
+              <!-- <div class="col-lg-12 text-center mt-4">
                 <button class="btnCancel" id="btn_modal">
                   <i class="bi bi-x-circle-fill"></i> Cancel Order
                 </button>
-              </div>
+              </div> -->
               <!-- Modal -->
               <div id="modal" class="modal-container">
                 <div class="modal-box">
