@@ -34,11 +34,11 @@
 
           <!--Main-->
           <div class="col-md-12">
-            <div class="white_box QA_section mb_30" v-if="notifications">
+            <div class="white_box QA_section mb_30 pd_20" v-if="notifications" style="padding-bottom: 80px;">
               <div class="recentDiv">
                 <h5>10 most recent <i class="bi bi-alarm"></i></h5>
               </div>
-              <div v-for="(notification, i) in notifications" :key="i">
+              <div v-for="(notification, i) in sortedNotification" :key="i">
                 <div
                   :class="
                     notification.read
@@ -50,8 +50,11 @@
                     <span class="iconNotify" :disabled="loading">
                       <i class="bi bi-three-dots-vertical"></i>
                       <div class="actionDiv" id="actionDiv">
-                        <a @click="markReceipt(notification._id, i)"
+                        <a v-if="notification.read == false" @click="markReceipt(notification._id, i)"
                           ><i class="bi bi-envelope-paper"></i> Mark as read</a
+                        >
+                        <a v-if="notification.read == true" @click="markReceipt(notification._id, i)"
+                          ><i class="bi bi-envelope-paper"></i> Mark as unread</a
                         >
                         <a @click="deleteNotification(notification._id, i)"
                           ><i class="bi bi-trash3"></i> Delete notification</a
@@ -78,6 +81,12 @@
                     </span>
                   </div>
                 </div>
+              </div>
+              <div class="recentDiv">
+                <p style="float: right;margin-top: 20px;"> 
+                  <button @click="prevPage" style="background: #97f29f;border: 0;padding: 5px 30px; margin-right: 25px;">Previous</button> 
+                  <button @click="nextPage" style="background: #97f29f;border: 0;padding: 5px 41px;">Next</button>
+                </p>
               </div>
             </div>
           </div>
@@ -118,14 +127,32 @@ export default {
   },
   data() {
     return {
-      notifications: null,
+      notifications: [],
       loading: false,
       token: JSON.parse(localStorage.getItem("user")).token,
+      size: 10,
+      current_page: 1,
     };
+  },
+  computed:{
+    sortedNotification() {
+      return this.notifications.filter((row, index) => {
+        let start = (this.current_page-1)*this.size;
+        let end = this.current_page*this.size;
+        if(index >= start && index < end) return true;
+      });
+    }
   },
   methods: {
     dayDiff(value) {
       return moment(value).fromNow();
+    },
+    nextPage() {
+      console.log('helo')
+      if((this.current_page*this.size) < this.notifications.length) this.current_page++;
+    },
+    prevPage() {
+      if(this.current_page > 1) this.current_page--;
     },
     async getAllNotifications() {
       const res = await fetch(
@@ -138,7 +165,7 @@ export default {
         }
       );
       const { data } = await res.json();
-      this.notifications = data.splice(0, 10);
+      this.notifications = data;
       //   console.log(this.notifications);
     },
     async markReceipt(id, index) {

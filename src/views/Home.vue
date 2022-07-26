@@ -327,7 +327,7 @@
             >
               <div class="container contProduct">
                 <div class="row">
-                  <div class="itemProduct">
+                  <!-- <div class="itemProduct">
                     <router-link to="/products/inner-product">
                       <div class="imgArea">
                         <img
@@ -343,7 +343,7 @@
                         ><a>View Products <i class="bi bi-arrow-right"></i></a
                       ></router-link>
                     </div>
-                  </div>
+                  </div> -->
                   <div
                     class="itemProduct"
                     v-for="(product, i) in products"

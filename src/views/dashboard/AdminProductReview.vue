@@ -280,7 +280,12 @@
                       <td class="thead">
                         {{ val == "comment" ? "Additional Comments" : val }}
                       </td>
-                      <td class="tbody">{{ product.character[val] }}</td>
+                      <td v-if="val == 'imperfectRate'" class="tbody">{{ product.character[val] }}%</td>
+                      <td v-else-if="val == 'broken'" class="tbody">{{ product.character[val] }}%</td>
+                      <td v-else-if="val == 'admixture'" class="tbody">{{ product.character[val] }}%</td>
+                      <td v-else-if="val == 'moisture'" class="tbody">{{ product.character[val] }}%</td>
+                      <td v-else class="tbody">{{ product.character[val] }}</td>
+
                     </tr>
                   </table>
                 </div>
@@ -299,10 +304,27 @@
                   <th class="headerTable">Individual Packages (1 unit)</th>
                   <table v-if="product.package">
                     <tr v-for="(xter, val, i) in product.package" :key="i">
-                      <td class="thead">
-                        {{ val.replace(/_/g, " ") }}
+                      
+                      <div v-if="val == 'dimension_unit'"></div>
+                      <div v-else-if="val == 'weight_unit'"></div>
+                      <td v-else class="thead">
+                        <span >{{ val.replace(/_/g, " ") }}</span>
                       </td>
-                      <td class="tbody">{{ product.package[val] }}</td>
+                      <td v-if="val == 'dimension' " class="tbody">
+                        {{ product.package.dimension }} {{ product.package.dimension_unit }}
+                      </td>
+                      <td v-else-if="val == 'weight' " class="tbody">
+                        {{ product.package.weight }} {{ product.package.weight_unit }}
+                      </td>
+                      <div v-else-if="val == 'dimension_unit' ">
+                        
+                      </div>
+                      <div v-else-if="val == 'weight_unit'">
+                      </div>
+                      <td v-else-if="val == 'price' " class="tbody">
+                        ${{ product.package[val] }}
+                      </td>
+                      <td v-else class="tbody">{{ product.package[val] }}</td>
                     </tr>
                   </table>
                   <th class="headerTable">Bulk Packages</th>
@@ -311,7 +333,10 @@
                       <td class="thead">
                         {{ val.replace(/_/g, " ") }}
                       </td>
-                      <td class="tbody">{{ product.shipment[val] }}</td>
+                      <td v-if="val == 'price' " class="tbody">
+                        ${{ product.package[val] }}
+                      </td>
+                      <td v-else class="tbody">{{ product.shipment[val] }}</td>
                     </tr>
                   </table>
                 </div>
