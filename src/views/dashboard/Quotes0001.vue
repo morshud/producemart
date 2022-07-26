@@ -93,8 +93,9 @@
                         <thead>
                           <tr>
                             <th class="center">#</th>
-                            <th class="center">Product ID</th>
+                            <!-- <th class="center">Product ID</th> -->
                             <th class="center">Product Name</th>
+                            <th class="center">Product Price</th>
                             <th class="center">Product Variety</th>
                             <th class="center">Product Dimension</th>
                             <th class="right">Weight</th>
@@ -107,14 +108,12 @@
                             <td class="center">#</td>
                             <!-- <td class="left strong">#{{ product._id }}</td> -->
                             <td class="left strong">{{ product.name }}</td>
+                            <td class="left strong">${{ product.package.price }}</td>
                             <td class="right">{{ product.variety }}</td>
                             <td class="right">{{ product.package.dimension }}</td>
                             <td class="right">{{ product.package.weight }}{{ product.package.weight_unit }}</td>
                             <td class="center">
                               {{ quote.quantity }}{{ product.order?.qty_unit }}
-                            </td>
-                            <td class="right">
-                              {{ product && product.package?.price }}
                             </td>
                             <td class="right">
                                 {{ product && product.order?.min_quantity }}
@@ -129,7 +128,7 @@
                       <div class="col-lg-12">
                         <div class="faq-box">
                           <details>
-                            <summary>Show More Details</summary>
+                            <summary>Show Quote Details</summary>
                             <div class="faq-content">
                               <!-- Order -->
                               <div class="summaryTable">
@@ -233,7 +232,7 @@
                                     >
                                     <tr class="bodyRow">
                                       <td class="tdMain">Shipping Cost</td>
-                                      <td class="tdBody">
+                                      <td class="tdBody" v-if="order?.shipment_payment?.road?.shipping_cost !=''">
                                         ${{
                                           order?.shipment_payment &&
                                           order?.shipment_payment?.road?.shipping_cost
@@ -242,7 +241,7 @@
                                     </tr>
                                     <tr class="bodyRow">
                                       <td class="tdMain">Initial Deposit</td>
-                                      <td class="tdBody">
+                                      <td class="tdBody" v-if="order?.shipment_payment?.road?.initial_deposit !=''">
                                         ${{
                                           order?.shipment_payment &&
                                           order?.shipment_payment?.road?.initial_deposit
@@ -251,7 +250,7 @@
                                     </tr>
                                     <tr class="bodyRow">
                                       <td class="tdMain">Insurance</td>
-                                      <td class="tdBody">
+                                      <td class="tdBody" v-if="order?.shipment_payment?.road?.insurance !=''">
                                         ${{
                                           order?.shipment_payment &&
                                           order?.shipment_payment?.road?.insurance
@@ -308,7 +307,7 @@
                                     >
                                       <tr class="bodyRow">
                                         <td class="tdMain">Shipping Cost</td>
-                                        <td class="tdBody">
+                                        <td class="tdBody" v-if="order?.shipment_payment?.sea?.shipping_cost !=''">
                                           ${{
                                             order?.shipment_payment &&
                                             order?.shipment_payment?.sea?.shipping_cost
@@ -317,7 +316,7 @@
                                       </tr>
                                       <tr class="bodyRow">
                                         <td class="tdMain">Initial Deposit</td>
-                                        <td class="tdBody">
+                                        <td class="tdBody" v-if="order?.shipment_payment?.sea?.initial_deposit !=''">
                                           ${{
                                             order?.shipment_payment &&
                                             order?.shipment_payment?.sea?.initial_deposit
@@ -326,7 +325,7 @@
                                       </tr>
                                       <tr class="bodyRow">
                                         <td class="tdMain">Insurance</td>
-                                        <td class="tdBody">
+                                        <td class="tdBody" v-if="order?.shipment_payment?.sea?.insurance !=''">
                                           ${{
                                             order?.shipment_payment &&
                                             order?.shipment_payment?.sea?.insurance
@@ -382,7 +381,7 @@
                                     >
                                       <tr class="bodyRow">
                                         <td class="tdMain">Shipping Cost</td>
-                                        <td class="tdBody">
+                                        <td class="tdBody" v-if="order?.shipment_payment?.air?.shipping_cost != ''">
                                           ${{
                                             order?.shipment_payment &&
                                             order?.shipment_payment?.air?.shipping_cost
@@ -391,7 +390,7 @@
                                       </tr>
                                       <tr class="bodyRow">
                                         <td class="tdMain">Initial Deposit</td>
-                                        <td class="tdBody">
+                                        <td class="tdBody" v-if="order?.shipment_payment?.air?.initial_deposit != ''">
                                           ${{
                                             order?.shipment_payment &&
                                             order?.shipment_payment?.air?.initial_deposit
@@ -400,7 +399,7 @@
                                       </tr>
                                       <tr class="bodyRow">
                                         <td class="tdMain">Insurance</td>
-                                        <td class="tdBody">
+                                        <td class="tdBody" v-if="order?.shipment_payment?.air?.insurance !=''">
                                           ${{
                                             order?.shipment_payment &&
                                             order?.shipment_payment?.air?.insurance

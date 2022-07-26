@@ -22,6 +22,7 @@
     "sweetalert2": "^11.4.17",
     "swiper": "^8.1.0",
     "vue": "^3.2.13",
+    "vue-awesome-paginate": "^1.0.0",
     "vue-axios": "^3.4.1",
     "vue-router": "^4.0.3",
     "vue-tel-input": "^5.11.0",

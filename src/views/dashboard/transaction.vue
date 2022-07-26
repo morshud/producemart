@@ -78,9 +78,9 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(item, i) in transactions" :key="i">
+                        <tr v-for="(item, i) in sortedCats" :key="i">
                           
-                          <td>{{ i+1 }}</td>
+                          <td>#</td>
                           <td>
                             <div v-if="item.user != null">
                               <span>
@@ -164,6 +164,35 @@
                         </tr>
                       </tbody>
                     </table>
+                  <p style="float: right;margin-top: 20px;"> 
+                    <button @click="prevPage" style="background: #97f29f;border: 0;padding: 5px 30px; margin-right: 25px;">Previous</button> 
+                    <button @click="nextPage" style="background: #97f29f;border: 0;padding: 5px 41px;">Next</button>
+                  </p>
+                    <!-- <nav aria-label="Page navigation example" class="m-2">
+                      <ul class="pagination justify-content-end">
+                        <li class="page-item disabled">
+                          <a
+                            class="page-link"
+                            href="#"
+                            tabindex="-1"
+                            aria-disabled="true"
+                            >Previous</a
+                          >
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="#">2</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="#">3</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="#">Next</a>
+                        </li>
+                      </ul>
+                    </nav> -->
                   </div>
                 </div>
               </div>
@@ -184,6 +213,7 @@
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
+import axios from 'axios'
 export default {
   name: "Produce Mart",
   components: {
@@ -200,29 +230,93 @@ export default {
       "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
     );
     document.head.appendChild(externalScriptCustom);
-    this.fetchSuppliers();
+    this.fetchTransactions();
   },
+
   data() {
     return {
-      transactions: null,
+      transactions: [],
       token: JSON.parse(localStorage.getItem("user")).token,
+      size: 10,
+      current_page: 1,
+      currentSort:'status',
+      transData: '',
+      currentSortDir: 'desc'
     };
   },
-  methods: {
-    async fetchSuppliers() {
-      this.users = null;
-      const res = await fetch(
-        "https://producemart.herokuapp.com/getAlltransactions",
-        {
-          method: "GET",
-          headers: {
-            Authorization: this.token,
-          },
-        }
-      );
-      const { data } = await res.json();
-      this.transactions = data
-    },
+  computed:{
+    sortedCats() {
+      return this.transactions.sort((a,b) => {
+        let modifier = 1;
+        if(this.currentSortDir === 'desc') modifier = -1;
+        if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+        if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+        return 0;
+      }).filter((row, index) => {
+        let start = (this.current_page-1)*this.size;
+        let end = this.current_page*this.size;
+        if(index >= start && index < end) return true;
+      });
+    }
   },
+  methods: {
+    fetchTransactions() {
+      axios.get(`https://producemart.herokuapp.com/getAlltransactions`, {
+        headers: {
+          Authorization: this.token,
+        },
+      })
+      .then(res => {
+        console.log(res.data)
+        this.transData = res.data
+        this.transactions = res.data.data
+      })
+    },
+    onClickHandler(page){
+      console.log(page)
+      this.current_page = page
+      this.fetchTransactions()
+    },
+    sort(s) {
+      //if s == current sort, reverse
+      if(s === this.currentSort) {
+        this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
+      }
+      this.currentSort = s;
+    },
+    nextPage() {
+      if((this.current_page*this.size) < this.transactions.length) this.current_page++;
+    },
+    prevPage() {
+      if(this.current_page > 1) this.current_page--;
+    }
+  },
+
 };
 </script>
+<style>
+  .pagination-container {
+    display: flex;
+    column-gap: 10px;
+  }
+  .paginate-buttons {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: rgb(242, 242, 242);
+    border: 1px solid rgb(217, 217, 217);
+    color: black;
+  }
+  .paginate-buttons:hover {
+    background-color: #97f29f !important;
+  }
+  .active-page {
+    background-color: #97f29f !important;
+    border: 1px solid #97f29f !important;
+    color: white;
+  }
+  .active-page:hover {
+    background-color: #2988c8;
+  }
+</style>
