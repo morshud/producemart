@@ -135,16 +135,25 @@
             <!--Profile-->
             <div class="profile_info">
               <img src="@/assets/img/client_img.png" alt="#" />
+              Hi, {{ user.firstname }} <i class="bi bi-caret-down"></i>
               <div class="profile_info_iner">
                 <div class="profile_author_name">
-                  <p>{{ user.role }}</p>
-                  <h5>{{ user.firstname }} {{ user.lastname[0] }}</h5>
+                  <p style="font-size: 15px;">Admin Account</p>
+                  <h5>{{ user.firstname }} {{ user.lastname[0] }}.</h5>
+                  <p style="margin-top: -10px;font-size: 12px;font-weight: 500;">Admintrator</p>
                 </div>
                 <div class="profile_info_details">
-                  <router-link to="/dashboard/profile"
-                    ><a>My Profile</a></router-link
+                  
+                  <router-link to="/admin-dashboard/home">
+                    <img src="@/assets/img/menu-icon/dashboard.png" style="border: 0;border-radius: 0;margin-right: 10px;"> Dashboard
+                  </router-link>
+                  <router-link to="/admin-dashboard/profile" style="margin-left: -22px;"
+                    ><i style="margin-right: 8px;font-size: 20px;" class="bi bi-person-circle"></i> My Profile</router-link
                   >
-                  <a href @click.prevent="logOut">Log Out</a>
+                  <a @click.prevent="logOut">
+                    <img src="@/assets/img/menu-icon/logout.png" style="border: 0;border-radius: 0;margin-right: 10px; width: 15px;"  /> Log Out
+                  </a>
+                  
                 </div>
               </div>
             </div>

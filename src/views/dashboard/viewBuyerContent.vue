@@ -48,6 +48,9 @@
                       
                       <h2 class="span">Username: {{ buyer.username }}</h2>
                       <h2 class="span">Phone: {{ buyer.phone_no }}</h2>
+                      <h2 class="span">Address: 
+                        {{buyer.address}}
+                      </h2>
                     </div>
                     <div class="col-sm-6">
                       <div class="float-end">

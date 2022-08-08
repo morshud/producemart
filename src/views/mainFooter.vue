@@ -56,9 +56,11 @@
       </div>
     </div>
   </footer>
+
 </template>
 <style scoped src="@/assets/css/styleFrontend.css"></style>
 <style scoped src="@/assets/css/bootstrap.css"></style>
+
 <script>
     export default {
       mounted(){
@@ -67,6 +69,12 @@
           return new Date().getFullYear();
         }
         document.onload = document.getElementById("autodate").innerHTML = newDate();
+
+
+          (function(d, src, c) { var t=d.scripts[d.scripts.length - 1],s=d.createElement('script');s.id='la_x2s6df8d';s.async=true;s.src=src;s.onload=s.onreadystatechange=function(){var rs=this.readyState;if(rs&&(rs!='complete')&&(rs!='loaded')){return;}c(this);};t.parentElement.insertBefore(s,t.nextSibling);})(document,
+'https://greenmouse.ladesk.com/scripts/track.js',
+function(e){ LiveAgent.createButton('gpk24h50', e); });
         }
     }
 </script>
+

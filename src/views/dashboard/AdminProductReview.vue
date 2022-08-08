@@ -218,7 +218,7 @@
                       <td class="tbody">{{ product && product.location }}</td>
                     </tr>
                     <tr>
-                      <td class="thead">GMO (Genetically Modified Organism)</td>
+                      <td class="thead">GMO</td>
                       <td class="tbody">{{ product && product.GMO }}</td>
                     </tr>
                     <tr>
@@ -277,9 +277,12 @@
                   <h1>Product Characteristics</h1>
                   <table v-if="product.character">
                     <tr v-for="(xter, val, i) in product.character" :key="i">
-                      <td class="thead">
+                      <td v-if="val == 'imperfectRate'" class="thead">Imperfect Rate</td>
+                      <td v-else-if="val == 'dryProcess'" class="thead">Dried Process</td>
+                      <td v-else class="thead">
                         {{ val == "comment" ? "Additional Comments" : val }}
                       </td>
+
                       <td v-if="val == 'imperfectRate'" class="tbody">{{ product.character[val] }}%</td>
                       <td v-else-if="val == 'broken'" class="tbody">{{ product.character[val] }}%</td>
                       <td v-else-if="val == 'admixture'" class="tbody">{{ product.character[val] }}%</td>
@@ -436,7 +439,7 @@
               </div>
               <div class="row justify-content-center mt-5">
                 <div class="col-lg-12 feedBackBox" v-if="!updateId">
-                  <form @submit.prevent="AddFeedback">
+                  <form @submit.prevent="AddFeedback(product._id, product.status)">
                     <label for="feedback"
                       >Give Supplier feedback why this product can't be
                       activated and listed.</label
@@ -637,7 +640,8 @@ export default {
       console.log(this.product);
     },
 
-    async AddFeedback() {
+    async AddFeedback(id, value) {
+      console.log(value)
       const res = await fetch(
         "https://producemart.herokuapp.com/addFeedback/" + this.id,
         {
@@ -649,10 +653,31 @@ export default {
           body: JSON.stringify({ comment: this.comment }),
         }
       );
-      if (res.ok) {
-        Swal.fire("Done!", "Feedback sent to supplier!", "success");
-        this.getProduct();
+      if (value == 'active') {
+        const res = await fetch(
+          "https://producemart.herokuapp.com/verifyProduct/" + id,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: this.token,
+            },
+            body: JSON.stringify({ verify: "disabled" }),
+          }
+        );
+        if (res.ok) {
+          Swal.fire("Done!", "Feedback sent to supplier and product disabled! ", "success");
+          this.getProduct();
+        }
       }
+      else {
+        if (res.ok) {
+          Swal.fire("Done!", "Feedback sent to supplier!", "success");
+          this.getProduct();
+        } 
+      }
+      
+      
     },
     async getFeedback(id) {
       const res = await fetch(

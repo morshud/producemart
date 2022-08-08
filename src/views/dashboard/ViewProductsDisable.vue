@@ -90,13 +90,17 @@
                       </thead>
                       <tbody>
                         <tr v-for="(product, i) in filteredProducts" :key="i">
-                          <td>{{ i+1 }}</td>
+                          <td>{{ i + 1 }}</td>
                           <td>{{ product.name }}</td>
                           <!-- <td>{{ product.variety }}</td>
                           <td>{{ product.weight }}</td>
                           <td>{{ product.dimension }}</td> -->
                           <!-- <td>{{ product.userId._id }}</td> -->
-                          <td>{{ product.package.price }}</td>
+                          <td>
+                            {{ product.package.price }} per
+                            {{ product.package.unit }}
+                            
+                          </td>
                           <td>{{ product.category }}</td>
                           <!-- <td scope="row">{{ product.farmMethod }}</td>
                           <td>{{ product.description }}</td> -->
