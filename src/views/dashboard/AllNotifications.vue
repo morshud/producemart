@@ -148,7 +148,7 @@ export default {
       return moment(value).fromNow();
     },
     nextPage() {
-      console.log('helo')
+      //console.log('helo')
       if((this.current_page*this.size) < this.notifications.length) this.current_page++;
     },
     prevPage() {

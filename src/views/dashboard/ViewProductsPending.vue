@@ -90,13 +90,16 @@
                       </thead>
                       <tbody>
                         <tr v-for="(product, i) in filteredProducts" :key="i">
-                          <td>{{ i+1 }}</td>
+                          <td>{{ i + 1 }}</td>
                           <td>{{ product.name }}</td>
                           <!-- <td>{{ product.variety }}</td>
                           <td>{{ product.weight }}</td>
                           <td>{{ product.dimension }}</td> -->
                           <!-- <td>{{ product.userId._id }}</td> -->
-                          <td>{{ product.package.price }}</td>
+                          <td>
+                            {{ product.package.price }} per
+                            {{ product.package.unit }}
+                          </td>
                           <td>{{ product.category }}</td>
                           <!-- <td scope="row">{{ product.farmMethod }}</td>
                           <td>{{ product.description }}</td> -->
@@ -220,39 +223,43 @@ export default {
       Swal.fire({
         title: `Are you sure you want to activate ${name}?`,
         text: "You won't be able to revert this!",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, Proceed!'
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Proceed!",
       }).then((result) => {
-
         if (result.isConfirmed) {
-          axios.patch(`https://producemart.herokuapp.com/verifyProduct/${id}`,{ verify: action }, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: this.token,
-            },
-          })
-          .then(() => {
-            this.getAllproducts();
-            Swal.fire({
-              title: name + " has been activated!",
-              text: "Product is now listed for buyers",
-              icon: "success",
-              showCancelButton: true,
-              confirmButtonColor: "#97f29f",
-              cancelButtonColor: "#d33",
-              confirmButtonText: "Activate more",
-              cancelButtonText: "Active products",
-            }).then((result) => {
-              if (!result.isConfirmed) {
-                this.$router.push("/dashboard/active-products");
+          axios
+            .patch(
+              `https://producemart.herokuapp.com/verifyProduct/${id}`,
+              { verify: action },
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: this.token,
+                },
               }
+            )
+            .then(() => {
+              this.getAllproducts();
+              Swal.fire({
+                title: name + " has been activated!",
+                text: "Product is now listed for buyers",
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonColor: "#97f29f",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Activate more",
+                cancelButtonText: "Active products",
+              }).then((result) => {
+                if (!result.isConfirmed) {
+                  this.$router.push("/dashboard/active-products");
+                }
+              });
             });
-          })
         }
-      })
+      });
     },
   },
   computed: {

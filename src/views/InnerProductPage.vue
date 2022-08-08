@@ -781,10 +781,18 @@
                   <h1>Product Characteristics</h1>
                   <table v-if="product.character">
                     <tr v-for="(xter, val, i) in product.character" :key="i">
-                      <td class="thead">
+                      <td v-if="val == 'imperfectRate'" class="thead">Imperfect Rate</td>
+                      <td v-else-if="val == 'dryProcess'" class="thead">Dried Process</td>
+                      <td v-else class="thead">
                         {{ val == "comment" ? "Additional Comments" : val }}
                       </td>
-                      <td class="tbody">{{ product.character[val] }}</td>
+
+                      <td v-if="val == 'imperfectRate'" class="tbody">{{ product.character[val] }}%</td>
+                      <td v-else-if="val == 'broken'" class="tbody">{{ product.character[val] }}%</td>
+                      <td v-else-if="val == 'admixture'" class="tbody">{{ product.character[val] }}%</td>
+                      <td v-else-if="val == 'moisture'" class="tbody">{{ product.character[val] }}%</td>
+                      <td v-else class="tbody">{{ product.character[val] }}</td>
+
                     </tr>
                   </table>
                 </div>
@@ -798,60 +806,44 @@
               aria-labelledby="pills-packaging-tab"
             >
               <div class="row detailsMore">
-                <div class="col-lg-12">
+                <div class="col-lg-12" v-if="product">
                   <h1>Packaging & Minimum Order</h1>
                   <th class="headerTable">Individual Packages (1 unit)</th>
-                  <table>
-                    <tr>
-                      <td class="thead">Package Unit</td>
-                      <td class="tbody"></td>
-                    </tr>
-                    <tr>
-                      <td class="thead">Volume of Packaging</td>
-                      <td class="tbody"></td>
-                    </tr>
-                    <tr>
-                      <td class="thead">Weight of Packaging</td>
-                      <td class="tbody"></td>
-                    </tr>
-                    <tr>
-                      <td class="thead">Price of Packaging</td>
-                      <td class="tbody"></td>
+                  <table v-if="product.package">
+                    <tr v-for="(xter, val, i) in product.package" :key="i">
+                      
+                      <div v-if="val == 'dimension_unit'"></div>
+                      <div v-else-if="val == 'weight_unit'"></div>
+                      <td v-else class="thead">
+                        <span >{{ val.replace(/_/g, " ") }}</span>
+                      </td>
+                      <td v-if="val == 'dimension' " class="tbody">
+                        {{ product.package.dimension }} {{ product.package.dimension_unit }}
+                      </td>
+                      <td v-else-if="val == 'weight' " class="tbody">
+                        {{ product.package.weight }} {{ product.package.weight_unit }}
+                      </td>
+                      <div v-else-if="val == 'dimension_unit' ">
+                        
+                      </div>
+                      <div v-else-if="val == 'weight_unit'">
+                      </div>
+                      <td v-else-if="val == 'price' " class="tbody">
+                        ${{ product.package[val] }}
+                      </td>
+                      <td v-else class="tbody">{{ product.package[val] }}</td>
                     </tr>
                   </table>
                   <th class="headerTable">Bulk Packages</th>
-                  <table>
-                    <tr>
-                      <td class="thead">Shipment Packaging</td>
-                      <td class="tbody"></td>
-                    </tr>
-                    <tr>
-                      <td class="thead">Weight of Shipment Package</td>
-                      <td class="tbody"></td>
-                    </tr>
-                    <tr>
-                      <td class="thead">Dimension of Shipment Package</td>
-                      <td class="tbody"></td>
-                    </tr>
-                    <tr>
-                      <td class="thead">Price of Shipment</td>
-                      <td class="tbody"></td>
-                    </tr>
-                    <tr>
-                      <td class="thead">Number of Unit Per Shipment Package</td>
-                      <td class="tbody"></td>
-                    </tr>
-                    <tr>
-                      <td class="thead">Shipping in Container</td>
-                      <td class="tbody"></td>
-                    </tr>
-                    <tr>
-                      <td class="thead">Supplier Ability</td>
-                      <td class="tbody"></td>
-                    </tr>
-                    <tr>
-                      <td class="thead">Minimum Order Quantity</td>
-                      <td class="tbody"></td>
+                  <table v-if="product.shipment">
+                    <tr v-for="(xter, val, i) in product.shipment" :key="i">
+                      <td class="thead">
+                        {{ val.replace(/_/g, " ") }}
+                      </td>
+                      <td v-if="val == 'price' " class="tbody">
+                        ${{ product.package[val] }}
+                      </td>
+                      <td v-else class="tbody">{{ product.shipment[val] }}</td>
                     </tr>
                   </table>
                 </div>

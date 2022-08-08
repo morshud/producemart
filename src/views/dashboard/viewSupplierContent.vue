@@ -48,6 +48,10 @@
                       
                       <h2 class="span">Username: {{ supplier.username }}</h2>
                       <h2 class="span">Phone: {{ supplier.phone_no }}</h2>
+                      <h2 class="span">Address: 
+                        <button class="sendToSupplier" data-bs-toggle="modal"
+                                    data-bs-target="#detailsModal">View Address</button>
+                      </h2>
                     </div>
                     <div class="col-sm-6">
                       <div class="float-end">
@@ -154,6 +158,94 @@
               </div>
             </div>
           </div>
+
+
+          <div
+        class="modal fade"
+        id="detailsModal"
+        tabindex="-1"
+        aria-labelledby="detailsModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="detailsModalLabel">
+                Address Details
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="QA_table mb_30">
+                <h1 class="summaryHead"><!-- {{ order?.shipper?.companyName }} --></h1>
+                <div
+                  class="byRoad"
+                  
+                >
+                  <p class="summaryHeadSub"></p>
+                  <table class="table green_mouse">
+                    <thead>
+                      <tr>
+                        <th class="center">Headquater</th>
+                        <th class="center">Street</th>
+                        <th class="center">City</th>
+                        <th class="center">State</th>
+                        <th class="center">Country</th>
+                      </tr>
+                    </thead>
+                    <tbody v-for="(item, i) in supplier.address" :key="item._id">
+                      <tr class="bodyRow">
+                      <td class="tdBody">
+                        {{
+                          item.name
+                        }}
+                      </td>
+                      <td class="tdBody">
+                        {{
+                          item.street
+                        }}
+                      </td>
+                      <td class="tdBody">
+                        {{
+                          item.city
+                        }}
+                      </td>
+                      <td class="tdBody">
+                        {{
+                          item.state
+                        }}
+                      </td>
+                      <td class="tdBody">
+                        {{
+                          item.country
+                        }}
+                      </td>
+                    </tr>
+                    </tbody>
+                    
+                  </table>
+                  <hr>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer modalFooter">
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
         </div>
       </div>
     </div>

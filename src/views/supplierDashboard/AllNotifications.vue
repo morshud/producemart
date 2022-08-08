@@ -50,8 +50,11 @@
                     <span class="iconNotify" :disabled="loading">
                       <i class="bi bi-three-dots-vertical"></i>
                       <div class="actionDiv" id="actionDiv">
-                        <a @click="markReceipt(notification._id, i)"
+                        <a v-if="notification.read == false" @click="markReceipt(notification._id, i)"
                           ><i class="bi bi-envelope-paper"></i> Mark as read</a
+                        >
+                        <a v-if="notification.read == true" @click="markReceipt(notification._id, i)"
+                          ><i class="bi bi-envelope-paper"></i> Mark as unread</a
                         >
                         <a @click="deleteNotification(notification._id, i)"
                           ><i class="bi bi-trash3"></i> Delete notification</a
@@ -73,7 +76,7 @@
                     <span class="detailNotify">
                       <a class="mainTxt">{{ notification.message }}</a>
                       <a class="timeTxt">{{
-                        dateFormat(notification.createdAt)
+                        dayDiff(notification.createdAt)
                       }}</a>
                     </span>
                   </div>
@@ -112,6 +115,7 @@ import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
 import { month } from "@/assets/months";
+import moment from 'moment'
 export default {
   name: "Produce Mart",
   components: {
@@ -130,23 +134,44 @@ export default {
     document.head.appendChild(externalScriptCustom);
     this.getAllNotifications();
   },
+  computed:{
+    sortedNotification() {
+      return this.notifications.filter((row, index) => {
+        let start = (this.current_page-1)*this.size;
+        let end = this.current_page*this.size;
+        if(index >= start && index < end) return true;
+      });
+    }
+  },
   data() {
     return {
-      notifications: null,
-      displayNotification: null,
+      notifications: [],
+      displayNotification: [],
       arr: null,
       loading: false,
       token: JSON.parse(localStorage.getItem("user")).token,
       pos: 0,
+      size: 10,
+      current_page: 1,
     };
   },
   watch: {
     pos(val) {
-      console.log(val);
+      //console.log(val);
       this.selectNotification(val);
     },
   },
   methods: {
+    dayDiff(value) {
+      return moment(value).fromNow();
+    },
+    nextPage() {
+      //console.log('helo')
+      if((this.current_page*this.size) < this.notifications.length) this.current_page++;
+    },
+    prevPage() {
+      if(this.current_page > 1) this.current_page--;
+    },
     async getAllNotifications() {
       const res = await fetch(
         "https://producemart.herokuapp.com/getUserNotifications",
@@ -175,7 +200,7 @@ export default {
     },
     async markReceipt(id, index) {
       this.notifications[index].read = !this.notifications[index].read;
-      console.log(this.notifications[index].read);
+      //console.log(this.notifications[index].read);
       this.loading = true;
       const res = await fetch(
         "https://producemart.herokuapp.com/toggleRead/" + id,
