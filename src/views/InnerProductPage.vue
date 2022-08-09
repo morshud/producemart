@@ -256,14 +256,14 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Country</label>
-                      <select v-model="airCountry" class="input">
+                      <select @change="selectAirCountry" v-model="airCountry" class="input">
                         <option value="Country" hidden>Select Country</option>
                         <option
                           v-for="(country, i) in countries"
-                          :value="country"
+                          :value="country.country_iso"
                           :key="i"
                         >
-                          {{ country }}
+                          {{ country.country_name }}
                         </option>
                       </select>
                     </div>
@@ -271,7 +271,13 @@
                       <label>Port</label>
                       <select v-model="airPort" class="input">
                         <option>Select Port</option>
-                        <option value="Lagos">Lagos</option>
+                        <option
+                          v-for="(port, i) in airPortList"
+                          :value="port.name"
+                          :key="i"
+                        >
+                          {{ port.name }}
+                        </option>
                       </select>
                     </div>
                     <div class="col-lg-12">
@@ -310,14 +316,14 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Country</label>
-                      <select v-model="seaCountry" class="input">
+                      <select @change="selectSeaCountry" v-model="seaCountry" class="input">
                         <option value="Country" hidden>Select Country</option>
                         <option
                           v-for="(country, i) in countries"
-                          :value="country"
+                          :value="country.country_iso"
                           :key="i"
                         >
-                          {{ country }}
+                          {{ country.country_name }}
                         </option>
                       </select>
                     </div>
@@ -325,7 +331,13 @@
                       <label>Port</label>
                       <select v-model="seaPort" class="input">
                         <option>Select Port</option>
-                        <option value="Lagos">Lagos</option>
+                        <option
+                          v-for="(port, i) in seaPortList"
+                          :value="port.name"
+                          :key="i"
+                        >
+                          {{ port.name }}
+                        </option>
                       </select>
                     </div>
                     <div class="col-lg-12">
@@ -406,10 +418,10 @@
                         <option value="Country" hidden>Select Country</option>
                         <option
                           v-for="(country, i) in countries"
-                          :value="country"
+                          :value="country.country_iso"
                           :key="i"
                         >
-                          {{ country }}
+                          {{ country.country_name }}
                         </option>
                       </select>
                     </div>
@@ -1091,6 +1103,8 @@ import { Modal } from "bootstrap";
 import $ from "jquery";
 require("jquery.easing");
 import { countries } from "../assets/countries";
+import { seaPorts } from "../assets/seaports";
+import { airPorts } from "../assets/airports";
 import QUOTE from "./../service/quote-service";
 import Swal from "sweetalert2";
 export default {
@@ -1209,6 +1223,8 @@ export default {
       quantity: "",
       airCountry: "",
       airPort: "",
+      airPortList: [],
+      seaPortList: [],
       airIncoterm: "",
       seaCountry: "",
       seaPort: "",
@@ -1223,6 +1239,8 @@ export default {
       products: null,
       id: this.$route.params.id,
       countries: countries,
+      seaports: seaPorts,
+      airports: airPorts,
       EffectFlip,
       Pagination,
       Navigation,
@@ -1285,6 +1303,17 @@ export default {
         .catch((err) => {
           //console.log(err);
         });
+    },
+    selectAirCountry(){
+      let ports = this.airports.filter((elem) => elem.country == this.airCountry);
+      //this.airCountry = countryName.country_name
+      this.airPortList = ports
+    },
+    selectSeaCountry(){
+      let ports = this.seaports.filter((elem) => elem.country == this.seaCountry);
+      //let countryName = this.countries.find(name => name.country_iso == this.seaCountry)
+      //this.seaCountry = countryName.country_name
+      this.seaPortList = ports
     },
     minimum(item) {
       if (this.quantity < item) {
