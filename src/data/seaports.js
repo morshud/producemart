@@ -1,4 +1,4 @@
-export const seaPorts = [
+export default airPort = [
   {
     "latitude": 25.29,
     "longitude": 53.08,
