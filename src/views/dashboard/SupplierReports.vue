@@ -60,24 +60,24 @@
                                                 <th scope="col">Username</th>
                                                 <th scope="col">Company Name</th>
                                                 <th scope="col">Email</th>
+                                                <th scope="col">Phone No.</th>
                                                 <th scope="col">Date Account<br>Creation</th>
-                                                <th scope="col">Country of <br> Location</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Link</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody v-for="(item, i) in report" :key="item._id">
                                             <tr>
-                                                <th scope="row">Samson</th>
-                                                <td>Henry</td>
-                                                <td>Samson1122</td>
-                                                <td>Sam Co. Ltd</td>
-                                                <td>myemail@email.com</td>
-                                                <td>2022-04-01</td>
-                                                <td>Nigeria</td>
+                                                <th scope="row">{{item.firstname}}</th>
+                                                <td>{{item.lastname}}</td>
+                                                <td>{{item.username}}</td>
+                                                <td>{{item.company_name}}</td>
+                                                <td>{{item.email}}</td>
+                                                <td>{{item.phone_no}}</td>
+                                                <td>{{getDate(item.createdAt)}}</td>
                                                 <td><a href="#" class="status_btn">Verified</a></td>
                                                 <td>
-                                                    <router-link to="/dashboard/supplier001"><button class="status_view">View More</button></router-link>
+                                                    <router-link :to="'/dashboard/supplierReportDetails/'+item._id"><button class="status_view">View More</button></router-link>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -114,6 +114,7 @@
     import DashSidebar from './dash-sidebar.vue'
     import DashNavbar from './dash-navbar.vue'
     import DashFooter from './dash-footer.vue'
+    import axios from 'axios'
     export default {
       name: "Produce Mart",
       components:{
@@ -121,9 +122,32 @@
       'dash-navbar': DashNavbar,
       'dash-footer': DashFooter,
       },
+      data(){
+        return{
+            report: [],
+            token: JSON.parse(localStorage.getItem("user")).token,
+        }
+      },
+      methods: {
+        getSupplierReport(){
+            axios.get(`http://localhost:3000/getAllSupplierReport`, {
+                headers: {
+                    Authorization: this.token,
+                },
+            })
+            .then((res) => {
+                //console.log(res.data)
+                let data = res.data.data
+                this.report = data
+            })
+        },
+        getDate(value){
+          return new Date(value).toLocaleDateString()
+        },
+      },
       mounted(){
         window.scrollTo(0,0)
-
+        this.getSupplierReport()
         let externalScriptCustom = document.createElement('script')
         externalScriptCustom.setAttribute('src', 'https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js')
         document.head.appendChild(externalScriptCustom)

@@ -251,6 +251,21 @@ const routes = [
     name: "DashBuyerOrderViewCompleted",
     component: DashBuyerOrderViewCompleted,
   },
+
+  //Product Request
+  {
+    path: "/buyer-dashboard/product-request",
+    name: "DashBuyerProductRequest",
+    component: () => import('@/views/buyerDashboard/productRequest'),
+  },
+
+  {
+    path: "/buyer-dashboard/product-request/:id",
+    name: "DashBuyerProductRequestDetails",
+    component: () => import('@/views/buyerDashboard/productRequestDetails'),
+  },
+
+
   //settings
   {
     path: "/buyer-dashboard/edit-profile-details",
@@ -314,6 +329,20 @@ const routes = [
     component: DashSupplierDraftMail,
   },
   */
+
+  //Bid Product
+  {
+    path: "/supplier-dashboard/bid-product",
+    name: "DashSupplierBidProduct",
+    component: () => import('@/views/supplierDashboard/bidProduct'),
+  },
+  {
+    path: "/supplier-dashboard/bid-product/:id",
+    name: "DashSupplierBidProductDetails",
+    component: () => import('@/views/supplierDashboard/bidProductDetails'),
+  },
+
+
   //orders
   {
     path: "/supplier-dashboard/open-orders",
@@ -477,6 +506,16 @@ const routes = [
     path: "/dashboard/pending-products",
     name: "DashViewProductsPending",
     component: DashViewProductsPending,
+  },
+  {
+    path: "/dashboard/supplierReportDetails/:id",
+    name: "DashSupplierReportDetails",
+    component: () => import('@/views/dashboard/Supplier001')
+  },
+  {
+    path: "/dashboard/buyerReportDetails/:id",
+    name: "DashBuyerReportDetails",
+    component: () => import('@/views/dashboard/Buyer001')
   },
   {
     path: "/dashboard/disable-products",

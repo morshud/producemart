@@ -13,12 +13,7 @@ export default {
   },
   methods: {
     scrollTop: function () {
-      this.intervalId = setInterval(() => {
-        if (window.pageYOffset === 0) {
-          clearInterval(this.intervalId)
-        }
-        window.scroll(0, window.pageYOffset - 50)
-      }, 10)
+      window.scroll(0, window.pageYOffset - 50)
     },
     scrollListener: function (e) {
       this.visible = window.scrollY > 150

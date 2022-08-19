@@ -19,6 +19,19 @@
                     </a>
                 </router-link>
             </li>
+
+            <li class="">
+                <router-link to="/buyer-dashboard/product-request">
+                    <a aria-expanded="false">
+                        <div class="nav_icon_small">
+                            <img src="@/assets/img/menu-icon/dashboard.png">
+                        </div>
+                        <div class="nav_title">
+                            <span>Request Products</span>
+                        </div>
+                    </a>
+                </router-link>
+            </li>
             <!--Notifications-->
             <li class="">
                 <router-link to="#" class="has-arrow">
