@@ -727,19 +727,19 @@ export default {
         if (prod.category != this.categories[this.categories.length])
           this.categories.push(prod.category);
       });
-      console.log(this.categories[0]);
+      //console.log(this.categories[0]);
 
       this.firstProductCategory = this.products.filter(
         (prd) => prd.category == this.categories[0]
       );
-      console.log(this.firstProductCategory);
+      //console.log(this.firstProductCategory);
       this.secondProductCategory = this.products.filter(
         (prd) => prd.category == this.categories[1]
       );
       this.thirdProductCategory = this.products.filter(
         (prd) => prd.category == this.categories[2]
       );
-      console.log(this.products);
+      //console.log(this.products);
 
       // this.products = data;
       // console.log(this.products);

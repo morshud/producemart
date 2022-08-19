@@ -42,21 +42,21 @@
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="crm_box">
-                                        <h4>{{item.total_order}}</h4>
+                                        <h4>{{items.total_order ?? 0}}</h4>
                                         <p>Total Orders</p>
                                         <img src="@/assets/img/dashboard-img/icon-buyer-totalorder.png" ondragstart="return false;">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="crm_box">
-                                        <h4>{{item.open_order}}</h4>
+                                        <h4>{{items.open_order ?? 0}}</h4>
                                         <p>Open Orders</p>
                                         <img src="@/assets/img/dashboard-img/icon-buyer-pendingorder.png" ondragstart="return false;">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="crm_box">
-                                        <h4>{{item.closed_order}}</h4>
+                                        <h4>{{items.closed_order ?? 0}}</h4>
                                         <p>Closed Order</p>
                                         <img src="@/assets/img/dashboard-img/icon-buyer-orderhistory.png" ondragstart="return false;">
                                     </div>
@@ -103,9 +103,9 @@
                                         <tbody v-for="(item, i) in orderList" :key='item._id'>
                                             <tr>
                                                 <th scope="row">{{i + 1}}</th>
-                                                <td>{{item._id}}</td>
-                                                <td>{{item.quote.product.name}}</td>
-                                                <td>{{item.quote.quantity}} {{item.quote.product.order.qty_unit}}</td>
+                                                <td>{{item._id }}</td>
+                                                <td><div v-if="item.quote.product !== null">{{item.quote.product.name }}</div></td>
+                                                <td>{{item.quote.quantity || 0 }} <div v-if="item.quote.product !== null">{{item.quote.product.order.qty_unit }}</div></td>
                                                 <td>{{getDate(item.createdAt)}}</td>
                                                 <td>
                                                     <span v-if="item.status == 'open'">
@@ -116,7 +116,7 @@
                                                     </span>
                                                 </td>
                                             </tr>
-                                            <!-- <tr>
+                                            <!--<tr>
                                                 <th scope="row">2</th>
                                                 <td>Banana-BNL-324LL</td>
                                                 <td>Banana</td>
@@ -136,7 +136,7 @@
                                                 <td>Beans</td>
                                                 <td>2022--03-10</td>
                                                 <td><a href="#" class="status_btn">Delivered</a></td>
-                                            </tr> -->
+                                            </tr>-->
                                         </tbody>
                                     </table>
                                     </div>
@@ -232,9 +232,9 @@
                     }
                 }
             },
-            item: '',
+            items: [],
             buyerId: '',
-            orderList: '',
+            orderList: [],
         }
       },
       methods: {
@@ -254,9 +254,9 @@
                   Authorization: this.user.token,
                 },
             }).then(res => {
-                console.log(res)
+                //console.log(res.data)
                 let dashData = res.data
-                this.item = dashData
+                this.items = dashData
                 this.orderList = dashData.orderlist
                 this.orderSales = dashData.order_sales
             })
@@ -266,11 +266,6 @@
         this.getUser();
             ////Scroll To Top
             window.scrollTo(0,0)
-
-            ////Custom JS
-            let externalScriptCustom = document.createElement('script')
-            externalScriptCustom.setAttribute('src', 'https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js')
-            document.head.appendChild(externalScriptCustom)
       }
     }
 </script>

@@ -608,18 +608,25 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="bulletBoard">
-                  <p>Product Name: <span>10 Bags of Banana</span></p>
-                  <p>Product Price: <span>$500</span></p>
-                  <p>Product Variety: <span></span></p>
-                  <p>Food Category: <span>Vegetable</span></p>
-                  <p>Supply Frequency: <span>One-Off</span></p>
-                  <p>Quantity: <span>100</span></p>
-                  <p>Weight: <span>kg</span></p>
-                  <p>Destination Country: <span>South Africa</span></p>
-                  <p>Intercoms: <span>Specify Here</span></p>
-                  <p>Crop Year (Start Year): <span>15/04/2022</span></p>
-                  <p>Crop Year (End Year): <span>15/05/2022</span></p>
-                  <p>Product Description: <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus, vero incidunt consectetur inventore at perferendis non ab totam ex rerum delectus repellendus consequuntur porro omnis voluptatem neque facere laboriosam dicta cum. Provident placeat neque incidunt enim saepe adipisci nesciunt suscipit officiis laborum deserunt, ea error facere quibusdam repellendus cumque facilis!</span></p>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p>Product Name: <span>10 Bags of Banana</span></p>
+                      <p>Product Price: <span>$500</span></p>
+                      <p>Food Category: <span>Vegetable</span></p>
+                      <p>Supply Frequency: <span>One-Off</span></p>
+                      <p>Quantity: <span>100</span></p>
+                    </div>
+                    <div class="col-md-6">
+                      <p>Weight: <span>kg</span></p>
+                      <p>Country of origin: <span>South Africa</span></p>
+                      <p>Crop Year (Start Year): <span>15/04/2022</span></p>
+                      <p>Crop Year (End Year): <span>15/05/2022</span></p>
+                    </div>
+                  </div>
+                  <p>
+                    Product Description: <span v-if="!readMoreActivated">{{fullText.slice(0, 100)}}</span> <a class="" v-if="!readMoreActivated" @click="toggle(1)" href="#" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read more...</a>
+                    <span v-if="readMoreActivated" v-html="fullText"> </span> <a class="" v-if="readMoreActivated" @click="toggle(1)" href="#" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read less...</a>
+                  </p>
                   <div class="btnDiv">
                     <a href="#">Product Response</a>
                   </div>
@@ -627,18 +634,24 @@
               </div>
               <div class="col-lg-12">
                 <div class="bulletBoard">
-                  <p>Product Name: <span>10 Bags of Banana</span></p>
-                  <p>Product Price: <span>$500</span></p>
-                  <p>Product Variety: <span></span></p>
-                  <p>Food Category: <span>Vegetable</span></p>
-                  <p>Supply Frequency: <span>One-Off</span></p>
-                  <p>Quantity: <span>100</span></p>
-                  <p>Weight: <span>kg</span></p>
-                  <p>Destination Country: <span>South Africa</span></p>
-                  <p>Intercoms: <span>Specify Here</span></p>
-                  <p>Crop Year (Start Year): <span>15/04/2022</span></p>
-                  <p>Crop Year (End Year): <span>15/05/2022</span></p>
-                  <p>Product Description: <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus, vero incidunt consectetur inventore at perferendis non ab totam ex rerum delectus repellendus consequuntur porro omnis voluptatem neque facere laboriosam dicta cum. Provident placeat neque incidunt enim saepe adipisci nesciunt suscipit officiis laborum deserunt, ea error facere quibusdam repellendus cumque facilis!</span></p>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p>Product Name: <span>10 Bags of Banana</span></p>
+                      <p>Product Price: <span>$500</span></p>
+                      <p>Food Category: <span>Vegetable</span></p>
+                      <p>Supply Frequency: <span>One-Off</span></p>
+                      <p>Quantity: <span>100</span></p>
+                    </div>
+                    <div class="col-md-6">
+                      <p>Weight: <span>kg</span></p>
+                      <p>Country of origin: <span>South Africa</span></p>
+                      <p>Crop Year (Start Year): <span>15/04/2022</span></p>
+                      <p>Crop Year (End Year): <span>15/05/2022</span></p>
+                    </div>
+                  </div>
+                  <p>Product Description: <span v-if="!readMoreActivated">{{fullText.slice(0, 100)}}</span> <a class="" v-if="!readMoreActivated" @click="toggle(2)" href="#" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read more...</a>
+                    <span v-if="readMoreActivated" v-html="fullText"> </span> <a class="" v-if="readMoreActivated" @click="toggle(2)" href="#" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read less...</a>
+                  </p>
                   <div class="btnDiv">
                     <a href="#">Product Response</a>
                   </div>
@@ -646,18 +659,25 @@
               </div>
               <div class="col-lg-12">
                 <div class="bulletBoard">
-                  <p>Product Name: <span>10 Bags of Banana</span></p>
-                  <p>Product Price: <span>$500</span></p>
-                  <p>Product Variety: <span></span></p>
-                  <p>Food Category: <span>Vegetable</span></p>
-                  <p>Supply Frequency: <span>One-Off</span></p>
-                  <p>Quantity: <span>100</span></p>
-                  <p>Weight: <span>kg</span></p>
-                  <p>Destination Country: <span>South Africa</span></p>
-                  <p>Intercoms: <span>Specify Here</span></p>
-                  <p>Crop Year (Start Year): <span>15/04/2022</span></p>
-                  <p>Crop Year (End Year): <span>15/05/2022</span></p>
-                  <p>Product Description: <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus, vero incidunt consectetur inventore at perferendis non ab totam ex rerum delectus repellendus consequuntur porro omnis voluptatem neque facere laboriosam dicta cum. Provident placeat neque incidunt enim saepe adipisci nesciunt suscipit officiis laborum deserunt, ea error facere quibusdam repellendus cumque facilis!</span></p>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p>Product Name: <span>10 Bags of Banana</span></p>
+                      <p>Product Price: <span>$500</span></p>
+                      <p>Food Category: <span>Vegetable</span></p>
+                      <p>Supply Frequency: <span>One-Off</span></p>
+                      <p>Quantity: <span>100</span></p>
+                    </div>
+                    <div class="col-md-6">
+                      <p>Weight: <span>kg</span></p>
+                      <p>Country of origin: <span>South Africa</span></p>
+                      <p>Crop Year (Start Year): <span>15/04/2022</span></p>
+                      <p>Crop Year (End Year): <span>15/05/2022</span></p>
+                    </div>
+                  </div>
+                  <p>
+                    Product Description: <span v-if="!readMoreActivated">{{fullText.slice(0, 100)}}</span> <a class="" v-if="!readMoreActivated" @click="toggle(3)" href="#" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read more...</a>
+                    <span v-if="readMoreActivated" v-html="fullText"> </span> <a class="" v-if="readMoreActivated" @click="toggle(3)" href="#" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read less...</a>
+                  </p>
                   <div class="btnDiv">
                     <a href="#">Product Response</a>
                   </div>
@@ -714,7 +734,9 @@
           incoterm: '',
           addSpec: '',
           statusMessage: false,
-          modal: 'modal fade show'
+          modal: 'modal fade show',
+          fullText: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus, vero incidunt consectetur inventore at perferendis non ab totam ex rerum delectus repellendus consequuntur porro omnis voluptatem neque facere laboriosam activateReadMore(){dicta cum. Provident placeat neque incidunt enim saepe adipisci nesciunt suscipit officiis laborum deserunt, ea error facere quibusdam repellendus cumque facilis`,
+          readMoreActivated: false,
         }
       },
       computed:{
@@ -729,6 +751,10 @@
         }
       },
       methods: {
+        toggle(value){
+          console.log(value)
+          this.readMoreActivated = this.readMoreActivated ? false : true;
+        },
         requestQuote(){
           
           const quoteRequests = {
@@ -779,7 +805,12 @@
         }
       },
       mounted(){
-        window.scrollTo(0,0)
       }
     }
 </script>
+
+
+<style>
+ #more {display: none;}
+
+</style>

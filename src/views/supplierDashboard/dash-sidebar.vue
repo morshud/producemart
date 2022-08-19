@@ -27,6 +27,24 @@
           </div>
         </router-link>
       </li>
+
+      <!--Log Out-->
+      <li class="">
+        <router-link to="/supplier-dashboard/bid-product" >
+          <a aria-expanded="false">
+            <div class="nav_icon_small">
+              <img src="@/assets/img/menu-icon/dashboard.png" />
+            </div>
+            <div class="nav_title">
+              <span :class="path == '/supplier-dashboard/bid-product' && 'active-nav'"
+              >Bid Product</span
+            >
+            </div>
+          </a>
+        </router-link>
+      </li>
+
+
       <!--Notifications-->
       <li class="">
         <router-link to="#" class="has-arrow">
