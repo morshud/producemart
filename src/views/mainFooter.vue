@@ -56,13 +56,17 @@
       </div>
     </div>
   </footer>
-
+  <ScrollTopArrow></ScrollTopArrow>
 </template>
 <style scoped src="@/assets/css/styleFrontend.css"></style>
 <style scoped src="@/assets/css/bootstrap.css"></style>
 
 <script>
+    import ScrollTopArrow from '@/components/scrollArrow'
     export default {
+      components: {
+        ScrollTopArrow
+      },
       mounted(){
         //Copyright Date
         function newDate() {

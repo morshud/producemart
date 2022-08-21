@@ -70,7 +70,7 @@
               </p>
               <p>
                 <strong>Package:</strong> {{ product.package.price }} per
-                {{ product.package.unit }}
+                {{ product.package.unit ||  product.package.weight_unit}}
               </p>
             </div>
             <div class="col-lg-4 detailsDivBelow">
@@ -169,7 +169,7 @@
                 <input
                   type="text"
                   :value="
-                    product.package.price + ' per ' + product.package.unit
+                    product.package.price + ' per ' + (product.package.unit || product.package.weight_unit)
                   "
                   disabled
                   class="input"
@@ -181,7 +181,7 @@
                   :placeholder="
                     'Minimum order quantity for this product is ' +
                     product.order.min_quantity +
-                    product.package.unit
+                    (product.package.unit || product.package.weight_unit)
                   "
                   v-model="quantity"
                   class="input"
@@ -1249,6 +1249,7 @@ export default {
       air: false,
       road: false,
       sea: false,
+      url: window.location.href,
     };
   },
   computed: {

@@ -1,5 +1,5 @@
 <template>
-  <title>Edit Address - Supplier Dashboard | Produce Mart</title>
+  <title>Add New Address - Buyer Dashboard | Produce Mart</title>
   <dash-sidebar />
 
   <section class="main_content dashboard_part large_header_bg">
@@ -14,7 +14,7 @@
               <div class="row">
                 <div class="col-lg-8">
                   <div class="dashboard_header_title">
-                    <h3>Edit Address</h3>
+                    <h3>Add New Address</h3>
                   </div>
                 </div>
                 <div class="col-lg-4">
@@ -23,7 +23,7 @@
                       <router-link to="/supplier-dashboard/home"
                         ><a>Dashboard</a></router-link
                       >
-                      <i class="fas fa-caret-right"></i> Edit Address
+                      <i class="fas fa-caret-right"></i> Add New Address
                     </p>
                   </div>
                 </div>
@@ -37,7 +37,7 @@
               <div class="white_card_header">
                 <div class="box_header m-0">
                   <div class="main-title">
-                    <h3 class="m-0">Edit Address</h3>
+                    <h3 class="m-0">Add Address</h3>
                   </div>
                 </div>
               </div>
@@ -55,8 +55,8 @@
                 ></button>
               </div>
               <div class="white_card_body">
-                <form @submit.prevent="updateAddress">
-                  <div class="row" v-if="address">
+                <form @submit.prevent="addAdress">
+                  <div class="row">
                     <div class="col-lg-12 mb-2">
                       <div class="common_input mb_15">
                         <label>Address Title</label>
@@ -70,12 +70,23 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <div class="common_input">
-                        <label>Street</label>
+                        <label>Address Line 1</label>
                         <input
                           cols="30"
                           rows="3"
-                          placeholder="19, John green way."
+                          placeholder="Steet adress, P.O box, company name, warehouse"
                           v-model="address.street"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-12 mb-2">
+                      <div class="common_input">
+                        <label>Address Line 2</label>
+                        <input
+                          cols="30"
+                          rows="3"
+                          placeholder="Apartment, suite, unit, building, floor etc"
+                          v-model="streetTwo"
                         />
                       </div>
                     </div>
@@ -92,12 +103,23 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <div class="common_input">
-                        <label>State</label>
+                        <label>State/Province/Region</label>
                         <input
                           cols="30"
                           rows="3"
                           placeholder="Georgia"
                           v-model="address.state"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-12 mb-2">
+                      <div class="common_input">
+                        <label>Zip/Postal code</label>
+                        <input
+                          cols="30"
+                          rows="3"
+                          placeholder="100213"
+                          v-model="zip"
                         />
                       </div>
                     </div>
@@ -134,9 +156,6 @@
                       <span class="spinner-border spinner-border-sm"></span>
                     </div>
                   </div>
-                  <div class="col-lg-12 mb-4 mt-2 text-center signuas" v-else>
-                    <span class="spinner-border spinner-border-sm"></span>
-                  </div>
                 </form>
               </div>
             </div>
@@ -165,29 +184,22 @@ export default {
   },
   mounted() {
     window.scrollTo(0, 0);
-
-    let externalScriptCustom = document.createElement("script");
-    externalScriptCustom.setAttribute(
-      "src",
-      "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
-    );
-    document.head.appendChild(externalScriptCustom);
-    this.getAddress();
   },
   data() {
     return {
       message: "",
       loading: false,
       countries: countries,
+      streetTwo: "",
+      zip: "",
       token: JSON.parse(localStorage.getItem("user")).token,
-      address: null,
-      id: this.$route.params.id,
+      address: { name: "", street: "", city: "", state: "", country: "" },
     };
   },
   methods: {
     notEmpty() {
       for (let inp in this.address) {
-        if (this.address[inp] === "") {
+        if (this.address[inp] == "") {
           console.log(inp);
           this.message =
             inp == "name"
@@ -196,16 +208,28 @@ export default {
           return false;
         }
       }
+      if (this.zip == "") {
+        this.message = "Please fill the zip field";
+        return false;
+      }
       return true;
     },
-    async updateAddress() {
+    async addAdress() {
       console.log("Submitting!!!");
       this.loading = true;
       if (this.notEmpty()) {
+        this.address.street = this.address.street + " " + this.streetTwo;
+        this.address.street[this.address.street.length - 1] != ","
+          ? (this.address.street += ",")
+          : "";
+        this.address.city[this.address.city.length - 1] != ","
+          ? (this.address.city += ",")
+          : "";
+        this.address.country = this.address.country + " " + this.zip;
         const res = await fetch(
-          "https://producemart.herokuapp.com/updateAddress/" + this.id,
+          "https://producemart.herokuapp.com/addAddress",
           {
-            method: "PUT",
+            method: "POST",
             headers: {
               "Content-Type": "application/json",
               Authorization: this.token,
@@ -213,11 +237,10 @@ export default {
             body: JSON.stringify(this.address),
           }
         );
-
         const data = await res.json();
         if (data.status) {
           this.loading = false;
-          this.$router.push("/supplier-dashboard/View-address");
+          this.$router.push("/buyer-dashboard/View-address");
         } else {
           this.message = data.message
             ? data.message
@@ -227,26 +250,6 @@ export default {
       } else {
         this.loading = false;
       }
-    },
-    async getAddress() {
-      const res = await fetch(
-        "https://producemart.herokuapp.com/getAddress/" + this.id,
-        {
-          method: "GET",
-          headers: {
-            Authorization: this.token,
-          },
-        }
-      );
-      const { data } = await res.json();
-      console.log(data);
-      this.address = {
-        name: data.name,
-        street: data.street,
-        city: data.street,
-        state: data.state,
-        country: data.country,
-      };
     },
   },
 };

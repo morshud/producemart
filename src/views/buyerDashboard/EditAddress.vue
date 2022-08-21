@@ -1,5 +1,5 @@
 <template>
-  <title>Edit Address - Supplier Dashboard | Produce Mart</title>
+  <title>Edit Address - Buyer Dashboard | Produce Mart</title>
   <dash-sidebar />
 
   <section class="main_content dashboard_part large_header_bg">
@@ -165,13 +165,6 @@ export default {
   },
   mounted() {
     window.scrollTo(0, 0);
-
-    let externalScriptCustom = document.createElement("script");
-    externalScriptCustom.setAttribute(
-      "src",
-      "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
-    );
-    document.head.appendChild(externalScriptCustom);
     this.getAddress();
   },
   data() {

@@ -52,9 +52,16 @@
                       <div class="" v-if="request.status == 'Awaiting Url' && item.status == 'Awaiting Url'">
                         <h2 class="span">Status: <span class="status_btn" style="background: orange;">Awaiting Url</span></h2>
                       </div>
-                      <div class="" v-if="request.status == 'pending' && item.status == 'Awaiting Url'">
+                      <div class="" v-if="request.status == 'Awaiting Url' && item.status == 'pending'">
                         <h2 class="span">Status: <span class="status_btn" style="background: red;">Not Selected</span></h2>
                       </div>
+                      <div class="" v-if="request.status == 'uploaded' && item.status == 'pending'">
+                        <h2 class="span">Status: <span class="status_btn" style="background: red;">Not Selected</span></h2>
+                      </div>
+                      <div class="" v-if="request.status == 'uploaded' && item.status == 'uploaded'">
+                        <h2 class="span">Status: <span class="status_btn" style="background: green;">Uploaded</span></h2>
+                      </div>
+
                     </div>
                     <div class="col-sm-4">
                       <div >
@@ -94,8 +101,14 @@
                       <div class="text-center" v-if="request.status == 'Awaiting Url' && item.status == 'Awaiting Url'">
                         <button class="btn btn-mart" @click="uploadProduct(request._id)" type="button">Upload Product</button>
                       </div>
-                      <div class="text-center" v-if="request.status == 'pending' && item.status == 'Awaiting Url'">
+                      <div class="text-center" v-if="request.status == 'Awaiting Url' && item.status == 'pending'">
                         <button class="btn btn-mart" @click="approveBuyer" type="button">Not Selected</button>
+                      </div>
+                      <div class="text-center" v-if="request.status == 'uploaded' && item.status == 'uploaded'">
+                        <button class="btn btn-mart" target="_blank" @click="$router.push('/products/inner-product/'+productId)" type="button">View Product</button>
+                      </div>
+                      <div class="text-center" v-if="request.status == 'uploaded' && item.status == 'pending'">
+                        <button class="btn btn-mart" @click="$router.push('/request-a-product')" type="button">Bid Other Product</button>
                       </div>
                     </div>
                   </div>
@@ -106,7 +119,6 @@
         </div>
       </div>
     </div>
-
     <dash-footer />
   </section>
   </div>
@@ -138,7 +150,8 @@ export default {
       user: JSON.parse(localStorage.getItem("user")),
       bidId: this.$route.params.id,
       item: '',
-      request: ''
+      request: '',
+      productId: '',
     };
   },
   created(){
@@ -149,6 +162,7 @@ export default {
       return new Date(value).toLocaleDateString()
     },
     getSingleBid(){
+      //console.log(this.bidId)
       QUOTE.GetSingleBid(this.bidId).then((res) => {
         //console.log(res)
         this.item = res.data.Bid
@@ -157,8 +171,22 @@ export default {
         const data = { ...obj, readMore: 'false' }
         //console.log(data)
         this.request = data
+
+        QUOTE.GetSingleRequest(this.request._id)
+        .then((res) => {
+          //console.log(res.data);
+          this.productId = res.data.data.productId._id
+        })
       })
     },
+    uploadProduct(id){
+      this.$router.push({
+        name: 'DashSupplierProductUpload',
+        params: {
+          'reqProdId': id
+        }
+      })
+    }
   },
 };
 </script>

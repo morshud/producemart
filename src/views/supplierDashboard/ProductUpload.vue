@@ -172,10 +172,10 @@
                       <option value="Country" hidden>Select Country</option>
                       <option
                         v-for="(country, i) in countries"
-                        :value="country"
+                        :value="country.country_name"
                         :key="i"
                       >
-                        {{ country }}
+                        {{ country.country_name }}
                       </option>
                     </select>
                   </div>
@@ -2299,6 +2299,7 @@ export default {
   data() {
     return {
       componentKey: 1,
+      productRequestId: this.$route.params.reqProdId || null,
       step: 1,
       disableNxt: true,
       address: null,
@@ -2394,6 +2395,9 @@ export default {
       this.setNextBtn();
     },
   },
+  created(){
+    console.log(this.productRequestId)
+  },
   methods: {
     setNextBtn() {
       if (
@@ -2416,7 +2420,9 @@ export default {
       console.log("submitting!!");
 
       const fd = new FormData();
-
+      if (this.productRequestId !== null) {
+        this.productRequestId && fd.append("productRequestId", this.productRequestId);
+      }
       this.name && fd.append("name", this.name);
       this.variety && fd.append("variety", this.variety);
       this.description && fd.append("description", this.description);
@@ -2492,7 +2498,7 @@ export default {
         : fd.append("status", "incomplete");
 
       const res = await fetch(
-        "https://producemart.herokuapp.com/createProduct",
+        "http://localhost:3000/createProduct",
         {
           method: "POST",
           headers: {

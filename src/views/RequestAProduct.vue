@@ -537,29 +537,32 @@
                     </div>
                     <div class="col-lg-12 formBox">
                       <label>Category Filter</label>
-                      <div class="checkBoxDiv">
-                        <input type="checkbox"> <span>Vegetables</span>
+                      <div class="checkBoxDiv" >
+                        <input value="vegetable" v-model="filtersAppied" type="checkbox"> <span>Vegetables</span>
                       </div>
                       <div class="checkBoxDiv">
-                        <input type="checkbox"> <span>Oils</span>
+                        <input value="oil" v-model="filtersAppied" type="checkbox"> <span>Oils</span>
                       </div>
                       <div class="checkBoxDiv">
-                        <input type="checkbox"> <span>Fruits</span>
+                        <input value="fruit" v-model="filtersAppied" type="checkbox"> <span>Fruits</span>
                       </div>
                       <div class="checkBoxDiv">
-                        <input type="checkbox"> <span>Grains/Beans/Pulses</span>
+                        <input value="grain" v-model="filtersAppied" type="checkbox"> <span>Grains/Beans/Pulses</span>
                       </div>
                       <div class="checkBoxDiv">
-                        <input type="checkbox"> <span>Nuts/Seeds</span>
+                        <input value="nut" v-model="filtersAppied" type="checkbox"> <span>Nuts/Seeds</span>
                       </div>
                       <div class="checkBoxDiv">
-                        <input type="checkbox"> <span>Coffee</span>
+                        <input value="coffee" v-model="filtersAppied" type="checkbox"> <span>Coffee</span>
                       </div>
                       <div class="checkBoxDiv">
-                        <input type="checkbox"> <span>Flower</span>
+                        <input value="flower" v-model="filtersAppied" type="checkbox"> <span>Flower</span>
                       </div>
                       <div class="checkBoxDiv">
-                        <input type="checkbox"> <span>Animal Feeds</span>
+                        <input value="feed" v-model="filtersAppied" type="checkbox"> <span>Animal Feeds</span>
+                      </div>
+                      <div class="checkBoxDiv">
+                        <input value="others" v-model="filtersAppied" type="checkbox"> <span>Animal Feeds</span>
                       </div>
                     </div>
                     <div class="col-lg-12 formBox">
@@ -600,33 +603,36 @@
               <div class="row">
                 <div class="col-lg-12 formBox">
                   <label>Keyword</label>
-                  <input type="text" v-model="searchQuery" onkeyup="searchProduct" placeholder="Product name" class="input">
+                  <input type="text" v-model="searchQuery" placeholder="Product name" class="input">
                 </div>
                 <div class="col-lg-12 formBox">
                   <label>Category Filter</label>
-                  <div class="checkBoxDiv">
-                    <input type="checkbox"> <span>Vegetables</span>
+                  <div class="checkBoxDiv" >
+                    <input value="vegetable" v-model="filtersAppied" type="checkbox"> <span>Vegetables</span>
                   </div>
                   <div class="checkBoxDiv">
-                    <input type="checkbox"> <span>Oils</span>
+                    <input value="oil" v-model="filtersAppied" type="checkbox"> <span>Oils</span>
                   </div>
                   <div class="checkBoxDiv">
-                    <input type="checkbox"> <span>Fruits</span>
+                    <input value="fruit" v-model="filtersAppied" type="checkbox"> <span>Fruits</span>
                   </div>
                   <div class="checkBoxDiv">
-                    <input type="checkbox"> <span>Grains/Beans/Pulses</span>
+                    <input value="grain" v-model="filtersAppied" type="checkbox"> <span>Grains/Beans/Pulses</span>
                   </div>
                   <div class="checkBoxDiv">
-                    <input type="checkbox"> <span>Nuts/Seeds</span>
+                    <input value="nut" v-model="filtersAppied" type="checkbox"> <span>Nuts/Seeds</span>
                   </div>
                   <div class="checkBoxDiv">
-                    <input type="checkbox"> <span>Coffee</span>
+                    <input value="coffee" v-model="filtersAppied" type="checkbox"> <span>Coffee</span>
                   </div>
                   <div class="checkBoxDiv">
-                    <input type="checkbox"> <span>Flower</span>
+                    <input value="flower" v-model="filtersAppied" type="checkbox"> <span>Flower</span>
                   </div>
                   <div class="checkBoxDiv">
-                    <input type="checkbox"> <span>Animal Feeds</span>
+                    <input value="feed" v-model="filtersAppied" type="checkbox"> <span>Animal Feeds</span>
+                  </div>
+                  <div class="checkBoxDiv">
+                    <input value="others" v-model="filtersAppied" type="checkbox"> <span>Animal Feeds</span>
                   </div>
                 </div>
                 <div class="col-lg-12 formBox">
@@ -684,12 +690,9 @@
                 </div>
               </div>
               <div class="col-md-12 text-center paginationSection">
-                <button class="arrows"><i class="bi bi-arrow-left-circle-fill"></i></button>
-                <button class="btnButton active">1</button>
-                <button class="btnButton">2</button>
-                <button class="btnButton">3</button>
-                <button class="btnButton">4</button>
-                <button class="arrows"><i class="bi bi-arrow-right-circle-fill"></i></button>
+                <button @click="prevPage" class="arrows"><i class="bi bi-arrow-left-circle-fill"></i></button>
+                <button class="btnButton active">{{current_page}}</button>
+                <button @click="nextPage" class="arrows"><i class="bi bi-arrow-right-circle-fill"></i></button>
               </div>
             </div>
           </div>
@@ -722,7 +725,7 @@
         return{
           productRequestList: [],
           productName: '',
-          searchQuery: null,
+          searchQuery: '',
           user: JSON.parse(localStorage.getItem("user")) || '',
           price: '',
           productVariety: '',
@@ -738,6 +741,9 @@
           addSpec: '',
           statusMessage: false,
           modal: null,
+          filtersAppied: [],
+          size: 3,
+          current_page: 1,
         }
       },
       created(){
@@ -754,23 +760,42 @@
           }
         },
         resultQuery() {
-          if (this.searchQuery) {
+
+          if (this.searchQuery != '') {
             let out = this.productRequestList;
-            console.log(this.productRequestList)
+            //console.log(this.productRequestList)
             return out.filter((items) => {
               return this.searchQuery
                 .toLowerCase()
                 .split(" ")
                 .every((v) => items.name.toLowerCase().includes(v));
             });
-          }else{
-            return this.productRequestList
+          } 
+          if (this.filtersAppied.length > 0) {
+            //console.log('hi')
+            this.searchQuery = ''
+            
+            return this.productRequestList.filter(item => this.filtersAppied.includes(item.category));
           }
+          return this.productRequestList.filter((row, index) => {
+            let start = (this.current_page-1)*this.size;
+            let end = this.current_page*this.size;
+            if(index >= start && index < end) return true;
+          });
         },
+        category() {
+        }
       },
       methods: {
         toggler(obj, flag){
           obj.splice('Flag', flag);
+        },
+        nextPage() {
+        //console.log('helo')
+          if((this.current_page*this.size) < this.notifications.length) this.current_page++;
+        },
+        prevPage() {
+          if(this.current_page > 1) this.current_page--;
         },
         getDate(value){
           return new Date(value).toLocaleDateString()

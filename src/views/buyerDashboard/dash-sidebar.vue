@@ -67,6 +67,36 @@
                     <!-- <li><router-link to="/buyer-dashboard/order-review"><a>Order Review</a></router-link></li> -->
                 </ul>
             </li>
+            <li class="">
+                <router-link to="#" class="has-arrow">
+                  <a aria-expanded="false">
+                    <div class="nav_icon_small">
+                      <img src="@/assets/img/menu-icon/setting.png" />
+                    </div>
+                    <div class="nav_title">
+                      <span>Addresses</span>
+                    </div>
+                  </a>
+                </router-link>
+                <ul>
+                  <li
+                    :class="
+                      path == '/buyer-dashboard/add-new-address' && 'active-nav'
+                    "
+                  >
+                    <router-link to="/buyer-dashboard/add-new-address"
+                      ><a>Add New Address</a></router-link
+                    >
+                  </li>
+                  <li
+                    :class="path == '/buyer-dashboard/View-address' && 'active-nav'"
+                  >
+                    <router-link to="/buyer-dashboard/View-address"
+                      ><a>View All Address</a></router-link
+                    >
+                  </li>
+                </ul>
+              </li>
             <!--Settings-->
             <li class="">
                 <router-link to="#" class="has-arrow">

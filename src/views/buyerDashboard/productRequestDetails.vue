@@ -57,6 +57,16 @@
                           Weight :  {{item.weight}}
                         </h2>
                         <h2 class="span">Quantity :  {{item.quantity}}</h2>
+
+                        <div class="" v-if="item.status == 'pending'">
+                          <h2 class="span">Status: <span class="status_btn" style="background: orange;">Waiting</span></h2>
+                        </div>
+                        <div class="" v-if="item.status == 'Awaiting Url'">
+                          <h2 class="span">Status: <span class="status_btn" style="background: orange;">Awaiting Url</span></h2>
+                        </div>
+                        <div class="" v-if="item.status == 'uploaded'">
+                          <h2 class="span">Status: <span class="status_btn" style="background: green;">Uploaded</span></h2>
+                        </div>
                         
                       </div>
                     </div>
@@ -70,6 +80,8 @@
                         </h2>
                         <h2 class="span">
                           Crop Year (End) :  {{getDate(item.cropYear.end_date)}}
+
+                          {{productId}}
                         </h2>
                       </div>
                     </div>
@@ -78,6 +90,17 @@
                         Product Description: <span v-if="item.readMore == 'false'">{{item.description.substring(0, 100) }}</span> <a class="" v-if="item.readMore == 'false' && item.description.length >= 100" @click="item.readMore = 'true'" type="button" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read more...</a>
                         <span v-if="item.readMore == 'true'">{{item.description}} </span> <a class="" v-if="item.readMore == 'true'" @click="item.readMore = 'false'" type="button" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read less...</a>
                       </h2>
+                    </div>
+                    <div class="row mt-4">
+                      <div class="text-center" v-if="item.status == 'pending'">
+                        <button class="btn btn-mart" type="button">Awaiting</button>
+                      </div>
+                      <div class="text-center" v-if="item.status == 'Awaiting Url'">
+                        <button class="btn btn-mart" @click="$router.push('/request-a-product')" type="button">Request More Product</button>
+                      </div>
+                      <div class="text-center" v-if="item.status == 'uploaded'">
+                        <button class="btn btn-mart" target="_blank" @click="$router.push('/products/inner-product/'+productId)" type="button">View Product</button>
+                      </div>
                     </div>
                   </div> 
                 </div>
@@ -110,7 +133,7 @@
                           <th scope="col">Status</th>
 
                           <th scope="col">Joined <br> Date</th>
-                          <th scope="col">Total <br> Sales</th>
+                          <th scope="col">Total <br> Order</th>
 
                           <th scope="col">Total <br> Product</th>
 
@@ -132,13 +155,17 @@
                               <span class="status_btn">{{ item.userId.status }}</span>
                             </div>
                             <div v-if="item.userId.status == 'disabled'">
-                              <span class="status_btn" style="background: #000;">{{ item.userId.status }}</span>
+                              <span class="status_btn" style="background: #000;">{{ item.userId.status }} </span>
                             </div>
                           </td>
                           <td>{{getDate(item.userId.createdAt)}}</td>
-                          <td>{{getDashboard(item.userId._id)}}</td>
+                          <td>
+                            <a type="button" @click="checkTotalOrder(item.userId, item.userId._id)" style="font-size: 13px;color: #000000;font-weight: 600;">Check</a>
+                          </td>
 
-                          <td>{{totalProduct}}</td>
+                          <td>
+                            <a type="button" @click="checkTotalProduct(item.userId, item.userId._id)" style="font-size: 13px;color: #000000;font-weight: 600;">Check</a>
+                          </td>
 
                           <td>
                             <div class="action_btns d-flex">
@@ -147,6 +174,9 @@
                               </div>
                               <div v-if="item.status === 'Awaiting Url'">
                                 <span style="font-size: 13px;color: rgb(240, 135, 0);font-weight: 600;">{{ item.status }}</span>
+                              </div>
+                              <div v-if="item.status === 'uploaded'">
+                                <span style="font-size: 13px;color: rgb(1, 100, 44);font-weight: 600;">Uploaded</span>
                               </div>
                             </div>
                           </td>
@@ -201,6 +231,7 @@ export default {
         userId: [],
       },
       totalProduct: '',
+      productId: '',
     }
   },
   created(){
@@ -238,8 +269,11 @@ export default {
               }
             })
       }
-      else{
+      if (this.item.status == 'Awaiting Url'){
         Swal.fire('oOps! You have already accepted one supplier bid!', '', 'warning')
+      }
+      if (this.item.status == 'uploaded'){
+        Swal.fire('oOps! You can\'t accept bid again, product already uploaded by your selected supplier!', '', 'warning')
       }
     },
     getSingleRequest(){
@@ -247,26 +281,77 @@ export default {
       QUOTE.GetSingleRequest(this.requestId)
       .then((res) => {
         //console.log(res.data)
+        this.productId = res.data.data.productId._id
         let obj = res.data.data
         const data = { ...obj, readMore: 'false' }
         this.item = data
       })
     },
-    async getDashboard(id){
-      const res = await fetch(
-        `http://localhost:3000/supplierDashboard/${id}?length=5`, {
-          method: "GET",
-          headers: {
+    checkTotalProduct(arr, id){
+      axios.get(`http://localhost:3000/supplierDashboard/${id}?length=5`, {
+        headers: {
             "Content-Type": "application/json",
             Authorization: this.user.token,
           },
-        }
-        
-      );
-      const { data } = await res.json();
-      //console.log(data)
-
-      //return Promise.all(data)
+      })
+      .then(res => {
+        console.log(res.data)
+        let timerInterval
+          Swal.fire({
+            title: `${arr.firstname} ${arr.lastname} Total Product`,
+            html: `(${res.data.num_of_product})`,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading()
+              //const b = Swal.getHtmlContainer().querySelector('b')
+              timerInterval = setInterval(() => {
+                //b.textContent = Swal.getTimerLeft()
+              }, 100)
+            },
+            willClose: () => {
+              clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              //console.log('I was closed by the timer')
+            }
+          })
+      })
+    },
+    checkTotalOrder(arr, id){
+      axios.get(`http://localhost:3000/supplierDashboard/${id}?length=5`, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: this.user.token,
+          },
+      })
+      .then(res => {
+        console.log(res.data)
+        let timerInterval
+          Swal.fire({
+            title: `${arr.firstname} ${arr.lastname} Total Order`,
+            html: `(${res.data.num_of_order})`,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading()
+              //const b = Swal.getHtmlContainer().querySelector('b')
+              timerInterval = setInterval(() => {
+                //b.textContent = Swal.getTimerLeft()
+              }, 100)
+            },
+            willClose: () => {
+              clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              //console.log('I was closed by the timer')
+            }
+          })
+      })
     },
     getBiddingList(){
       QUOTE.GetRequestBidderList(this.requestId)
@@ -330,4 +415,12 @@ h2.span{
   .swal2-styled.swal2-default-outline:focus{
     box-shadow: none !important;
   }
+  .swal2-html-container{
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 24px !important;
+    margin-top: 16px !important
+  }
+
+
 </style> 
