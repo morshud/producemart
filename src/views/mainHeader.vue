@@ -81,19 +81,19 @@
                                     <div class="profile_author_name">
                                       <p style="font-size: 15px;">Supplier Account</p>
                                       <h5>{{ user.firstname }} {{ user.lastname[0] }}.</h5>
-                                      <p style="margin-top: -10px;font-size: 12px;font-weight: 500;">GreenMOuse</p>
+                                      <p style="margin-top:0;font-size: 12px;font-weight: 500;">GreenMOuse</p>
                                     </div>
                                     <div class="profile_info_details">
                                       
-                                      <router-link to="/supplier-dashboard/home">
-                                            <img src="@/assets/img/menu-icon/dashboard.png" style="border: 0;border-radius: 0;margin-right: 10px;"> Dashboard
-                                          </router-link>
-                                          <router-link to="/supplier-dashboard/profile" style="margin-left: -17px !important;"
-                                            ><i style="margin-right: 8px;font-size: 20px;" class="bi bi-person-circle"></i> My Profile</router-link
-                                          >
-                                          <a @click.prevent="logOut">
-                                            <img src="@/assets/img/menu-icon/logout.png" style="border: 0;border-radius: 0;margin-right: 10px; width: 15px;"  /> Log Out
-                                          </a>
+                                      <router-link to="/buyer-dashboard/home">
+                                        <img src="@/assets/img/menu-icon/dashboard.png" style="border: 0;border-radius: 0;margin-right: 10px;"> Dashboard
+                                      </router-link>
+                                      <router-link to="/buyer-dashboard/profile" style="margin-left: -17px !important;"
+                                        ><i style="margin-right: 8px;font-size: 20px;" class="bi bi-person-circle"></i> My Profile</router-link
+                                      >
+                                      <a @click.prevent="logOut">
+                                        <img src="@/assets/img/menu-icon/logout.png" style="border: 0;border-radius: 0;margin-right: 10px; width: 15px;"  /> Log Out
+                                      </a>
                                     </div>
                                   </div>
                                 </div>
@@ -131,16 +131,14 @@
           this.$router.push("/login");
         },
         getUser(){
+            console.log(JSON.parse(localStorage.getItem("user")))
             if(this.user.role == 'buyer'){
                 this.userLogin = 'buyer'
                 //console.log(this.userLogin)
             }
-            else if(this.user.role == 'supplier'){
+            if(this.user.role == 'supplier'){
                 this.userLogin = 'supplier'
-                //console.log(this.userLogin)
-            }
-            else{
-
+                console.log(this.userLogin)
             }
 
         }

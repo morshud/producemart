@@ -46,8 +46,64 @@
                       </ul>
                       <searchInner/>
                       <div class="authDiv desktopAuthDiv">
-                          <router-link to="/login"><a class="authLogin">Login</a></router-link>
-                          <router-link to="buyer-registration"><a class="authSignup">Sign Up</a></router-link>
+                            <div v-if="user.role == 'buyer'">
+                                <div class="profile_info" style="margin-left: 50px;">
+                                  <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
+                                  <img src="@/assets/img/client_img.png" alt="#" v-else />
+                                  Hi, <span style="text-transform: capitalize;">{{ user.firstname }}</span> <i class="bi bi-caret-down"></i>
+                                  <div class="profile_info_iner">
+                                    <div class="profile_author_name">
+                                      <p style="font-size: 15px;">Buyer Account</p>
+                                      <h5>{{ user.firstname }} {{ user.lastname[0] }}.</h5>
+                                      <p style="margin-top:0;font-size: 12px;font-weight: 500;">GreenMOuse</p>
+                                    </div>
+                                    <div class="profile_info_details">
+                                      
+                                      <router-link to="/buyer-dashboard/home">
+                                        <img src="@/assets/img/menu-icon/dashboard.png" style="border: 0;border-radius: 0;margin-right: 10px;"> Dashboard
+                                      </router-link>
+                                      <router-link to="/buyer-dashboard/profile" style="margin-left: -17px !important;"
+                                        ><i style="margin-right: 8px;font-size: 20px;" class="bi bi-person-circle"></i> My Profile</router-link
+                                      >
+                                      <a @click.prevent="logOut">
+                                        <img src="@/assets/img/menu-icon/logout.png" style="border: 0;border-radius: 0;margin-right: 10px; width: 15px;"  /> Log Out
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- <a style="cursor: pointer" @click="logOut" class="authSignup">Logout</a> -->
+                            </div>
+                            <div v-else-if="user.role == 'supplier'">
+                                <div class="profile_info" style="margin-left: 50px;">
+                                  <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
+                                  <img src="@/assets/img/client_img.png" alt="#" v-else />
+                                  Hi, <span style="text-transform: capitalize;">{{ user.firstname }}</span> <i class="bi bi-caret-down"></i>
+                                  <div class="profile_info_iner">
+                                    <div class="profile_author_name">
+                                      <p style="font-size: 15px;">Supplier Account</p>
+                                      <h5>{{ user.firstname }} {{ user.lastname[0] }}.</h5>
+                                      <p style="margin-top:0;font-size: 12px;font-weight: 500;">GreenMOuse</p>
+                                    </div>
+                                    <div class="profile_info_details">
+                                      
+                                      <router-link to="/buyer-dashboard/home">
+                                        <img src="@/assets/img/menu-icon/dashboard.png" style="border: 0;border-radius: 0;margin-right: 10px;"> Dashboard
+                                      </router-link>
+                                      <router-link to="/buyer-dashboard/profile" style="margin-left: -17px !important;"
+                                        ><i style="margin-right: 8px;font-size: 20px;" class="bi bi-person-circle"></i> My Profile</router-link
+                                      >
+                                      <a @click.prevent="logOut">
+                                        <img src="@/assets/img/menu-icon/logout.png" style="border: 0;border-radius: 0;margin-right: 10px; width: 15px;"  /> Log Out
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- <a style="cursor: pointer" @click="logOut" class="authSignup">Logout</a> -->
+                            </div>
+                            <div v-else>
+                                <router-link to="/login"><a class="authLogin">Login</a></router-link>
+                                <router-link to="buyer-registration"><a class="authSignup">Sign Up</a></router-link>
+                            </div>
                       </div>
                   </div>
               </div>
@@ -78,21 +134,25 @@
         <div class="row">
           <!--Request A Product-->
           <div class="col-lg-12 mb-4">
-            <a href="#" class="btnRequestBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">Request A Product <i class="bi bi-arrow-right"></i></a>
+
+            <a v-if="user.role == 'buyer'" href="#" class="btnRequestBtn" @click="requestProductModal" data-bs-toggle="modal" data-bs-target="#requestProduct">Request A Product <i class="bi bi-arrow-right"></i></a>
+            <a v-if="user == ''" href="#" class="btnRequestBtn" @click="requestProductNotUser">Request A Product <i class="bi bi-arrow-right"></i></a>
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" ref="requestProduct"
+                    data-bs-backdrop="static"
+                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="requestProductLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title">Request a Product Form</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" @click="modal.hide()" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <section class="formSec">
                       <div class="container">
                         <div v-if="userAuth" class="row justify-content-center">
                           <div class="col-lg-12">
-                            <form @submit.prevent="requestQuote">
+                            <form @submit.prevent="requestProduct">
                               <div class="row">
                                 <!--Product Name-->
                                 <div class="col-lg-12 mb-4">
@@ -103,9 +163,22 @@
                                 <div class="col-lg-6 mb-4">
                                   <label>Price <small>(in $)</small></label>
                                   <input type="text" v-model="price" required list="price" class="input">
-                                  <datalist id="price">
-                                      <option value="Negotiable"></option>
-                                  </datalist>
+                                </div>
+
+                                <div class="col-lg-6 mb-4">
+                                  <label>Quantity</label>
+                                  <input required v-model="quantity" type="number" placeholder="Enter your product variety" class="input">
+                                </div>
+                                <!--Weight-->
+                                <div class="col-lg-6 mb-4">
+                                  <label>Weight</label>
+                                  <select required v-model="weight" class="input">
+                                    <option hidden>Specify Weight</option>
+                                    <option>Kilogram (KG)</option>
+                                    <option>LB</option>
+                                    <option>ton</option>
+                                    <option>metric ton</option>
+                                  </select>
                                 </div>
                                 <!--Product Variety-->
                                 <div class="col-lg-6 mb-4">
@@ -119,7 +192,7 @@
                                 </div>
                                 <!--Food Category-->
                                 <div class="col-lg-6 mb-4">
-                                  <label>Food Category</label>
+                                  <label>Category</label>
                                   <select required v-model="productCategory" class="input">
                                     <option hidden>Choose Category</option>
                                     <option value="vegetable">Vegetable</option>
@@ -143,21 +216,7 @@
                                   </select>
                                 </div>
                                 <!--Quantity-->
-                                <div class="col-lg-6 mb-4">
-                                  <label>Quantity</label>
-                                  <input required v-model="quantity" type="number" placeholder="Enter your product variety" class="input">
-                                </div>
-                                <!--Weight-->
-                                <div class="col-lg-6 mb-4">
-                                  <label>Weight</label>
-                                  <select required v-model="weight" class="input">
-                                    <option hidden>Specify Weight</option>
-                                    <option>Kilogram (KG)</option>
-                                    <option>LB</option>
-                                    <option>ton</option>
-                                    <option>metric ton</option>
-                                  </select>
-                                </div>
+                                
                                 <!--Crop Year-->
                                 <div class="col-lg-12 mb-4">
                                   <div class="row">
@@ -179,10 +238,10 @@
                                   <label>Product Characteristics</label>
                                   <textarea required v-model="productCharacter" rows="3" placeholder="Enter your product characteristics" class="input"></textarea>
                                 </div>
-                                <!--Destination Country-->
-                                <div class="col-lg-6 mb-4">
-                                  <label>Destination Country</label>
-                                  <select required v-model="destination" class="input">
+                                <!--country_of_origin Country-->
+                                <div class="col-lg-12 mb-4">
+                                  <label>Country of Origin</label>
+                                  <select required v-model="country_of_origin" class="input">
                                     <option hidden>Select Country</option>
                                     <option value="Afganistan">Afghanistan</option>
                                     <option value="Albania">Albania</option>
@@ -433,21 +492,13 @@
                                 </select>
                                 </div>
                                 <!--Incoterms-->
-                                <div class="col-lg-6 mb-4">
-                                  <label>Incoterms</label>
-                                  <select required v-model="incoterm" class="input">
-                                    <option>Select</option>
-                                    <option>Option here</option>
-                                    <option>Option here</option>
-                                  </select>
-                                </div>
                                 <!--Additional Specification-->
                                 <div class="col-lg-12 mb-4">
                                   <label>Additional Specification</label>
                                   <textarea required v-model="addSpec" rows="3" placeholder="Additional spec..." class="input"></textarea>
                                 </div>
                                 <div class="col-lg-12">
-                                  <button type="submit">Request Quote</button>
+                                  <button type="submit">Request Product</button>
                                 </div>
                                  
                               </div>
@@ -482,7 +533,7 @@
                     </div>
                     <div class="col-lg-12 formBox">
                       <label>Keyword</label>
-                      <input type="text" placeholder="Product name" class="input">
+                      <input type="text" v-model="searchQuery" placeholder="Product name" class="input">
                     </div>
                     <div class="col-lg-12 formBox">
                       <label>Category Filter</label>
@@ -549,7 +600,7 @@
               <div class="row">
                 <div class="col-lg-12 formBox">
                   <label>Keyword</label>
-                  <input type="text" placeholder="Product name" class="input">
+                  <input type="text" v-model="searchQuery" onkeyup="searchProduct" placeholder="Product name" class="input">
                 </div>
                 <div class="col-lg-12 formBox">
                   <label>Category Filter</label>
@@ -606,80 +657,29 @@
           </div>
           <div class="col-lg-9">
             <div class="row">
-              <div class="col-lg-12">
+              <div class="col-lg-12" v-for="(item, i) in resultQuery" :key="item._id">
                 <div class="bulletBoard">
                   <div class="row">
                     <div class="col-md-6">
-                      <p>Product Name: <span>10 Bags of Banana</span></p>
-                      <p>Product Price: <span>$500</span></p>
-                      <p>Food Category: <span>Vegetable</span></p>
-                      <p>Supply Frequency: <span>One-Off</span></p>
-                      <p>Quantity: <span>100</span></p>
+                      <p>Product Name: <span>{{item.name}}</span></p>
+                      <p>Product Price: <span>${{item.price}}</span></p>
+                      <p>Food Category: <span>{{item.category}}</span></p>
+                      <p>Supply Frequency: <span>{{item.supplyFrequency}}</span></p>
+                      <p>Quantity: <span>{{item.quantity}} {{item._id}}</span></p>
                     </div>
                     <div class="col-md-6">
-                      <p>Weight: <span>kg</span></p>
-                      <p>Country of origin: <span>South Africa</span></p>
-                      <p>Crop Year (Start Year): <span>15/04/2022</span></p>
-                      <p>Crop Year (End Year): <span>15/05/2022</span></p>
+                      <p>Weight: <span>{{item.weight}}</span></p>
+                      <p>Country of origin: <span>{{item.country}}</span></p>
+                      <p>Crop Year (Start Year): <span>{{getDate(item.cropYear.start_date)}}</span></p>
+                      <p>Crop Year (End Year): <span>{{getDate(item.cropYear.end_date)}}</span></p>
                     </div>
                   </div>
                   <p>
-                    Product Description: <span v-if="!readMoreActivated">{{fullText.slice(0, 100)}}</span> <a class="" v-if="!readMoreActivated" @click="toggle(1)" href="#" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read more...</a>
-                    <span v-if="readMoreActivated" v-html="fullText"> </span> <a class="" v-if="readMoreActivated" @click="toggle(1)" href="#" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read less...</a>
+                    Product Description: <span v-if="item.readMore == 'false'">{{item.description.substring(0, 100) }}</span> <a class="" v-if="item.readMore == 'false' && item.description.length >= 100" @click="item.readMore = 'true'" type="button" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read more...</a>
+                    <span v-if="item.readMore == 'true'">{{item.description}} </span> <a class="" v-if="item.readMore == 'true'" @click="item.readMore = 'false'" type="button" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read less...</a>
                   </p>
                   <div class="btnDiv">
-                    <a href="#">Product Response</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="bulletBoard">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <p>Product Name: <span>10 Bags of Banana</span></p>
-                      <p>Product Price: <span>$500</span></p>
-                      <p>Food Category: <span>Vegetable</span></p>
-                      <p>Supply Frequency: <span>One-Off</span></p>
-                      <p>Quantity: <span>100</span></p>
-                    </div>
-                    <div class="col-md-6">
-                      <p>Weight: <span>kg</span></p>
-                      <p>Country of origin: <span>South Africa</span></p>
-                      <p>Crop Year (Start Year): <span>15/04/2022</span></p>
-                      <p>Crop Year (End Year): <span>15/05/2022</span></p>
-                    </div>
-                  </div>
-                  <p>Product Description: <span v-if="!readMoreActivated">{{fullText.slice(0, 100)}}</span> <a class="" v-if="!readMoreActivated" @click="toggle(2)" href="#" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read more...</a>
-                    <span v-if="readMoreActivated" v-html="fullText"> </span> <a class="" v-if="readMoreActivated" @click="toggle(2)" href="#" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read less...</a>
-                  </p>
-                  <div class="btnDiv">
-                    <a href="#">Product Response</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="bulletBoard">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <p>Product Name: <span>10 Bags of Banana</span></p>
-                      <p>Product Price: <span>$500</span></p>
-                      <p>Food Category: <span>Vegetable</span></p>
-                      <p>Supply Frequency: <span>One-Off</span></p>
-                      <p>Quantity: <span>100</span></p>
-                    </div>
-                    <div class="col-md-6">
-                      <p>Weight: <span>kg</span></p>
-                      <p>Country of origin: <span>South Africa</span></p>
-                      <p>Crop Year (Start Year): <span>15/04/2022</span></p>
-                      <p>Crop Year (End Year): <span>15/05/2022</span></p>
-                    </div>
-                  </div>
-                  <p>
-                    Product Description: <span v-if="!readMoreActivated">{{fullText.slice(0, 100)}}</span> <a class="" v-if="!readMoreActivated" @click="toggle(3)" href="#" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read more...</a>
-                    <span v-if="readMoreActivated" v-html="fullText"> </span> <a class="" v-if="readMoreActivated" @click="toggle(3)" href="#" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read less...</a>
-                  </p>
-                  <div class="btnDiv">
-                    <a href="#">Product Response</a>
+                    <a type="button" @click="respondRequest(item._id)">Product Response</a>
                   </div>
                 </div>
               </div>
@@ -698,7 +698,7 @@
     </section>
   </main>
 
-  <mainFooter/>
+  <main-footer />
 </template>
 <style scoped src="@/assets/css/styleFrontend.css"></style>
 <style scoped src="@/assets/css/bootstrap.css"></style>
@@ -709,17 +709,21 @@
     import SearchInner from './searchInner.vue'
     import QUOTE from './../service/quote-service'
     import Swal from 'sweetalert2';
+    import { Modal } from "bootstrap";
     export default {
       name: "Produce Mart",
       components:{
       'mainHeader': MainHeader,
       'searchHeader': SearchHeader,
-      'mainFooter': MainFooter,
+        mainFooter: MainFooter,
       'searchInner': SearchInner,
       },
       data(){
         return{
+          productRequestList: [],
           productName: '',
+          searchQuery: null,
+          user: JSON.parse(localStorage.getItem("user")) || '',
           price: '',
           productVariety: '',
           productDesc: '',
@@ -730,14 +734,14 @@
           startDate: '',
           endDate: '',
           productCharacter: '',
-          destination: '',
-          incoterm: '',
+          country_of_origin: '',
           addSpec: '',
           statusMessage: false,
-          modal: 'modal fade show',
-          fullText: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus, vero incidunt consectetur inventore at perferendis non ab totam ex rerum delectus repellendus consequuntur porro omnis voluptatem neque facere laboriosam activateReadMore(){dicta cum. Provident placeat neque incidunt enim saepe adipisci nesciunt suscipit officiis laborum deserunt, ea error facere quibusdam repellendus cumque facilis`,
-          readMoreActivated: false,
+          modal: null,
         }
+      },
+      created(){
+        this.getRequestProduct()
       },
       computed:{
         userAuth(){
@@ -748,16 +752,61 @@
           else{
             return false
           }
-        }
+        },
+        resultQuery() {
+          if (this.searchQuery) {
+            let out = this.productRequestList;
+            console.log(this.productRequestList)
+            return out.filter((items) => {
+              return this.searchQuery
+                .toLowerCase()
+                .split(" ")
+                .every((v) => items.name.toLowerCase().includes(v));
+            });
+          }else{
+            return this.productRequestList
+          }
+        },
       },
       methods: {
-        toggle(value){
-          console.log(value)
-          this.readMoreActivated = this.readMoreActivated ? false : true;
+        toggler(obj, flag){
+          obj.splice('Flag', flag);
         },
-        requestQuote(){
-          
-          const quoteRequests = {
+        getDate(value){
+          return new Date(value).toLocaleDateString()
+        },
+        getRequestProduct(){
+          QUOTE.GetAllRequest().then((res) => {
+            //console.log(res.data)
+            const data = res.data.data.map(obj => ({ ...obj, readMore: 'false' }))
+            this.productRequestList = data
+            
+          })
+        },
+        logOut() {
+          this.$store.dispatch("auth/logout");
+          this.$router.push("/login");
+        },
+        requestProductNotUser(){
+          Swal.fire({
+            title: 'Sorry! You are not logged In as a Buyer yet, click on register or login as a buyer to proceed this operation',
+            showDenyButton: true,
+            //showCancelButton: true,
+            confirmButtonText: 'Register',
+            confirmButtonColor: '#000000',
+            denyButtonText: `Login`,
+            denyButtonColor: '#ffffff',
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              this.$router.push('/buyer-registration')
+            } else if (result.isDenied) {
+              this.$router.push('/login')
+            }
+          })
+        },
+        requestProduct(){
+          const productRequests = {
             "name": this.productName,
             "price": this.price,
             "variety": this.productVariety,
@@ -769,15 +818,15 @@
             "characteristics": this.productCharacter,
             "frequency": this.supplyFrequency,
             "additional_info": this.addSpec,
-            "country": this.destination,
+            "country": this.country_of_origin,
             "weight": this.weight,
-            "intercoms": this.incoterm
           }
-          QUOTE.CreateQuote(quoteRequests).then(res => {
+          QUOTE.RequestProduct(productRequests).then(res => {
+            this.modal.hide();
             Swal.fire({
               position: 'top-end',
               icon: 'success',
-              title: `${res.data.message}`,
+              title: `Your request has been successfully placed`,
               showConfirmButton: false,
               timer: 3500
             })
@@ -786,6 +835,63 @@
           .catch(err => {
             console.log(err);
           })
+        },
+        respondRequest(value) {
+          /*this.modal = new Modal(this.$refs.respondRequest);
+          this.modal.show();*/
+          console.log(value)
+          if (this.user.role === 'supplier') {
+            Swal.fire({
+              title: 'Are you sure you have this product requested by the buyer?',
+              showDenyButton: true,
+              //showCancelButton: true,
+              confirmButtonText: 'Yes, place bid',
+              confirmButtonColor: '#000000',
+              denyButtonText: `No, I don't`,
+              denyButtonColor: '#ffffff',
+            }).then((result) => {
+              /* Read more about isConfirmed, isDenied below */
+              if (result.isConfirmed) {
+                QUOTE.CheckIfPlaced(value).then((res) => {
+                  if (res.data.status == false) {
+                    const sendData = {
+                      requestId: value,
+                      userId: this.user._id
+                    }
+                    QUOTE.PlaceBid(sendData).then(() => {
+                      Swal.fire('Congratulation, you have successfully placed your bid!', '', 'success')
+                    })
+                  } else {
+                    Swal.fire('You have already place a bid on this request!', '', 'info')
+                  }
+                })
+                
+              } else if (result.isDenied) {
+                Swal.fire('Sorry your bid not place!', '', 'error')
+              }
+            })
+          } else {
+            Swal.fire({
+              title: 'Sorry! You are not logged In as a Supplier yet, click on register or login as a buyer to proceed this operation',
+              showDenyButton: true,
+              //showCancelButton: true,
+              confirmButtonText: 'Register',
+              confirmButtonColor: '#000000',
+              denyButtonText: `Login`,
+              denyButtonColor: '#ffffff',
+            }).then((result) => {
+              /* Read more about isConfirmed, isDenied below */
+              if (result.isConfirmed) {
+                this.$router.push('/supplier-registration')
+              } else if (result.isDenied) {
+                this.$router.push('/login')
+              }
+            })
+          }
+        },
+        requestProductModal(){
+          this.modal = new Modal(this.$refs.requestProduct);
+          this.modal.show();
         },
         clearForm(){
           this.productName = ''
@@ -799,8 +905,7 @@
           this.startDate = ''
           this.endDate = ''
           this.productCharacter = ''
-          this.destination = ''
-          this.incoterm = ''
+          this.country_of_origin = ''
           this.addSpec = ''
         }
       },
@@ -811,6 +916,41 @@
 
 
 <style>
- #more {display: none;}
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+ .swal2-popup {
+    font-size: 16px !important;
+    font-family: 'Montserrat', sans-serif !important;
+    width: 555px !important;
+  }
+
+  .swal2-title{
+    font-size: 16px !important;
+    margin-top: 20px !important;
+  }
+
+  .swal2-deny{
+    background: #FFFFFF !important;
+    border: 1px solid #000000 !important;
+    border-radius: 15px !important;
+    color: #000000 !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+  }
+
+  .swal2-confirm{
+    background: #000 !important;
+    border: 0 !important;
+    outline: none !important;
+    border-radius: 15px !important;
+    color: #ffffff !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+  }
+
+  .swal2-styled.swal2-default-outline:focus{
+    box-shadow: none !important;
+  }
 
 </style>

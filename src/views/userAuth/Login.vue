@@ -7,9 +7,9 @@
           <div class="loginDiv">
             <div class="headLogin">
               <h3>
-                <a href="/">
-                  <img src="@/assets/img/adminImg/logo.png" />
-                </a>
+                  <router-link to="/">
+                    <img src="@/assets/img/adminImg/logo.png" />
+                  </router-link>
                 <span>Welcome Back!</span>
               </h3>
             </div>

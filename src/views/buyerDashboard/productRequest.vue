@@ -77,28 +77,28 @@
                           <th scope="col">Crop Year (Start Year)</th>
                           <th scope="col">Crop Year (End Year)</th>
 
-                          <th scope="col">Status</th>
+                          <th scope="col">Category</th>
 
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody v-for="(item, i) in productRequestList">
                         <tr>
                           <td>#</td>
-                          <td>Banana</td>
+                          <td>{{item.name}}</td>
                           <td>
-                            $500
+                            ${{item.price}} per {{item.weight}}
                           </td>
-                          <td>100</td>
-                          <td>15/04/22</td>
-                          <td>15/04/22</td>
+                          <td>{{item.quantity}}</td>
+                          <td>{{getDate(item.cropYear.start_date)}}</td>
+                          <td>{{getDate(item.cropYear.end_date)}}</td>
 
-                          <td>pendimg</td>
+                          <td>{{item.category}}</td>
 
                           <td>
                             <div class="action_btns d-flex">
                               <router-link
-                                :to="'/buyer-dashboard/product-request/1'"
+                                :to="'/buyer-dashboard/product-request/'+ item._id"
                                 title="View"
                                 class="action_btn mr_10"
                               >
@@ -130,6 +130,7 @@
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
+import QUOTE from './../../service/quote-service'
 export default {
   name: "Produce Mart",
   components: {
@@ -142,23 +143,31 @@ export default {
   },
   data() {
     return {
-      products: null,
+      productRequestList: [],
       search: "",
-      token: JSON.parse(localStorage.getItem("user")).token,
+      user: JSON.parse(localStorage.getItem("user")),
     };
   },
+  created(){
+    this.getAllBuyerRequest()
+  },
   methods: {
-    async getAllBidproducts() {
-      const res = await fetch(
-        "https://producemart.herokuapp.com/getAllProducts"
+    getAllBuyerRequest() {
+      QUOTE.GetAllBuyerRequest(this.user._id)
+      .then((res) => {
+        this.productRequestList = res.data.data
+      })
+      /*const res = await fetch(
+        "http://localhost:3000/getAllBuyerRequest"
       );
-      const { data } = await res.json();
-
-      this.products = data.filter((val) => val.status == "active");
-      //console.log(this.products);
+      const { data } = await res.json();*/
+      
 
       // this.products = data;
       // console.log(this.products);
+    },
+    getDate(value){
+      return new Date(value).toLocaleDateString()
     },
   },
   computed: {
