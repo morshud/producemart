@@ -46,8 +46,64 @@
                       </ul>
                       <searchInner/>
                       <div class="authDiv desktopAuthDiv">
-                          <router-link to="/login"><a class="authLogin">Login</a></router-link>
-                          <router-link to="buyer-registration"><a class="authSignup">Sign Up</a></router-link>
+                          <div v-if="user.role == 'buyer'">
+                                <div class="profile_info" style="margin-left: 50px;">
+                                  <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
+                                  <img src="@/assets/img/client_img.png" alt="#" v-else />
+                                  Hi, <span style="text-transform: capitalize;">{{ user.firstname }}</span> <i class="bi bi-caret-down"></i>
+                                  <div class="profile_info_iner">
+                                    <div class="profile_author_name">
+                                      <p style="font-size: 15px;">Buyer Account</p>
+                                      <h5>{{ user.firstname }} {{ user.lastname[0] }}.</h5>
+                                      <p style="margin-top:0;font-size: 12px;font-weight: 500;">GreenMOuse</p>
+                                    </div>
+                                    <div class="profile_info_details">
+                                      
+                                      <router-link to="/buyer-dashboard/home">
+                                        <img src="@/assets/img/menu-icon/dashboard.png" style="border: 0;border-radius: 0;margin-right: 10px;"> Dashboard
+                                      </router-link>
+                                      <router-link to="/buyer-dashboard/profile" style="margin-left: -17px !important;"
+                                        ><i style="margin-right: 8px;font-size: 20px;" class="bi bi-person-circle"></i> My Profile</router-link
+                                      >
+                                      <a @click.prevent="logOut">
+                                        <img src="@/assets/img/menu-icon/logout.png" style="border: 0;border-radius: 0;margin-right: 10px; width: 15px;"  /> Log Out
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- <a style="cursor: pointer" @click="logOut" class="authSignup">Logout</a> -->
+                            </div>
+                            <div v-else-if="user.role == 'supplier'">
+                                <div class="profile_info" style="margin-left: 50px;">
+                                  <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
+                                  <img src="@/assets/img/client_img.png" alt="#" v-else />
+                                  Hi, <span style="text-transform: capitalize;">{{ user.firstname }}</span> <i class="bi bi-caret-down"></i>
+                                  <div class="profile_info_iner">
+                                    <div class="profile_author_name">
+                                      <p style="font-size: 15px;">Supplier Account</p>
+                                      <h5>{{ user.firstname }} {{ user.lastname[0] }}.</h5>
+                                      <p style="margin-top:0;font-size: 12px;font-weight: 500;">GreenMOuse</p>
+                                    </div>
+                                    <div class="profile_info_details">
+                                      
+                                      <router-link to="/buyer-dashboard/home">
+                                        <img src="@/assets/img/menu-icon/dashboard.png" style="border: 0;border-radius: 0;margin-right: 10px;"> Dashboard
+                                      </router-link>
+                                      <router-link to="/buyer-dashboard/profile" style="margin-left: -17px !important;"
+                                        ><i style="margin-right: 8px;font-size: 20px;" class="bi bi-person-circle"></i> My Profile</router-link
+                                      >
+                                      <a @click.prevent="logOut">
+                                        <img src="@/assets/img/menu-icon/logout.png" style="border: 0;border-radius: 0;margin-right: 10px; width: 15px;"  /> Log Out
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- <a style="cursor: pointer" @click="logOut" class="authSignup">Logout</a> -->
+                            </div>
+                            <div v-else>
+                                <router-link to="/login"><a class="authLogin">Login</a></router-link>
+                                <router-link to="buyer-registration"><a class="authSignup">Sign Up</a></router-link>
+                            </div>
                       </div>
                   </div>
               </div>
@@ -125,6 +181,17 @@
       'searchHeader': SearchHeader,
       'mainFooter': MainFooter,
       'searchInner': SearchInner,
+      },
+      data(){
+        return{
+          user: JSON.parse(localStorage.getItem("user")) || '',
+        }
+      },
+      methods: {
+        logOut() {
+          this.$store.dispatch("auth/logout");
+          this.$router.push("/login");
+        },
       },
       mounted(){
         window.scrollTo(0,0)

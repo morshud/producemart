@@ -77,28 +77,28 @@
                           <th scope="col">Crop Year (Start Year)</th>
                           <th scope="col">Crop Year (End Year)</th>
 
-                          <th scope="col">Status</th>
+                          <th scope="col">Category</th>
 
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody v-for="(item, i) in bidList" :key="item._id">
                         <tr>
                           <td>#</td>
-                          <td>Banana</td>
+                          <td>{{item.requestId.name}}</td>
                           <td>
-                            $500
+                            ${{item.requestId.price}} per {{item.requestId.weight}}
                           </td>
-                          <td>100</td>
-                          <td>15/04/22</td>
-                          <td>15/04/22</td>
+                          <td>{{item.requestId.quantity}}</td>
+                          <td>{{getDate(item.requestId.cropYear.start_date)}}</td>
+                          <td>{{getDate(item.requestId.cropYear.end_date)}}</td>
 
-                          <td>pendimg</td>
+                          <td>{{item.requestId.category}}</td>
 
                           <td>
                             <div class="action_btns d-flex">
                               <router-link
-                                :to="'/supplier-dashboard/bid-product/1'"
+                                :to="'/supplier-dashboard/bid-product/'+ item._id"
                                 target="_blank"
                                 title="View"
                                 class="action_btn mr_10"
@@ -131,6 +131,7 @@
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
+import QUOTE from './../../service/quote-service'
 export default {
   name: "Produce Mart",
   components: {
@@ -144,24 +145,26 @@ export default {
   },
   data() {
     return {
-      products: null,
+      bidList: {
+        requestId: []
+      },
       search: "",
-      token: JSON.parse(localStorage.getItem("user")).token,
+      user: JSON.parse(localStorage.getItem("user")),
     };
   },
+  created(){
+    this.getSupplierBid()
+  },
   methods: {
-    async getAllBidproducts() {
-      const res = await fetch(
-        "https://producemart.herokuapp.com/getAllProducts"
-      );
-      const { data } = await res.json();
-
-      this.products = data.filter((val) => val.status == "active");
-      //console.log(this.products);
-
-      // this.products = data;
-      // console.log(this.products);
+    getSupplierBid(){
+      QUOTE.GetSupplierBid(this.user._id).then((res) => {
+        //console.log(res)
+        this.bidList = res.data.Bid
+      })
     },
+    getDate(value){
+      return new Date(value).toLocaleDateString()
+    }
   },
   computed: {
     filteredProducts() {

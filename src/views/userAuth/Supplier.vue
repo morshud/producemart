@@ -6,9 +6,9 @@
         <div class="col-lg-12 text-center">
           <div class="headLogin">
             <h3>
-              <a href="/">
+              <router-link to="/">
                 <img src="@/assets/img/adminImg/logo.png" />
-              </a>
+              </router-link>
               <span>Sign Up (Supplier)</span>
               <div class="line-rule"></div>
             </h3>

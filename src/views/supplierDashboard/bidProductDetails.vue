@@ -41,35 +41,61 @@
                   </div>
                   <div class="row mb-4">
                     <div class="col-sm-4">
-                      <h2 class="span">Product Name :  10 Bags of Banana
+                      <h2 class="span">Product Name :  {{request.name}}
                       </h2>
                       
-                      <h2 class="span">Destination Country :  South Africa</h2>
-                      <h2 class="span">Supply Frequency :  One-Off</h2>
+                      <h2 class="span">Destination Country :  {{request.country}}</h2>
+                      <h2 class="span">Supply Frequency :  {{request.supplyFrequency}}</h2>
+                      <div class="" v-if="request.status == 'pending' && item.status == 'pending'">
+                        <h2 class="span">Status: <span class="status_btn" style="background: orange;">Waiting</span></h2>
+                      </div>
+                      <div class="" v-if="request.status == 'Awaiting Url' && item.status == 'Awaiting Url'">
+                        <h2 class="span">Status: <span class="status_btn" style="background: orange;">Awaiting Url</span></h2>
+                      </div>
+                      <div class="" v-if="request.status == 'pending' && item.status == 'Awaiting Url'">
+                        <h2 class="span">Status: <span class="status_btn" style="background: red;">Not Selected</span></h2>
+                      </div>
                     </div>
                     <div class="col-sm-4">
                       <div >
-                        <h2 class="span">Product Price :  $500</h2>
+                        <h2 class="span">Product Price :  ${{request.price}}</h2>
                         <!-- <div>Nigeria</div>
                                                 <div>Street Address, Lagos.</div> -->
                         <h2 class="span">
-                          Weight :  4kg
+                          Weight :  {{request.weight}}
                         </h2>
-                        <h2 class="span">Quantity :  100</h2>
+                        <h2 class="span">Quantity :  {{request.quantity}}</h2>
                         
                       </div>
                     </div>
                     <div class="col-sm-4">
                       <div>
-                        <h2 class="span">Estimated Cost:  $100,000</h2>
+                        <h2 class="span">Category:  {{request.category}}</h2>
                         <!-- <div>Nigeria</div>
                                                 <div>Street Address, Lagos.</div> -->
                         <h2 class="span">
-                          Crop Year (Start) :  15/04/22
+                          Crop Year (Start) :  {{getDate(request.cropYear.start_date)}}
                         </h2>
                         <h2 class="span">
-                          Crop Year (End) :  15/04/22
+                          Crop Year (End) :  {{getDate(request.cropYear.end_date)}}
                         </h2>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <h2 class="span">
+                        Product Description: <span v-if="request.readMore == 'false'">{{request.description.substring(0, 100) }}</span> <a class="" v-if="request.readMore == 'false' && request.description.length >= 100" @click="request.readMore = 'true'" type="button" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read more...</a>
+                        <span v-if="request.readMore == 'true'">{{request.description}} </span> <a class="" v-if="request.readMore == 'true'" @click="request.readMore = 'false'" type="button" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Read less...</a>
+                      </h2>
+                    </div>
+                    <div class="row mt-4">
+                      <div class="text-center" v-if="request.status == 'pending' && item.status == 'pending'">
+                        <button class="btn btn-mart" type="button">Awaiting</button>
+                      </div>
+                      <div class="text-center" v-if="request.status == 'Awaiting Url' && item.status == 'Awaiting Url'">
+                        <button class="btn btn-mart" @click="uploadProduct(request._id)" type="button">Upload Product</button>
+                      </div>
+                      <div class="text-center" v-if="request.status == 'pending' && item.status == 'Awaiting Url'">
+                        <button class="btn btn-mart" @click="approveBuyer" type="button">Not Selected</button>
                       </div>
                     </div>
                   </div>
@@ -96,6 +122,7 @@ import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
 import axios from 'axios'
 import Swal from 'sweetalert2';
+import QUOTE from './../../service/quote-service'
 export default {
   name: "Produce Mart",
   components: {
@@ -108,12 +135,29 @@ export default {
   },
   data() {
     return {
-      token: JSON.parse(localStorage.getItem("user")).token,
+      user: JSON.parse(localStorage.getItem("user")),
+      bidId: this.$route.params.id,
+      item: '',
+      request: ''
     };
+  },
+  created(){
+    this.getSingleBid()
   },
   methods: {
     getDate(value){
       return new Date(value).toLocaleDateString()
+    },
+    getSingleBid(){
+      QUOTE.GetSingleBid(this.bidId).then((res) => {
+        //console.log(res)
+        this.item = res.data.Bid
+        let obj = res.data.Bid.requestId
+        //console.log(obj)
+        const data = { ...obj, readMore: 'false' }
+        //console.log(data)
+        this.request = data
+      })
     },
   },
 };
