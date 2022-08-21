@@ -220,6 +220,23 @@ const routes = [
     component: DashBuyerDraftMail,
   },
   */
+  //addresses
+  {
+    path: "/buyer-dashboard/add-new-address",
+    name: "DashBuyerAddNewAddress",
+    component: () => import('@/views/buyerDashboard/AddNewAddress'),
+  },
+  {
+    path: "/buyer-dashboard/view-address",
+    name: "DashBuyerViewAllAddress",
+    component: () => import('@/views/buyerDashboard/ViewAllAddress'),
+  },
+  {
+    path: "/buyer-dashboard/edit-address/:id",
+    name: "DashBuyerEditAddress",
+    component: () => import('@/views/buyerDashboard/EditAddress'),
+  },
+
   //orders
   {
     path: "/buyer-dashboard/open-orders",

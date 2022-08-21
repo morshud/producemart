@@ -130,7 +130,7 @@
       },
       methods: {
         getSupplierReport(){
-            axios.get(`http://localhost:3000/getAllSupplierReport`, {
+            axios.get(`https://producemart.herokuapp.com/getAllSupplierReport`, {
                 headers: {
                     Authorization: this.token,
                 },

@@ -130,10 +130,10 @@
                           <option value="Country" hidden>Select Country</option>
                           <option
                             v-for="(country, i) in countries"
-                            :value="country"
+                            :value="country.country_name"
                             :key="i"
                           >
-                            {{ country }}
+                            {{ country.country_name }}
                           </option>
                         </select>
                       </div>
