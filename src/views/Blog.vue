@@ -114,10 +114,10 @@
                                     </div>
                                     <div class="profile_info_details">
                                       
-                                      <router-link to="/buyer-dashboard/home">
+                                      <router-link to="/supplier-dashboard/home">
                                         <img src="@/assets/img/menu-icon/dashboard.png" style="border: 0;border-radius: 0;margin-right: 10px;"> Dashboard
                                       </router-link>
-                                      <router-link to="/buyer-dashboard/profile" style="margin-left: -17px !important;"
+                                      <router-link to="/supplier-dashboard/profile" style="margin-left: -17px !important;"
                                         ><i style="margin-right: 8px;font-size: 20px;" class="bi bi-person-circle"></i> My Profile</router-link
                                       >
                                       <a @click.prevent="logOut">

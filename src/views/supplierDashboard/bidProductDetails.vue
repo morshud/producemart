@@ -72,11 +72,16 @@
                           Weight :  {{request.weight}}
                         </h2>
                         <h2 class="span">Quantity :  {{request.quantity}}</h2>
-                        
+                        <h2 class="span">Variety :  {{request.variety}}</h2>
+                        <h2 class="span">Characteristics: 
+                          <a class="" v-if="request.readChar == 'false'" @click="request.readChar = 'true'" type="button" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">View...</a>
+                          <span v-if="request.readChar == 'true'">{{request.characteristics}} </span> <a class="" v-if="request.readChar == 'true'" @click="request.readChar = 'false'" type="button" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Close...</a>
+                        </h2>
                       </div>
                     </div>
                     <div class="col-sm-4">
                       <div>
+                        <h2 class="span">Location:  {{request.location}}</h2>
                         <h2 class="span">Category:  {{request.category}}</h2>
                         <!-- <div>Nigeria</div>
                                                 <div>Street Address, Lagos.</div> -->
@@ -85,6 +90,10 @@
                         </h2>
                         <h2 class="span">
                           Crop Year (End) :  {{getDate(request.cropYear.end_date)}}
+                        </h2>
+                        <h2 class="span">Aditional Info: 
+                          <a class="" v-if="request.readAddInfo == 'false'" @click="request.readAddInfo = 'true'" type="button" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">View...</a>
+                          <span v-if="request.readAddInfo == 'true'">{{request.additional_info}} </span> <a class="" v-if="request.readAddInfo == 'true'" @click="request.readAddInfo = 'false'" type="button" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Close...</a>
                         </h2>
                       </div>
                     </div>
@@ -168,7 +177,7 @@ export default {
         this.item = res.data.Bid
         let obj = res.data.Bid.requestId
         //console.log(obj)
-        const data = { ...obj, readMore: 'false' }
+        const data = { ...obj, readMore: 'false', readChar: 'false', readAddInfo: 'false' }
         //console.log(data)
         this.request = data
 
