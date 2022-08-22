@@ -3,6 +3,7 @@ import authHeader from "./auth-header";
 const API_URL = "https://producemart.herokuapp.com/";
 //const API_URL = "http://localhost:3000/";
 const user = JSON.parse(localStorage.getItem("user"));
+//console.log(user)
 
 
 class QUOTE {
@@ -25,14 +26,15 @@ class QUOTE {
     });
   }
 
-  CheckIfPlaced(userId){
+  /*CheckIfPlaced(userId){
+    console.log(user)
     return axios.get(API_URL + "getRequestBidByUserId/" + userId, {
-      headers: {
-        "Authorization": user.token,
-        "Content-Type": "application/json"
-      }
-    });
-  }
+        params: {
+          userId: user._id,
+        },
+        headers: authHeader(),
+      });
+  }*/
 
   GetAllBuyerRequest(id){
     return axios.get(API_URL + "getAllBuyerRequest/" + id, {

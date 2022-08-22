@@ -93,7 +93,23 @@
                           <td>{{getDate(item.requestId.cropYear.start_date)}}</td>
                           <td>{{getDate(item.requestId.cropYear.end_date)}}</td>
 
-                          <td>{{item.requestId.category}}</td>
+                          <td>
+                            <div class="" v-if="item.requestId.status == 'pending' && item.status == 'pending'">
+                              <h2 class="span"><span class="status_btn" style="background: orange;">Waiting</span></h2>
+                            </div>
+                            <div class="" v-if="item.requestId.status == 'Awaiting Url' && item.status == 'Awaiting Url'">
+                              <h2 class="span"><span class="status_btn" style="background: orange;">Awaiting Url</span></h2>
+                            </div>
+                            <div class="" v-if="item.requestId.status == 'Awaiting Url' && item.status == 'pending'">
+                              <h2 class="span"><span class="status_btn" style="background: red;">Not Selected</span></h2>
+                            </div>
+                            <div class="" v-if="item.requestId.status == 'uploaded' && item.status == 'pending'">
+                              <h2 class="span"><span class="status_btn" style="background: red;">Not Selected</span></h2>
+                            </div>
+                            <div class="" v-if="item.requestId.status == 'uploaded' && item.status == 'uploaded'">
+                              <h2 class="span"><span class="status_btn" style="background: green;">Uploaded</span></h2>
+                            </div>
+                          </td>
 
                           <td>
                             <div class="action_btns d-flex">
@@ -157,7 +173,7 @@ export default {
   methods: {
     getSupplierBid(){
       QUOTE.GetSupplierBid(this.user._id).then((res) => {
-        //console.log(res)
+        console.log(res)
         this.bidList = res.data.Bid
       })
     },

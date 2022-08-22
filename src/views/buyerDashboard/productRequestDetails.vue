@@ -47,6 +47,10 @@
                       <h2 class="span">Destination Country :  {{item.country}}</h2>
                       <h2 class="span">Supply Frequency :  {{item.supplyFrequency}}</h2>
                       <h2 class="span">Variety :  {{item.variety}}</h2>
+                      <h2 class="span">Characteristics: 
+                        <a class="" v-if="item.readChar == 'false'" @click="item.readChar = 'true'" type="button" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">View...</a>
+                        <span v-if="item.readChar == 'true'">{{item.characteristics}} </span> <a class="" v-if="item.readChar == 'true'" @click="item.readChar = 'false'" type="button" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Close...</a>
+                      </h2>
                     </div>
                     <div class="col-sm-4">
                       <div class="">
@@ -72,6 +76,7 @@
                     </div>
                     <div class="col-sm-4">
                       <div class="">
+                        <h2 class="span">Location:  {{item.location}}</h2>
                         <h2 class="span">Category:  {{item.category}}</h2>
                         <!-- <div>Nigeria</div>
                                                 <div>Street Address, Lagos.</div> -->
@@ -80,8 +85,10 @@
                         </h2>
                         <h2 class="span">
                           Crop Year (End) :  {{getDate(item.cropYear.end_date)}}
-
-                          {{productId}}
+                        </h2>
+                        <h2 class="span">Aditional Info: 
+                          <a class="" v-if="item.readAddInfo == 'false'" @click="item.readAddInfo = 'true'" type="button" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">View...</a>
+                          <span v-if="item.readAddInfo == 'true'">{{item.additional_info}} </span> <a class="" v-if="item.readAddInfo == 'true'" @click="item.readAddInfo = 'false'" type="button" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Close...</a>
                         </h2>
                       </div>
                     </div>
@@ -225,7 +232,7 @@ export default {
       user: JSON.parse(localStorage.getItem("user")),
       requestId: this.$route.params.id,
       item: {
-        cropYear: ''
+        cropYear: '',
       },
       bidderList: {
         userId: [],
@@ -260,6 +267,7 @@ export default {
                   userId: user._id
                 }
                 QUOTE.AcceptBid(this.requestId, sendData).then(() => {
+                  this.getSingleRequest()
                   this.getBiddingList()
                   Swal.fire(`Congratulation, you have accepted ${user.firstname} ${user.lastname} bid, await product!`, '', 'success')
                 })
@@ -280,22 +288,28 @@ export default {
       //console.log(this.requestId)
       QUOTE.GetSingleRequest(this.requestId)
       .then((res) => {
-        //console.log(res.data)
-        this.productId = res.data.data.productId._id
+        //console.log(res.data.data)
+        if (res.data.data.productId != undefined) {
+          this.productId = res.data.data.productId._id
+        } else {
+          this.productId = ''
+        }
+        
         let obj = res.data.data
-        const data = { ...obj, readMore: 'false' }
+        const data = { ...obj, readMore: 'false', readChar: 'false', readAddInfo: 'false' }
         this.item = data
+        //console.log(data)
       })
     },
     checkTotalProduct(arr, id){
-      axios.get(`http://localhost:3000/supplierDashboard/${id}?length=5`, {
+      axios.get(`https://producemart.herokuapp.com/supplierDashboard/${id}?length=5`, {
         headers: {
             "Content-Type": "application/json",
             Authorization: this.user.token,
           },
       })
       .then(res => {
-        console.log(res.data)
+        //console.log(res.data)
         let timerInterval
           Swal.fire({
             title: `${arr.firstname} ${arr.lastname} Total Product`,
@@ -321,14 +335,14 @@ export default {
       })
     },
     checkTotalOrder(arr, id){
-      axios.get(`http://localhost:3000/supplierDashboard/${id}?length=5`, {
+      axios.get(`https://producemart.herokuapp.com/supplierDashboard/${id}?length=5`, {
         headers: {
             "Content-Type": "application/json",
             Authorization: this.user.token,
           },
       })
       .then(res => {
-        console.log(res.data)
+        //console.log(res.data)
         let timerInterval
           Swal.fire({
             title: `${arr.firstname} ${arr.lastname} Total Order`,
