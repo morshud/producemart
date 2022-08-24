@@ -49,7 +49,7 @@
             <!-- <a :href="'https://www.facebook.com/sharer/sharer.php?u=/&title='+product.name+'&description='+product.description+'&quote=@q&hashtag=@h'"></a> -->
             <ShareNetwork
                 network="facebook"
-                :url="'/products/inner-product'+product._id"
+                :url="'https://producemart-phi.vercel.app/products/inner-product'+product._id"
                 :title="product.name"
                 :description="product.description"
                 :quote="product.name"

@@ -366,18 +366,18 @@ export default {
 <style>
   .subscribeNewsletter .subscribeBox form input {
     width: 80% !importtant;
-    padding: 12px 5px 12px 9px !importtant;
-    border: 2px solid #000 !importtant;
-    border-radius: 10px !importtant;
-    background-color: #fff !importtant;
+    padding: 12px 5px 12px 9px !important;
+    border: 2px solid #000 !important;
+    border-radius: 10px !important;
+    background-color: #fff !important;
   }
 
   .subscribeNewsletter .subscribeBox form select {
     width: 80% !importtant;
-    padding: 12px 5px 12px 9px !importtant;
-    border: 2px solid #000 !importtant;
-    border-radius: 10px !importtant;
-    background-color: #fff !importtant;
+    padding: 12px 5px 12px 9px !important;
+    border: 2px solid #000 !important;
+    border-radius: 10px !important;
+    background-color: #fff !important;
   }
 
   .subscribeNewsletter .subscribeBox form label {
