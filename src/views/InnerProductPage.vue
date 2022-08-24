@@ -46,10 +46,21 @@
           </swiper>
           <div class="shareDiv">
             <p>Share this product:</p>
-            <a href="#"><img src="../assets/img/socialFacebook.png" /></a>
+            <!-- <a :href="'https://www.facebook.com/sharer/sharer.php?u=/&title='+product.name+'&description='+product.description+'&quote=@q&hashtag=@h'"></a> -->
+            <ShareNetwork
+                network="facebook"
+                :url="'/products/inner-product'+product._id"
+                :title="product.name"
+                :description="product.description"
+                :quote="product.name"
+                :hashtags="'Producemart, product'+ product.name"
+              >
+                <img src="../assets/img/socialFacebook.png" />
+            </ShareNetwork>
             <a href="#"><img src="../assets/img/socialInstagram.png" /></a>
             <a href="#"><img src="../assets/img/socialTwitter.png" /></a>
             <a href="#"><img src="../assets/img/socialLink.png" /></a>
+            
           </div>
         </div>
         <div class="col-lg-6">
@@ -108,7 +119,7 @@
             </div> -->
           </div>
         </div>
-        <div class="col-lg-12 text-center">
+        <div class="col-lg-12 text-center" style="margin-top: 42px;">
           <div class="btnDiv">
             <a
               type="button"

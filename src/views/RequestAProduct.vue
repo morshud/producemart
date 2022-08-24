@@ -1087,7 +1087,8 @@
         getRequestProduct(){
           QUOTE.GetAllRequest().then((res) => {
             //console.log(res.data)
-            const data = res.data.data.map(obj => ({ ...obj, readMore: 'false', readChar: 'false', readAddInfo: 'false' }))
+            const unbid = res.data.data.filter((item) => item.status == 'pending')
+            const data = unbid.map(obj => ({ ...obj, readMore: 'false', readChar: 'false', readAddInfo: 'false' }))
             this.productRequestList = data
             
           })
@@ -1166,7 +1167,7 @@
               }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                  axios.get("http://localhost:3000/getRequestBidByUserId/" + value, {
+                  axios.get("https://producemart.herokuapp.com/getRequestBidByUserId/" + value, {
                     params: {
                       userId: this.user._id,
                     },

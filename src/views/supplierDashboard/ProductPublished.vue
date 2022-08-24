@@ -79,6 +79,7 @@
                           <th scope="col">#</th>
                           <th scope="col">Product Name</th>
                           <th scope="col">Published Date</th>
+                          <th scope="col">Product Url</th>
                           <!-- <th scope="col">Product Availability</th> -->
                           <th scope="col">Action</th>
                         </tr>
@@ -88,6 +89,11 @@
                           <th scope="row">{{ i + 1 }}</th>
                           <td>{{ product.name }}</td>
                           <td>{{ product.updatedAt }}</td>
+                          <td>
+                            <router-link :to="'/products/inner-product/'+ product._id">
+                              https://producemart.phi.vercel.app/products/inner-product/{{product._id}}
+                            </router-link>
+                          </td>
                           <!-- <td>
                             <span class="spanAction">Unavailable</span>
                             <label
@@ -165,18 +171,12 @@ export default {
   },
   mounted() {
     window.scrollTo(0, 0);
-
-    let externalScriptCustom = document.createElement("script");
-    externalScriptCustom.setAttribute(
-      "src",
-      "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
-    );
-    document.head.appendChild(externalScriptCustom);
     this.fetchPublishedProduct();
   },
   data() {
     return {
       loading: false,
+      baseURL: window.location.path,
       id: null,
       token: JSON.parse(localStorage.getItem("user")).token,
       products: null,
@@ -195,7 +195,7 @@ export default {
       );
       const { data } = await res.json();
       this.products = data.filter((prod) => prod.available);
-      console.log(data);
+      //console.log(data);
     },
     // async makeUnavailable(id) {
     //   this.id = id;

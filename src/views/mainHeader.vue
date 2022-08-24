@@ -131,14 +131,14 @@
           this.$router.push("/login");
         },
         getUser(){
-            console.log(JSON.parse(localStorage.getItem("user")))
+            //console.log(JSON.parse(localStorage.getItem("user")))
             if(this.user.role == 'buyer'){
                 this.userLogin = 'buyer'
                 //console.log(this.userLogin)
             }
             if(this.user.role == 'supplier'){
                 this.userLogin = 'supplier'
-                console.log(this.userLogin)
+                //console.log(this.userLogin)
             }
 
         }

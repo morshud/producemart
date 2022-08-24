@@ -223,7 +223,7 @@ export default {
       const { data } = await res.json();
 
       this.products = data.filter((product) => product.status != "incomplete");
-      console.log(this.products);
+      //console.log(this.products);
     },
   },
   computed: {

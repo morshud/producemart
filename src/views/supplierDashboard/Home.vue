@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-12 text-center alertDashMessage mb-4" v-if="supplierAudit == false">
+                    <div class="col-xl-12 text-center alertDashMessage mb-4" v-if="supplierAudit == 'incomplete'">
                         <p><i class="bi bi-info-circle-fill"></i> <router-link to="/supplier-dashboard/certification">Complete your audit so you can upload your products.</router-link></p>
                     </div>  
                     <!--Top 4 Boxes-->
@@ -262,6 +262,7 @@
             .then(res => {
                 //console.log(res.data.data)
                 let supplierAudit = res.data.data.status
+                console.log(res.data.data)
                 this.supplierAudit = supplierAudit
 
             })

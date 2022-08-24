@@ -49,7 +49,8 @@
                       <h2 class="span">Username: {{ buyer.username }}</h2>
                       <h2 class="span">Phone: {{ buyer.phone_no }}</h2>
                       <h2 class="span">Address: 
-                        {{buyer.address}}
+                        <button class="sendToSupplier" data-bs-toggle="modal"
+                                    data-bs-target="#detailsModal">View Address</button>
                       </h2>
                     </div>
                     <div class="col-sm-6">
@@ -69,6 +70,9 @@
                         <div v-if="buyer.status == 'disabled' && buyer.emailVerified == true">
                           <h2 class="span">Status: <span class="status_btn" style="background: red;">{{ buyer.status }}</span></h2>
                         </div>
+                        <h2 class="span">
+                          Email: <a>{{ buyer.country }}</a>
+                        </h2>
                       </div>
                     </div>
                     <div class="row mt-4">
@@ -86,10 +90,97 @@
                         </div>
                       </div>
                   </div>
+
                 </div>
               </div>
             </div>
           </div>
+          <div
+        class="modal fade"
+        id="detailsModal"
+        tabindex="-1"
+        aria-labelledby="detailsModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="detailsModalLabel">
+                Address Details
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="QA_table mb_30">
+                <h1 class="summaryHead"><!-- {{ order?.shipper?.companyName }} --></h1>
+                <div
+                  class="byRoad"
+                  
+                >
+                  <p class="summaryHeadSub"></p>
+                  <table class="table green_mouse">
+                    <thead>
+                      <tr>
+                        <th class="center">Headquater</th>
+                        <th class="center">Street</th>
+                        <th class="center">City</th>
+                        <th class="center">State</th>
+                        <th class="center">Country</th>
+                      </tr>
+                    </thead>
+                    <tbody v-for="(item, i) in buyer.address" :key="item._id">
+                      <tr class="bodyRow">
+                      <td class="tdBody">
+                        {{
+                          item.name
+                        }}
+                      </td>
+                      <td class="tdBody">
+                        {{
+                          item.street
+                        }}
+                      </td>
+                      <td class="tdBody">
+                        {{
+                          item.city
+                        }}
+                      </td>
+                      <td class="tdBody">
+                        {{
+                          item.state
+                        }}
+                      </td>
+                      <td class="tdBody">
+                        {{
+                          item.country
+                        }}
+                      </td>
+                    </tr>
+                    </tbody>
+                    
+                  </table>
+                  <hr>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer modalFooter">
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
           <!--Main-->
           <!-- <div class="col-md-12">
             <div class="white_card card_height_100 mb_30 pt-4">

@@ -25,6 +25,7 @@
     "vue-awesome-paginate": "^1.0.0",
     "vue-axios": "^3.4.1",
     "vue-router": "^4.0.3",
+    "vue-social-sharing": "^4.0.0-alpha4",
     "vue-tel-input": "^5.11.0",
     "vue3-apexcharts": "^1.4.1",
     "vuex": "^4.0.2"
