@@ -50,7 +50,7 @@
         <div class="col-lg-12 text-center">
           <p>
             Copyright &copy; <span id="autodate"></span> 
-            Produce Mart. | All Rights Reserved.
+            Produce Mart. | All Rights Reserved. | Version 0.1.0
           </p>
         </div>
       </div>

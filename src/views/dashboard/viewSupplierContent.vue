@@ -70,6 +70,9 @@
                         <div v-if="supplier.status == 'disabled'">
                           <h2 class="span">Status: <span class="status_btn" style="background: #000;">{{ supplier.status }}</span></h2>
                         </div>
+                        <h2 class="span">
+                          Email: <a>{{ supplier.country }}</a>
+                        </h2>
                       </div>
                     </div>
                     <div class="row mt-4">
@@ -160,7 +163,7 @@
           </div>
 
 
-          <div
+      <div
         class="modal fade"
         id="detailsModal"
         tabindex="-1"

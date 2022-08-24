@@ -234,7 +234,7 @@ export default {
   methods: {
     async getAllBlogs() {
       this.blogs = null;
-      const res = await fetch("https://producemart.herokuapp.com/getAllBlog");
+      const res = await fetch("http://localhost:3000/getAllBlog");
       const data = await res.json();
       if (data.status == true) {
         this.blogs = data.data;

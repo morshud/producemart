@@ -2,6 +2,7 @@ import axios from "axios";
 import spHeader from "./super-authHeader";
 
 const API_URL = "https://producemart.herokuapp.com/";
+//const API_URL = "http://localhost:3000/";
 
 class AuthService {
   async login(user)
@@ -62,10 +63,11 @@ class AuthService {
       phone_no: user.phone_no,
       password: user.password,
       company_name: user.company_name,
+      country: user.country,
     });
   }
   supplier(user) {
-    return axios.post(API_URL + "register-supplier", {
+    return axios.post(API_URL + "regiuserster-supplier", {
       firstname: user.firstname,
       lastname: user.lastname,
       username: user.username,
@@ -73,6 +75,7 @@ class AuthService {
       phone_no: user.phone_no,
       password: user.password,
       company_name: user.company_name,
+      country: user.country,
     });
   }
 
