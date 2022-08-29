@@ -1,5 +1,5 @@
 <template>
-  <title>Products | Produce Mart</title>
+  <title>Search Result | Produce Mart</title>
   <header class="mainHeader">
     <nav class="navbar navbar-expand-lg navbar-light navbar-color">
       <div class="container-fluid">
@@ -53,7 +53,7 @@
               </li>
               <li class="nav-item">
                 <router-link to="/products" class="route-link"
-                  ><a class="nav-link activeLink">View Products</a></router-link
+                  ><a class="nav-link">View Products</a></router-link
                 >
               </li>
               <li class="nav-item">
@@ -72,7 +72,6 @@
                 >
               </li>
             </ul>
-            <searchInner />
             <div class="authDiv desktopAuthDiv">
               <div v-if="user.role == 'buyer'">
                   <div class="profile_info" style="margin-left: 50px;">
@@ -138,7 +137,6 @@
       </div>
     </nav>
   </header>
-  <searchHeader />
 
   <!--Page Breadcrumb-->
   <section class="pageProductBreadcrumb">
@@ -146,7 +144,7 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="textHead">
-            <h2>All Products</h2>
+            <h2>Search Result: {{productSearch}}</h2>
           </div>
         </div>
       </div>
@@ -160,7 +158,7 @@
         <div class="col-lg-12">
           <form @submit.prevent="">
             <div class="row justify-content-center">
-              <div class="col-lg-7 mb-2">
+             <!--  <div class="col-lg-7 mb-2">
                 <input
                   type="text"
                   placeholder="Search here..."
@@ -193,7 +191,7 @@
                   <option>Lowest Price</option>
                   <option>Highest Price</option>
                 </select>
-              </div>
+              </div> -->
             </div>
           </form>
         </div>
@@ -203,12 +201,13 @@
     <section class="ourProduct">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-md-12" v-if="filteredProducts">
+          <div class="col-lg-12 mb-4 mt-2 text-center signuas" v-if="searchQuery.length >= 1">
+            <!-- <span class="spinner-border spinner-border-sm"></span> -->
             <div class="container contProduct">
               <div class="row">
                 <div
                   class="itemProduct"
-                  v-for="(product, i) in filteredProducts"
+                  v-for="(product, i) in searchQuery"
                   :key="i"
                 >
                   <router-link :to="'/products/inner-product/' + product._id">
@@ -232,7 +231,14 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-12 mb-4 mt-2 text-center signuas" v-else>
+          <div class="col-md-12" v-else-if="searchQuery.length == 0">
+            <div class="container contProduct">
+              <div class="row">
+                <h3>No result Found for {{dumpSearch(productSearch)}}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12" v-else>
             <span class="spinner-border spinner-border-sm"></span>
           </div>
         </div>
@@ -249,6 +255,7 @@ import MainHeader from "./mainHeader.vue";
 import SearchHeader from "./searchHeader.vue";
 import MainFooter from "./mainFooter.vue";
 import SearchInner from "./searchInner.vue";
+import axios from 'axios'
 export default {
   name: "Produce Mart",
   components: {
@@ -265,6 +272,7 @@ export default {
     return {
       products: null,
       search: "",
+      productSearch: this.$route.query.keyword || '',
       user: JSON.parse(localStorage.getItem("user")) || '',
     };
   },
@@ -278,15 +286,39 @@ export default {
       this.products = data.filter((product) => product.status != "incomplete");
       //console.log(this.products);
     },
+    dumpSearch(value){
+      //console.log(value)
+      axios.post(`https://producemart.herokuapp.com/searchDump`, {name: this.productSearch}).then(res => {
+        //console.log(res);
+      }).catch(err => {
+        //console.log(err)
+      })
+      return value
+    }
   },
   computed: {
-    filteredProducts() {
+    /*filteredProducts() {
       if (this.products) {
         return this.products.filter((product) =>
           product.name.toLowerCase().includes(this.search.toLowerCase())
         );
       }
-    },
+    },*/
+    searchQuery(){
+      if (this.productSearch != '') {
+        if (this.products) {
+          return this.products.filter((items) => {
+            return this.productSearch
+              .toLowerCase()
+              .split(" ")
+              .every((v) => items.name.toLowerCase().includes(v));
+          });
+        }
+        else{
+          return false
+        }
+      }
+    }
   },
 };
 </script>

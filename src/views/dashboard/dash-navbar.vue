@@ -36,7 +36,7 @@
                     notifications
                   }}</span>
                 </router-link>
-                <div class="Menu_NOtification_Wrap">
+                <!-- <div class="Menu_NOtification_Wrap">
                   <div class="notification_Header">
                     <h4>Notifications</h4>
                   </div>
@@ -129,7 +129,7 @@
                       >
                     </div>
                   </div>
-                </div>
+                </div> -->
               </li>
             </div>
             <!--Profile-->

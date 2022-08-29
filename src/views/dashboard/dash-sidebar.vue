@@ -401,6 +401,18 @@
       </li>
       <!--Settings-->
       <li class="">
+        <router-link to="/dashboard/search-result">
+            <a aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="@/assets/img/menu-icon/dashboard.png">
+                </div>
+                <div class="nav_title">
+                    <span :class="path == '/dashboard/search-result' && 'active-nav'">Search Result</span>
+                </div>
+            </a>
+        </router-link>
+      </li>
+      <li class="">
         <router-link to="#" class="has-arrow">
           <a aria-expanded="false">
             <div class="nav_icon_small">

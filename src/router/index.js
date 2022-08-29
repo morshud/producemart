@@ -155,6 +155,7 @@ const routes = [
     component: () => import('@/views/RequestAProduct'),
   },
   { path: "/products", name: "Products", component: () => import('@/views/Products') },
+  { path: "/SearchResult", name: "SearchResult", component: () => import('@/views/SearchResult') },
   {
     path: "/products/inner-product/:id",
     name: "InnerProductPage",
@@ -722,6 +723,11 @@ const routes = [
     path: "/dashboard/supplier-email",
     name: "DashEmailSupplier",
     component: DashEmailSupplier,
+  },
+  {
+    path: "/dashboard/search-result",
+    name: "DashSearchResult",
+    component: () => import('@/views/dashboard/searchResult'),
   },
   {
     path: "/dashboard/inspector-email",
