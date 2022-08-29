@@ -1,7 +1,7 @@
 <template>
     <header class="mainHeader">
-        <form class="searchHeader">
-            <input type="search" placeholder="Search for products, brands and categories.">
+        <form class="searchHeader" @submit.prevent="searchQuery">
+            <input type="search" v-model="searchProduct" placeholder="Search for products">
             <button type="submit"><i class="bi bi-search"></i></button>
         </form>
     </header>
@@ -12,6 +12,22 @@
 export default {
   mounted(){
     window.scrollTo(0,0)
+  },
+  data(){
+    return{
+        searchProduct: "",
+    }
+  },
+  methods: {
+    searchQuery(){
+        //console.log(this.searchProduct)
+        this.$router.replace({
+            name:'SearchResult',
+            query:{
+              keyword:this.searchProduct,
+            }
+        })
+    }
   }
 }
 </script>

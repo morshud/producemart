@@ -128,13 +128,13 @@
                               >
                                 <i class="far fa-edit"></i>
                               </router-link>
-                              <span
+                              <!-- <span
                                 @click="deleteProduct(product._id)"
                                 title="Delete"
                                 class="action_btn"
                               >
                                 <i class="fas fa-trash"></i>
-                              </span>
+                              </span> -->
                             </div>
                           </td>
                         </tr>

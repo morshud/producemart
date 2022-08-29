@@ -725,12 +725,7 @@ export default {
     window.scrollTo(0, 0);
 
     ////Custom JS
-    let externalScriptCustom = document.createElement("script");
-    externalScriptCustom.setAttribute(
-      "src",
-      "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
-    );
-    document.head.appendChild(externalScriptCustom);
+    
   },
 };
 </script>

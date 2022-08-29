@@ -49,7 +49,7 @@
             <!-- <a :href="'https://www.facebook.com/sharer/sharer.php?u=/&title='+product.name+'&description='+product.description+'&quote=@q&hashtag=@h'"></a> -->
             <ShareNetwork
                 network="facebook"
-                :url="'https://producemart-phi.vercel.app/products/inner-product'+product._id"
+                :url="'https://producemart-phi.vercel.app/products/inner-product/'+product._id"
                 :title="product.name"
                 :description="product.description"
                 :quote="product.name"
@@ -57,9 +57,26 @@
               >
                 <img src="../assets/img/socialFacebook.png" />
             </ShareNetwork>
-            <a href="#"><img src="../assets/img/socialInstagram.png" /></a>
-            <a href="#"><img src="../assets/img/socialTwitter.png" /></a>
-            <a href="#"><img src="../assets/img/socialLink.png" /></a>
+            <ShareNetwork
+                network="whatsapp"
+                :url="'https://producemart-phi.vercel.app/products/inner-product/'+product._id"
+                :title="product.name"
+                :description="product.description"
+              >
+                <img src="../assets/img/socialWhatsapp.png" />
+            </ShareNetwork>
+            
+            <ShareNetwork
+              network="twitter"
+              :url="'https://producemart-phi.vercel.app/products/inner-product/'+product._id"
+              :title="product.name"
+              :description="product.description"
+              twitter-user="producemart"
+              :hashtags="'Producemart, product'+ product.name">
+              <img src="../assets/img/socialTwitter.png" />
+          </ShareNetwork>
+            <a href="#" ref="mylink"><img @click="copyURL" src="../assets/img/socialLink.png" /> </a> {{copyMessage}}
+
             
           </div>
         </div>
@@ -1261,6 +1278,7 @@ export default {
       road: false,
       sea: false,
       url: window.location.href,
+      copyMessage: ''
     };
   },
   computed: {
@@ -1284,6 +1302,18 @@ export default {
     showModal() {
       this.modal = new Modal(this.$refs.exampleModal);
       this.modal.show();
+    },
+    copyURL() {
+      let copy = window.location.href;
+      /*copy.innerHTML = window.location.href;
+      console.log(copy.innerHTML)*/
+      navigator.clipboard.writeText(copy)
+      this.copyMessage = 'Link Copied'
+      setTimeout(() => {
+        this.copyMessage = ''
+      }, 1000)
+      /*copy.select();
+      document.execCommand("copy");*/
     },
     addQuote() {
       const data = {

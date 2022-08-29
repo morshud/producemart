@@ -14,9 +14,11 @@ export default {
     let externalScriptCustom = document.createElement("script");
     externalScriptCustom.setAttribute(
       "src",
-      "https://cdn.cookie-script.com/s/8fac723ac1e06ddd05614da6e047f113.js"
+      "https://cdn.cookie-script.com/s/465e467041df20efd1029aa787374d5f.js"
     );
     document.head.appendChild(externalScriptCustom);
   }
 }
 </script>
+
+
