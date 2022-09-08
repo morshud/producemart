@@ -71,7 +71,7 @@
                           <h2 class="span">Status: <span class="status_btn" style="background: #000;">{{ supplier.status }}</span></h2>
                         </div>
                         <h2 class="span">
-                          Email: <a>{{ supplier.country }}</a>
+                          Country: <a>{{ supplier.country }}</a>
                         </h2>
                       </div>
                     </div>

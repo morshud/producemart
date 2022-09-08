@@ -341,7 +341,7 @@ export default {
         ...air,
         ...inspector,
       };
-      console.log(this.order);
+      //console.log(this.order);
     },
     async editInspectorPrice() {
       this.loading = true;

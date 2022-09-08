@@ -153,7 +153,7 @@ export default {
         content: this.content,
         description: this.description,
       };
-      console.log(body);
+      //console.log(body);
       const res = await fetch(
         "https://producemart.herokuapp.com/createEmail/",
         {
@@ -166,7 +166,7 @@ export default {
         }
       );
       const data = await res.json();
-      console.log(data);
+      //console.log(data);
       if ((data.status = true)) {
         if (this.type == "supplier") {
           this.$router.push("/dashboard/supplier-email");

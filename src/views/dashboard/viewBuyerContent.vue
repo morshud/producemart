@@ -71,7 +71,7 @@
                           <h2 class="span">Status: <span class="status_btn" style="background: red;">{{ buyer.status }}</span></h2>
                         </div>
                         <h2 class="span">
-                          Email: <a>{{ buyer.country }}</a>
+                          Country: <a>{{ buyer.country }}</a>
                         </h2>
                       </div>
                     </div>

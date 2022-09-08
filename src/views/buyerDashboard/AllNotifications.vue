@@ -79,7 +79,7 @@
                   </div>
                 </div>
               </div>
-              <div class="recentDiv">
+              <div class="recentDiv" v-if="notifications">
                 <p style="float: right;margin-top: 20px;"> 
                   <button @click="prevPage" style="background: #97f29f;border: 0;padding: 5px 30px; margin-right: 25px;">Previous</button> 
                   <button @click="nextPage" style="background: #97f29f;border: 0;padding: 5px 41px;">Next</button>

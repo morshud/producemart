@@ -83,7 +83,7 @@
                 <div class="profile_author_name">
                   <p style="font-size: 15px;">Supplier Account</p>
                   <h5>{{ user.firstname }} {{ user.lastname[0] }}.</h5>
-                  <p style="margin-top: -10px;font-size: 12px;font-weight: 500;">GreenMOuse</p>
+                  <p style="margin-top: -10px;font-size: 12px;font-weight: 500;">{{user.company_name}}</p>
                 </div>
                 <div class="profile_info_details">
                   

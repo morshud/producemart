@@ -33,7 +33,7 @@
                   <img src="@/assets/img/icon/bell.svg" alt="" />
                   <span>6</span>
                 </a>
-                <div class="Menu_NOtification_Wrap">
+                <!-- <div class="Menu_NOtification_Wrap">
                   <div class="notification_Header">
                     <h4>Notifications</h4>
                   </div>
@@ -122,7 +122,7 @@
                       <router-link to="/buyer-dashboard/all-notifications" class="btn_1">See More</router-link>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </li>
             </div>
             <!--Profile-->
@@ -134,7 +134,7 @@
                 <div class="profile_author_name">
                   <p style="font-size: 15px;">Buyer Account</p>
                   <h5>{{ user.firstname }} {{ user.lastname[0] }}.</h5>
-                  <p style="margin-top: -10px;font-size: 12px;font-weight: 500;">GreenMOuse</p>
+                  <p style="margin-top: -10px;font-size: 12px;font-weight: 500;">{{user.company_name}}</p>
                 </div>
                 <div class="profile_info_details">
                   

@@ -38,6 +38,9 @@
                 <div class="QA_section">
                   <div class="white_box_tittle list_header">
                     <h4>Requested Product List</h4>
+                    <p>
+                      This page shows the products you requested using the <router-link to="/request-a-product">Request a Product</router-link> page. You can track and manage your requests here.”
+                    </p>
                     <div class="box_right d-flex lms_block">
                       <div class="serach_field_2">
                         <div class="search_inner">
