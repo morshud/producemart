@@ -67,7 +67,7 @@ class AuthService {
     });
   }
   supplier(user) {
-    return axios.post(API_URL + "regiuserster-supplier", {
+    return axios.post(API_URL + "register-supplier", {
       firstname: user.firstname,
       lastname: user.lastname,
       username: user.username,

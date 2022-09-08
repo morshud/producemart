@@ -36,7 +36,9 @@
             <div class="row">
               <div class="card custom-card">
                 <div class="card-profile">
+                  <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
                   <img
+                    v-else
                     class="rounded-circle"
                     src="@/assets/img/dashboard-img/default-dp.jpg"
                   />
@@ -47,7 +49,7 @@
                   <h6>{{ user.email }}</h6>
                   <h6>{{ user.phone_no }}</h6>
                 </div>
-                <div class="card-footer row mt-3">
+                <!-- <div class="card-footer row mt-3">
                   <div class="col-4 col-sm-4">
                     <h6>Total Orders</h6>
                     <h3>35,000</h3>
@@ -60,7 +62,7 @@
                     <h6>Completed Orders</h6>
                     <h3>25,000</h3>
                   </div>
-                </div>
+                </div> -->
               </div>
 
               <div class="col-sm-12 mt-4">

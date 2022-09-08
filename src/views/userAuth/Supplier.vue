@@ -99,6 +99,7 @@
                       <input
                         v-model="user.phone_no"
                         type="tel"
+                        @keypress="NumbersOnly"
                         name="phone_no"
                         placeholder="Enter your phone number"
                         class="input"
@@ -505,18 +506,27 @@ export default {
     window.scrollTo(0, 0);
   },
   methods: {
+    NumbersOnly(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+        evt.preventDefault();;
+      } else {
+        return true;
+      }
+    },
     handlesupplier() {
       this.message = "";
       this.loading = true;
       this.submitted = true;
-      console.log(this.user);
+      //console.log(this.user);
 
       this.$store.dispatch("auth/supplier", this.user).then(
         (data) => {
           this.message = data.message;
           this.successful = true;
           this.message ? (this.loading = !this.loading) : this.loading;
-          this.$router.push("/login");
+          //this.$router.push("/login");
         },
         (error) => {
           this.message =

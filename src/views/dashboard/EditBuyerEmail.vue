@@ -128,14 +128,14 @@ export default {
       );
       const { data } = await res.json();
       this.mail = data;
-      console.log(this.mail);
+      //console.log(this.mail);
     },
     async updateBuyerMail() {
       const body = {
         action: this.mail.action,
         content: this.mail.content,
       };
-      console.log(body);
+      //console.log(body);
       const res = await fetch(
         "https://producemart.herokuapp.com/updateEmail/" + this.id,
         {
@@ -148,7 +148,7 @@ export default {
         }
       );
       const data = await res.json();
-      console.log(data);
+      //console.log(data);
       if ((data.status = true)) {
         this.$router.push("/dashboard/buyer-email");
       }

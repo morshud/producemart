@@ -49,7 +49,7 @@
                   <h6>{{ user.email }}</h6>
                   <h6>{{ user.phone_no }}</h6>
                 </div>
-                <div class="card-footer row mt-3">
+                <!-- <div class="card-footer row mt-3">
                   <div class="col-4 col-sm-4">
                     <h6>Buyers</h6>
                     <h3>350</h3>
@@ -62,7 +62,7 @@
                     <h6>Products</h6>
                     <h3>100</h3>
                   </div>
-                </div>
+                </div> -->
               </div>
 
               <div class="col-sm-12 mt-4">

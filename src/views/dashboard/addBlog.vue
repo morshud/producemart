@@ -52,7 +52,7 @@ export default {
         body: fd,
       });
       const data = await res.json();
-      console.log(data);
+      //console.log(data);
     },
     fileUpload(e) {
       this.image = e.target.files[0];
