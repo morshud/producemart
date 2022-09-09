@@ -97,7 +97,7 @@
                       <td>
                         <div class="action_btns d-flex">
                           <router-link
-                            :to="'/products/edit-supplier-email/' + mail._id"
+                            :to="'/dashboard/edit-supplier-email/' + mail._id"
                             title="Edit"
                             class="action_btn mr_10"
                           >
