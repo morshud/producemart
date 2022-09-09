@@ -108,8 +108,8 @@
                             class="action_btn"
                             @click="deleteMail(mail._id)"
                           >
-                            <i class="fas fa-trash"></i> -->
-                          </span>
+                            <i class="fas fa-trash"></i>
+                          </span> -->
                         </div>
                       </td>
                     </tr>
