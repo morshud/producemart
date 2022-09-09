@@ -103,13 +103,13 @@
                           >
                             <i class="far fa-edit"></i>
                           </router-link>
-                          <span
+                          <!-- <span
                             title="Disable"
                             class="action_btn"
                             @click="deleteMail(mail._id)"
                           >
                             <i class="fas fa-trash"></i>
-                          </span>
+                          </span> -->
                         </div>
                       </td>
                     </tr>

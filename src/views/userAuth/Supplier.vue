@@ -526,6 +526,7 @@ export default {
           this.message = data.message;
           this.successful = true;
           this.message ? (this.loading = !this.loading) : this.loading;
+          this.clearForm()
           //this.$router.push("/login");
         },
         (error) => {
@@ -541,6 +542,16 @@ export default {
         }
       );
     },
+    clearForm(){
+        this.user.firstname = ""
+        this.user.lastname = ""
+        this.user.username = ""
+        this.user.email = ""
+        this.user.phone_no = ""
+        this.user.password = ""
+        this.user.country = ""
+        this.user.company_name = ""
+    }
   },
 };
 </script>

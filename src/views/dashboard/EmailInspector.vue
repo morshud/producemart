@@ -97,20 +97,19 @@
                       <td>
                         <div class="action_btns d-flex">
                           <router-link
-                            :to="'/products/edit-inspector-email/' + mail._id"
-                            target="_blank"
+                            :to="'/dashboard/edit-inspector-email/' + mail._id"
                             title="Edit"
                             class="action_btn mr_10"
                           >
                             <i class="far fa-edit"></i>
                           </router-link>
-                          <span
+                          <!-- <span
                             title="Disable"
                             class="action_btn"
                             @click="deleteMail(mail._id)"
                           >
                             <i class="fas fa-trash"></i>
-                          </span>
+                          </span> -->
                         </div>
                       </td>
                     </tr>
