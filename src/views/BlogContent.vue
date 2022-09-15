@@ -68,7 +68,7 @@
                         <input v-model="email" type="email" required placeholder="Your email address" class="input">
                     </div>
                     <div class="col-md-6 mb-3">
-                      <label>Group</label>
+                      <label>Are you a Buyer or Supplier</label>
                       <select v-model="group" required style="width: 80%;padding: 12px;border: 2px solid #000;border-radius: 10px;background: #fff;">
                         <option selected>Which option best describe you</option>
                         <option value="buyer">BUYER</option>
@@ -81,7 +81,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Role/Position</label>
-                        <input type="text" v-model="role" required placeholder="Role/Position*" class="input">
+                        <input type="text" v-model="role" required placeholder="Manager, CEo etc*" class="input">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Where are you based out of?</label>

@@ -4,25 +4,30 @@
       <div class="row justify-content-center">
         <div class="col-md-4">
           <div class="footerCol">
-            <h4>Contact Info</h4>
+            <h4>Company</h4>
             <div class="divText">
-              <i class="bi bi-geo-alt"></i> CGC Camp, 500m after Ushafa Bridge New Market, Ushafa Agwantiv Road, Bwari District, F.C.T. Abuja
+              <p>
+                Producemart.com is a brand new online B2B marketplace for wholesale agricultural produce and ingredients. It aims to make it simpler than ever to list and source produce at a local, regional or international level.
+              </p>
             </div>
             <div class="divText">
+              <i class="bi bi-geo-alt"></i> 128 City Road, London, EC1V 2NX
+            </div>
+            <!-- <div class="divText">
               <i class="bi bi-telephone"></i> +2348082268957
             </div>
             <div class="divText">
               <i class="bi bi-globe"></i> www.producemart.com
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-2">
           <div class="footerCol">
-            <h4>Company</h4>
+            <h4>Services</h4>
             <p><router-link to="/about"><a>About Us</a></router-link></p>
-            <p><router-link to="/contact"><a>Contact Us</a></router-link></p>
-            <p><router-link to="/products"><a>Products</a></router-link></p>
+            <!-- <p><router-link to="/contact"><a>Contact Us</a></router-link></p> -->
+            <p><router-link to="/products"><a>View Products</a></router-link></p>
             <p><router-link to="/request-a-product"><a>Request a Product</a></router-link></p>
           </div>
         </div>
@@ -37,8 +42,8 @@
         <div class="col-md-2">
           <div class="footerCol">
             <h4>Resources</h4>
-            <p><router-link to="#"><a>Ebook Download</a></router-link></p>
-            <p><router-link to="#"><a>Import Export Guide</a></router-link></p>
+            <!-- <p><router-link to="#"><a>Ebook Download</a></router-link></p>
+            <p><router-link to="#"><a>Import Export Guide</a></router-link></p> -->
             <p><router-link to="/blog"><a>Blog</a></router-link></p>
             <p><router-link to="/faq"><a>FAQs</a></router-link></p>
           </div>

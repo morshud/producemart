@@ -2493,7 +2493,7 @@ export default {
         : fd.append("status", "incomplete");
 
       const res = await fetch(
-        "http://localhost:3000/createProduct",
+        "https://producemart.herokuapp.com/createProduct",
         {
           method: "POST",
           headers: {

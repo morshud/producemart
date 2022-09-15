@@ -136,7 +136,7 @@
                     </div>
                   </div>
                   <div class="QA_table mb_30">
-                    <table class="table" v-if="filteredUsers">
+                    <table class="table" >
                       <thead>
                         <tr>
                           <th scope="col">#</th>
@@ -147,12 +147,12 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(user, i) in activeUser.slice(0, 5)" :key="user._id">
+                        <tr v-for="(item, i) in activeUser.slice(0, 5)" :key="item._id">
                           <th scope="row">{{ i + 1 }}</th>
-                          <td>{{ user.firstname }} {{ user.lastname }}</td>
-                          <td>{{ user.email }}</td>
-                          <td>{{ getDate(user.createdAt) }}</td>
-                          <td><a href="#" :class="[user.status == 'active' ? 'status_btn' : 'is-outlined']">{{user.status}}</a></td>
+                          <td>{{ item.firstname }} {{ item.lastname }}</td>
+                          <td>{{ item.email }}</td>
+                          <td>{{ getDate(item.createdAt) }}</td>
+                          <td><a href="#" :class="[item.status == 'active' ? 'status_btn' : 'is-outlined']">{{item.status}}</a></td>
                         </tr>
                       </tbody>
                     </table>
@@ -436,7 +436,7 @@ export default {
   computed: {
     filteredUsers() {
       if (this.users) {
-        return this.users.filter(
+        return this.activeUser.filter(
           (user) =>
             user.firstname.toLowerCase().includes(this.search.toLowerCase()) ||
             user.lastname.toLowerCase().includes(this.search.toLowerCase())
@@ -514,7 +514,7 @@ export default {
       })
     },
     async fetchUsers() {
-      this.users = null;
+      //this.users = null;
       const res = await fetch("https://producemart.herokuapp.com/getAllUsers");
       const { data } = await res.json();
       this.users =
