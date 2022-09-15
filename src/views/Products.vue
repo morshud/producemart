@@ -130,7 +130,7 @@
               </div>
               <div v-else>
                   <router-link to="/login"><a class="authLogin">Login</a></router-link>
-                  <router-link to="buyer-registration"><a class="authSignup">Sign Up</a></router-link>
+                  <router-link to="buyer-registration"><a class="authSignup">Sign Up Free</a></router-link>
               </div>
             </div>
           </div>
