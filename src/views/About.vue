@@ -154,13 +154,13 @@
       </section>
 
       <!--Our Goals-->
-      <section class="ourGoal">
+      <section class="aboutExplore">
           <div class="container">
               <div class="row">
                   <div class="col-md-6">
                       <div class="textSec">
                           <div class="textHead">
-                            <p class="subhead">Mission</p>
+                            <p class="subhead">Mission Statement</p>
                             <h2>Our Mission Statement</h2>
                           </div>
                           <p class="note">"Our organization exists to provide a simple and secure way to connect buyers and sellers of wholesale agricultural produce and ingredients both locally and globally by removing barriers to trade through our unique selling and purchasing process built into our online platform."</p>

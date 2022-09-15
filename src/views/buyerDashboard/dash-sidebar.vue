@@ -27,7 +27,7 @@
                             <img src="@/assets/img/menu-icon/dashboard.png">
                         </div>
                         <div class="nav_title">
-                            <span>Requested Pages</span>
+                            <span>Requested Products</span>
                         </div>
                     </a>
                 </router-link>
