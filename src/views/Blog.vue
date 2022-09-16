@@ -7,7 +7,7 @@
           <router-link to="/login"><a class="authLogin">Login</a></router-link>
         </div>
         <a class="navbar-brand" href="/">
-          <img src="@/assets/img/logo.png" />
+          <img src="@/assets/img/logo.png" style="width: 160px;height: 60px;" />
         </a>
         <button
           class="navbar-toggler"
@@ -27,7 +27,7 @@
           <div class="offcanvas-header">
             <div class="offcanvasImg">
               <a class="navbar-brand" href="/">
-                <img src="@/assets/img/logo.png" />
+                <img src="@/assets/img/logo.png" style="width: 160px;height: 60px;"/>
               </a>
             </div>
             <button
@@ -66,11 +66,11 @@
                   ><a class="nav-link">Request a Product</a></router-link
                 >
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <router-link to="/faq" class="route-link"
                   ><a class="nav-link">FAQs</a></router-link
                 >
-              </li>
+              </li> -->
             </ul>
             <searchInner />
             <div class="authDiv desktopAuthDiv">
