@@ -145,7 +145,7 @@
           <div class="textArea">
             <div class="headText">
               <div class="iconHead">
-                <img src="@/assets/img/abtIcon.png" draggable="false" />
+                <img src="@/assets/img/main-logo.png" draggable="false" />
               </div>
               <div class="textHead">
                 <p class="subhead">Produce Mart</p>
@@ -188,8 +188,7 @@
             <p class="subhead">Produce Mart</p>
             <h2>How It Works</h2>
             <p class="belowHead">
-              Find out how you can start earning or buying in just six steps
-              with an easy process.
+              Find out how you can start supplying or buying on Producemart in 9 easy steps.
             </p>
           </div>
         </div>
@@ -200,21 +199,21 @@
           <div class="circleBox boxLineRight boxLineBelow">
             <div class="number">1</div>
             <img src="@/assets/img/icon-howItWork1.png" draggable="false" />
-            <h4>Supplier uploads product</h4>
+            <h4>Supplier undergoes Audit process to become a verified supplier</h4>
           </div>
         </div>
         <div class="col-md-3 text-center">
           <div class="circleBox boxLineRight boxLineBelow">
             <div class="number">2</div>
             <img src="@/assets/img/icon-howItWork2.png" draggable="false" />
-            <h4>Buyer finds product and pays Produce Mart</h4>
+            <h4>Supplier uploads product to ProduceMart</h4>
           </div>
         </div>
         <div class="col-md-3 text-center">
           <div class="circleBox boxLineBelow">
             <div class="number">3</div>
             <img src="@/assets/img/icon-howItWork3.png" draggable="false" />
-            <h4>Inspector confirms the product</h4>
+            <h4>Buyer finds product and request a quote</h4>
           </div>
         </div>
         <div class="col-md-1"></div>
@@ -222,21 +221,43 @@
           <div class="circleBox boxLineRight boxLineBelow">
             <div class="number">4</div>
             <img src="@/assets/img/icon-howItWork4.png" draggable="false" />
-            <h4>Shipper is contacted to ship product</h4>
+            <h4>Supplier & Shipper confirm product availability and respond with a quote</h4>
           </div>
         </div>
         <div class="col-md-3 text-center">
           <div class="circleBox boxLineRight boxLineBelow">
             <div class="number">5</div>
             <img src="@/assets/img/icon-howItWork5.png" draggable="false" />
-            <h4>Product is recieved by buyer & confirmed</h4>
+            <h4>If a Buyer is happy to proceed, they pay into escrow to show supplier they are commited to the transaction</h4>
           </div>
         </div>
         <div class="col-md-3 text-center">
           <div class="circleBox">
             <div class="number">6</div>
-            <img src="@/assets/img/icon-howItWork6.png" draggable="false" />
-            <h4>Produce Mart pays the supplier</h4>
+            <img src="@/assets/img/icon-howItWork2.png" draggable="false" />
+            <h4>All orders are inspected by our 3rd party inpector partners - SGS and if the quantity and quality of the product are verified, the order is released to the shipper for forwarding</h4>
+          </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3 text-center">
+          <div class="circleBox boxLineRight boxLineBelow">
+            <div class="number">7</div>
+            <img src="@/assets/img/icon-howItWork4.png" draggable="false" />
+            <h4>Shipper confirms receipt of order and releases airway bill or Bill of laden</h4>
+          </div>
+        </div>
+        <div class="col-md-3 text-center">
+          <div class="circleBox boxLineRight boxLineBelow">
+            <div class="number">8</div>
+            <img src="@/assets/img/icon-howItWork5.png" draggable="false" />
+            <h4>ProduceMart releases payment to supplier</h4>
+          </div>
+        </div>
+        <div class="col-md-3 text-center">
+          <div class="circleBox">
+            <div class="number">9</div>
+            <img src="@/assets/img/icon-howItWork1.png" draggable="false" />
+            <h4>Order received by buyer</h4>
           </div>
         </div>
       </div>

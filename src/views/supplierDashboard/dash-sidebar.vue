@@ -4,12 +4,12 @@
     <div class="logo d-flex justify-content-between">
       <router-link class="large_logo" to="/"
         ><img
-          src="@/assets/img/dashboard-img/dash-logo.png"
+          src="@/assets/img/logo.png"
           alt="Produce Mart Logo"
       /></router-link>
       <router-link class="small_logo" to="/"
         ><img
-          src="@/assets/img/dashboard-img/mini_logo.png"
+          src="@/assets/img/main-logo.png"
           alt="Produce Mart Logo"
       /></router-link>
     </div>
