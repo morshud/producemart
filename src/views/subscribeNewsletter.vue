@@ -21,9 +21,9 @@
                   <input v-model="email" type="email" required placeholder="Your email address" class="input">
               </div>
               <div class="col-md-6 mb-3">
-                <label>Are you a Buyer or Supplier</label>
+                <label>Are you a Buyer or Supplier? *</label>
                 <select v-model="group" required style="width: 80%;padding: 12px;border: 2px solid #000;border-radius: 10px;background: #fff;">
-                  <option selected>Which option best describe you</option>
+                  <option value="">Which option best describe you</option>
                   <option value="buyer">BUYER</option>
                   <option value="seller">SELER</option>
                 </select>      
@@ -33,13 +33,13 @@
                   <input type="text" v-model="company" required placeholder="Company Name*" class="input">
               </div>
               <div class="col-md-6 mb-3">
-                  <label>Role/Position</label>
+                  <label>Role/Position*</label>
                   <input type="text" v-model="role" required placeholder="Manager, CEO etc*" class="input">
               </div>
               <div class="col-md-6 mb-3">
                   <label>Where are you based out of?</label>
                   <select v-model="country" required style="width: 80%;padding: 12px;border: 2px solid #000;border-radius: 10px;background: #fff;">
-                    <option selected>Please mention your country</option>
+                    <option value="">Please mention your country</option>
                     <option value="Afganistan">Afghanistan</option>
                     <option value="Albania">Albania</option>
                     <option value="Algeria">Algeria</option>

@@ -19,24 +19,34 @@
           </div>
           <div class="share-post text-center">
             <h4>Share Article</h4>
-            <a
-              href="https://web.facebook.com/greenmousetech"
-              target="_blank"
-              title="Share on Facebook"
-              ><i class="fab fa-facebook"></i
-            ></a>
-            <a
-              href="https://www.linkedin.com/in/greenmouse/"
-              target="_blank"
-              title="Share on LinkedIn"
-              ><i class="fab fa-linkedin"></i
-            ></a>
-            <a
-              href="https://www.instagram.com/greenmouseonline/"
-              target="_blank"
-              title="Share on Instagram"
-              ><i class="fab fa-instagram"></i
-            ></a>
+            <ShareNetwork
+                network="facebook"
+                :url="'https://producemart-phi.vercel.app/products/inner-product/'+blog._id"
+                :title="blog.title"
+                :description="blog.description"
+                :quote="blog.title"
+                :hashtags="'Producemart, blog '+ blog.title"
+              >
+                <img src="../assets/img/socialFacebook.png" />
+            </ShareNetwork>
+            <ShareNetwork
+                network="whatsapp"
+                :url="'https://producemart-phi.vercel.app/products/inner-product/'+blog._id"
+                :title="blog.title"
+                :description="blog.description"
+              >
+                <img src="../assets/img/socialWhatsapp.png" />
+            </ShareNetwork>
+            
+            <ShareNetwork
+              network="twitter"
+              :url="'https://producemart-phi.vercel.app/products/inner-product/'+blog._id"
+              :title="blog.title"
+              :description="blog.description"
+              twitter-user="producemart"
+              :hashtags="'Producemart, blog '+ blog.title">
+              <img src="../assets/img/socialTwitter.png" />
+          </ShareNetwork>
           </div>
           <div class="goback">
             <router-link to="/blog" class="routers"
@@ -68,9 +78,9 @@
                         <input v-model="email" type="email" required placeholder="Your email address" class="input">
                     </div>
                     <div class="col-md-6 mb-3">
-                      <label>Are you a Buyer or Supplier</label>
+                      <label>Are you a Buyer or Supplier? *</label>
                       <select v-model="group" required style="width: 80%;padding: 12px;border: 2px solid #000;border-radius: 10px;background: #fff;">
-                        <option selected>Which option best describe you</option>
+                        <option value="">Which option best describe you</option>
                         <option value="buyer">BUYER</option>
                         <option value="seller">SELER</option>
                       </select>      
@@ -80,13 +90,13 @@
                         <input type="text" v-model="company" required placeholder="Company Name*" class="input">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label>Role/Position</label>
+                        <label>Role/Position*</label>
                         <input type="text" v-model="role" required placeholder="Manager, CEo etc*" class="input">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Where are you based out of?</label>
                         <select v-model="country" required style="width: 80%;padding: 12px;border: 2px solid #000;border-radius: 10px;background: #fff;">
-                          <option selected>Please mention your country</option>
+                          <option value="">Please mention your country</option>
                           <option value="Afganistan">Afghanistan</option>
                           <option value="Albania">Albania</option>
                           <option value="Algeria">Algeria</option>
