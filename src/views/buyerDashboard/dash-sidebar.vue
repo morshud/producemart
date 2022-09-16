@@ -2,8 +2,8 @@
     <!--Side Navbar-->
     <nav class="sidebar dark_sidebar">
         <div class="logo d-flex justify-content-between">
-            <router-link class="large_logo" to="/"><img src="@/assets/img/dashboard-img/dash-logo.png" alt="Produce Mart Logo"></router-link>
-            <router-link class="small_logo" to="/"><img src="@/assets/img/dashboard-img/mini_logo.png" alt="Produce Mart Logo"></router-link>
+            <router-link class="large_logo" to="/"><img src="@/assets/img/logo.png" alt="Produce Mart Logo"></router-link>
+            <router-link class="small_logo" to="/"><img src="@/assets/img/main-logo.png" alt="Produce Mart Logo"></router-link>
         </div>
         <ul id="sidebar_menu">
             <!--Dashboard-->
