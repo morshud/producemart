@@ -664,7 +664,7 @@ p{
 .aboutSect .textArea .textHead .subhead{
     color: #000;
     background-color: #97F29F;
-    width: 165px;
+    width: 172px;
     padding: 2px 10px;
     border-radius: 5px;
     letter-spacing: 3px;
@@ -852,7 +852,7 @@ p{
     margin: auto;
 }
 .howItWork .circleBox h4{
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
     color: #000;
     padding-top: 20px;
@@ -870,7 +870,7 @@ p{
         font-size: 14px;
     }
     .howItWork .circleBox h4{
-        font-size: 15px;
+        font-size: 9px;
     }
     .howItWork .circleBox img{
         width: 58px;
