@@ -148,7 +148,7 @@
                 <img src="@/assets/img/main-logo.png" draggable="false" />
               </div>
               <div class="textHead">
-                <p class="subhead">Produce Mart</p>
+                <p class="subhead">ProduceMart</p>
                 <h2>Who is ProduceMart?</h2>
               </div>
               <div class="clear"></div>
@@ -185,7 +185,7 @@
       <div class="row justify-content-center">
         <div class="col-md-10 text-center mb-5">
           <div class="textHead">
-            <p class="subhead">Produce Mart</p>
+            <p class="subhead">ProduceMart</p>
             <h2>How It Works</h2>
             <p class="belowHead">
               Find out how you can start supplying or buying on Producemart in 9 easy steps.
@@ -194,7 +194,6 @@
         </div>
       </div>
       <div class="row justify-content-center">
-        <div class="col-md-1"></div>
         <div class="col-md-3">
           <div class="circleBox boxLineRight boxLineBelow">
             <div class="number">1</div>
@@ -216,7 +215,8 @@
             <h4>Buyer finds product and request a quote</h4>
           </div>
         </div>
-        <div class="col-md-1"></div>
+      </div>
+      <div class="row justify-content-center">
         <div class="col-md-3 text-center">
           <div class="circleBox boxLineRight boxLineBelow">
             <div class="number">4</div>
@@ -238,7 +238,8 @@
             <h4>All orders are inspected by our 3rd party inpector partners - SGS and if the quantity and quality of the product are verified, the order is released to the shipper for forwarding</h4>
           </div>
         </div>
-        <div class="col-md-1"></div>
+      </div>
+      <div class="row justify-content-center">
         <div class="col-md-3 text-center">
           <div class="circleBox boxLineRight boxLineBelow">
             <div class="number">7</div>
@@ -271,7 +272,7 @@
       <div class="row justify-content-center">
         <div class="col-md-10 text-center mb-4">
           <div class="textHead">
-            <p class="subhead">Produce Mart</p>
+            <p class="subhead">ProduceMart</p>
             <h2>Our Products</h2>
           </div>
         </div>
