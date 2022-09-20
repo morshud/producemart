@@ -1290,7 +1290,6 @@ header{
     background-position: center center;
     border: 1px solid #97F29F;
     border-radius: 10px;
-    text-align: center;
     color: #000;
 }
 .subscribeNewsletter .subscribeBox h1{
@@ -1298,37 +1297,54 @@ header{
     font-weight: 600;
     padding-left: 40px;
     padding-right: 40px;
+    text-align: center;
 }
 .subscribeNewsletter .subscribeBox p{
+    padding: 10px 0 10px 0;
     font-size: 16px;
+    text-align: center;
 }
-.subscribeNewsletter .subscribeBox form{
-    border: 1px solid rgb(85, 85, 85);
-    padding: 8px;
-    border-radius: 10px;
-    width: 70%;
-    margin: auto;
-    margin-top: 10px;
-    background-color: #fff;
+.subscribeNewsletter .subscribeBox .formInput{
+    padding: 20px 20px 20px 20px;
 }
-.subscribeNewsletter .subscribeBox form i{
-    position: absolute;
-    font-size: 25px;
-    margin-left: 10px;
-    margin-top: 5px;
-    color: #777777;
+.subscribeNewsletter .subscribeBox form label{
+    font-size: 15px;
+    margin-bottom: 10px;
+    text-align: left !important;
+}
+.subscribeNewsletter .subscribeBox form input::placeholder{
+    font-size: 12px !important;
+    color: #000;
+}
+.subscribeNewsletter .subscribeBox form select option{
+    font-size: 12px !important;
+    color: #000;
 }
 .subscribeNewsletter .subscribeBox form input{
-    width: 80%;
-    padding: 12px 5px 12px 45px;
-    border: none;
+    display: block;
+    width: 100%;
+    padding: 10px 5px 10px 10px;
+    border-radius: 7px;
+    border: 1px solid #97F29F;
+    letter-spacing: 0.8px;
     background-color: #fff;
+    font-size: 12px;
+    transition: 0.6s;
 }
-.subscribeNewsletter .subscribeBox form input:focus{
-    outline: none;
-    border: none;
+.subscribeNewsletter .subscribeBox form select{
+    display: block;
+    width: 100%;
+    padding: 10px 5px 10px 10px;
+    border-radius: 7px;
+    border: 1px solid #97F29F;
+    letter-spacing: 0.8px;
+    background-color: #fff;
+    font-size: 12px;
+    transition: 0.6s;
 }
 .subscribeNewsletter .subscribeBox form button{
+    display: block;
+    margin: auto;
     width: 20%;
     padding: 10px 5px;
     background-color: #000;
@@ -1336,26 +1352,6 @@ header{
     border-radius: 5px;
     font-size: 15px;
     border: none;
-}
-@media(max-width: 767px){
-    .subscribeNewsletter .subscribeBox form input{
-        width: 70%;
-    }
-    .subscribeNewsletter .subscribeBox form button{
-        width: 30%;
-    }
-    .subscribeNewsletter .subscribeBox h1{
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-}
-@media(max-width: 490px){
-    .subscribeNewsletter .subscribeBox form{
-        width: 100%;
-    }
-    .subscribeNewsletter .subscribeBox h1{
-        font-size: 25px;
-    }
 }
 
 /*************************/

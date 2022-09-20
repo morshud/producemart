@@ -22,7 +22,7 @@
               </div>
               <div class="col-md-6 mb-3">
                 <label>Are you a Buyer or Supplier? *</label>
-                <select v-model="group" required style="width: 80%;padding: 12px;border: 2px solid #000;border-radius: 10px;background: #fff;">
+                <select v-model="group" required>
                   <option value="">Which option best describe you</option>
                   <option value="buyer">BUYER</option>
                   <option value="seller">SELER</option>
@@ -36,9 +36,9 @@
                   <label>Role/Position*</label>
                   <input type="text" v-model="role" required placeholder="Manager, CEO etc*" class="input">
               </div>
-              <div class="col-md-6 mb-3">
+              <div class="col-md-12 mb-3">
                   <label>Where are you based out of?</label>
-                  <select v-model="country" required style="width: 80%;padding: 12px;border: 2px solid #000;border-radius: 10px;background: #fff;">
+                  <select v-model="country" required>
                     <option value="">Please mention your country</option>
                     <option value="Afganistan">Afghanistan</option>
                     <option value="Albania">Albania</option>
@@ -362,29 +362,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  .subscribeNewsletter .subscribeBox form input {
-    width: 80% !importtant;
-    padding: 12px 5px 12px 9px !important;
-    border: 2px solid #000 !important;
-    border-radius: 10px !important;
-    background-color: #fff !important;
-  }
-
-  .subscribeNewsletter .subscribeBox form select {
-    width: 80% !importtant;
-    padding: 12px 5px 12px 9px !important;
-    border: 2px solid #000 !important;
-    border-radius: 10px !important;
-    background-color: #fff !important;
-  }
-
-  .subscribeNewsletter .subscribeBox form label {
-    float: left;
-    margin-top: 15px;
-    margin-left: 34px;
-    margin-top: 15px;
-    color: #525151;
-  }
-</style>
