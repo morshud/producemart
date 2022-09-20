@@ -1,7 +1,6 @@
 <template>
   <title>{{ blog && blog.title }} - Blog | Produce Mart</title>
   <mainHeader />
-  <searchHeader />
 
   <section class="blog-details">
     <div class="container">
@@ -464,7 +463,7 @@ export default {
 
 <style>
   .subscribeNewsletter .subscribeBox form input {
-    width: 80% !importtant;
+    width: 80% !important;
     padding: 12px 5px 12px 9px !important;
     border: 2px solid #000 !important;
     border-radius: 10px !important;

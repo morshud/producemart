@@ -142,16 +142,38 @@ p{
 /*************************/
 /*****Header Section******/
 /*************************/
+/* header {
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    z-index: 9999 !important;
+} */
+/* .mainHeader .nav-link:hover{
+    color: #87ec90 !important;
+    border-bottom: solid 2px #87ec90 !important; 
+} */
+.leftoo{
+   padding: 2px 5px 2px 5px;
+    border-radius: 5px;
+    background-color: #87ec90;
+}
+.leftoo button{
+    border: none;
+    background-color: #87ec90;
+}
+.leftoo i{
+    color: #000;
+}
 .mainHeader .navbar{
     background-color: #fff;
     padding-top: 1px !important;
     padding-bottom: 2px !important;
 }
-.mainHeader .container-fluid{
+/* .mainHeader .container-fluid{
     padding: 1px 50px !important;
-}
+} */
 .mainHeader .navbar-brand img{
-    width: 85px;
+    width: 130px;
     border-radius: 5px !important;
 }
 .mainHeader .navbar-toggler{
@@ -179,22 +201,25 @@ p{
     font-size: 25px;
     color: #fff;
 }
+header{
+    position: fixed;
+    z-index: 9999 !important;
+    width: 100%;
+}
 .mainHeader .navbar-nav{
-    margin-left: 33px;
+    margin-left: 40px;
 }
 .mainHeader .nav-link{
     font-weight: 500 !important;
     color: #000 !important;
     margin-left: 15px !important;
     margin-right: 15px !important;
-    margin-top: 7px !important;
-    padding: 1px !important;
+    padding: 35px 0 20px 0 !important;
     font-size: 15px !important;
     transition: 0.6s;
 }
 .mainHeader .nav-link:hover{
     color: #87ec90 !important;
-    border-bottom: solid 2px #87ec90 !important; 
 }
 .mainHeader .activeLink{
     color: #87ec90 !important;
@@ -222,8 +247,10 @@ p{
     background-color: #fff;
     border: 1px solid #97F29F;
     padding: 5px;
+    margin-top: -10px;
     border-radius: 5px;
     margin-right: -20px;
+    width: 21% !important;
 }
 .mainHeader .searchHeader input{
     border: none;
@@ -248,6 +275,7 @@ p{
     font-size: 13px;
     font-weight: 400;
 }
+
 .mainHeader .searchHeader button{
     background-color: #97F29F;
     color: #000;
@@ -258,7 +286,6 @@ p{
 }
 .mainHeader .authDiv{
     margin-left: 30px;
-    margin-top: 10px;
 }
 .mainHeader .authDiv a{
     text-decoration: none;
@@ -269,6 +296,7 @@ p{
 .mainHeader .authDiv .authLogin{
     color: #000;
     padding: 8px 10px;
+    
 }
 .mainHeader .authDiv .authSignup{
     color: #fff;
@@ -292,17 +320,27 @@ p{
     .mainHeader .authDiv{
         margin-left: 10px;
     }
+   
 }
 @media(max-width: 1299px){
     .mainHeader .authDiv a{
         margin: 3px !important;
         font-size: 14px;
     }
-    .mainHeader .container-fluid{
-        padding: 1px 30px !important;
+    .leftoo{
+        display: none !important;
+    }
+    .mainHeader .container{
+        padding: 15px 30px 15px 30px;
     }
     .mainHeader .nav-link{
+        font-weight: 500 !important;
+        color: #fff !important;
+        margin-left: 15px !important;
+        margin-right: 15px !important;
+        padding: 10px 0 20px 0 !important;
         font-size: 14px !important;
+        transition: 0.6s;
     }
 }
 @media(max-width: 1215px){
@@ -342,9 +380,16 @@ p{
         font-size: 13px;
     }
 }
+.dropdown-menu{
+    background-color: #000 !important;
+    padding: 200px 0px 0px 0px;
+}
 @media(max-width: 991px){
     .mainHeader .mobileAuthDiv a{
         display: block;
+    }
+    .offcanvas-header .navbar-brand img{
+        margin-left: 30px !important;
     }
     .mainHeader .desktopAuthDiv a{
         display: block;
@@ -352,13 +397,13 @@ p{
         margin-top: 15px !important;
     }
     .mainHeader .desktopAuthDiv .authLogin{
-        color: #97F29F;
+        color: #fff;
         padding: 8px 10px;
         border: 1px solid #97F29F;
         border-radius: 5px;
     }
     .mainHeader .desktopAuthDiv .authSignup{
-        color: #000;
+        color: #fff;
         padding: 8px 20px;
         background-color: #97F29F;
         border-radius: 5px;
@@ -370,15 +415,20 @@ p{
         display: none;
     }
     .mainHeader .offcanvas{
-        width: 100% !important;
+        width: 80% !important;
         background-color: #000;
+        z-index: 999 !important;
+    }
+    .mainHeader .offcanvas-backdrop {
+        opacity: 0 !important;
     }
     .mainHeader .offcanvas-body{
         margin-top: 3px;
+        z-index: 999 !important;
         background-color: #00000000 !important;
     }
     .mainHeader .nav-link{
-        line-height: 35px !important;
+        line-height: 15px !important;
         font-size: 16px !important;
         font-weight: 500 !important;
         color: #fff !important;
@@ -394,7 +444,7 @@ p{
     }
 }
 @media(max-width: 450px){
-    .mainHeader .container-fluid{
+    .mainHeader .container{
         padding: 1px 10px !important;
     }
 }
@@ -406,10 +456,10 @@ p{
 /*************************/
 .sectionHeadSearch{
     display: none;
-    border-top: 1px solid rgb(168, 168, 168);
-    border-bottom: 1px solid rgb(168, 168, 168);
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 15px 0px 15px 0px;
+    width: 100%;
+    margin-top: 50px;
+    background-color: #fff;
 }
 .sectionHeadSearch form{
     background-color: #fff;
@@ -518,7 +568,7 @@ p{
 /*****Welcome Slider******/
 /*************************/
 .welcomeSlider .carousel-item{
-    padding: 140px 10px !important;
+    padding: 240px 10px !important;
     height: 450px;
     background-size: cover;
     background-position: center center;
@@ -545,7 +595,7 @@ p{
         font-size: 30px;
     }
     .welcomeSlider .carousel-item{
-        padding: 80px 10px !important;
+        padding: 150px 10px !important;
         height: 350px;
     }
     .welcomeSlider .carousel-item a{
@@ -798,8 +848,8 @@ p{
     font-weight: 400;
 }
 .howItWork .circleBox{
-    width: 220px;
-    height: 220px;
+    width: 260px;
+    height: 260px;
     margin: auto;
     margin-bottom: 30px;
     background-color: #fff;
@@ -852,16 +902,17 @@ p{
     margin: auto;
 }
 .howItWork .circleBox h4{
-    font-size: 10px;
-    font-weight: 600;
+    font-size: 12.5px;
+    font-weight: 500;
     color: #000;
-    padding-top: 20px;
+    line-height: 1.5;
+    padding-top: 10px;
     text-align: center;
 }
 @media(max-width: 1199px){
     .howItWork .circleBox{
-        width: 200px;
-        height: 200px;
+        width: 240px;
+        height: 250px;
     }
     .howItWork .circleBox .number{
         width: 30px;
@@ -870,7 +921,7 @@ p{
         font-size: 14px;
     }
     .howItWork .circleBox h4{
-        font-size: 9px;
+        font-size: 12.5px;
     }
     .howItWork .circleBox img{
         width: 58px;
@@ -884,13 +935,13 @@ p{
 @media(max-width: 991px){
     .howItWork .circleBox{
         width: 100%;
-        height: 220px;
+        height: 250px;
     }
 }
 @media(max-width: 767px){
     .howItWork .circleBox{
-        width: 200px;
-        height: 200px;
+        width: 260px;
+        height: 250px;
     }
     .howItWork .boxLineRight::after {
         display: none;
@@ -1316,7 +1367,7 @@ p{
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    padding: 100px 10px;
+    padding: 200px 10px 100px 10px;
 }
 .pageBreadcrumb .textHead .subhead{
     color: #000;
@@ -1355,7 +1406,7 @@ p{
 /*************************/
 .pageProductBreadcrumb{
     background-color: #7dd184;
-    padding: 70px 10px;
+    padding: 200px 10px 70px 10px;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -2622,7 +2673,7 @@ p{
 /*************************/
 /*************************/
 .resPageBread{
-    padding: 40px 5px;
+    padding: 100px 5px 40px;
     border-bottom: 1px solid #74ce7c;
 }
 .resPageBread .textHead .subhead{
@@ -2643,6 +2694,11 @@ p{
 }
 .resContent p{
     font-size: 14px;
+    font-weight: 400;
+    line-height: 28px;
+}
+.resContent ul li{
+    font-size: 14px !important;
     font-weight: 400;
     line-height: 28px;
 }
@@ -2711,3 +2767,26 @@ p{
         text-align: center;
     }
 }
+
+/*  */
+.dropdown-menu{
+    width: 100% !important;
+    background-color:#fff !important;
+}
+/* .dropdown-menu {
+    position: absolute;
+    z-index: 1000;
+    display: none;
+    width: 100% !important;;
+    padding: 0.5rem 0;
+    display: block !important;
+    margin: auto !important;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff !important;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+} */

@@ -1,7 +1,6 @@
 <template>
   <title>Products | Produce Mart</title>
   <mainHeader />
-  <searchHeader />
 
   <!--Page Breadcrumb-->
   <section class="pageProductBreadcrumb">

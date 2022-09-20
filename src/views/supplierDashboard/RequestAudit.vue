@@ -41,7 +41,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="certiBox">
-                                    <img src="@/assets/img/dashboard-img/medalBronze.png">
+                                    
                                     <h3>Level 1</h3>
                                     <h3 style="font-size: 13px;">Self Assessment of food safety culture</h3>
                                     <div class="lineHr"></div>
@@ -80,7 +80,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="certiBox">
-                                    <img src="@/assets/img/dashboard-img/medalSilver.png">
+                                    
                                     <h3>Level 2</h3>
                                     <h3 style="font-size: 13px;">2nd Party Audit and report</h3>
                                     <div class="lineHr"></div>
@@ -119,9 +119,9 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="certiBox">
-                                    <img src="@/assets/img/dashboard-img/medalGold.png">
+                                    
                                     <h3>Level 3</h3>
-                                    <h3 style="font-size: 13px;">GFSI Audit e.g</h3>
+                                    <h3 style="font-size: 13px;">GFSI Audit e.g SQF,BRCGS,global standard, global Gap etc</h3>
                                     <div class="lineHr"></div>
                                     <div class="detailsBoxArea">
                                         <div class="markIcon">
@@ -150,12 +150,19 @@
                                         </div>
                                         <div class="clear"></div>
                                     </div>
-                                    
                                     <div class="btnDiv text-center">
                                         <a target="_blank" href="https://www.sgs.co.uk/en-gb/contact?id=850fe91e62cc456091f0c00ca15ee166">Request a quote <i class="bi bi-arrow-right"></i></a>
                                     </div>
                                 </div>
                             </div>
+                            <p>
+                                <b>
+                                    Please put the below text in a screen tip and display it on the mouse scroll
+                                </b>
+                            </p>
+                            <p>
+                                A non-comfirmance report (NCR) is a Issued to be supplier and it explicity found in order to help inform and begin changes or repairs to the problem.
+                            </p>
                         </div>
                     </div>
 
