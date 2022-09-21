@@ -827,7 +827,7 @@
                       <p>Location: <span>{{item.location}}</span></p>
                       <p>Crop Year (Start Year): <span>{{getDate(item.cropYear.start_date)}}</span></p>
                       <p>Crop Year (End Year): <span>{{getDate(item.cropYear.end_date)}}</span></p>
-                      <p>Aditional Info: 
+                      <p>Additional Info: 
                         <a class="" v-if="item.readAddInfo == 'false'" @click="item.readAddInfo = 'true'" type="button" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">View...</a>
                         <span v-if="item.readAddInfo == 'true'">{{item.additional_info}} </span> <a class="" v-if="item.readAddInfo == 'true'" @click="item.readAddInfo = 'false'" type="button" style="color: #73D97C;text-decoration: none;text-transform: full-size-kana;font-weight: 500;">Close...</a>
                       </p>

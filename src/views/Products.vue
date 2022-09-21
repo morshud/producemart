@@ -88,7 +88,7 @@
                     <router-link
                       :to="'/products/inner-product/' + product._id"
                       class="route-link"
-                      ><a>View Products <i class="bi bi-arrow-right"></i></a
+                      ><a>View Product<i class="bi bi-arrow-right"></i></a
                     ></router-link>
                   </div>
                 </div>

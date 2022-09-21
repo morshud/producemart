@@ -246,18 +246,18 @@ header{
 .mainHeader .searchHeader{
     background-color: #fff;
     border: 1px solid #97F29F;
-    padding: 5px;
-    margin-top: -10px;
+    padding: 5px 5px 10px 5px;
+    margin-top: -9px;
     border-radius: 5px;
     margin-right: -20px;
-    width: 21% !important;
+    width: 20% ;
 }
 .mainHeader .searchHeader input{
     border: none;
     font-size: 15px;
     font-weight: 400;
     color: #000;
-    width: 230px;
+    width: 225px;
 }
 .mainHeader .searchHeader input:focus{
     outline: none;
@@ -282,6 +282,7 @@ header{
     border: none;
     padding: 3px;
     width: 30px;
+    float: right !important;
     border-radius: 5px;
 }
 .mainHeader .authDiv{
@@ -380,10 +381,12 @@ header{
         font-size: 13px;
     }
 }
-.dropdown-menu{
+/* .dropdown-menu{
     background-color: #000 !important;
-    padding: 200px 0px 0px 0px;
-}
+    display: block !important;
+    width: 100% !important;
+    
+} */
 @media(max-width: 991px){
     .mainHeader .mobileAuthDiv a{
         display: block;
@@ -415,11 +418,14 @@ header{
         display: none;
     }
     .mainHeader .offcanvas{
-        width: 80% !important;
+        width: 100% !important;
         background-color: #000;
         z-index: 999 !important;
     }
-    .mainHeader .offcanvas-backdrop {
+    .offcanvas-end .show{
+        opacity: 0px !important;
+    }
+    .mainHeader .offcanvas-body .offcanvas-backdrop .show{
         opacity: 0 !important;
     }
     .mainHeader .offcanvas-body{
@@ -458,7 +464,7 @@ header{
     display: none;
     padding: 15px 0px 15px 0px;
     width: 100%;
-    margin-top: 50px;
+    margin-top: 90px;
     background-color: #fff;
 }
 .sectionHeadSearch form{
@@ -1320,7 +1326,7 @@ header{
     font-size: 12px !important;
     color: #000;
 }
-.subscribeNewsletter .subscribeBox form input{
+.subscribeNewsletter .subscribeBox .inputt{
     display: block;
     width: 100%;
     padding: 10px 5px 10px 10px;
@@ -2427,7 +2433,7 @@ header{
 /*************************/
 /*************************/
 .blog-details{
-    padding: 30px 10px 50px 10px;
+    padding: 120px 10px 50px 10px;
 }
 .blog-details .details{
     background-color: #ffffff;
@@ -2462,6 +2468,8 @@ header{
     font-weight: 400;
     letter-spacing: 0.2px;
     line-height: 28px;
+    margin-bottom: 0px;
+    margin-top: 0px;
 }
 .blog-details .details .share-post{
     padding-top: 40px;

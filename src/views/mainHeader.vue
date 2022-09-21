@@ -22,7 +22,7 @@
                             <i class="bi bi-x-lg"></i>
                         </button>
                     </div>
-                    <div class="offcanvas-body">
+                    <div class="offcanvas-body" style="opacity:none !important">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
                                 <router-link to="/" class="route-link"><a class="nav-link"></a></router-link>
@@ -54,26 +54,15 @@
                                 </a>
                               </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <header class="mainHeader">
-                                      <form class="searchHeader" @submit.prevent="searchQuery">
-                                          <input type="search" v-model="searchProduct" placeholder="Search for products">
-                                          <button type="submit"><i class="bi bi-search"></i></button>
-                                      </form>
-                                </header>
+                                <searchInner />
                               </div>
                             </div>
-                            <!-- <li class="nav-item dropdown">
-                                
-                            </li> -->
-                            
-                            <!-- <li class="nav-item">
-                                <router-link to="/faq" class="route-link"><a class="nav-link">FAQs</a></router-link>
-                            </li> -->
+                            <searchHeader />
                         </ul>
                        
                         <div class="authDiv desktopAuthDiv ml-3">
                             <div v-if="userLogin == 'buyer'">
-                                <div class="profile_info" style="margin-left: 50px;">
+                                <div class="profile_info nav-link" style="margin-left: 50px;">
                                   <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
                                   <img src="@/assets/img/client_img.png" alt="#" v-else />
                                   Hi, <span style="text-transform: capitalize;">{{ user.firstname }}</span> <i class="bi bi-caret-down"></i>
@@ -100,7 +89,7 @@
                                 <!-- <a style="cursor: pointer" @click="logOut" class="authSignup">Logout</a> -->
                             </div>
                             <div v-else-if="userLogin == 'supplier'">
-                                <div class="profile_info" style="margin-left: 50px;">
+                                <div class="profile_info nav-link" style="margin-left: 50px;">
                                   <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
                                   <img src="@/assets/img/client_img.png" alt="#" v-else />
                                   Hi, <span style="text-transform: capitalize;">{{ user.firstname }}</span> <i class="bi bi-caret-down"></i>

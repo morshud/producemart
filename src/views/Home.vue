@@ -201,7 +201,6 @@
             <h4>Supplier undergoes Audit process to become a verified supplier</h4>
           </div>
         </div>
-        <div class="col-md-1"></div>
         <div class="col-md-3 text-center">
           <div class="circleBox boxLineRight boxLineBelow">
             <div class="number">2</div>
@@ -209,7 +208,7 @@
             <h4>Supplier uploads product to ProduceMart</h4>
           </div>
         </div>
-        <div class="col-md-1"></div>
+        
         <div class="col-md-3 text-center">
           <div class="circleBox boxLineBelow">
             <div class="number">3</div>
@@ -226,7 +225,7 @@
             <h4>Supplier & Shipper confirm product availability and respond with a quote</h4>
           </div>
         </div>
-        <div class="col-md-1"></div>
+        
         <div class="col-md-3 text-center">
           <div class="circleBox boxLineRight boxLineBelow">
             <div class="number">5</div>
@@ -234,7 +233,7 @@
             <h4>If a Buyer is happy to proceed, they pay into escrow to show supplier they are commited to the transaction</h4>
           </div>
         </div>
-        <div class="col-md-1"></div>
+        
         <div class="col-md-3 text-center">
           <div class="circleBox">
             <div class="number">6</div>
@@ -251,7 +250,7 @@
             <h4>Shipper confirms receipt of order and releases airway bill or Bill of laden</h4>
           </div>
         </div>
-        <div class="col-md-1"></div>
+        
         <div class="col-md-3 text-center">
           <div class="circleBox boxLineRight boxLineBelow">
             <div class="number">8</div>
@@ -259,7 +258,7 @@
             <h4>ProduceMart releases payment to supplier</h4>
           </div>
         </div>
-        <div class="col-md-1"></div>
+        
         <div class="col-md-3 text-center">
           <div class="circleBox">
             <div class="number">9</div>
@@ -636,7 +635,7 @@
                       <div class="shape2"></div>
                     </div>
                   </div>
-                  <div class="col-md-1"></div>
+                  
                 </div>
               </div>
               <div class="carousel-item">
@@ -670,7 +669,7 @@
                       <div class="shape2"></div>
                     </div>
                   </div>
-                  <div class="col-md-1"></div>
+                  
                 </div>
               </div>
             </div>
