@@ -1,7 +1,7 @@
 <template>
   <title>Contact Us | Produce Mart</title>
   <mainHeader/>
-  <searchHeader/>
+
   
   <!--Page Breadcrumb-->
   <section class="pageBreadcrumb contactPageBread">

@@ -4,7 +4,7 @@
     buying and selling wholesale agricultural produce and ingredients
   </title>
   <mainHeader />
-  <searchHeader />
+  <!-- <searchHeader /> -->
 
   <!--Welcome Slider-->
   <section class="welcomeSlider">
@@ -208,6 +208,7 @@
             <h4>Supplier uploads product to ProduceMart</h4>
           </div>
         </div>
+        
         <div class="col-md-3 text-center">
           <div class="circleBox boxLineBelow">
             <div class="number">3</div>
@@ -224,6 +225,7 @@
             <h4>Supplier & Shipper confirm product availability and respond with a quote</h4>
           </div>
         </div>
+        
         <div class="col-md-3 text-center">
           <div class="circleBox boxLineRight boxLineBelow">
             <div class="number">5</div>
@@ -231,6 +233,7 @@
             <h4>If a Buyer is happy to proceed, they pay into escrow to show supplier they are commited to the transaction</h4>
           </div>
         </div>
+        
         <div class="col-md-3 text-center">
           <div class="circleBox">
             <div class="number">6</div>
@@ -247,6 +250,7 @@
             <h4>Shipper confirms receipt of order and releases airway bill or Bill of laden</h4>
           </div>
         </div>
+        
         <div class="col-md-3 text-center">
           <div class="circleBox boxLineRight boxLineBelow">
             <div class="number">8</div>
@@ -254,6 +258,7 @@
             <h4>ProduceMart releases payment to supplier</h4>
           </div>
         </div>
+        
         <div class="col-md-3 text-center">
           <div class="circleBox">
             <div class="number">9</div>
@@ -362,7 +367,7 @@
                       <h5>Ripe Banana</h5>
                       <p>$10 per 100kg</p>
                       <router-link to="#" class="route-link"
-                        ><a>View Products <i class="bi bi-arrow-right"></i></a
+                        ><a>View Product <i class="bi bi-arrow-right"></i></a
                       ></router-link>
                     </div>
                   </div> -->
@@ -385,7 +390,7 @@
                       <router-link
                         :to="'/products/inner-product/' + product._id"
                         class="route-link"
-                        ><a>View Products <i class="bi bi-arrow-right"></i></a
+                        ><a>View Product <i class="bi bi-arrow-right"></i></a
                       ></router-link>
                     </div>
                   </div>
@@ -426,7 +431,7 @@
                       <router-link
                         :to="'/products/inner-product/' + product._id"
                         class="route-link"
-                        ><a>View Products <i class="bi bi-arrow-right"></i></a
+                        ><a>View Product <i class="bi bi-arrow-right"></i></a
                       ></router-link>
                     </div>
                   </div>
@@ -470,7 +475,7 @@
                       <router-link
                         :to="'/products/inner-product/' + product._id"
                         class="route-link"
-                        ><a>View Products <i class="bi bi-arrow-right"></i></a
+                        ><a>View Product <i class="bi bi-arrow-right"></i></a
                       ></router-link>
                     </div>
                   </div>
@@ -514,7 +519,7 @@
                       <router-link
                         :to="'/products/inner-product/' + product._id"
                         class="route-link"
-                        ><a>View Products <i class="bi bi-arrow-right"></i></a
+                        ><a>View Product <i class="bi bi-arrow-right"></i></a
                       ></router-link>
                     </div>
                   </div>
@@ -630,7 +635,7 @@
                       <div class="shape2"></div>
                     </div>
                   </div>
-                  <div class="col-md-1"></div>
+                  
                 </div>
               </div>
               <div class="carousel-item">
@@ -664,7 +669,7 @@
                       <div class="shape2"></div>
                     </div>
                   </div>
-                  <div class="col-md-1"></div>
+                  
                 </div>
               </div>
             </div>

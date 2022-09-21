@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <!--Table-->
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
                         <div class="white_card card_height_100 mb_30">
                             <div class="white_card_header">
                                 <div class="box_header m-0">
@@ -145,7 +145,7 @@
                         </div>
                     </div>
                     <!--Recent Notification-->
-                    <div class="col-lg-3">
+                    <!-- <div class="col-lg-3">
                         <div class="white_card card_height_100 mb_30">
                             <div class="white_card_header">
                                 <div class="box_header m-0">
@@ -199,11 +199,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
-
         <dash-footer/>
     </section>
 </template>

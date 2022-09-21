@@ -1,7 +1,6 @@
 <template>
   <title>Request a Quote | Produce Mart</title>
   <mainHeader/>
-  <searchHeader/>
   <socialIcon/>
   
   <!--Page Breadcrumb-->

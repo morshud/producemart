@@ -2,7 +2,7 @@ import axios from "axios";
 import authHeader from "./auth-header";
 const API_URL = "https://producemart.herokuapp.com/";
 //const API_URL = "http://localhost:3000/";
-const user = JSON.parse(localStorage.getItem("user"));
+const user = localStorage.getItem("user");
 //console.log(user)
 
 
@@ -10,19 +10,13 @@ class QUOTE {
   RequestProduct(parameter) {
     //console.log(user)
     return axios.post(API_URL + "requestProduct", parameter, {
-      headers: {
-        "Authorization": user.token,
-        "Content-Type": "application/json"
-      }
+      headers: authHeader()
     });
   }
 
   PlaceBid(params){
     return axios.post(API_URL + "placeRequestBid", params, {
-      headers: {
-        "Authorization": user.token,
-        "Content-Type": "application/json"
-      }
+      headers: authHeader()
     });
   }
 
@@ -38,55 +32,37 @@ class QUOTE {
 
   GetAllBuyerRequest(id){
     return axios.get(API_URL + "getAllBuyerRequest/" + id, {
-      headers: {
-        "Authorization": user.token,
-        "Content-Type": "application/json"
-      }
+      headers: authHeader()
     });
   }
 
   GetSupplierBid(id){
     return axios.get(API_URL + "getSupplierBid/" + id, {
-      headers: {
-        "Authorization": user.token,
-        "Content-Type": "application/json"
-      }
+      headers: authHeader()
     });
   }
 
   GetSingleBid(id){
     return axios.get(API_URL + "getSingleBid/" + id, {
-      headers: {
-        "Authorization": user.token,
-        "Content-Type": "application/json"
-      }
+      headers: authHeader()
     });
   }
 
   AcceptBid(id, params){
     return axios.patch(API_URL + "acceptBid/" + id, params, {
-      headers: {
-        "Authorization": user.token,
-        "Content-Type": "application/json"
-      }
+      headers: authHeader()
     });
   }
 
   GetSingleRequest(id){
     return axios.get(API_URL + "getSingleRequest/" + id, {
-      headers: {
-        "Authorization": user.token,
-        "Content-Type": "application/json"
-      }
+      headers: authHeader()
     });
   }
 
   GetRequestBidderList(id){
     return axios.get(API_URL + "GetRequestBidderList/" + id, {
-      headers: {
-        "Authorization": user.token,
-        "Content-Type": "application/json"
-      }
+      headers: authHeader()
     });
   }
 
@@ -118,10 +94,7 @@ class QUOTE {
 
   addProductQuote(data, id){
     return axios.post(API_URL + "product/" + "addQuote/" + id, data, {
-      headers: {
-        "Authorization": user.token,
-        "Content-Type": "application/json"
-      }
+      headers: authHeader()
     });
   }
 
