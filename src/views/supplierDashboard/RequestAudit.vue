@@ -336,18 +336,18 @@
       },
       mounted(){
         window.scrollTo(0,0)
-        document.addEventListener('scroll', this.handleMouseScroll())
+        //document.addEventListener('scroll', this.handleMouseScroll())
         let externalScriptCustom = document.createElement('script')
         externalScriptCustom.setAttribute('src', 'https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js')
         document.head.appendChild(externalScriptCustom)
       },
       methods: {
-        handleMouseScroll(){
-            Swal.fire({
-                title: "Tips",
-                text: 'A non-conformance report (NCR) is issued to the supplier and it explicitly details issues found in order to help inform and begin changes and or repairs to the problem. '
-            })
-        }
+        // handleMouseScroll(){
+        //     Swal.fire({
+        //         title: "Tips",
+        //         text: 'A non-conformance report (NCR) is issued to the supplier and it explicitly details issues found in order to help inform and begin changes and or repairs to the problem. '
+        //     })
+        // }
       }
     }
 </script>

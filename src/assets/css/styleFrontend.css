@@ -173,7 +173,7 @@ p{
     padding: 1px 50px !important;
 } */
 .mainHeader .navbar-brand img{
-    width: 130px;
+    width: 180px;
     border-radius: 5px !important;
 }
 .mainHeader .navbar-toggler{
@@ -247,7 +247,7 @@ header{
     background-color: #fff;
     border: 1px solid #97F29F;
     padding: 5px 5px 10px 5px;
-    margin-top: -9px;
+    margin-top: -8px;
     border-radius: 5px;
     margin-right: -20px;
     width: 20% ;
@@ -314,6 +314,7 @@ header{
     display: none;
     margin: 0px !important;
 }
+
 @media(max-width: 1399px){
     .mainHeader .navbar-nav{
         margin-left: 10px;
@@ -321,32 +322,46 @@ header{
     .mainHeader .authDiv{
         margin-left: 10px;
     }
-   
+    .mainHeader .nav-link{
+        font-size: 14px !important;
+        margin-right: 10px !important;
+    }
+}
+@media(max-width: 1328px){
+    .mainHeader .searchHeader{
+        margin-top: 5px !important;
+    }
+    .dropdown-menu{
+        border-radius: 0px !important;
+        border: none !important;
+    }
+    .mainHeader .nav-link{
+        font-size: 14px !important;
+        margin-right: 10px !important;
+    }
 }
 @media(max-width: 1299px){
     .mainHeader .authDiv a{
         margin: 3px !important;
         font-size: 14px;
-    }
-    .leftoo{
-        display: none !important;
+        font-size: 14px !important;
     }
     .mainHeader .container{
         padding: 15px 30px 15px 30px;
-    }
-    .mainHeader .nav-link{
-        font-weight: 500 !important;
-        color: #fff !important;
-        margin-left: 15px !important;
-        margin-right: 15px !important;
-        padding: 10px 0 20px 0 !important;
-        font-size: 14px !important;
-        transition: 0.6s;
     }
 }
 @media(max-width: 1215px){
     .mainHeader .searchHeader input{
         width: 200px;
+    }
+    .mainHeader .navbar-brand img{
+        width: 145px;
+        border-radius: 5px !important;
+    }
+    .mainHeader .nav-link{
+        font-size: 13px !important;
+        margin-left: 9px !important;
+        margin-right: 9px !important;
     }
 }
 @media(max-width: 1204px){
@@ -355,6 +370,15 @@ header{
     }
     .mainHeader .navbar-nav{
         margin-left: 0px;
+    }
+    .mainHeader .navbar-brand img{
+        width: 145px;
+        border-radius: 5px !important;
+    }
+    .mainHeader .nav-link{
+        font-size: 13px !important;
+        margin-left: 9px !important;
+        margin-right: 9px !important;
     }
 }
 @media(max-width: 1174px){
@@ -368,8 +392,8 @@ header{
     }
     .mainHeader .nav-link{
         font-size: 13px !important;
-        margin-left: 6px !important;
-        margin-right: 6px !important;
+        margin-left: 9px !important;
+        margin-right: 9px !important;
     }
 }
 @media(max-width: 1124px){
@@ -387,13 +411,40 @@ header{
     width: 100% !important;
     
 } */
+
 @media(max-width: 991px){
     .mainHeader .mobileAuthDiv a{
         display: block;
     }
-    .offcanvas-header .navbar-brand img{
-        margin-left: 30px !important;
+    .leftoo{
+        display: none !important;
     }
+    .offcanvas-backdrop .show {
+        opacity: 0 !important;
+        display: none !important;
+    }
+    .offcanvas-backdrop{
+        background-color: #000;
+        display: none !important;
+    }
+    .mainHeader .searchHeader{
+        background-color: #fff;
+        border: 1px solid #97F29F;
+        padding: 5px 5px 10px 5px;
+        margin-top: -5px;
+        border-radius: 5px;
+        margin-right: -20px;
+        width: 20% ;
+    }
+    .mainHeader .nav-link{
+        color: #fff !important;
+        font-size: 15px !important;
+        padding: 10px 0 10px 0 !important;
+    }
+    /*
+     .offcanvas-header .navbar-brand img{
+        margin-left: 30px !important;
+    } */
     .mainHeader .desktopAuthDiv a{
         display: block;
         text-align: center;
@@ -418,30 +469,17 @@ header{
         display: none;
     }
     .mainHeader .offcanvas{
-        width: 100% !important;
+        width: 60% !important;
         background-color: #000;
         z-index: 999 !important;
-    }
-    .offcanvas-end .show{
-        opacity: 0px !important;
-    }
-    .mainHeader .offcanvas-body .offcanvas-backdrop .show{
-        opacity: 0 !important;
+        color: #fff !important;
     }
     .mainHeader .offcanvas-body{
         margin-top: 3px;
         z-index: 999 !important;
         background-color: #00000000 !important;
-    }
-    .mainHeader .nav-link{
-        line-height: 15px !important;
-        font-size: 16px !important;
-        font-weight: 500 !important;
         color: #fff !important;
-        margin-left: 20px !important;
-    }
-    .mainHeader .navbar-brand img{
-        margin-left: -40px !important;
+        cursor: pointer;
     }
     .profile_info .profile_info_iner[data-v-18190840]::before {
       position: absolute;
