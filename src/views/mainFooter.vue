@@ -27,9 +27,7 @@
             <h4>Services</h4>
             <p><router-link to="/about"><a>About Us</a></router-link></p>
             <!-- <p><router-link to="/contact"><a>Contact Us</a></router-link></p> -->
-            <p><router-link to="/products"><a>View Products</a></router-link></p>
             <p><router-link to="/request-a-product"><a>Request a Product</a></router-link></p>
-            
           </div>
         </div>
         <div class="col-md-3">

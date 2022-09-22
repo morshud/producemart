@@ -381,6 +381,9 @@ header{
         font-size: 13px;
     }
 }
+.mainHeader .mobileAuthDiv .profile_info{
+        display: none;
+}
 /* .dropdown-menu{
     background-color: #000 !important;
     display: block !important;
@@ -388,6 +391,12 @@ header{
     
 } */
 @media(max-width: 991px){
+    .mainHeader .mobileAuthDiv{
+        display: block;
+    }
+    .mainHeader .mobileAuthDiv .profile_info{
+        display: block;
+}
     .mainHeader .mobileAuthDiv a{
         display: block;
     }
