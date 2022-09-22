@@ -416,6 +416,9 @@ header{
     .mainHeader .mobileAuthDiv a{
         display: block;
     }
+    .mainHeader .desktopAuthDiv{
+        display: none;
+    }
     .leftoo{
         display: none !important;
     }
@@ -471,7 +474,7 @@ header{
     .mainHeader .offcanvas{
         width: 60% !important;
         background-color: #000;
-        z-index: 999 !important;
+        z-index: 9999 !important;
         color: #fff !important;
     }
     .mainHeader .offcanvas-body{
