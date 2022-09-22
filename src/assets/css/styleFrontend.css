@@ -435,8 +435,8 @@ header{
     }
     .mainHeader .offcanvas-body{
         margin-top: 3px;
-        z-index: 999 !important;
-        background-color: #00000000 !important;
+        z-index: 9999 !important;
+        background-color: #000000 !important;
     }
     .mainHeader .nav-link{
         line-height: 15px !important;

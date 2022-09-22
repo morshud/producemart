@@ -179,16 +179,20 @@
                 </div>
             </div>
         </nav>
+        
     </header>
+    <!-- <searchHeader/> -->
 </template>
 <style scoped src="@/assets/css/styleFrontend.css"></style>
 <style scoped src="@/assets/css/bootstrap.css"></style>
 <script>
     import SearchInner from './searchInner.vue'
+    import SearchHeader from "./searchHeader.vue";
     export default {
       name: "Produce Mart",
       components:{
       'searchInner': SearchInner,
+      SearchHeader
       },
       data(){
         return {
