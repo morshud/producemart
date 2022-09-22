@@ -65,14 +65,14 @@
                                             </b></td>
                                         </tr>
                                         <tr>
-                                            <td>Certificate issued</td>
+                                            <td>Certificate issued?</td>
                                             <td><i class="bi bi-x-lg"></i></td>
                                             <td><i class="bi bi-x-lg"></i></td>
                                             <td><i class="bi bi-x-lg"></i></td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                Physical site Audit.
+                                                Physical site Audit?
                                             </td>
                                             <td><i class="bi bi-x-lg"></i></td>
                                             <td><i class="bi bi-check-lg"></i></td>
@@ -80,13 +80,15 @@
                                             
                                         </tr>
                                         <tr>
-                                            <td>Detailed Non Conformity Report Issued</td>
+                                            <td>Detailed Non Conformity Report Issued?</td>
                                             <td><i class="bi bi-check-lg"></i></td>
                                             <td><i class="bi bi-check-lg"></i></td>
                                             <td><i class="bi bi-check-lg"></i></td>
                                         </tr>
                                         <tr>
-                                            <td></td>
+                                            <td><a type="" style="cursor: pointer" data-toggle="tooltip" data-html="true" title="A non-comfirmance report (NCR) is a Issued to be supplier and it explicity found in order to help inform and begin changes or repairs to the problem.">
+  <i class="bi bi-question-circle-fill"></i>
+</a></td>
                                             <td><div class="btnDiv text-center">
                                             <button>
                                                 <a target="_blank" href="https://www.sgs.co.uk/en-gb/contact?id=850fe91e62cc456091f0c00ca15ee166">Request a quote <i class="bi bi-arrow-right"></i></a>
@@ -222,14 +224,6 @@
                                         </div>
                                     </div>
                                 </div> -->
-                                <p>
-                                    <b>
-                                        Please put the below text in a screen tip and display it on the mouse scroll
-                                    </b>
-                                </p>
-                                <p>
-                                    A non-comfirmance report (NCR) is a Issued to be supplier and it explicity found in order to help inform and begin changes or repairs to the problem.
-                                </p>
                             </div>
                         </div>
 
