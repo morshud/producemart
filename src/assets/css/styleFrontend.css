@@ -391,6 +391,11 @@ header{
     .mainHeader .mobileAuthDiv a{
         display: block;
     }
+
+    .mainHeader .desktopAuthDiv {
+        display: none;
+    }
+
     .offcanvas-header .navbar-brand img{
         margin-left: 30px !important;
     }
@@ -420,7 +425,7 @@ header{
     .mainHeader .offcanvas{
         width: 100% !important;
         background-color: #000;
-        z-index: 999 !important;
+        z-index: 9999 !important;
     }
     .offcanvas-end .show{
         opacity: 0px !important;
@@ -442,6 +447,21 @@ header{
     }
     .mainHeader .navbar-brand img{
         margin-left: -40px !important;
+    }
+    .offcanvas-backdrop.show {
+      opacity: 0 !important;
+    }
+    .profile_info .profile_info_iner[data-v-18190840]::before {
+      position: absolute;
+      content: "";
+      width: 0;
+      height: 0;
+      border-style: solid;
+      top: -6px;
+      left: 0;
+      border-width: 0 11px 12px;
+      border-color: transparent transparent #97f29f transparent;
+      z-index: 2;
     }
 }
 @media(max-width: 560px){
