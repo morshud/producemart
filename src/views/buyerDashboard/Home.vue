@@ -213,8 +213,9 @@
 <script>
     import DashSidebar from './dash-sidebar.vue'
     import DashNavbar from './dash-navbar.vue'
-    import axios from 'axios'
     import DashFooter from './dash-footer.vue'
+    import axios from 'axios'
+    
     export default {
       name: "Produce Mart",
       components:{
