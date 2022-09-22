@@ -28,7 +28,6 @@
                           </div>
                         </div>
                       </div>
-                      <a style="cursor: pointer" @click="logOut" class="authSignup">Logout</a>
                   </div>
                   <div v-else-if="userLogin == 'supplier'">
                       <div class="profile_info" style="left: -19px;">
