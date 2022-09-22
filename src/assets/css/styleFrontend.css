@@ -481,6 +481,18 @@ header{
         color: #fff !important;
         cursor: pointer;
     }
+    .profile_info .profile_info_iner[data-v-18190840]::before {
+      position: absolute;
+      content: "";
+      width: 0;
+      height: 0;
+      border-style: solid;
+      top: -7px;
+      left: 0;
+      border-width: 0 11px 12px;
+      border-color: transparent transparent #97f29f transparent;
+      z-index: 2;
+    }
 }
 @media(max-width: 560px){
     .mainHeader .navbar-brand img{
