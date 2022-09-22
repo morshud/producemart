@@ -38,9 +38,7 @@
                 <div class="QA_section">
                   <div class="white_box_tittle list_header">
                     <h4>Requested Product List</h4>
-                    <p>
-                      This page shows the products you requested using the <router-link to="/request-a-product">Request a Product</router-link> page. You can track and manage your requests here.”
-                    </p>
+                    
                     <div class="box_right d-flex lms_block">
                       <div class="serach_field_2">
                         <div class="search_inner">
@@ -59,7 +57,11 @@
                         </div>
                       </div>
                     </div>
+                    
                   </div>
+                  <p class="page" style="padding: 0px 0 30px 0 !important; margin-top: -30px;">
+                      This page shows the products you requested using the <router-link to="/request-a-product">Request a  Product</router-link> page.<br> You can track and manage your requests here.”
+                    </p>
                   <!-- <div class="fileDownloadOption mb-3">
                     <button type="button" title="Download as CSV file">
                       CSV
@@ -112,6 +114,7 @@
                         </tr>
                       </tbody>
                     </table>
+                   
                     <!-- Popup Box Delete -->
                   </div>
                 </div>
@@ -129,6 +132,11 @@
 <style scoped src="@/assets/vendors/niceselect/css/nice-select.css"></style>
 <style scoped src="@/assets/css/style.css"></style>
 <style scoped src="@/assets/css/styleSupport.css"></style>
+<style>
+  .table .page{
+    padding: 10px 0 30px 0 !important;
+  }
+</style>
 <script>
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";

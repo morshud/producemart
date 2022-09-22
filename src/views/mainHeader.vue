@@ -1,7 +1,7 @@
 <template>
     <header class="mainHeader">
         <nav class="navbar navbar-expand-lg navbar-light navbar-color">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="authDiv mobileAuthDiv">
                     <div v-if="userLogin == 'buyer'">
                         <div class="profile_info" style="left: -19px; ">
@@ -60,8 +60,8 @@
 
                     <router-link v-else to="/login"><a class="authLogin">Login</a></router-link>
                 </div>
-                <a class="navbar-brand" href="/">   
-                    <img src="@/assets/img/logo.png" style="width: 160px;height: 60px;">
+                <a class="navbar-brand lastest" href="/">   
+                    <img src="@/assets/img/logo.png">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                     <i class="bi bi-text-right"></i>
@@ -70,15 +70,21 @@
                     <div class="offcanvas-header">
                         <div class="offcanvasImg">
                             <a class="navbar-brand" href="/">   
-                                <img src="@/assets/img/logo.png" style="width: 160px;height: 60px;">
+                                <img src="@/assets/img/pmlg.png">
                             </a>
                         </div>
                         <button type="button" class="btn-offcanvas-close" data-bs-dismiss="offcanvas" aria-label="Close">
                             <i class="bi bi-x-lg"></i>
                         </button>
                     </div>
-                    <div class="offcanvas-body">
+                    <div class="offcanvas-body" style="opacity:none !important">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <router-link to="/" class="route-link"><a class="nav-link"></a></router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/" class="route-link"><a class="nav-link"></a></router-link>
+                            </li>
                             <li class="nav-item">
                                 <router-link to="/" class="route-link"><a class="nav-link">Home</a></router-link>
                             </li>
@@ -86,22 +92,32 @@
                                 <router-link to="/about" class="route-link"><a class="nav-link">About Us</a></router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/products" class="route-link"><a class="nav-link">View Products</a></router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link to="/blog" class="route-link"><a class="nav-link">Blog</a></router-link>
+                                <router-link to="/products" class="route-link"><a class="nav-link">View Product</a></router-link>
                             </li>
                             <li class="nav-item">
                                 <router-link to="/request-a-product" class="route-link"><a class="nav-link">Request a Product</a></router-link>
                             </li>
-                            <!-- <li class="nav-item">
-                                <router-link to="/faq" class="route-link"><a class="nav-link">FAQs</a></router-link>
-                            </li> -->
+                            <li class="nav-item">
+                                <router-link to="/blog" class="route-link"><a class="nav-link">Blog</a></router-link>
+                            </li>
+                            <div class="dropdown">
+                              <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link">
+                                  <div class="leftoo">
+                                      <i class="bi bi-search"></i>
+                                  </div>
+                                </a>
+                              </a>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <searchInner />
+                              </div>
+                            </div>
+                            <searchHeader />
                         </ul>
-                        <searchInner/>
+                       
                         <div class="authDiv desktopAuthDiv ml-3">
                             <div v-if="userLogin == 'buyer'">
-                                <div class="profile_info" style="margin-left: 50px;">
+                                <div class="profile_info nav-link" style="margin-left: 50px;">
                                   <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
                                   <img src="@/assets/img/client_img.png" alt="#" v-else />
                                   Hi, <span style="text-transform: capitalize;">{{ user.firstname }}</span> <i class="bi bi-caret-down"></i>
@@ -128,7 +144,7 @@
                                 <!-- <a style="cursor: pointer" @click="logOut" class="authSignup">Logout</a> -->
                             </div>
                             <div v-else-if="userLogin == 'supplier'">
-                                <div class="profile_info" style="margin-left: 50px;">
+                                <div class="profile_info nav-link" style="margin-left: 50px;">
                                   <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
                                   <img src="@/assets/img/client_img.png" alt="#" v-else />
                                   Hi, <span style="text-transform: capitalize;">{{ user.firstname }}</span> <i class="bi bi-caret-down"></i>
@@ -154,7 +170,7 @@
                                 </div>
                                 <!-- <a style="cursor: pointer" @click="logOut" class="authSignup">Logout</a> -->
                             </div>
-                            <div v-else>
+                            <div class="nav-link" v-else>
                                 <router-link to="/login"><a class="authLogin">Login</a></router-link>
                                 <router-link to="buyer-registration"><a class="authSignup">Sign Up Free</a></router-link>
                             </div>

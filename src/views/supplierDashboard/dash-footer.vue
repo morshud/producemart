@@ -14,9 +14,9 @@
 
     <!--Back to top-->
     <div id="back-top" style="display: none;">
-        <a title="Go to Top" href="#">
-        <i class="bi bi-caret-up-fill"></i>
-        </a>
+      <a title="Go to Top" href="#">
+      <i class="bi bi-caret-up-fill"></i>
+      </a>
     </div>
 </template>
 <style scoped src="@/assets/vendors/themefy_icon/themify-icons.css"></style>

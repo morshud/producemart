@@ -29,10 +29,10 @@
             <!--Notification-->
             <div class="header_notification_warp d-flex align-items-center">
               <li>
-                <a class="bell_notification_clicker" href="#">
+                <!-- <a class="bell_notification_clicker" href="#">
                   <img src="@/assets/img/icon/bell.svg" alt="" />
                   <span>6</span>
-                </a>
+                </a> -->
                 <!-- <div class="Menu_NOtification_Wrap">
                   <div class="notification_Header">
                     <h4>Notifications</h4>
