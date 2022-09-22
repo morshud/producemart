@@ -3888,7 +3888,7 @@ table.dataTable {
 }
 
 .sidebar .logo .large_logo img {
-  width: 100%;
+  width: 180px;
 }
 
 @media (max-width: 991px) {
