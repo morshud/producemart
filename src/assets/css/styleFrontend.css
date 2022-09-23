@@ -311,11 +311,15 @@ header{
 }
 @media(max-width: 1328px){
     .mainHeader .searchHeader{
-        margin-top: 5px !important;
+        margin-top: 9px !important;
     }
     .dropdown-menu{
         border-radius: 0px !important;
         border: none !important;
+    }
+    .mainHeader .searchHeader button{
+        margin-top: -22px;
+        z-index: 9999 !important;
     }
     .mainHeader .nav-link{
         font-size: 14px !important;
@@ -610,6 +614,9 @@ header{
     font-size: 40px;
     font-weight: 500;
     margin-bottom: 50px;
+}
+.welcomeSlider button{
+    margin-top: 50px !important;
 }
 .welcomeSlider .carousel-item a{
     background-color: #97F29F;
