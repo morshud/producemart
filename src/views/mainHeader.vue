@@ -201,7 +201,9 @@
       data(){
         return {
             user: JSON.parse(localStorage.getItem("user")) || '',
-            userLogin: ''
+            userLogin: '',
+            dropdowndd: false,
+            showData: false,
         }
       },
       methods: {
@@ -209,6 +211,15 @@
           this.$store.dispatch("auth/logout");
           this.$router.push("/login");
         },
+        toggleDropDown(){
+
+          this.dropdowndd = !this.dropdowndd;
+
+        },
+        showDataNow(){
+          this.showData = !this.showData
+          console.log(this.showData)
+        }
         getUser(){
             //console.log(JSON.parse(localStorage.getItem("user")))
             if(this.user.role == 'buyer'){
