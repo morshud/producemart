@@ -2,9 +2,9 @@
   <header class="mainHeader">
     <nav class="navbar navbar-expand-lg navbar-light navbar-color">
         <div class="container">
-            <div class="authDiv mobileAuthDiv">
+            <div class="authDiv support mobileAuthDiv">
                 <div v-if="userLogin == 'buyer'">
-                    <div class="profile_info" style="">
+                    <div class="profile_info">
                       <a type="button" @click="showDataNow" style="background: transparent !important;color: #000 !important;">
                         <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
                         <img src="@/assets/img/client_img.png" alt="#" v-else />
@@ -178,65 +178,53 @@
         </div>
     </nav>
   </header>
-  <!-- <searchHeader/> -->
 </template>
 <style scoped src="@/assets/css/styleFrontend.css"></style>
 <style scoped src="@/assets/css/bootstrap.css"></style>
-<script>
-  import SearchInner from './searchInner.vue'
-  import SearchHeader from "./searchHeader.vue";
-  export default {
-    name: "Produce Mart",
-    components:{
-    'searchInner': SearchInner,
-    SearchHeader
-    },
-    data(){
-      return {
-          user: JSON.parse(localStorage.getItem("user")) || '',
-          userLogin: '',
-          dropdowndd: false,
-          showData: false,
-      }
-    },
-    methods: {
-      logOut() {
-        this.$store.dispatch("auth/logout");
-        this.$router.push("/login");
-      },
-      getUser(){
-          //console.log(JSON.parse(localStorage.getItem("user")))
-          if(this.user.role == 'buyer'){
-              this.userLogin = 'buyer'
-              //console.log(this.userLogin)
-          }
-          if(this.user.role == 'supplier'){
-              this.userLogin = 'supplier'
-              //console.log(this.userLogin)
-          }
-
-      },
-      toggleDropDown(){
-
-        this.dropdowndd = !this.dropdowndd;
-        
-      },
-      showDataNow(){
-        this.showData = !this.showData
-        console.log(this.showData)
-      }
-    },
-    mounted(){
-      window.scrollTo(0,0)
-      this.getUser();
+<style>
+  .support{
+      display: none;
+  }
+  @media (max-width:990px) {
+    .support{
+      display: block ;
     }
   }
-</script>
-<style>
-  .offcanvas-backdrop.show {
-    opacity: 0 !important;
-  }
-  body{
-    overflow: scroll !important;
-  }
 </style>
+<script>
+    import SearchInner from './searchInner.vue'
+    export default {
+      name: "Produce Mart",
+      components:{
+      'searchInner': SearchInner,
+      },
+      data(){
+        return {
+            user: JSON.parse(localStorage.getItem("user")) || '',
+            userLogin: ''
+        }
+      },
+      methods: {
+        logOut() {
+          this.$store.dispatch("auth/logout");
+          this.$router.push("/login");
+        },
+        getUser(){
+            //console.log(JSON.parse(localStorage.getItem("user")))
+            if(this.user.role == 'buyer'){
+                this.userLogin = 'buyer'
+                //console.log(this.userLogin)
+            }
+            if(this.user.role == 'supplier'){
+                this.userLogin = 'supplier'
+                //console.log(this.userLogin)
+            }
+
+        }
+      },
+      mounted(){
+        window.scrollTo(0,0)
+        this.getUser();
+      }
+    }
+</script>
