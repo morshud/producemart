@@ -4,11 +4,14 @@
         <div class="container">
             <div class="authDiv mobileAuthDiv">
                 <div v-if="userLogin == 'buyer'">
-                    <div class="profile_info" style="left: -19px; ">
-                      <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
-                      <img src="@/assets/img/client_img.png" alt="#" v-else />
-                      Hi <!-- <span style="text-transform: capitalize;">{{ user.firstname }}</span> --> <i class="bi bi-caret-down"></i>
-                      <div class="profile_info_iner" style="z-index: 9999;left: -6px;">
+                    <div class="profile_info" style="">
+                      <a type="button" @click="showDataNow" style="background: transparent !important;color: #000 !important;">
+                        <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
+                        <img src="@/assets/img/client_img.png" alt="#" v-else />
+                        Hi <!-- <span style="text-transform: capitalize;">{{ user.firstname }}</span> --> <i class="bi bi-caret-down"></i>
+                      </a>
+                      
+                      <div v-if="showData == true" class="profile_info_iner" style="z-index: 9999;left: -6px;">
                         <div class="profile_author_name">
                           <p style="font-size: 15px;">Buyer Account</p>
                           <h5>{{ user.firstname }} {{ user.lastname[0] }}.</h5>
@@ -17,9 +20,9 @@
                         <div class="profile_info_details">
                           
                           <router-link to="/buyer-dashboard/home" style="background: transparent !important;color: #000 !important;">
-                            <img src="@/assets/img/menu-icon/dashboard.png" style="border: 0;border-radius: 0;margin-right: 10px;"> Dashboard
+                            <img src="@/assets/img/menu-icon/dashboard.png" style="border: 0;border-radius: 0;margin-right: 10px; width: 15px; margin-left: -17px !important;background: transparent !important;color: #000 !important;" > Dashboard
                           </router-link>
-                          <router-link to="/buyer-dashboard/profile" style="margin-left: -20px !important;"
+                          <router-link to="/buyer-dashboard/profile" style="background: transparent !important;color: #000 !important;"
                             ><i style="margin-right: 8px;font-size: 20px; margin-left: -17px !important;background: transparent !important;color: #000 !important;" class="bi bi-person-circle"></i> My Profile</router-link
                           >
                           <a @click.prevent="logOut" style="background: transparent !important;color: #000 !important;cursor: pointer">
@@ -97,14 +100,14 @@
                             <router-link to="/blog" class="route-link"><a class="nav-link">Blog</a></router-link>
                         </li>
                         <div class="dropdown">
-                          <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                          <a class="" type="button" role="button" @click="toggleDropDown">
                             <a class="nav-link">
                               <div class="leftoo">
                                   <i class="bi bi-search"></i>
                               </div>
                             </a>
                           </a>
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <div v-if="dropdowndd == true" style="top: 15px;position: relative;">
                             <searchInner />
                           </div>
                         </div>
@@ -115,7 +118,7 @@
                             <div class="profile_info nav-link" style="margin-left: 50px;">
                               <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
                               <img src="@/assets/img/client_img.png" alt="#" v-else />
-                              Hi, <span style="text-transform: capitalize;">{{ user.firstname }}</span> <i class="bi bi-caret-down"></i>
+                              Hi, <span style="text-transform: capitalize; cursor: pointer">{{ user.firstname }}</span> <i class="bi bi-caret-down"></i>
                               <div class="profile_info_iner">
                                 <div class="profile_author_name">
                                   <p style="font-size: 15px;">Buyer Account</p>
@@ -142,7 +145,7 @@
                             <div class="profile_info nav-link" style="margin-left: 50px;">
                               <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
                               <img src="@/assets/img/client_img.png" alt="#" v-else />
-                              Hi, <span style="text-transform: capitalize;">{{ user.firstname }}</span> <i class="bi bi-caret-down"></i>
+                              Hi, <span style="text-transform: capitalize; cursor: pointer">{{ user.firstname }}</span> <i class="bi bi-caret-down"></i>
                               <div class="profile_info_iner">
                                 <div class="profile_author_name">
                                   <p style="font-size: 15px;">Supplier Account</p>
@@ -191,7 +194,9 @@
     data(){
       return {
           user: JSON.parse(localStorage.getItem("user")) || '',
-          userLogin: ''
+          userLogin: '',
+          dropdowndd: false,
+          showData: false,
       }
     },
     methods: {
@@ -210,6 +215,15 @@
               //console.log(this.userLogin)
           }
 
+      },
+      toggleDropDown(){
+
+        this.dropdowndd = !this.dropdowndd;
+        
+      },
+      showDataNow(){
+        this.showData = !this.showData
+        console.log(this.showData)
       }
     },
     mounted(){
