@@ -320,6 +320,7 @@ header{
     .mainHeader .searchHeader button{
         margin-top: -22px;
         z-index: 9999 !important;
+        position: relative;
     }
     .mainHeader .nav-link{
         font-size: 14px !important;
@@ -338,7 +339,7 @@ header{
 }
 @media(max-width: 1215px){
     .mainHeader .searchHeader input{
-        width: 200px;
+        width: 210px;
     }
     .mainHeader .navbar-brand img{
         width: 145px;
@@ -347,6 +348,7 @@ header{
      .mainHeader .searchHeader button{
         margin-top: -22px;
         z-index: 9999 !important;
+        position: relative;
     }
     .mainHeader .nav-link{
         font-size: 13px !important;
@@ -378,7 +380,7 @@ header{
 }
 @media(max-width: 1150px){
     .mainHeader .searchHeader input{
-        width: 170px;
+        width: 190px;
     }
     .mainHeader .nav-link{
         font-size: 13px !important;

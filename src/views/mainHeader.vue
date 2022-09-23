@@ -206,6 +206,13 @@
             showData: false,
         }
       },
+      created(){
+        window.addEventListener('click', (e) => {
+          if (!this.$el.contains(e.target)){
+            this.dropdowndd = false
+          }
+        })
+      },
       methods: {
         logOut() {
           this.$store.dispatch("auth/logout");
