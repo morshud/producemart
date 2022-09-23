@@ -218,8 +218,8 @@
         },
         showDataNow(){
           this.showData = !this.showData
-          console.log(this.showData)
-        }
+          //console.log(this.showData)
+        },
         getUser(){
             //console.log(JSON.parse(localStorage.getItem("user")))
             if(this.user.role == 'buyer'){
