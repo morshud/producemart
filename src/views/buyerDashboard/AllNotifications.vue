@@ -34,11 +34,11 @@
 
           <!--Main-->
           <div class="col-md-12">
-            <div class="white_box QA_section mb_30" v-if="notifications" style="padding-bottom: 80px;">
+            <div class="white_box QA_section mb_30" v-if="notifications.length >= 1" style="padding-bottom: 80px;">
               <div class="recentDiv">
                 <h5>10 most recent <i class="bi bi-alarm"></i></h5>
               </div>
-              <div v-for="(notification, i) in notifications" :key="i">
+              <div v-for="(notification, i) in sortedNotification" :key="i">
                 <div
                   :class="
                     notification.read
@@ -158,7 +158,7 @@ export default {
         }
       );
       const { data } = await res.json();
-      this.notifications = data.splice(0, 10);
+      this.notifications = data;
       //   console.log(this.notifications);
     },
     async markReceipt(id, index) {

@@ -29,10 +29,10 @@
             <!--Notification-->
             <div class="header_notification_warp d-flex align-items-center">
               <li>
-                <!-- <a class="bell_notification_clicker" href="#">
+                <router-link class="bell_notification_clicker" to="/buyer-dashboard/all-notifications">
                   <img src="@/assets/img/icon/bell.svg" alt="" />
-                  <span>6</span>
-                </a> -->
+                  <span>{{notifications}}</span>
+                </router-link>
                 <!-- <div class="Menu_NOtification_Wrap">
                   <div class="notification_Header">
                     <h4>Notifications</h4>
@@ -166,21 +166,17 @@ export default {
   computed: {
     currentUser() {
       const user = JSON.parse(localStorage.getItem("user"));
-      console.log(user);
+      //console.log(user);
       if (user) {
-        console.log(user);
+        //console.log(user);
         return user;
       }
     },
   },
-  mounted() {
-    if (!this.currentUser) {
-      this.$router.push("/login");
-    }
-  },
   data() {
     return {
       user: JSON.parse(localStorage.getItem("user")),
+      notifications: 0,
     };
   },
   methods: {
@@ -188,10 +184,28 @@ export default {
       this.$store.dispatch("auth/logout");
       this.$router.push("/login");
     },
+     async getUserNotifications() {
+      const res = await fetch(
+        "https://producemart.herokuapp.com/getUserNotifications",
+        {
+          method: "GET",
+          headers: {
+            Authorization: this.user.token,
+          },
+        }
+      );
+      const { data } = await res.json();
+      const filt = data.filter((item) => item.read == false)
+      this.notifications = filt.length
+      //   console.log(this.notifications);
+    },
   },
   mounted() {
     window.scrollTo(0, 0);
-
+    if (!this.currentUser) {
+      this.$router.push("/login");
+    }
+    this.getUserNotifications();
     let externalScriptJquery = document.createElement("script");
     let externalScriptMetisMenu = document.createElement("script");
     let externalScriptCustom = document.createElement("script");
