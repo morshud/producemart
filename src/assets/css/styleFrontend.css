@@ -413,11 +413,11 @@ header{
     }
     .offcanvas-backdrop .show {
         opacity: 0 !important;
-        display: none !important;
+        display: block !important;
     }
     .offcanvas-backdrop{
         background-color: #000;
-        display: none !important;
+        display: block !important;
     }
     .mainHeader .searchHeader{
         background-color: #fff;
@@ -432,6 +432,47 @@ header{
         color: #fff !important;
         font-size: 15px !important;
         padding: 10px 0 10px 0 !important;
+    }
+    .subscribeNewsletter .subscribeBox form button {
+      display: block;
+      margin: auto;
+      width: 37% !important;
+      padding: 10px 5px;
+      background-color: #000;
+      color: #fff;
+      border-radius: 5px;
+      font-size: 13px;
+      border: none;
+    }
+    .subscribeNewsletter .subscribeBox h1 {
+
+        font-size: 25px;
+        font-weight: 600;
+        padding-left: 40px;
+        padding-right: 40px;
+        text-align: center;
+
+    }
+    .media-icons {
+      display: flex;
+      justify-content: center;
+    }
+    .media-icons a {
+      margin: 0 8px;
+      font-size: 12px;
+      transition: all 0.4s ease;
+      padding: 4px 7px;
+      border-radius: 50%;
+      text-align: unset;
+      line-height: inherit;
+      height: auto;
+      width: auto;
+    }
+
+    .media-icons a:nth-child(1) {
+      background: #fff;
+      color: #4267B2 !important;
+      padding: 4px 9px;
     }
     /*
      .offcanvas-header .navbar-brand img{
@@ -490,12 +531,15 @@ header{
     }
 }
 /*************************/
-.sectionHeadSearch{
-    display: none;
-    padding: 15px 0px 15px 0px;
-    width: 100%;
-    margin-top: 90px;
-    background-color: #fff;
+.sectionHeadSearch {
+  display: none;
+  padding: 15px 0px 15px 0px;
+  width: 100%;
+  margin-top: 160px;
+  background-color: #fff;
+  position: fixed;
+  z-index: 9999;
+  top: -9%;
 }
 .sectionHeadSearch form{
     background-color: #fff;
@@ -536,8 +580,24 @@ header{
     border-radius: 5px;
     font-size: 15px;
 }
+.headerSearchMobile{
+    display: none;
+    position: absolute;
+    left: 70%;
+    top: 33%;
+}
 @media(max-width: 991px){
     .sectionHeadSearch{
+        display: block;
+        padding: 15px 0px 15px 0px;
+        width: 100%;
+        margin-top: 202px;
+        background-color: #fff;
+        position: fixed;
+        z-index: 9999;
+        top: -9%;
+    }
+    .headerSearchMobile{
         display: block;
     }
 }
@@ -547,6 +607,20 @@ header{
     }
     .sectionHeadSearch form input{
         width: 75%;
+    }
+    .headerSearchMobile{
+        display: block;
+        left: 75%;
+    }
+    .sectionHeadSearch{
+        display: block;
+        padding: 8px 0px 8px 0px;
+        width: 100%;
+        margin-top: 130px;
+        background-color: #fff;
+        position: fixed;
+        z-index: 9999;
+        top: -9%;
     }
 }
 

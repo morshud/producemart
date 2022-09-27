@@ -147,6 +147,7 @@ import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
 import QUOTE from './../../service/quote-service'
+import axios from "axios"
 export default {
   name: "Produce Mart",
   components: {
@@ -172,7 +173,12 @@ export default {
   },
   methods: {
     getSupplierBid(){
-      QUOTE.GetSupplierBid(this.user._id).then((res) => {
+      axios.get(`https://producemart.herokuapp.com/getSupplierBid/${this.user._id}`, {
+        headers: {
+          "Authorization": this.user.token,
+          "Content-Type": "application/json"
+        }
+      }).then((res) => {
         console.log(res)
         this.bidList = res.data.Bid
       })

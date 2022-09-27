@@ -262,7 +262,7 @@
             .then(res => {
                 //console.log(res.data.data)
                 let supplierAudit = res.data.data.status
-                console.log(res.data.data)
+                //console.log(res.data.data)
                 this.supplierAudit = supplierAudit
 
             })

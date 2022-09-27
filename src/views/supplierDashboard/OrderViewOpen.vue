@@ -480,6 +480,7 @@ import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
 import axios from "axios";
+import Swal from 'sweetalert2';
 export default {
   name: "Produce Mart",
   components: {
