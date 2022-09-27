@@ -1,6 +1,6 @@
 <template>
   <!--Side Navbar-->
-  <nav class="sidebar dark_sidebar">
+  <nav class="sidebar dark_sidebar" v-bind="$attrs">
     <div class="logo d-flex justify-content-between">
       <router-link class="large_logo" to="/"
         ><img
@@ -350,12 +350,10 @@ export default {
     );
     externalScriptCustom.setAttribute(
       "src",
-      "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
+      "https://cdn.statically.io/gh/morshud/JsFiles/main/custom.js"
     );
 
     document.head.appendChild(externalScriptJquery);
-    document.head.appendChild(externalScriptMetisMenu);
-    document.head.appendChild(externalScriptCustom);
   },
   data() {
     return {

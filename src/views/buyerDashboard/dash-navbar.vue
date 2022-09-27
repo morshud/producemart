@@ -7,9 +7,142 @@
           class="header_iner d-flex justify-content-between align-items-center"
         >
           <!--Hamburger-->
-          <div class="line_icon open_miniSide d-lg-block">
+          <div type="button" role="button" class="line_icon d-lg-block" @click.prevent="showMenuDash">
             <img src="@/assets/img/dashboard-img/line_img.png" />
           </div>
+          <nav class="sidebar dark_sidebar" :class="showMenu ? 'showSidebar' : 'showOnlyMobile'">
+            <div class="logo d-flex justify-content-between">
+                
+                <router-link class="large_logo" to="/"><img src="@/assets/img/logo.png" alt="Produce Mart Logo"></router-link>
+                <router-link class="small_logo" to="/"><img src="@/assets/img/main-logo.png" alt="Produce Mart Logo"></router-link>
+                <button type="button" style="background: transparent;border: 0;margin-left: -10px;" data-toggle="tooltip" data-placement="left" title="Close Sidebar Menu" class="btn-offcanvas-close" @click.prevent="closeSidbarMenu">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+            </div>
+            <ul id="sidebar_menu">
+                <!--Dashboard-->
+                <li class="">
+                    <router-link to="/buyer-dashboard/home">
+                        <a aria-expanded="false">
+                            <div class="nav_icon_small">
+                                <img src="@/assets/img/menu-icon/dashboard.png">
+                            </div>
+                            <div class="nav_title">
+                                <span>Dashboard</span>
+                            </div>
+                        </a>
+                    </router-link>
+                </li>
+
+                <li class="">
+                    <router-link to="/buyer-dashboard/product-request">
+                        <a aria-expanded="false">
+                            <div class="nav_icon_small">
+                                <img src="@/assets/img/menu-icon/dashboard.png">
+                            </div>
+                            <div class="nav_title">
+                                <span>Requested Products</span>
+                            </div>
+                        </a>
+                    </router-link>
+                </li>
+                <!--Notifications-->
+                <li class="">
+                    <router-link to="#" class="has-arrow">
+                        <a aria-expanded="false">
+                            <div class="nav_icon_small">
+                                <img src="@/assets/img/menu-icon/notification.png">
+                            </div>
+                            <div class="nav_title">
+                                <span>Notifications</span>
+                            </div>
+                        </a>
+                    </router-link>
+                    <ul>
+                        <li><router-link to="/buyer-dashboard/all-notifications"><a>All Notifications</a></router-link></li>
+                    </ul>
+                </li>
+                <!--Orders-->
+                <li class="">
+                    <router-link to="#" class="has-arrow">
+                        <a aria-expanded="false">
+                            <div class="nav_icon_small">
+                                <img src="@/assets/img/menu-icon/order.png">
+                            </div>
+                            <div class="nav_title">
+                                <span>Orders</span>
+                            </div>
+                        </a>
+                    </router-link>
+                    <ul>
+                        <li><router-link to="/buyer-dashboard/open-orders"><a>Open Orders</a></router-link></li>
+                        <li><router-link to="/buyer-dashboard/closed-orders"><a>Closed Orders</a></router-link></li>
+                        <li><router-link to="/buyer-dashboard/cancelled-orders"><a>Cancelled Orders</a></router-link></li>
+                        <!-- <li><router-link to="/buyer-dashboard/order-review"><a>Order Review</a></router-link></li> -->
+                    </ul>
+                </li>
+                <li class="">
+                    <router-link to="#" class="has-arrow">
+                      <a aria-expanded="false">
+                        <div class="nav_icon_small">
+                          <img src="@/assets/img/menu-icon/setting.png" />
+                        </div>
+                        <div class="nav_title">
+                          <span>Addresses</span>
+                        </div>
+                      </a>
+                    </router-link>
+                    <ul>
+                      <li
+                        :class="
+                          path == '/buyer-dashboard/add-new-address' && 'active-nav'
+                        "
+                      >
+                        <router-link to="/buyer-dashboard/add-new-address"
+                          ><a>Add New Address</a></router-link
+                        >
+                      </li>
+                      <li
+                        :class="path == '/buyer-dashboard/View-address' && 'active-nav'"
+                      >
+                        <router-link to="/buyer-dashboard/View-address"
+                          ><a>View All Address</a></router-link
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                <!--Settings-->
+                <li class="">
+                    <router-link to="#" class="has-arrow">
+                        <a aria-expanded="false">
+                            <div class="nav_icon_small">
+                                <img src="@/assets/img/menu-icon/setting.png">
+                            </div>
+                            <div class="nav_title">
+                                <span>Settings</span>
+                            </div>
+                        </a>
+                    </router-link>
+                    <ul>
+                        <li><router-link to="/buyer-dashboard/edit-profile-details"><a>Edit Profile Details</a></router-link></li>
+                        <li><router-link to="/buyer-dashboard/change-password"><a>Change Password</a></router-link></li>
+                    </ul>
+                </li>
+                <!--Log Out-->
+                <li class="">
+                    <router-link to="#">
+                        <a href @click.prevent="logOut" aria-expanded="false">
+                            <div class="nav_icon_small">
+                                <img src="@/assets/img/menu-icon/logout.png">
+                            </div>
+                            <div class="nav_title">
+                                <span>Log Out</span>
+                            </div>
+                        </a>
+                    </router-link>
+                </li>
+            </ul>
+        </nav>
           <!--Search Bar-->
           <div class="serach_field-area d-flex align-items-center">
             <div class="search_inner">
@@ -177,12 +310,20 @@ export default {
     return {
       user: JSON.parse(localStorage.getItem("user")),
       notifications: 0,
+      showMenu: false,
     };
   },
   methods: {
     logOut() {
       this.$store.dispatch("auth/logout");
       this.$router.push("/login");
+    },
+    showMenuDash(){
+      this.showMenu = true;
+      //console.log(this.showMenu)
+    },
+    closeSidbarMenu(){
+      this.showMenu = false;
     },
      async getUserNotifications() {
       const res = await fetch(
@@ -229,3 +370,11 @@ export default {
   },
 };
 </script>
+<style>
+  .showSidebar{
+    left: 0px !important;
+  }
+  .showOnlyMobile{
+    display: none !important;
+  }
+</style>
