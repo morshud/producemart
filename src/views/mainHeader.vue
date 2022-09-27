@@ -64,18 +64,23 @@
             <a class="navbar-brand lastest" href="/">   
                 <img src="@/assets/img/logo.png">
             </a>
+            <a class="headerSearchMobile" type="button" role="button" @click="toggleMobileDropDown">
+              <span style="color: #000;background: #97F29F;padding: 0px 6px;">
+                  <i class="bi bi-search" style="font-size: 14px;"></i>
+              </span>
+            </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+            <button class="navbar-toggler" type="button" @click.prevent="showOffcanvasMenu">
                 <i class="bi bi-text-right"></i>
             </button>
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas offcanvas-end" :class="showMenu ? 'show' : ''" tabindex="-1" :style="{ visibility: showMenu ? 'visible' : 'hidden' }">
                 <div class="offcanvas-header">
                     <div class="offcanvasImg">
                         <a class="navbar-brand" href="/">   
                             <img src="@/assets/img/pmlg.png">
                         </a>
                     </div>
-                    <button type="button" class="btn-offcanvas-close" data-bs-dismiss="offcanvas" aria-label="Close">
+                    <button type="button" class="btn-offcanvas-close" @click.prevent="closeShowOffcanvasMenu">
                         <i class="bi bi-x-lg"></i>
                     </button>
                 </div>
@@ -85,10 +90,10 @@
                             <router-link to="/" class="route-link"><a class="nav-link"></a></router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/" class="route-link"><a class="nav-link">Home</a></router-link>
+                            <router-link to="/"  class="route-link nav-link">Home</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/about" class="route-link"><a class="nav-link">About Us</a></router-link>
+                            <router-link to="/about" class="route-link nav-link">About Us</router-link>
                         </li>
                         <li class="nav-item">
                             <router-link to="/products" class="route-link"><a class="nav-link">View Product</a></router-link>
@@ -176,7 +181,12 @@
                 </div>
             </div>
         </div>
+        
     </nav>
+    <div v-if="mobiledropdown == true">
+      <SearchHeader />
+    </div>
+    
   </header>
 </template>
 <style scoped src="@/assets/css/styleFrontend.css"></style>
@@ -193,10 +203,12 @@
 </style>
 <script>
     import SearchInner from './searchInner.vue'
+    import SearchHeader from './searchHeader.vue'
     export default {
       name: "Produce Mart",
       components:{
       'searchInner': SearchInner,
+      SearchHeader
       },
       data(){
         return {
@@ -204,14 +216,12 @@
             userLogin: '',
             dropdowndd: false,
             showData: false,
+            mobiledropdown: false,
+            showMenu: false
         }
       },
       created(){
-        window.addEventListener('click', (e) => {
-          if (!this.$el.contains(e.target)){
-            this.dropdowndd = false
-          }
-        })
+        
       },
       methods: {
         logOut() {
@@ -222,6 +232,15 @@
 
           this.dropdowndd = !this.dropdowndd;
 
+        },
+        showOffcanvasMenu(){
+            this.showMenu  = true 
+        },
+        closeShowOffcanvasMenu(){
+            this.showMenu  = false 
+        },
+        toggleMobileDropDown(){
+          this.mobiledropdown = !this.mobiledropdown;
         },
         showDataNow(){
           this.showData = !this.showData
@@ -241,8 +260,14 @@
         }
       },
       mounted(){
-        window.scrollTo(0,0)
+        //window.scrollTo(0,0)
         this.getUser();
+        window.addEventListener('click', (e) => {
+          if (!this.$el.contains(e.target)){
+            this.dropdowndd = false
+            this.mobiledropdown = false
+          }
+        })
       }
     }
 </script>

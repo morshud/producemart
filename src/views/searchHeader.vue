@@ -1,5 +1,5 @@
 <template>
-    <header class="mainHeader">
+    <div style="position: fixed">
         <section class="sectionHeadSearch">
             <div class="container-fluid">
                 <div class="row">
@@ -12,7 +12,7 @@
                 </div>
             </div>
         </section>
-    </header>
+    </div>
 </template>
 <style scoped src="@/assets/css/styleFrontend.css"></style>
 <style scoped src="@/assets/css/bootstrap.css"></style>
