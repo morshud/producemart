@@ -600,6 +600,9 @@ header{
     .headerSearchMobile{
         display: block;
     }
+    .mainHeader .desktopAuthDiv{
+        display: none;
+    }
 }
 @media(max-width: 510px){
     .sectionHeadSearch form button{
