@@ -64,11 +64,11 @@
             <a class="navbar-brand lastest" href="/">   
                 <img src="@/assets/img/logo.png">
             </a>
-            <a class="headerSearchMobile" type="button" role="button" @click="toggleMobileDropDown">
+            <!-- <a class="headerSearchMobile" type="button" role="button" @click="toggleMobileDropDown">
               <span style="color: #000;background: #97F29F;padding: 0px 6px;">
                   <i class="bi bi-search" style="font-size: 14px;"></i>
               </span>
-            </a>
+            </a> -->
 
             <button class="navbar-toggler" type="button" @click.prevent="showOffcanvasMenu">
                 <i class="bi bi-text-right"></i>
@@ -104,6 +104,11 @@
                         <li class="nav-item">
                             <router-link to="/blog" class="route-link"><a class="nav-link">Blog</a></router-link>
                         </li>
+                        <li>
+                          <div class="authDiv desktopAuthDiv searchMobile">
+                            <searchInner />
+                          </div>
+                        </li>
                         <div class="dropdown">
                           <a class="" type="button" role="button" @click="toggleDropDown">
                             <a class="nav-link">
@@ -117,6 +122,8 @@
                           </div>
                         </div>
                     </ul>
+
+                    
                    
                     <div class="authDiv desktopAuthDiv ml-3">
                         <div v-if="userLogin == 'buyer'">
@@ -183,9 +190,9 @@
         </div>
         
     </nav>
-    <div v-if="mobiledropdown == true">
+    <!-- <div v-if="mobiledropdown == true">
       <SearchHeader />
-    </div>
+    </div> -->
     
   </header>
 </template>
