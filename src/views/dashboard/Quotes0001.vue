@@ -55,7 +55,6 @@
                     <div class="card-body">
                       <div class="row mb-4">
                         <div class="col-sm-6">
-                          <h6 class="mb-3">From:</h6>
                           <div>
                             <strong
                               >Supplier:
@@ -71,7 +70,6 @@
                           <div>Phone: {{ supplier.phone_no }}</div>
                         </div>
                         <div class="col-sm-6">
-                          <h6 class="mb-3">TO:</h6>
                           <div>
                             <strong
                               >Buyer:
@@ -110,16 +108,16 @@
                               <td class="left strong">{{ product.name }}</td>
                               <td class="left strong">
                                 $
-                                {{ product.package.price }} per
-                                {{ product.package.unit }}
+                                {{ product.package?.price }} per
+                                {{ product.package?.unit }}
                               </td>
                               <td class="right">{{ product.variety }}</td>
                               <td class="right">
-                                {{ product.package.dimension }}
+                                {{ product.package?.dimension }}
                               </td>
                               <td class="right">
-                                {{ product.package.weight
-                                }}{{ product.package.weight_unit }}
+                                {{ product.package?.weight
+                                }}{{ product.package?.weight_unit }}
                               </td>
                               <td class="center">
                                 {{ quote.quantity

@@ -38,7 +38,8 @@
           <!--Main-->
           <div class="col-md-9 white_box editProfileDetail">
             <div class="row">
-              <form @submit.prevent="editProfile">
+              <form @submit.prevent="handleUpdate"
+                enctype="multipart/form-data">
                 <div
                   v-if="message"
                   :class="successful ? 'alert-success' : 'alert-danger'"
@@ -58,13 +59,18 @@
                     <div class="col-lg-12">
                       <h4>Change Profile Picture</h4>
                       <div class="profile-img-area">
-                        <img src="@/assets/img/dashboard-img/default-dp.jpg" />
+                        <img
+                          src="@/assets/img/dashboard-img/default-dp.jpg"
+                          v-if="!image"
+                        />
+                        <img :src="previewImage" v-else-if="previewImage" />
+                        <img :src="image" v-else />
                       </div>
                       <label
                         class="custom-file-upload"
                         title="Upload Profile Picture"
                       >
-                        <input type="file" />
+                        <input type="file" accept="image/*" @change="onFileChange" />
                         <i class="bi bi-upload"></i>
                       </label>
                       <button class="deleteProfilePic" type="submit">
@@ -77,7 +83,7 @@
                       <label>First Name</label>
                     </div>
                     <div class="col-sm-9">
-                      <input name="firstname" type="text" class="input" />
+                      <input type="text" class="input" v-model="firstname" />
                     </div>
                   </div>
                   <div class="row mb-3">
@@ -85,7 +91,7 @@
                       <label>Last Name</label>
                     </div>
                     <div class="col-sm-9">
-                      <input name="lastname" type="text" class="input" />
+                      <input type="text" class="input" v-model="lastname" />
                     </div>
                   </div>
                   <div class="row mb-3">
@@ -93,15 +99,7 @@
                       <label>Phone</label>
                     </div>
                     <div class="col-sm-9">
-                      <input name="phone_no" type="text" class="input" />
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <div class="col-sm-3">
-                      <label>Email</label>
-                    </div>
-                    <div class="col-sm-9">
-                      <input name="email" type="text" class="input" />
+                      <input type="text" class="input" v-model="phone" />
                     </div>
                   </div>
 
@@ -144,6 +142,14 @@ export default {
       message: "",
       successful: false,
       loading: false,
+      user: JSON.parse(localStorage.getItem("user")),
+      firstname: JSON.parse(localStorage.getItem("user")).firstname,
+      lastname: JSON.parse(localStorage.getItem("user")).lastname,
+      phone: JSON.parse(localStorage.getItem("user")).phone_no,
+      company: JSON.parse(localStorage.getItem("user")).company_name,
+      token: JSON.parse(localStorage.getItem("user")).token,
+      image: JSON.parse(localStorage.getItem("user")).img_url,
+      previewImage: ''
     };
   },
 
@@ -153,7 +159,47 @@ export default {
     },
   },
 
-  methods: {},
+  methods: {
+    async handleUpdate() {
+      this.loading = !this.loading;
+      const fd = new FormData();
+      fd.append("image", this.image);
+      fd.append("firstname", this.firstname);
+      fd.append("lastname", this.lastname);
+      fd.append("phone_no", this.phone);
+
+      const res = await fetch(
+        `https://producemart.herokuapp.com/${this.user._id}/update`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: this.token,
+          },
+          body: fd,
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+      {
+        data.data &&
+          localStorage.setItem(
+            "user",
+            JSON.stringify({ ...data.data, token: this.token })
+          );
+      }
+      this.$router.push("/dashboard/profile");
+    },
+    onFileChange(e) {
+      this.image = e.target.files[0];
+      const image = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = e =>{
+          this.previewImage = e.target.result;
+          //console.log(this.previewImage);
+      };
+    },
+  },
   mounted() {
     window.scrollTo(0, 0);
 

@@ -20,7 +20,7 @@
                                 <div class="col-lg-4">
                                     <div class="dashboard_breadcam text-right">
                                         <p>
-                                            <router-link to="/supplier-dashboard/home"><a>Dashboard</a></router-link> <i class="fas fa-caret-right"></i> Cancelled Orders
+                                            <router-link to="/buyer-dashboard/home"><a>Dashboard</a></router-link> <i class="fas fa-caret-right"></i> Cancelled Orders
                                         </p>
                                     </div>
                                 </div>
@@ -56,19 +56,39 @@
                                         <table class="table lms_table_active ">
                                             <thead>
                                             <tr>
+                                                <th scope="col">Order ID</th>
+                                                <th scope="col">Product</th>
                                                 <th scope="col">Date</th>
-                                                <th scope="col">Product Name</th>
-                                                <th scope="col">Ordered Quantity</th>
+                                                <th scope="col">Status</th>
                                                 <th scope="col">Action</th>
+                                                <th scope="col">Rate Order</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody v-for="(item, i) in items" :key='item._id'>
                                             <tr>
-                                                <th scope="row">01-May-2022</th>
-                                                <td>Cocoa - QBL1878</td>
-                                                <td>10 bags</td>
-                                                <td><a href="/supplier-dashboard/view-cancelled-order" class="viewOrder">View Order</a></td>
+                                                <th scope="row">{{item._id}}</th>
+                                                <td>{{item.quote.product.name}}</td>
+                                                <td>{{getDate(item.createdAt)}}</td>
+                                                <td><a class="btn-cancelled">{{item.status}}</a></td>
+                                                <td><router-link :to="'/buyer-dashboard/view-open-order/' + item.quote._id" class="viewOrder">View Order</router-link></td>
+                                                <td><a href="#" class="viewOrder">Your Review</a></td>
                                             </tr>
+                                            <!-- <tr>
+                                                <th scope="row">Q60077</th>
+                                                <td>Cocoa - QBL1878</td>
+                                                <td>01-05-2022</td>
+                                                <td><a class="btn-cancelled">Cancelled</a></td>
+                                                <td><a href="#" class="viewOrder">View Order</a></td>
+                                                <td><a href="/buyer-dashboard/order-review/review" class="viewOrder">Your Review</a></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Q60077</th>
+                                                <td>Cocoa - QBL1878</td>
+                                                <td>01-05-2022</td>
+                                                <td><a class="btn-cancelled">Cancelled</a></td>
+                                                <td><a href="#" class="viewOrder">View Order</a></td>
+                                                <td><a href="/buyer-dashboard/order-review/review" class="viewOrder">Your Review</a></td>
+                                            </tr> -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -91,6 +111,7 @@
     import DashSidebar from './dash-sidebar.vue'
     import DashNavbar from './dash-navbar.vue'
     import DashFooter from './dash-footer.vue'
+    import axios from 'axios'
     export default {
       name: "Produce Mart",
       components:{
@@ -98,9 +119,43 @@
       'dash-navbar': DashNavbar,
       'dash-footer': DashFooter,
       },
+      data(){
+        return{
+            user: JSON.parse(localStorage.getItem('user')) || '',
+            items: '',
+            buyerId: '',
+        }
+      },
+      methods: {
+        getUser(){
+            if (this.user.role == 'supplier'){
+                this.supplierId = this.user._id
+                this.getClosedOrder()
+            }
+        },
+        getDate(value){
+          return new Date(value).toLocaleDateString()
+        },
+        getClosedOrder(){
+            axios.get(`https://producemart.herokuapp.com/getSupplierOrders/${this.supplierId}`, {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: this.user.token,
+                },
+            }).then(res => {
+                //console.log(res.data.data)
+                let response = res.data.data.filter((el) => {
+                    return el.status == 'cancelled'
+                })
+
+                this.items = response
+                //console.log(this.items)
+            })
+        }
+      }, 
       mounted(){
         window.scrollTo(0,0)
-
+        this.getUser()
         let externalScriptCustom = document.createElement('script')
         externalScriptCustom.setAttribute('src', 'https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js')
         document.head.appendChild(externalScriptCustom)

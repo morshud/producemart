@@ -24,7 +24,7 @@
                 <router-link to="/buyer-dashboard/product-request">
                     <a aria-expanded="false">
                         <div class="nav_icon_small">
-                            <img src="@/assets/img/menu-icon/dashboard.png">
+                            <img src="@/assets/img/menu-icon/cart.png">
                         </div>
                         <div class="nav_title">
                             <span>Requested Products</span>
@@ -71,7 +71,7 @@
                 <router-link to="#" class="has-arrow">
                   <a aria-expanded="false">
                     <div class="nav_icon_small">
-                      <img src="@/assets/img/menu-icon/setting.png" />
+                      <img src="@/assets/img/menu-icon/address.png" />
                     </div>
                     <div class="nav_title">
                       <span>Addresses</span>
@@ -166,9 +166,18 @@
         let externalScriptMetisMenu = document.createElement('script')
         let externalScriptCustom = document.createElement('script')
 
-        externalScriptJquery.setAttribute('src', 'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
-        externalScriptMetisMenu.setAttribute('src', 'https://cdn.statically.io/gh/NathTimi/Mart-script/main/metisMenu.js')
-        externalScriptCustom.setAttribute('src', 'https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js')
+    externalScriptJquery.setAttribute(
+      "src",
+      "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    );
+    externalScriptMetisMenu.setAttribute(
+      "src",
+      "https://cdn.statically.io/gh/NathTimi/Mart-script/main/metisMenu.js"
+    );
+    externalScriptCustom.setAttribute(
+      "src",
+      "https://cdn.statically.io/gh/morshud/JsFiles/main/custom.js"
+    );
 
         document.head.appendChild(externalScriptJquery)
         document.head.appendChild(externalScriptMetisMenu)

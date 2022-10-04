@@ -7,7 +7,9 @@
           class="header_iner d-flex justify-content-between align-items-center"
         >
           <!--Hamburger-->
-          <a class="line_icon d-lg-block" style="cursor: pointer" @click.prevent="showMenuDash">
+          <a class="line_icon d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block d-xxl-block" style="cursor: pointer" >
+          </a>
+          <a class="line_icon d-block d-sm-block d-md-none d-lg-none d-xl-none d-xxl-none d-xxl-none" style="cursor: pointer" @click.prevent="showMenuDash">
             <img src="@/assets/img/dashboard-img/line_img.png" />
           </a>
           <nav class="sidebar dark_sidebar" :class="showMenu ? 'showSidebar' : 'showOnlyMobile'" :style="{ visibility: showMenu ? 'left' : '0 !important' }" v-bind="$attrs">
@@ -46,11 +48,11 @@
                 <router-link to="/supplier-dashboard/bid-product" >
                   <a aria-expanded="false">
                     <div class="nav_icon_small">
-                      <img src="@/assets/img/menu-icon/dashboard.png" />
+                      <img src="@/assets/img/menu-icon/bid.png" />
                     </div>
                     <div class="nav_title">
                       <span :class="path == '/supplier-dashboard/bid-product' && 'active-nav'"
-                      >Bid Product</span
+                      >Bids</span
                     >
                     </div>
                   </a>
@@ -249,7 +251,7 @@
                 <router-link to="#" class="has-arrow">
                   <a aria-expanded="false">
                     <div class="nav_icon_small">
-                      <img src="@/assets/img/menu-icon/setting.png" />
+                      <img src="@/assets/img/menu-icon/address.png" />
                     </div>
                     <div class="nav_title">
                       <span>Addresses</span>
@@ -324,7 +326,7 @@
             </ul>
           </nav>
           <!--Search Bar-->
-          <div class="serach_field-area d-flex align-items-center">
+          <!-- <div class="serach_field-area d-flex align-items-center">
             <div class="search_inner">
               <form action="#">
                 <div class="search_field">
@@ -335,7 +337,7 @@
                 </button>
               </form>
             </div>
-          </div>
+          </div> -->
           <div
             class="header_right d-flex justify-content-between align-items-center"
           >
@@ -389,8 +391,8 @@
             </div>
             <!--Profile-->
             <div class="profile_info">
-              <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
-              <img src="@/assets/img/client_img.png" alt="#" v-else />
+              <img class="avatar" :src="user.img_url" alt="#" v-if="user.img_url" /> 
+              <img class="avatar" src="@/assets/img/client_img.png" alt="#" v-else />
               Hi, {{ user.firstname }} <i class="bi bi-caret-down"></i>
               <div class="profile_info_iner">
                 <div class="profile_author_name">
@@ -480,6 +482,7 @@ export default {
       }
     })*/
 
+    
     let externalScriptJquery = document.createElement("script");
     let externalScriptMetisMenu = document.createElement("script");
     let externalScriptCustom = document.createElement("script");
@@ -497,9 +500,9 @@ export default {
       "https://cdn.statically.io/gh/morshud/JsFiles/main/custom.js"
     );
 
-    document.head.appendChild(externalScriptJquery);
-    document.head.appendChild(externalScriptMetisMenu);
-    document.head.appendChild(externalScriptCustom);
+    document.head.appendChild(externalScriptJquery)
+        document.head.appendChild(externalScriptMetisMenu)
+        document.head.appendChild(externalScriptCustom)
   },
 };
 </script>

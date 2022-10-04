@@ -12,7 +12,7 @@
           <div class="loginDiv">
             <div class="headLogin">
               <h3>
-                <router-link to="#">
+                <router-link to="/">
                   <img src="@/assets/img/adminImg/logo.png" />
                 </router-link>
                 <span>Admin Login</span>

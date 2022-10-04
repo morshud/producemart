@@ -34,7 +34,7 @@
 
           <!--Main-->
           <div class="col-md-12">
-            <div class="white_box QA_section mb_30 pd_20" v-if="notifications" style="padding-bottom: 80px;">
+            <div class="white_box QA_section mb_30 pd_20" v-if="notifications.length > 0" style="padding-bottom: 80px;">
               <div class="recentDiv">
                 <h5>10 most recent <i class="bi bi-alarm"></i></h5>
               </div>

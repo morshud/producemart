@@ -3466,7 +3466,13 @@ table.dataTable.dtr-inline.collapsed
   border: 2px solid #000;
   cursor: pointer;
 }
-
+.profile_info img.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  cursor: pointer;
+}
 @media (max-width: 991px) {
   .profile_info img {
     max-width: 30px;
@@ -12170,6 +12176,7 @@ table.lms_table_active3.dataTable thead .sorting_desc::after {
   width: 150px;
   display: block;
   margin: auto;
+  height: 150px;
 }
 
 .custom-card .card-social {

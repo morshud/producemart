@@ -91,7 +91,7 @@
                           <td>{{ product.updatedAt }}</td>
                           <td>
                             <router-link :to="'/products/inner-product/'+ product._id">
-                              https://producemart.phi.vercel.app/products/inner-product/{{product._id}}
+                              https://producemart.ten.vercel.app/products/inner-product/{{product._id}}
                             </router-link>
                           </td>
                           <!-- <td>

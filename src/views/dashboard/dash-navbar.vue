@@ -7,7 +7,9 @@
           class="header_iner d-flex justify-content-between align-items-center"
         >
           <!--Hamburger-->
-          <div class="line_icon d-lg-block" role="button" @click.prevent="showMenuDash">
+          <div type="button" role="button" class="line_icon d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block d-xxl-block">
+          </div>
+          <div type="button" role="button" class="line_icon d-block d-sm-block d-md-none d-lg-none d-xl-none d-xxl-none d-xxl-none" @click.prevent="showMenuDash">
             <img src="@/assets/img/dashboard-img/line_img.png" />
           </div>
           <nav class="sidebar dark_sidebar" :class="showMenu ? 'showSidebar' : 'showOnlyMobile'">
@@ -67,7 +69,7 @@
                 <router-link to="#" class="has-arrow">
                   <a aria-expanded="false">
                     <div class="nav_icon_small">
-                      <img src="@/assets/img/menu-icon/notification.png" />
+                      <img src="@/assets/img/menu-icon/email.png" />
                     </div>
                     <div class="nav_title">
                       <span>Emails</span>
@@ -417,7 +419,7 @@
                 <router-link to="/dashboard/search-result">
                     <a aria-expanded="false">
                         <div class="nav_icon_small">
-                            <img src="@/assets/img/menu-icon/dashboard.png">
+                            <img src="@/assets/img/menu-icon/search.png">
                         </div>
                         <div class="nav_title">
                             <span :class="path == '/dashboard/search-result' && 'active-nav'">Search Result</span>
@@ -487,7 +489,7 @@
                   class="bell_notification_clicker"
                   to="/dashboard/all-notifications"
                 >
-                  <img src="@/assets/img/icon/bell.svg" alt="" />
+                  <img class="avatar" src="@/assets/img/icon/bell.svg" alt="" />
                   <span :class="notifications && 'ifNotification'">{{
                     notifications
                   }}</span>
@@ -603,7 +605,7 @@
                   <router-link to="/admin-dashboard/home">
                     <img src="@/assets/img/menu-icon/dashboard.png" style="border: 0;border-radius: 0;margin-right: 10px;"> Dashboard
                   </router-link>
-                  <router-link to="/admin-dashboard/profile" style="margin-left: -22px;"
+                  <router-link to="/dashboard/profile" style="margin-left: -22px;"
                     ><i style="margin-right: 8px;font-size: 20px;" class="bi bi-person-circle"></i> My Profile</router-link
                   >
                   <a @click.prevent="logOut">

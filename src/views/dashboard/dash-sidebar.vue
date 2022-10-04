@@ -2,12 +2,12 @@
   <!--Side Navbar-->
   <nav class="sidebar dark_sidebar">
     <div class="logo d-flex justify-content-between">
-      <router-link class="large_logo" to="/dashboard/home"
+      <router-link class="large_logo" to="/"
         ><img
           src="@/assets/img/logo.png"
           alt="Produce Mart Logo"
       /></router-link>
-      <router-link class="small_logo" to="/dashboard/home"
+      <router-link class="small_logo" to="/"
         ><img
           src="@/assets/img/main-logo.png"
           alt="Produce Mart Logo"
@@ -54,7 +54,7 @@
         <router-link to="#" class="has-arrow">
           <a aria-expanded="false">
             <div class="nav_icon_small">
-              <img src="@/assets/img/menu-icon/notification.png" />
+              <img src="@/assets/img/menu-icon/email.png" />
             </div>
             <div class="nav_title">
               <span>Emails</span>
@@ -404,7 +404,7 @@
         <router-link to="/dashboard/search-result">
             <a aria-expanded="false">
                 <div class="nav_icon_small">
-                    <img src="@/assets/img/menu-icon/dashboard.png">
+                    <img src="@/assets/img/menu-icon/search.png">
                 </div>
                 <div class="nav_title">
                     <span :class="path == '/dashboard/search-result' && 'active-nav'">Search Result</span>

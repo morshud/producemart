@@ -102,10 +102,19 @@
                       </li>
                       <li id="personal" :class="{active: !order_status}"><strong>Order</strong></li>
                       <li id="payment" :class="{active: summary}"><strong>Shipping</strong></li>
-                      <li id="confirm"><strong>Release Fund</strong></li>
+                      <li id="confirm"><strong>Fund Released</strong></li>
                     </ul>
                     <div class="progress">
                       <div
+                        v-if="summary == true"
+                        class="progress-bar progress-bar-striped progress-bar-animated"
+                        role="progressbar"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        style="width: 85% !important"
+                      ></div>
+                      <div
+                        v-else
                         class="progress-bar progress-bar-striped progress-bar-animated"
                         role="progressbar"
                         aria-valuemin="0"
@@ -234,7 +243,7 @@
                               <img src="@/assets/img/response.png" alt="" srcset="">
                               <h5 style="font-weight: 400;font-size: 16px;">Thanks for Submitting your response, the admin will have a look <br> and get back to you</h5>
                               <div class="col-lg-12 mt-3 text-center">
-                                <button style="width: 26%;font-weight: 600;font-size: 13px;" @click="$router.push('/suplier-dashboard/home')" type="button">Back to Dashboard</button>
+                                <button style="width: 26%;font-weight: 600;font-size: 13px;" @click="$router.push('/supplier-dashboard/home')" type="button">Back to Dashboard</button>
                               </div>
                             </div>
                           </div>
@@ -300,23 +309,35 @@
                                 <table>
                                   <tr>
                                     <td>shipping type:</td>
-                                    <td>sea freight</td>
+                                    <td>{{order.shipment_type}} freight</td>
                                   </tr>
                                   <tr>
                                     <td>Pick up date:</td>
-                                    <td>22-Jan-2022</td>
+                                    <td>
+                                      <span class="alert"
+                                        >Awaiting Response</span
+                                      >
+                                    </td>
                                   </tr>
                                   <tr>
                                     <td>pick up time:</td>
-                                    <td>10:30am</td>
+                                    <td>
+                                      <span class="alert"
+                                        >Awaiting Response</span
+                                      >
+                                    </td>
                                   </tr>
                                   <tr>
                                     <td>Pick up address:</td>
-                                    <td>No 2 Faniyi Street</td>
+                                    <td>
+                                      <span class="alert"
+                                        >Awaiting Response</span
+                                      >
+                                    </td>
                                   </tr>
                                   <tr>
                                     <td>Country:</td>
-                                    <td>Nigeria</td>
+                                    <td>{{order.shipping_address.country}}</td>
                                   </tr>
                                   <tr>
                                     <td>status:</td>
@@ -324,7 +345,7 @@
                                   </tr>
                                   <tr>
                                     <td>Port:</td>
-                                    <td>Apapa Port</td>
+                                    <td>{{order.shipping_address.port}}</td>
                                   </tr>
                                 </table>
                               </div>
@@ -334,30 +355,21 @@
                                 <table>
                                   <tr>
                                     <td>shipping company:</td>
-                                    <td>DHL</td>
+                                    <td>{{order.shipper.companyName}}</td>
                                   </tr>
                                   <tr>
-                                    <td>invoice no:</td>
-                                    <td>II234Q4</td>
+                                    <td>first name:</td>
+                                    <td>{{order.shipper.firstName}}</td>
                                   </tr>
                                   <tr>
-                                    <td>date of invoice:</td>
-                                    <td>22-Jan-2022</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Custom entry no:</td>
-                                    <td>2233457899</td>
-                                  </tr>
-                                  <tr>
-                                    <td>DHL bill of landing no:</td>
-                                    <td>234567</td>
-                                  </tr>
-                                  <tr>
-                                    <td>customer no:</td>
-                                    <td>123456</td>
+                                    <td>last name:</td>
+                                    <td>{{order.shipper.lastName}}</td>
                                   </tr>
                                 </table>
                               </div>
+                            </div>
+                            <div class="col-lg-12 mt-3 text-center">
+                              <button style="width: 26%; font-weight: 600; font-size: 13px;background: #000;color: #fff;border: 0;padding: 7px;" @click="$router.replace('/supplier-dashboard/home')" type="button">Back to Dashboard</button>
                             </div>
                           </div>
                         </div>
@@ -380,7 +392,7 @@
                       <div class="form-card">
                         <div class="row justify-content-center">
                           <div class="col-12 mb-2">
-                            <h2 class="fs-title">Release Funds</h2>
+                            <h2 class="fs-title">Fund Released</h2>
                           </div>
                           <div class="col-lg-12 paymentCom">
                             <div
@@ -407,12 +419,12 @@
                             </div>
                             <div class="row justify-content-center">
                               <!--payment summary-->
-                              <div class="col-lg-5 paymentBox">
+                              <!-- <div class="col-lg-5 paymentBox">
                                 <button class="title">Payment Summary</button>
                                 <table>
                                   <tr>
                                     <td>Product Name:</td>
-                                    <td>Banana</td>
+                                    <td>{{product.name}}</td>
                                   </tr>
                                   <tr>
                                     <td>Quantity Requested:</td>
@@ -435,7 +447,7 @@
                                     </td>
                                   </tr>
                                 </table>
-                              </div>
+                              </div> -->
                               <!--recipients details-->
                               <div class="col-lg-5 paymentBox paymentBoxBorder">
                                 <button class="title">Reviews</button>
@@ -443,8 +455,11 @@
                                   Would you like to leave a review about this
                                   service?
                                 </h6>
-                                <textarea cols="30" rows="3"></textarea>
-                                <button class="submitReview">Submit</button>
+                                <form @submit.prevent="submitReview">
+                                  <textarea cols="30" rows="3" v-model="review"></textarea>
+                                  <button type="submit" class="submitReview">Submit</button>
+                                </form>
+                                
                               </div>
                             </div>
                           </div>
@@ -741,7 +756,8 @@ export default {
         let admin_fee = res.data.data.admin_fee
         this.product = datas.quote.product
         this.quote = datas.quote
-        console.log(question)
+        this.order = res.data.data
+        //console.log(question)
         if (question == true) {
           this.buyerRequest = false;
           this.termsAndConditions = false
