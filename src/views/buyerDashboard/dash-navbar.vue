@@ -1,13 +1,15 @@
 <template>
   <!--Top Navbar-->
-  <div class="container no-gutters">
+  <div class="container-fluid no-gutters">
     <div class="row">
       <div class="col-lg-12 p-0">
         <div
           class="header_iner d-flex justify-content-between align-items-center"
         >
           <!--Hamburger-->
-          <div type="button" role="button" class="line_icon d-lg-block" @click.prevent="showMenuDash">
+          <div type="button" role="button" class="line_icon d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block d-xxl-block">
+          </div>
+          <div type="button" role="button" class="line_icon d-block d-sm-block d-md-none d-lg-none d-xl-none d-xxl-none d-xxl-none" @click.prevent="showMenuDash">
             <img src="@/assets/img/dashboard-img/line_img.png" />
           </div>
           <nav class="sidebar dark_sidebar" :class="showMenu ? 'showSidebar' : 'showOnlyMobile'">
@@ -38,7 +40,7 @@
                     <router-link to="/buyer-dashboard/product-request">
                         <a aria-expanded="false">
                             <div class="nav_icon_small">
-                                <img src="@/assets/img/menu-icon/dashboard.png">
+                                <img src="@/assets/img/menu-icon/cart.png">
                             </div>
                             <div class="nav_title">
                                 <span>Requested Products</span>
@@ -85,7 +87,7 @@
                     <router-link to="#" class="has-arrow">
                       <a aria-expanded="false">
                         <div class="nav_icon_small">
-                          <img src="@/assets/img/menu-icon/setting.png" />
+                          <img src="@/assets/img/menu-icon/address.png" />
                         </div>
                         <div class="nav_title">
                           <span>Addresses</span>
@@ -144,7 +146,7 @@
             </ul>
         </nav>
           <!--Search Bar-->
-          <div class="serach_field-area d-flex align-items-center">
+          <!-- <div class="serach_field-area d-flex align-items-center">
             <div class="search_inner">
               <form action="#">
                 <div class="search_field">
@@ -155,7 +157,7 @@
                 </button>
               </form>
             </div>
-          </div>
+          </div> -->
           <div
             class="header_right d-flex justify-content-between align-items-center"
           >
@@ -260,8 +262,8 @@
             </div>
             <!--Profile-->
             <div class="profile_info">
-              <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
-              <img src="@/assets/img/client_img.png" alt="#" v-else />
+              <img class="avatar" :src="user.img_url" alt="#" v-if="user.img_url" /> 
+              <img class="avatar" src="@/assets/img/client_img.png" alt="#" v-else />
               Hi, {{ user.firstname }} <i class="bi bi-caret-down"></i>
               <div class="profile_info_iner">
                 <div class="profile_author_name">
@@ -319,8 +321,7 @@ export default {
       this.$router.push("/login");
     },
     showMenuDash(){
-      this.showMenu = true;
-      //console.log(this.showMenu)
+      this.showMenu ? this.showMenu = false : this.showMenu = true;
     },
     closeSidbarMenu(){
       this.showMenu = false;

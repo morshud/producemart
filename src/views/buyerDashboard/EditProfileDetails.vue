@@ -51,13 +51,14 @@
                           src="@/assets/img/dashboard-img/default-dp.jpg"
                           v-if="!image"
                         />
+                        <img :src="previewImage" v-else-if="previewImage" />
                         <img :src="image" v-else />
                       </div>
                       <label
                         class="custom-file-upload"
                         title="Upload Profile Picture"
                       >
-                        <input type="file" @change="onFileChange" />
+                        <input type="file" accept="image/*" @change="onFileChange" />
                         <i class="bi bi-upload"></i>
                       </label>
                       <button class="deleteProfilePic" type="submit">
@@ -153,6 +154,7 @@ export default {
       token: JSON.parse(localStorage.getItem("user")).token,
       image: JSON.parse(localStorage.getItem("user")).img_url,
       loading: false,
+      previewImage: ''
     };
   },
   methods: {
@@ -188,6 +190,13 @@ export default {
     },
     onFileChange(e) {
       this.image = e.target.files[0];
+      const image = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = e =>{
+          this.previewImage = e.target.result;
+          //console.log(this.previewImage);
+      };
     },
   },
 };

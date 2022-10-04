@@ -64,7 +64,7 @@
                         </label>
                       </th>
                       <!-- <th scope="col">name</th> -->
-                      <th scope="col">Action</th>
+                      <th scope="col">Description</th>
                       <th scope="col">Content</th>
                       <th scope="col">Last Update</th>
                       <th scope="col">Actions</th>

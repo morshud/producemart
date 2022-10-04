@@ -43,12 +43,12 @@
               <img :src="img" />
             </swiper-slide>
           </swiper>
-          <div class="shareDiv">
+          <div class="shareDiv" style="z-index: 9999;position: relative;">
             <p>Share this product:</p>
             <!-- <a :href="'https://www.facebook.com/sharer/sharer.php?u=/&title='+product.name+'&description='+product.description+'&quote=@q&hashtag=@h'"></a> -->
             <ShareNetwork
                 network="facebook"
-                :url="'https://producemart-phi.vercel.app/products/inner-product/'+product._id"
+                :url="'https://producemart-ten.vercel.app/products/inner-product/'+product._id"
                 :title="product.name"
                 :description="product.description"
                 :quote="product.name"
@@ -58,7 +58,7 @@
             </ShareNetwork>
             <ShareNetwork
                 network="whatsapp"
-                :url="'https://producemart-phi.vercel.app/products/inner-product/'+product._id"
+                :url="'https://producemart-ten.vercel.app/products/inner-product/'+product._id"
                 :title="product.name"
                 :description="product.description"
               >
@@ -67,7 +67,7 @@
             
             <ShareNetwork
               network="twitter"
-              :url="'https://producemart-phi.vercel.app/products/inner-product/'+product._id"
+              :url="'https://producemart-ten.vercel.app/products/inner-product/'+product._id"
               :title="product.name"
               :description="product.description"
               twitter-user="producemart"
@@ -158,8 +158,9 @@
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
+      style="z-index: 9999"
     >
-      <div class="modal-dialog modal-xl">
+      <div class="modal-dialog modal-xl" style="margin-top: 10%;">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Request a Quote</h5>
@@ -1326,6 +1327,7 @@ export default {
         roadAddress: this.roadAdd1 + "," + this.roadAdd2,
         roadCity: this.roadCity,
         roadState: this.roadState,
+        roadIncoterm: this.roadIncoterm,
         roadCountry: this.roadCountry,
         postal_code: this.roadZip,
       };

@@ -36,25 +36,24 @@
               </div>
               <div class="col-lg-1"></div>
               <div class="col-lg-2 mb-2">
-                <select class="input">
-                  <option hidden>Category:</option>
-                  <option>Oil</option>
-                  <option>Fruits</option>
-                  <option>Vegetable</option>
-                  <option>Grains/Beans/Pulses</option>
-                  <option>Nuts/Seeds</option>
-                  <option>Coffee</option>
-                  <option>Flower</option>
-                  <option>Animal Feeds</option>
-                  <option>Others</option>
+                <select class="input" v-model="productCategory">
+                  <option value="">Category:</option>
+                  <option value="vegetable">Vegetable</option>
+                  <option value="fruit">Fruits</option>
+                  <option value="oil">Oil</option>
+                  <option value="grain">Grain</option>
+                  <option value="nut">Nut</option>
+                  <option value="coffee">Coffee</option>
+                  <option value="flower">Flower</option>
+                  <option value="feed">Feed</option>
+                  <option value="others">Others</option>
                 </select>
               </div>
               <div class="col-lg-2 mb-2">
-                <select class="input">
-                  <option hidden>Filter By:</option>
-                  <option>Recently Added</option>
-                  <option>Lowest Price</option>
-                  <option>Highest Price</option>
+                <select class="input" v-model="supplyFrequency">
+                  <option value="">Filter By:</option>
+                  <option value="One-off">One-Off</option>
+                  <option value="Frequent">Frequent</option>
                 </select>
               </div>
             </div>
@@ -126,9 +125,11 @@ export default {
   },
   data() {
     return {
-      products: null,
+      products: [],
       search: "",
+      supplyFrequency: "",
       user: JSON.parse(localStorage.getItem("user")) || '',
+      productCategory: '',
     };
   },
   methods: {
@@ -138,17 +139,50 @@ export default {
       );
       const { data } = await res.json();
 
-      this.products = data.filter((product) => product.status != "incomplete");
+      this.products = data.filter((val) => val.status == "active");;
       //console.log(this.products);
     },
   },
   computed: {
     filteredProducts() {
-      if (this.products) {
-        return this.products.filter((product) =>
-          product.name.toLowerCase().includes(this.search.toLowerCase())
-        );
+      if (this.products.length > 0) {
+        if (this.search != '') {
+          return this.products.filter((product) =>
+            product.name.toLowerCase().includes(this.search.toLowerCase())
+          );
+        }
+        else if (this.search != '' && this.productCategory != '') {
+          return this.products.filter((product) =>
+            product.name.toLowerCase().includes(this.search.toLowerCase())
+          ) && this.products.filter(item => this.productCategory.includes(item.category));
+        }
+        else if (this.search != '' && this.supplyFrequency != '') {
+          return this.products.filter((product) =>
+            product.name.toLowerCase().includes(this.search.toLowerCase())
+          ) && this.products.filter(item => this.supplyFrequency.includes(item.supplyFrequency));
+        }
+        else if (this.productCategory != '' && this.supplyFrequency != '') {
+          return this.products.filter(item => this.productCategory.includes(item.category)) && this.products.filter(item => this.supplyFrequency.includes(item.supplyFrequency));
+        }
+        else if (this.productCategory != '') {
+          return this.products.filter(item => this.productCategory.includes(item.category));
+        }
+        else if (this.supplyFrequency != '') {
+            return this.products.filter(item => this.supplyFrequency.includes(item.supplyFrequency));
+        }
+
+        else if(this.supplyFrequency != '' && this.productCategory != '' && this.search != ''){
+          return this.products.filter((product) =>
+            product.name.toLowerCase().includes(this.search.toLowerCase())
+          ) && this.products.filter(item => this.productCategory.includes(item.category)) && this.products.filter(item => this.supplyFrequency.includes(item.supplyFrequency));
+        }
+        
+        else {
+          return this.products
+        }
+        
       }
+      
     },
   },
 };

@@ -31,37 +31,49 @@
                     <!--Mail Sidebar-->
                     <div class="col-md-9 white_box editProfileDetail">
                         <div class="row">
-                            <form>
+                            <form @submit.prevent="handleChangePassword">
                                 <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <label>Current Password</label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="password" class="input">
-                                    </div>
+                                  <div class="col-sm-3">
+                                    <label>Current Password</label>
+                                  </div>
+                                  <div class="col-sm-9">
+                                    <input type="password" class="input" v-model="password" />
+                                  </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <label>New Password</label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="password" class="input">
-                                    </div>
+                                  <div class="col-sm-3">
+                                    <label>New Password</label>
+                                  </div>
+                                  <div class="col-sm-9">
+                                    <input
+                                      type="password"
+                                      class="input"
+                                      v-model="newPassword"
+                                    />
+                                  </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <label>Re-Enter New Password</label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="password" class="input">
-                                    </div>
+                                  <div class="col-sm-3">
+                                    <label>Re-Enter New Password</label>
+                                  </div>
+                                  <div class="col-sm-9">
+                                    <input
+                                      type="password"
+                                      class="input"
+                                      v-model="confirmPassword"
+                                    />
+                                  </div>
                                 </div>
                                 <div class="row mb-3 mt-2 justify-content-center">
-                                    <div class="col-sm-4">
-                                        <input type="submit" value="Save Changes" class="saveChanges">
-                                    </div>
+                                  <div class="col-sm-4">
+                                    <input
+                                      type="submit"
+                                      value="Save Changes"
+                                      class="saveChanges"
+                                    />
+                                  </div>
                                 </div>
-                            </form>
+                              </form>
                             <div>
 
                             </div>
@@ -81,12 +93,68 @@
     import DashSidebar from './dash-sidebar.vue'
     import DashNavbar from './dash-navbar.vue'
     import DashFooter from './dash-footer.vue'
+    import Swal from 'sweetalert2';
     export default {
       name: "Produce Mart",
       components:{
       'dash-sidebar': DashSidebar,
       'dash-navbar': DashNavbar,
       'dash-footer': DashFooter,
+      },
+      data() {
+        return {
+          password: "",
+          newPassword: "",
+          confirmPassword: "",
+          msg: "",
+          token: JSON.parse(localStorage.getItem("user")).token,
+        };
+      },
+      methods: {
+        async handleChangePassword() {
+          const update = {
+            password: this.password,
+            new_password: this.newPassword,
+            confirm_password: this.confirmPassword,
+          };
+          //console.log(update);
+          const res = await fetch(
+            "https://producemart.herokuapp.com/change-password",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: this.token,
+              },
+              body: JSON.stringify(update),
+            }
+          );
+          const data = await res.json();
+          if (data.status) {
+            let timerInterval
+            Swal.fire({
+              title: 'Password changed successfully',
+              html: 'You will be redirected to login page in 5 seconds.',
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: () => {
+                Swal.showLoading()
+              },
+              willClose: () => {
+                clearInterval(timerInterval)
+              }
+            }).then((result) => {
+              /* Read more about handling dismissals below */
+              if (result.dismiss === Swal.DismissReason.timer) {
+                localStorage.removeItem("user");
+                this.$router.push("/admin/login");
+              }
+            })
+            
+          } else {
+            this.msg = data.message;
+          }
+        },
       },
       mounted(){
         window.scrollTo(0,0)

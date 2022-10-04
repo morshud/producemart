@@ -149,7 +149,7 @@
                 })
 
                 this.items = response
-                console.log(this.items)
+                //console.log(this.items)
             })
         }
       }, 

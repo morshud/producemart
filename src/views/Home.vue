@@ -17,7 +17,7 @@
         <div class="carousel-item active" :style="sliderImage1">
           <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
-              <h1>No 1. Agriculture E-Commerce Platform in Africa</h1>
+              <h1>No 1. Agriculture E-Commerce Platform</h1>
               <router-link to="/request-a-product"
                 ><a>Request a product <i class="bi bi-arrow-right"></i></a
               ></router-link>
@@ -155,11 +155,7 @@
             </div>
             <div class="bodyText">
               <p class="content">
-                <a href="https://www.producemart.com/">Producemart.com</a> is a
-                brand new online B2B marketplace for wholesale agricultural
-                produce and ingredients. It aims to make it simpler than ever to
-                list and source produce at a local, regional or international
-                level.
+                <a href="https://www.producemart.com/">Producemart.com</a> is an online B2B marketplace for wholesale agricultural produce and ingredients. Producemart makes it simpler than ever to list and source produce at a local, regional or international level. Acting as a platform for both suppliers and buyers, Producemart.com allows more efficient connections and assists with overcoming challenges such as language barriers, potential security concerns around engaging with new buyers and suppliers and cross-border purchases. 
               </p>
               <router-link to="/about" class="route-link"
                 ><a class="learnMore"
@@ -301,35 +297,7 @@
                 All Products
               </button>
             </li>
-            <li class="nav-item" role="presentation" v-if="categories[0]">
-              <button
-                class="nav-link tabs-button"
-                id="pills-fruits-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-fruits"
-                type="button"
-                role="tab"
-                aria-controls="pills-fruits"
-                aria-selected="false"
-              >
-                {{ categories[0] }}
-              </button>
-            </li>
-            <li class="nav-item" role="presentation" v-if="categories[1]">
-              <button
-                class="nav-link tabs-button"
-                id="pills-vegetable-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-vegetable"
-                type="button"
-                role="tab"
-                aria-controls="pills-vegetable"
-                aria-selected="false"
-              >
-                {{ categories[1] }}
-              </button>
-            </li>
-            <li class="nav-item" role="presentation" v-if="categories[2]">
+            <li class="nav-item" role="presentation" v-if="firstProductCategory">
               <button
                 class="nav-link tabs-button"
                 id="pills-oil-tab"
@@ -340,7 +308,35 @@
                 aria-controls="pills-oil"
                 aria-selected="false"
               >
-                {{ categories[2] }}
+                Oil
+              </button>
+            </li>
+            <li class="nav-item" role="presentation" v-if="secondProductCategory">
+              <button
+                class="nav-link tabs-button"
+                id="pills-fruits-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-fruits"
+                type="button"
+                role="tab"
+                aria-controls="pills-fruits"
+                aria-selected="false"
+              >
+                Fruits
+              </button>
+            </li>
+            <li class="nav-item" role="presentation" v-if="thirdProductCategory">
+              <button
+                class="nav-link tabs-button"
+                id="pills-vegetable-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-vegetable"
+                type="button"
+                role="tab"
+                aria-controls="pills-vegetable"
+                aria-selected="false"
+              >
+                Vegetable
               </button>
             </li>
           </ul>
@@ -385,7 +381,7 @@
                       <h5>{{ product.name }}</h5>
                       <p>
                         {{ product.package.price }} per
-                        {{ product.package.weight }}{{ product.package.unit }}
+                        {{ product.package.weight }}{{ product.package.weight_unit }}
                       </p>
                       <router-link
                         :to="'/products/inner-product/' + product._id"
@@ -406,11 +402,11 @@
 
             <div
               class="tab-pane fade"
-              id="pills-fruits"
+              id="pills-oil"
               role="tabpanel"
-              aria-labelledby="pills-fruits-tab"
+              aria-labelledby="pills-oil-tab"
             >
-              <div class="container contProduct" v-if="firstProductCategory">
+              <div class="container contProduct" v-if="firstProductCategory.length > 0">
                 <div class="row">
                   <div
                     class="itemProduct"
@@ -426,7 +422,7 @@
                       <h5>{{ product.name }}</h5>
                       <p>
                         {{ product.package.price }} per
-                        {{ product.package.weight }}{{ product.package.unit }}
+                        {{ product.package.weight }}{{ product.package.weight_unit }}
                       </p>
                       <router-link
                         :to="'/products/inner-product/' + product._id"
@@ -444,17 +440,17 @@
                 </div>
               </div>
               <div class="container contProd" v-else>
-                <p>No product in the category Fruit.</p>
+                <p style="text-align: center">There's no data yet in this category.</p>
               </div>
             </div>
 
             <div
               class="tab-pane fade"
-              id="pills-vegetable"
+              id="pills-fruits"
               role="tabpanel"
-              aria-labelledby="pills-vegetable-tab"
+              aria-labelledby="pills-fruits-tab"
             >
-              <div class="container contProduct" v-if="secondProductCategory">
+              <div class="container contProduct" v-if="secondProductCategory.length > 0">
                 <div class="row">
                   <div
                     class="itemProduct"
@@ -470,7 +466,7 @@
                       <h5>{{ product.name }}</h5>
                       <p>
                         {{ product.package.price }} per
-                        {{ product.package.weight }}{{ product.package.unit }}
+                        {{ product.package.weight }}{{ product.package.weight_unit }}
                       </p>
                       <router-link
                         :to="'/products/inner-product/' + product._id"
@@ -488,17 +484,17 @@
                 </div>
               </div>
               <div class="container contProd" v-else>
-                <p>No product in the category Vegetable.</p>
+                <p style="text-align: center">There's no data yet in this category.</p>
               </div>
             </div>
 
             <div
               class="tab-pane fade"
-              id="pills-oil"
+              id="pills-vegetable"
               role="tabpanel"
-              aria-labelledby="pills-oil-tab"
+              aria-labelledby="pills-vegetable-tab"
             >
-              <div class="container contProduct" v-if="thirdProductCategory">
+              <div class="container contProduct" v-if="thirdProductCategory.length > 0">
                 <div class="row">
                   <div
                     class="itemProduct"
@@ -514,7 +510,8 @@
                       <h5>{{ product.name }}</h5>
                       <p>
                         {{ product.package.price }} per
-                        {{ product.package.weight }}{{ product.package.unit }}
+                        {{ product.package.weight
+                      }}{{ product.package.weight_unit }}
                       </p>
                       <router-link
                         :to="'/products/inner-product/' + product._id"
@@ -532,7 +529,7 @@
                 </div>
               </div>
               <div class="container contProd" v-else>
-                <p>No product in the category Vegetable.</p>
+                <p style="text-align: center">There's no data yet in this category.</p>
               </div>
             </div>
           </div>
@@ -731,10 +728,10 @@ export default {
       sliderImage3: {
         backgroundImage: `url(${require("@/assets/img/sliderImg3.jpg")})`,
       },
-      products: null,
-      firstProductCategory: null,
-      secondProductCategory: null,
-      thirdProductCategory: null,
+      products: [],
+      firstProductCategory: [],
+      secondProductCategory: [],
+      thirdProductCategory: [],
       categories: [],
     };
   },
@@ -754,18 +751,19 @@ export default {
         if (prod.category != this.categories[this.categories.length])
           this.categories.push(prod.category);
       });
-      //console.log(this.categories[0]);
 
       this.firstProductCategory = this.products.filter(
-        (prd) => prd.category == this.categories[0]
+        (prd) => prd.category == 'oil'
       );
       //console.log(this.firstProductCategory);
       this.secondProductCategory = this.products.filter(
-        (prd) => prd.category == this.categories[1]
+        (prd) => prd.category == 'fruit'
       );
+      //console.log(this.secondProductCategory);
       this.thirdProductCategory = this.products.filter(
-        (prd) => prd.category == this.categories[2]
+        (prd) => prd.category == 'vegetable'
       );
+      //console.log(this.thirdProductCategory);
       //console.log(this.products);
 
       // this.products = data;

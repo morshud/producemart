@@ -1355,15 +1355,15 @@
                           type="file"
                           ref="inputFile"
                           name="contact_image_1"
-                          accept=".jpg, .jpeg, .png, .webp"
+                          accept="image/*"
                           @change="onFieldChange(1)"
                         />
                       </div>
                     </div>
                   </div>
                   <small class="uploadSmallPicture"
-                    >(accepted image format: jpeg, jpg, png, webp. Max file
-                    size: 200kb)</small
+                    ><!-- (accepted image format: jpeg, jpg, png, webp. Max file
+                    size: 200kb) --></small
                   >
                   <button
                     class="removeImgBtn"
@@ -1401,7 +1401,7 @@
                           type="file"
                           ref="items"
                           name="contact_image_1"
-                          accept=".jpg, .jpeg, .png, .webp"
+                          accept="image/*"
                           @change="onFieldChange(newImg + 1)"
                         />
                       </div>
@@ -2639,7 +2639,7 @@ export default {
       this.imgSizeMsg = "";
       this.image[n] = event.target.files[0];
       // console.log(this.image[n].size);
-      if (this.image[n].size < 250000) {
+      if (this.image[n].size < 200000) {
         this.displayImg[n - 1] = URL.createObjectURL(this.image[n]);
       } else {
         this.imgSizeMsg =

@@ -63,13 +63,13 @@
                     </span>
                     <span
                       class="titleNotify"
-                      @click="goToPage(notification.type)"
+                      @click="goToPage(notification.type, notification.typeId)"
                     >
                       <a class="firstTxt">{{ notification.type }}</a>
                       <a class="statusTxt" v-if="!notification.read">NEW</a>
                     </span>
                   </div>
-                  <div class="col-md-8" @click="goToPage(notification.type)">
+                  <div class="col-md-8" @click="goToPage(notification.type, notification.typeId)">
                     <span class="detailNotify">
                       <a class="mainTxt">{{ notification.message }}</a>
                       <a class="timeTxt">{{
@@ -219,14 +219,10 @@ export default {
         return month[d.getMonth()] + " " + d.getDay();
       }
     },
-    goToPage(page) {
-      /*if (page == "quote") {
-        this.$router.push("/dashboard/view-quotes");
-      } else if (page == "product upload") {
-        this.$router.push("/dashboard/pending-products");
-      } else if (page == "active product") {
-        this.$router.push("/dashboard/active-products");
-      }*/
+    goToPage(page, id) {
+      if (page == "order request") {
+        this.$router.push("/buyer-dashboard/view-open-order/"+id);
+      } 
     },
   },
 };

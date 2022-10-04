@@ -99,6 +99,7 @@
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
+import Swal from 'sweetalert2';
 export default {
   name: "Produce Mart",
   components: {
@@ -141,8 +142,26 @@ export default {
       );
       const data = await res.json();
       if (data.status) {
-        localStorage.removeItem("user");
-        this.$router.push("/login");
+        let timerInterval
+        Swal.fire({
+          title: 'Password changed successfully',
+          html: 'You will be redirected to login page in 5 seconds.',
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading()
+          },
+          willClose: () => {
+            clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            localStorage.removeItem("user");
+            this.$router.push("/login");
+          }
+        })
+        
       } else {
         this.msg = data.message;
       }

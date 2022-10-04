@@ -383,10 +383,10 @@
                             <div v-if="!delivered && order.payment_refund == false">
                               <div class="row">
                                 <div class="col d-grid gap-2">
-                                  <button class="btn btn-outline-dark" @click="releaseFund()" type="button">Release Fund</button>
+                                  <button class="btn btn-outline-dark" :disabled="payment_released" @click="releaseFund()" type="button">Release Fund</button>
                                 </div>
                                 <div class="col d-grid gap-2">
-                                  <button class="btn btn-mart" @click="releaseShipperBalance()" type="button">Release Shipper Balance</button>
+                                  <button class="btn btn-mart" :disabled="shipper_balance_released" @click="releaseShipperBalance()" type="button">Release Shipper Balance</button>
                                 </div>
                               </div>
                             </div>
@@ -556,6 +556,8 @@ export default {
       hold_product: '',
       pay_inspection: '',
       product_available: '',
+      payment_released: false,
+      shipper_balance_released: false,
       pay_admin:'',
       available_no: '',
       product: {
@@ -564,6 +566,7 @@ export default {
       },
       quote: [],
       hasSupply: '',
+      disabled: false
     };
   },
   computed:{
@@ -624,7 +627,7 @@ export default {
         confirmButtonText: 'Yes, Proceed!'
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.get(`https://producemart.herokuapp.com/releaseSupplierFund/${this.orderId}`, {
+          axios.get(`https://producemart.herokuapp.com/releaseShipperBalance/${this.orderId}`, {
             headers: {
               Authorization: this.token,
             },
@@ -651,7 +654,7 @@ export default {
         confirmButtonText: 'Yes, Proceed!'
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.get(`https://producemart.herokuapp.com/refundBuyerFund/${this.orderId}`, {
+          axios.get(`https://producemart.herokuapp.com/releaseSupplierFund/${this.orderId}`, {
             headers: {
               Authorization: this.token,
             },
@@ -706,7 +709,15 @@ export default {
         this.product = datas.quote.product
         this.quote = datas.quote
         let product_delivered = datas.product_delivered
-        this.order = datas/*
+        this.order = datas
+        if (res.data.data.payment_released == true) {
+          this.payment_released = true
+        }
+        if (res.data.data.shipper_balance_released == true) {
+          this.shipper_balance_released = true
+        }
+
+        /*
         if (question == true) {
           this.buyerRequest = false;
           this.termsAndConditions = false

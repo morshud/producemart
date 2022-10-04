@@ -34,7 +34,7 @@
 
           <!--Main-->
           <div class="col-md-12">
-            <div class="white_box QA_section mb_30" v-if="notifications">
+            <div class="white_box QA_section mb_30" v-if="notifications.length >= 1">
               <div class="recentDiv">
                 <h5>10 most recent <i class="bi bi-alarm"></i></h5>
               </div>
@@ -82,23 +82,15 @@
                   </div>
                 </div>
               </div>
+              <div class="recentDiv">
+                <p style="float: right;margin-top: 20px;"> 
+                  <button @click="prevPage" style="background: #97f29f;border: 0;padding: 5px 30px; margin-right: 25px;">Previous</button> 
+                  <button @click="nextPage" style="background: #97f29f;border: 0;padding: 5px 41px;">Next</button>
+                </p>
+              </div>
             </div>
+            
           </div>
-          <nav aria-label="Page navigation example" class="m-2">
-            <ul class="pagination justify-content-end">
-              <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
-                  >Previous</a
-                >
-              </li>
-              <li class="page-item" v-for="(a, i) in arr" :key="a">
-                <a class="page-link" href="#" @click="pos = i">{{ i + 1 }}</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-              </li>
-            </ul>
-          </nav>
         </div>
       </div>
     </div>

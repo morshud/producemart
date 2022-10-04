@@ -31,8 +31,9 @@
             <!-- Modal -->
             <div class="modal fade" ref="requestProduct"
                     data-bs-backdrop="static"
-                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="requestProductLabel" aria-hidden="true">
-              <div class="modal-dialog modal-lg">
+                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="requestProductLabel" aria-hidden="true"
+                    style="z-index: 9999;">
+              <div class="modal-dialog modal-lg" style="margin-top: 10%;">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title">Request a Product Form</h5>
@@ -58,13 +59,13 @@
 
                                 <div class="col-lg-6 mb-4">
                                   <label>Quantity</label>
-                                  <input required v-model="quantity" type="number" placeholder="Enter your product variety" class="input">
+                                  <input required v-model="quantity" type="number" placeholder="Enter your product quantity" class="input">
                                 </div>
                                 <!--Weight-->
                                 <div class="col-lg-6 mb-4">
                                   <label>Weight</label>
                                   <select required v-model="weight" class="input">
-                                    <option hidden>Specify Weight</option>
+                                    <option value="" disabled>Specify Weight</option>
                                     <option>Kilogram (KG)</option>
                                     <option>LB</option>
                                     <option>ton</option>
@@ -85,7 +86,7 @@
                                 <div class="col-lg-6 mb-4">
                                   <label>Category</label>
                                   <select required v-model="productCategory" class="input">
-                                    <option hidden>Choose Category</option>
+                                    <option value="" disabled>Choose Category</option>
                                     <option value="vegetable">Vegetable</option>
                                     <option value="fruit">Fruits</option>
                                     <option value="oil">Oil</option>
@@ -101,7 +102,7 @@
                                 <div class="col-lg-6 mb-4">
                                   <label>Supply Frequency</label>
                                   <select required v-model="supplyFrequency" class="input">
-                                    <option hidden>Select Supply Frequency</option>
+                                    <option value="" disabled>Select Supply Frequency</option>
                                     <option value="One-off">One-off</option>
                                     <option value="Frequent">Frequent</option>
                                   </select>
@@ -898,7 +899,7 @@
           country_of_origin: '',
           addSpec: '',
           statusMessage: false,
-          modal: null,
+          modal: '',
           filtersAppied: [],
           size: 3,
           current_page: 1,

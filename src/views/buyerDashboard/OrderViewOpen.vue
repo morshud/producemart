@@ -201,16 +201,25 @@
                       <li class="active" id="account">
                         <strong>Quote</strong>
                       </li>
-                      <li id="personal" :class="{active: shipping_summary}"><strong>Order</strong></li>
+                      <li id="personal" :class="{active: orderClass}"><strong>Order</strong></li>
                       <li id="payment" :class="{active: shipping_summary}"><strong>Shipping</strong></li>
-                      <li id="confirm"><strong>Release Fund</strong></li>
+                      <li id="confirm"><strong>Order Received</strong></li>
                     </ul>
                     <div class="progress">
                       <div
                         class="progress-bar progress-bar-striped progress-bar-animated"
+                        v-if="shipping_summary == true"
                         role="progressbar"
                         aria-valuemin="0"
-                        aria-valuemax="100"
+                        aria-valuemax="1000"
+                        style="width: 80% !important"
+                      ></div>
+                      <div
+                        class="progress-bar progress-bar-striped progress-bar-animated"
+                        v-else
+                        role="progressbar"
+                        aria-valuemin="0"
+                        aria-valuemax="1000"
                       ></div>
                     </div>
 
@@ -646,7 +655,7 @@
                                   </tr>
                                   <tr>
                                     <td>Serive charge:</td>
-                                    <td>${{order.estimate.fee}}</td>
+                                    <td>${{order.estimate.fee.toFixed(2)}}</td>
                                   </tr>
                                   <!-- <tr>
                                     <td>processing fee:</td>
@@ -676,7 +685,7 @@
                                   </tr>
                                   <tr>
                                     <td>service charge:</td>
-                                    <td>${{order.estimate.fee}}</td>
+                                    <td>${{order.estimate.fee.toFixed(2)}}</td>
                                   </tr>
                                   <tr>
                                     <td>Total payment:</td>
@@ -954,6 +963,7 @@ export default {
       shipment_type: false,
       quote_type: true,
       shipping_summary: false,
+      orderClass: false,
     }
   },
   computed: {
@@ -977,7 +987,38 @@ export default {
 
       setProgressBar(current);
 
-      $(".next").click(function () {
+      $(".proceedBtn").click(function () {
+        current_fs = $(this).parent();
+        next_fs = $(this).parent().next();
+
+        //Add Class Active
+        $("#progressbar li")
+          .eq($("fieldset").index(next_fs))
+          .addClass("active");
+
+        //show the next fieldset
+        next_fs.show();
+        //hide the current fieldset with style
+        current_fs.animate(
+          { opacity: 0 },
+          {
+            step: function (now) {
+              // for making fielset appear animation
+              opacity = 1 - now;
+
+              current_fs.css({
+                display: "none",
+                position: "relative",
+              });
+              next_fs.css({ opacity: opacity });
+            },
+            duration: 500,
+          }
+        );
+        setProgressBar(++current);
+      });
+
+      $(".btnFirst").click(function () {
         current_fs = $(this).parent();
         next_fs = $(this).parent().next();
 
@@ -1110,7 +1151,7 @@ export default {
         let type = res.data.data.shipment_type
         //console.log(type)
         let escrowpay = res.data.data.escrow_paid
-        this.product = datas.quote.product
+        this.product = res.data.data.quote.product
         this.destination = datas.quote.destination
         let destination = datas.quote.destination
         if (destination.road.state == '') {
@@ -1132,6 +1173,10 @@ export default {
           this.shipment_type = false
           this.quote_type = false
           this.shipping_summary = true
+          this.orderClass = true
+          $(document).ready(function () {
+            $('.progress-bar').css('width', '85% !important')
+          })
         }
         this.quote = datas.quote
       })

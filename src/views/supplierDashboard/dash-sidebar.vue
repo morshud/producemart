@@ -33,11 +33,11 @@
         <router-link to="/supplier-dashboard/bid-product" >
           <a aria-expanded="false">
             <div class="nav_icon_small">
-              <img src="@/assets/img/menu-icon/dashboard.png" />
+              <img src="@/assets/img/menu-icon/bid.png" />
             </div>
             <div class="nav_title">
               <span :class="path == '/supplier-dashboard/bid-product' && 'active-nav'"
-              >Bid Product</span
+              >Bids</span
             >
             </div>
           </a>
@@ -236,7 +236,7 @@
         <router-link to="#" class="has-arrow">
           <a aria-expanded="false">
             <div class="nav_icon_small">
-              <img src="@/assets/img/menu-icon/setting.png" />
+              <img src="@/assets/img/menu-icon/address.png" />
             </div>
             <div class="nav_title">
               <span>Addresses</span>
@@ -353,7 +353,9 @@ export default {
       "https://cdn.statically.io/gh/morshud/JsFiles/main/custom.js"
     );
 
-    document.head.appendChild(externalScriptJquery);
+    document.head.appendChild(externalScriptJquery)
+        document.head.appendChild(externalScriptMetisMenu)
+        document.head.appendChild(externalScriptCustom)
   },
   data() {
     return {
