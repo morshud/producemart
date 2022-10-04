@@ -74,10 +74,10 @@
                                                 <td>{{getDate(item.createdAt)}}</td>
                                                 <td>{{item.status}}</td>
                                                 <td><router-link :to="'/dashboard/view-buyer-content/'+item.buyer._id">{{item.buyer.username}}</router-link></td>
-                                                <td><router-link :to="'/dashboard/view-supplier-content/'+item.supplier._id">{{item.supplier.username}}</router-link></td>
+                                                <td><router-link :to="'/dashboard/view-supplier-content/'+item.supplier._id">{{item.supplier?.username}}</router-link></td>
                                                 <td style="text-transform: capitalize">{{item.shipment_type}}</td>
                                                 <!-- <td>{{item.shipping_address.country ?? ''}}</td> -->
-                                                <td>{{item.shipper.companyName}}</td>
+                                                <td>{{item.shipper?.companyName}}</td>
                                                 <!-- <td>{{item.estimate.shipping_price}}</td> -->
                                                 <td>{{item.estimate.total_price}}</td>
                                                 <td>

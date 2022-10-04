@@ -34,7 +34,7 @@
           <!--Mail Sidebar-->
           <div class="col-md-9 white_box editProfileDetail">
             <div class="row">
-              <form>
+              <form @submit.prevent="handleChangePassword">
                 <div class="row mb-3">
                   <div class="col-sm-3">
                     <label>Current Password</label>
@@ -94,6 +94,7 @@
 import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
+import Swal from 'sweetalert2';
 export default {
   name: "Produce Mart",
   components: {
@@ -122,7 +123,7 @@ export default {
         new_password: this.newPassword,
         confirm_password: this.confirmPassword,
       };
-      console.log(update);
+      //console.log(update);
       const res = await fetch(
         "https://producemart.herokuapp.com/change-password",
         {
@@ -136,8 +137,26 @@ export default {
       );
       const data = await res.json();
       if (data.status) {
-        localStorage.removeItem("user");
-        this.$router.push("/login");
+        let timerInterval
+        Swal.fire({
+          title: 'Password changed successfully',
+          html: 'You will be redirected to login page in 5 seconds.',
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading()
+          },
+          willClose: () => {
+            clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            localStorage.removeItem("user");
+            this.$router.push("/login");
+          }
+        })
+        
       } else {
         this.msg = data.message;
       }

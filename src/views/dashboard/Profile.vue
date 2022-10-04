@@ -49,20 +49,6 @@
 
                   <h6>{{ admin.company }}</h6>
                 </div>
-                <div class="card-footer row mt-3">
-                  <div class="col-4 col-sm-4">
-                    <h6>Buyers</h6>
-                    <h3>35,000</h3>
-                  </div>
-                  <div class="col-4 col-sm-4">
-                    <h6>Suppliers</h6>
-                    <h3>40,000</h3>
-                  </div>
-                  <div class="col-4 col-sm-4">
-                    <h6>Inspectors</h6>
-                    <h3>25,000</h3>
-                  </div>
-                </div>
               </div>
 
               <div class="col-sm-12 mt-4">
