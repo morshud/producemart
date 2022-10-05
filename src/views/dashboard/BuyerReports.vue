@@ -47,53 +47,77 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="fileDownloadOption mb-3">
+                                    <!-- <div class="fileDownloadOption mb-3">
                                         <button type="button" title="Download as CSV file">CSV</button>
                                         <button type="button" title="Download as PDF file">PDF</button>
-                                    </div>
+                                    </div> -->
                                     <div class="QA_table mb_30">
-                                        <table class="table lms_table_active ">
-                                            <thead>
+                                        <table class="table lms_table_active">
+                                          <thead>
                                             <tr>
-                                                <th scope="col">First Name</th>
-                                                <th scope="col">Last Name</th>
-                                                <th scope="col">Username</th>
-                                                <th scope="col">Email</th>
-                                                <th scope="col">Date Account<br>Creation</th>
-                                                <th scope="col">Country of <br> Location</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Link</th>
+                                              <th scope="col">#</th>
+                                              <th scope="col">First Name</th>
+                                              <th scope="col">Last Name</th>
+                                              <th scope="col">Username</th>
+                                              <th scope="col">Email</th>
+                                              <th scope="col">Company<br />Name</th>
+                                              <!-- <th scope="col">Address</th>
+                                              <th scope="col">Date Account<br />Creation</th> -->
+                                              <!-- <th scope="col">Last Order Date</th>
+                                              <th scope="col">View Quotes</th>
+                                              <th scope="col">View Orders</th> -->
+                                              <th scope="col">Status</th>
+                                              <th scope="col">Action</th>
                                             </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row">Samson</th>
-                                                <td>Henry</td>
-                                                <td>Samson1122</td>
-                                                <td>myemail@email.com</td>
-                                                <td>2022-04-01</td>
-                                                <td>Nigeria</td>
-                                                <td><a href="#" class="status_btn">Verified</a></td>
-                                                <td>
-                                                    <router-link to="/dashboard/buyer001"><button class="status_view">View More</button></router-link>
+                                          </thead>
+                                          <tbody>
+                                            <tr v-for="(user, i) in users" :key="i">
+                                              <th scope="row">
+                                                {{ i + 1 }}
+                                              </th>
+                                              <td>{{ user.firstname }}</td>
+                                              <td>{{ user.lastname }}</td>
+                                              <td>{{ user.username }}</td>
+                                              <td>{{ user.email }}</td>
+                                              <td>{{ user.company_name }}</td>
+                                              <!-- <td>{{ user.createdAt }}</td>
+                                              <td>{{ user.updatedAt }}</td> -->
+                                              <td>
+                                                <a v-if="user.status == 'active'" href="#" class="status_btn">{{user.status}}</a>
+                                                <a v-if="user.status == 'disabled'" style="background: red" href="#" class="status_btn">{{user.status}}</a>
+                                                <a v-if="user.status == 'incomplete'" style="background: #000" href="#" class="status_btn">{{user.status}}</a>
                                                 </td>
+                                              <!-- <td>
+                                                <div class="action_btns d-flex">
+                                                  <a href="#" title="Edit" class="action_btn mr_10">
+                                                    <i class="far fa-edit"></i>
+                                                  </a>
+                                                  <a href="#" title="Delete" class="action_btn">
+                                                    <i class="fas fa-trash"></i>
+                                                  </a>
+                                                </div>
+                                              </td>
+                                              <td><a href="#">productID100</a></td> -->
+                                              <td>
+                                                <!-- <div class="action_btns d-flex">
+                                                  <router-link to="/dashboard/edit-buyer-content"
+                                                    ><a title="Edit" class="action_btn mr_10">
+                                                      <i class="far fa-edit"></i> </a
+                                                  ></router-link>
+                                                  <a href="#" title="Delete" class="action_btn">
+                                                    <i class="fas fa-trash"></i>
+                                                  </a>
+                                                </div> -->
+                                                <div class="action_btns d-flex justify-content-center">
+                                                  <router-link :to="'/dashboard/buyerReportDetails/'+user._id" title="View Buyer" class="action_btn mr_10">
+                                                    <i class="far fa-eye"></i>
+                                                  </router-link>
+                                                </div>
+                                              </td>
                                             </tr>
-                                            </tbody>
+                                          </tbody>
                                         </table>
-                                        <nav aria-label="Page navigation example" class="m-2">
-                                            <ul class="pagination justify-content-end">
-                                                <li class="page-item disabled">
-                                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                                </li>
-                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item">
-                                                <a class="page-link" href="#">Next</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
+                                      </div>
                                 </div>
                             </div>
                         </div>
@@ -118,6 +142,33 @@
       'dash-sidebar': DashSidebar,
       'dash-navbar': DashNavbar,
       'dash-footer': DashFooter,
+      },
+      data() {
+        return {
+          users: null,
+          token: JSON.parse(localStorage.getItem("user")).token,
+        };
+      },
+      created(){
+        this.fetchbuyers()
+      },
+      methods: {
+        async fetchbuyers() {
+          this.users = null;
+          const res = await fetch(
+            "https://producemart.herokuapp.com/getUsersByRole?role=buyer",
+            {
+              method: "GET",
+              headers: {
+                Authorization: this.token,
+              },
+            }
+          );
+          const { data } = await res.json();
+
+          this.users = data;
+          //console.log("users", this.users);
+        },
       },
       mounted(){
         window.scrollTo(0,0)

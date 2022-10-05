@@ -32,7 +32,7 @@
                     <div class="col-md-12">
                         <div class="row justify-content-end">
                             <div class="col-lg-4 mb-3">
-                                <form class="filterSearchDate">
+                                <!-- <form class="filterSearchDate">
                                     <div class="row">
                                         <div class="col-lg-12 text-right mb-1">
                                             <h5>Filter by Date</h5>
@@ -46,36 +46,36 @@
                                             <input type="date" class="input" min="2022-01-01" value="2022-03-20">
                                         </div>
                                     </div>
-                                </form>
+                                </form> -->
                             </div>
                             <!--Top 4 Boxes-->
                             <div class="col-xl-12">
                                 <div class="white_card card_height_100 mb_30 user_crm_wrapper">
                                     <div class="row reportsRow">
-                                        <div class="col-lg-6">
+                                        <!-- <div class="col-lg-6">
                                             <div class="crm_box">
                                                 <h4>20,000</h4>
                                                 <p>Online Users</p>
                                                 <img src="@/assets/img/dashboard-img/dash-seller.png" ondragstart="return false;">
                                             </div>
-                                        </div>
-                                        <div class="col-lg-6">
+                                        </div> -->
+                                        <div class="col-lg-6 offset-3">
                                             <div class="crm_box">
-                                                <h4>55,000</h4>
+                                                <h4>{{totalUser}}</h4>
                                                 <p>Total Users</p>
                                                 <img src="@/assets/img/dashboard-img/dash-seller.png" ondragstart="return false;">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="crm_box">
-                                                <h4>100,000</h4>
+                                                <h4>{{activeBuyer}}</h4>
                                                 <p>Active Buyers</p>
                                                 <img src="@/assets/img/dashboard-img/dash-seller.png" ondragstart="return false;">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="crm_box">
-                                                <h4>120,000</h4>
+                                                <h4>{{activeSupplier}}</h4>
                                                 <p>Active Suppliers</p>
                                                 <img src="@/assets/img/dashboard-img/dash-seller.png" ondragstart="return false;">
                                             </div>
@@ -106,9 +106,37 @@
       'dash-navbar': DashNavbar,
       'dash-footer': DashFooter,
       },
+      data(){
+        return{
+            totalUser: 0,
+            activeBuyer: 0,
+            activeSupplier: 0,
+            user: JSON.parse(localStorage.getItem("user")),
+        }
+      },
+      methods: {
+        async getUsers() {
+        //this.inspectors = null;
+          const res = await fetch(
+            "https://producemart.herokuapp.com/getAllUsers",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "applicaiton/json"
+              },
+            }
+          );
+          const { data } = await res.json();
+          this.totalUser = data.length;
+          const activeBuyer = data.filter((item) => item.status == 'active' && item.role == 'buyer')
+          this.activeBuyer = activeBuyer.length
+          const activeSupplier = data.filter((item) => item.status == 'active' && item.role == 'supplier')
+          this.activeSupplier = activeSupplier.length
+        },
+      },
       mounted(){
         window.scrollTo(0,0)
-
+        this.getUsers()
         let externalScriptCustom = document.createElement('script')
         externalScriptCustom.setAttribute('src', 'https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js')
         document.head.appendChild(externalScriptCustom)

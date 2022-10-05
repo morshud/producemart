@@ -47,10 +47,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="fileDownloadOption mb-3">
+                                    <!-- <div class="fileDownloadOption mb-3">
                                         <button type="button" title="Download as CSV file">CSV</button>
                                         <button type="button" title="Download as PDF file">PDF</button>
-                                    </div>
+                                    </div> -->
                                     <div class="QA_table mb_30">
                                         <table class="table lms_table_active ">
                                             <thead>
@@ -60,10 +60,8 @@
                                                 <th scope="col">Username</th>
                                                 <th scope="col">Company Name</th>
                                                 <th scope="col">Email</th>
-                                                <th scope="col">Phone No.</th>
-                                                <th scope="col">Date Account<br>Creation</th>
                                                 <th scope="col">Status</th>
-                                                <th scope="col">Link</th>
+                                                <th scope="col">Action</th>
                                             </tr>
                                             </thead>
                                             <tbody v-for="(item, i) in report" :key="item._id">
@@ -73,16 +71,14 @@
                                                 <td>{{item.username}}</td>
                                                 <td>{{item.company_name}}</td>
                                                 <td>{{item.email}}</td>
-                                                <td>{{item.phone_no}}</td>
-                                                <td>{{getDate(item.createdAt)}}</td>
                                                 <td><a href="#" class="status_btn">Verified</a></td>
                                                 <td>
-                                                    <router-link :to="'/dashboard/supplierReportDetails/'+item._id"><button class="status_view">View More</button></router-link>
+                                                    <router-link :to="'/dashboard/supplierReportDetails/'+item._id"><button class="status_view">View</button></router-link>
                                                 </td>
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <nav aria-label="Page navigation example" class="m-2">
+                                        <!-- <nav aria-label="Page navigation example" class="m-2">
                                             <ul class="pagination justify-content-end">
                                                 <li class="page-item disabled">
                                                     <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -94,7 +90,7 @@
                                                 <a class="page-link" href="#">Next</a>
                                                 </li>
                                             </ul>
-                                        </nav>
+                                        </nav> -->
                                     </div>
                                 </div>
                             </div>
