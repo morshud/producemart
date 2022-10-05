@@ -31,7 +31,7 @@
                     <!--Main-->
                     <div class="col-md-12">
                         <div class="row justify-content-end">
-                            <div class="col-lg-4 mb-3">
+                            <!-- <div class="col-lg-4 mb-3">
                                 <form class="filterSearchDate">
                                     <div class="row">
                                         <div class="col-lg-12 text-right mb-1">
@@ -47,19 +47,19 @@
                                         </div>
                                     </div>
                                 </form>
-                            </div>
+                            </div> -->
                             <!--Top 4 Boxes-->
                             <div class="col-xl-12">
                                 <div class="white_card card_height_100 mb_30 user_crm_wrapper">
                                     <div class="row reportsRow">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-6 offset-3">
                                             <div class="crm_box">
-                                                <h4>800,000</h4>
+                                                <h4>{{quotes}}</h4>
                                                 <p>Total Quotes</p>
                                                 <img src="@/assets/img/dashboard-img/dash-quote.png" ondragstart="return false;">
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <!-- <div class="col-lg-6">
                                             <div class="crm_box">
                                                 <h4>10,000</h4>
                                                 <p>Active Quotes</p>
@@ -79,7 +79,7 @@
                                                 <p>Cancelled Quotes</p>
                                                 <img src="@/assets/img/dashboard-img/dash-quote.png" ondragstart="return false;">
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -99,12 +99,28 @@
     import DashSidebar from './dash-sidebar.vue'
     import DashNavbar from './dash-navbar.vue'
     import DashFooter from './dash-footer.vue'
+    import QUOTE from "../../service/quote-service"
     export default {
       name: "Produce Mart",
       components:{
       'dash-sidebar': DashSidebar,
       'dash-navbar': DashNavbar,
       'dash-footer': DashFooter,
+      },
+      data() {
+        return {
+          quotes: 0,
+        };
+      },
+      created() {
+        this.getQuotes();
+      },
+      methods: {
+        getQuotes() {
+          QUOTE.getQuotes().then((res) => {
+            this.quotes = res.data.data.length;
+          });
+        },
       },
       mounted(){
         window.scrollTo(0,0)

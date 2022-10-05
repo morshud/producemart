@@ -31,7 +31,7 @@
                     <!--Main-->
                     <div class="col-md-12">
                         <div class="row justify-content-end">
-                            <div class="col-lg-4 mb-3">
+                            <!-- <div class="col-lg-4 mb-3">
                                 <form class="filterSearchDate">
                                     <div class="row">
                                         <div class="col-lg-12 text-right mb-1">
@@ -47,35 +47,35 @@
                                         </div>
                                     </div>
                                 </form>
-                            </div>
+                            </div> -->
                             <!--Top 4 Boxes-->
                             <div class="col-xl-12">
                                 <div class="white_card card_height_100 mb_30 user_crm_wrapper">
                                     <div class="row reportsRow">
                                         <div class="col-lg-6">
                                             <div class="crm_box">
-                                                <h4>801,000</h4>
+                                                <h4>{{orderCount}}</h4>
                                                 <p>Total Orders</p>
                                                 <img src="@/assets/img/dashboard-img/dash-quote.png" ondragstart="return false;">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="crm_box">
-                                                <h4>20,000</h4>
-                                                <p>Active Orders</p>
+                                                <h4>{{openOrder}}</h4>
+                                                <p>Open Orders</p>
                                                 <img src="@/assets/img/dashboard-img/dash-quote.png" ondragstart="return false;">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="crm_box">
-                                                <h4>780,000</h4>
-                                                <p>Completed Orders</p>
+                                                <h4>{{closedOrder}}</h4>
+                                                <p>Closed Orders</p>
                                                 <img src="@/assets/img/dashboard-img/dash-quote.png" ondragstart="return false;">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="crm_box">
-                                                <h4>10,000</h4>
+                                                <h4>{{cancelOrder}}</h4>
                                                 <p>Cancelled Orders</p>
                                                 <img src="@/assets/img/dashboard-img/dash-quote.png" ondragstart="return false;">
                                             </div>
@@ -106,9 +106,42 @@
       'dash-navbar': DashNavbar,
       'dash-footer': DashFooter,
       },
+      data(){
+        return{
+            orderCount: 0,
+            openOrder: 0,
+            closedOrder: 0,
+            cancelOrder: 0,
+            user: JSON.parse(localStorage.getItem("user")),
+        }
+      },
+      methods: {
+        async getOrders() {
+        //this.inspectors = null;
+        //console.log(this.user.token)
+          const res = await fetch(
+            "https://producemart.herokuapp.com/getAllOrders",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "applicaiton/json",
+                Authorization: this.user.token,
+              },
+            }
+          );
+          const { data } = await res.json();
+          this.orderCount = data.length;
+          const openOrder = data.filter((item) => item.status == 'open')
+          this.openOrder = openOrder.length
+          const closedOrder = data.filter((item) => item.status == 'closed')
+          this.closedOrder = closedOrder.length
+          const cancelOrder = data.filter((item) => item.status == 'cancelled')
+          this.cancelOrder = cancelOrder.length
+        },
+      },
       mounted(){
         window.scrollTo(0,0)
-
+        this.getOrders()
         let externalScriptCustom = document.createElement('script')
         externalScriptCustom.setAttribute('src', 'https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js')
         document.head.appendChild(externalScriptCustom)
