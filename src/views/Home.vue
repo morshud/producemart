@@ -551,17 +551,17 @@
         </div>
         <!-- <div class="col-lg-8 text-center">
           <video class="video" controls controlsList="nodownload">
-            <source src="@/assets/videos/video.mp4" type="video/mp4" />
+            <source src="" type="video/mp4" />
           </video>
-        </div> -->
-        <!-- <div class="col-lg-8 text-center video">
+        </div>  -->
+        <div class="col-lg-8 text-center video">
           <iframe
             width="600"
             height="380"
             src="https://www.youtube.com/embed/dVsuCUrHtNI"
           >
           </iframe>
-        </div> -->
+        </div>
       </div>
     </div>
   </section>
@@ -708,6 +708,7 @@ import SearchHeader from "./searchHeader.vue";
 import SubscribeNewsletter from "./subscribeNewsletter.vue";
 import MainFooter from "./mainFooter.vue";
 import SearchInner from "./searchInner.vue";
+import axios from 'axios'
 export default {
   name: "Produce Mart",
   components: {
