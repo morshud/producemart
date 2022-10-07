@@ -297,7 +297,7 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Port</label>
-                      <select v-model="airPort" class="input">
+                      <select :disabled="airPortLoaded" v-model="airPort" class="input">
                         <option>Select Port</option>
                         <option
                           v-for="(port, i) in airPortList"
@@ -357,14 +357,14 @@
                     </div>
                     <div class="col-lg-12 mb-2">
                       <label>Port</label>
-                      <select v-model="seaPort" class="input">
+                      <select :disabled="seaPortLoaded" v-model="seaPort" class="input">
                         <option>Select Port</option>
                         <option
                           v-for="(port, i) in seaPortList"
-                          :value="port.name"
+                          :value="port.port_name"
                           :key="i"
                         >
-                          {{ port.name }}
+                          {{ port.port_name }}
                         </option>
                       </select>
                     </div>
@@ -1133,6 +1133,7 @@ require("jquery.easing");
 import { countries } from "../assets/countries";
 import { seaPorts } from "../assets/seaports";
 import { airPorts } from "../assets/airports";
+import axios from 'axios'
 import QUOTE from "./../service/quote-service";
 import Swal from "sweetalert2";
 export default {
@@ -1278,7 +1279,9 @@ export default {
       road: false,
       sea: false,
       url: window.location.href,
-      copyMessage: ''
+      copyMessage: '',
+      airPortLoaded: true,
+      seaPortLoaded: true,
     };
   },
   computed: {
@@ -1348,15 +1351,32 @@ export default {
         });
     },
     selectAirCountry(){
-      let ports = this.airports.filter((elem) => elem.country == this.airCountry);
+      axios.get(`https://api.api-ninjas.com/v1/airports?country=${this.airCountry}`, {
+        headers: {
+          'X-Api-Key': 'AxDNSM07mmzXWSIt2aVWuA==y3EhIDCos9HNQjqH' 
+        },
+      })
+      .then((res) => {
+        //console.log(res.data)
+        this.airPortList = res.data
+        this.airPortLoaded = false
+      });
+      //const { data } = await ports;
+      
       //this.airCountry = countryName.country_name
-      this.airPortList = ports
+
+      //this.airPortList = data
     },
-    selectSeaCountry(){
-      let ports = this.seaports.filter((elem) => elem.country == this.seaCountry);
+    async selectSeaCountry(){
+      const API_KEY = "bef4a128-5837-4cb1-8dc4-f668e051c489"
+      let ports = await fetch(`https://api.datalastic.com/api/v0/port_find?api-key=${API_KEY}&country_iso=${this.seaCountry}`);
+      
+      const { data } = await ports.json();
+      this.seaPortLoaded = false
+      //console.log(data)
       //let countryName = this.countries.find(name => name.country_iso == this.seaCountry)
       //this.seaCountry = countryName.country_name
-      this.seaPortList = ports
+      this.seaPortList = data
     },
     minimum(item) {
       if (this.quantity < item) {
