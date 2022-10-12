@@ -361,10 +361,10 @@
                         <option>Select Port</option>
                         <option
                           v-for="(port, i) in seaPortList"
-                          :value="port.port_name"
+                          :value="port.name"
                           :key="i"
                         >
-                          {{ port.port_name }}
+                          {{ port.name }}
                         </option>
                       </select>
                     </div>
@@ -1287,7 +1287,7 @@ export default {
   computed: {
     userAuth() {
       const user = JSON.parse(localStorage.getItem("user"));
-      if (user && user.token) {
+      if (user && user.token ) {
         return true;
       } else {
         return false;
@@ -1334,24 +1334,30 @@ export default {
         roadCountry: this.roadCountry,
         postal_code: this.roadZip,
       };
-      QUOTE.addProductQuote(data, this.id)
+      const user = JSON.parse(localStorage.getItem("user"))
+      //console.log(user.token)
+      axios.post(`https://producemart.herokuapp.com/product/addQuote/${this.id}`, data, {
+        headers: {
+          "Authorization": user.token,
+          "Content-Type": "application/json"
+        }
+      })
         .then((res) => {
           //console.log(res);
           this.modal.hide();
           Swal.fire({
-            position: "top-end",
+            position: "top-center",
             icon: "success",
             title: `${res.data.message}`,
-            showConfirmButton: false,
-            timer: 5500,
+            showConfirmButton: true,
+            timer: 7000,
           });
         })
         .catch((err) => {
-          //console.log(err);
         });
     },
     selectAirCountry(){
-      axios.get(`https://api.api-ninjas.com/v1/airports?country=${this.airCountry}`, {
+      /*axios.get(`https://api.api-ninjas.com/v1/airports?country=${this.airCountry}`, {
         headers: {
           'X-Api-Key': 'AxDNSM07mmzXWSIt2aVWuA==y3EhIDCos9HNQjqH' 
         },
@@ -1360,23 +1366,25 @@ export default {
         //console.log(res.data)
         this.airPortList = res.data
         this.airPortLoaded = false
-      });
+      });*/
       //const { data } = await ports;
       
       //this.airCountry = countryName.country_name
-
-      //this.airPortList = data
+      this.airPortLoaded = false
+      this.airPortList = this.airports.filter(item => item.country == this.airCountry)
     },
     async selectSeaCountry(){
-      const API_KEY = "bef4a128-5837-4cb1-8dc4-f668e051c489"
+      /*const API_KEY = "bef4a128-5837-4cb1-8dc4-f668e051c489"
       let ports = await fetch(`https://api.datalastic.com/api/v0/port_find?api-key=${API_KEY}&country_iso=${this.seaCountry}`);
       
       const { data } = await ports.json();
-      this.seaPortLoaded = false
+      this.seaPortLoaded = false*/
+      console.log(this.seaports)
+       this.seaPortLoaded = false
       //console.log(data)
       //let countryName = this.countries.find(name => name.country_iso == this.seaCountry)
       //this.seaCountry = countryName.country_name
-      this.seaPortList = data
+      this.seaPortList = this.seaports.filter(item => item.country == this.seaCountry)
     },
     minimum(item) {
       if (this.quantity < item) {
@@ -1406,3 +1414,12 @@ export default {
   },
 };
 </script>
+
+<style>
+.swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation{
+  z-index: 9999;
+}
+.swal2-container.swal2-center > .swal2-popup{
+  margin-top: -10%;
+}
+</style>
