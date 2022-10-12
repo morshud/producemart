@@ -52,8 +52,8 @@
               <div class="col-lg-2 mb-2">
                 <select class="input" v-model="supplyFrequency">
                   <option value="">Filter By:</option>
-                  <option value="One-off">One-Off</option>
-                  <option value="Frequent">Frequent</option>
+                  <option value="ascending">Oldest</option>
+                  <option value="descending">Newest</option>
                 </select>
               </div>
             </div>
@@ -156,25 +156,16 @@ export default {
             product.name.toLowerCase().includes(this.search.toLowerCase())
           ) && this.products.filter(item => this.productCategory.includes(item.category));
         }
-        else if (this.search != '' && this.supplyFrequency != '') {
-          return this.products.filter((product) =>
-            product.name.toLowerCase().includes(this.search.toLowerCase())
-          ) && this.products.filter(item => this.supplyFrequency.includes(item.supplyFrequency));
-        }
-        else if (this.productCategory != '' && this.supplyFrequency != '') {
-          return this.products.filter(item => this.productCategory.includes(item.category)) && this.products.filter(item => this.supplyFrequency.includes(item.supplyFrequency));
-        }
         else if (this.productCategory != '') {
           return this.products.filter(item => this.productCategory.includes(item.category));
         }
         else if (this.supplyFrequency != '') {
-            return this.products.filter(item => this.supplyFrequency.includes(item.supplyFrequency));
-        }
-
-        else if(this.supplyFrequency != '' && this.productCategory != '' && this.search != ''){
-          return this.products.filter((product) =>
-            product.name.toLowerCase().includes(this.search.toLowerCase())
-          ) && this.products.filter(item => this.productCategory.includes(item.category)) && this.products.filter(item => this.supplyFrequency.includes(item.supplyFrequency));
+          if (this.supplyFrequency == 'ascending') {
+            return this.products.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+          }
+          if (this.supplyFrequency == 'descending') {
+            return this.products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          } 
         }
         
         else {

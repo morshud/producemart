@@ -330,10 +330,10 @@ export default {
       .then(res => {
       //console.log(res);
         Swal.fire({
-          position: 'top-end',
+          position: 'top-center',
           icon: 'success',
-          title: `Certificate upload successful`,
-          showConfirmButton: false,
+          title: `Certificate uploaded successfully`,
+          showConfirmButton: true,
           timer: 3500
         })
         this.$router.push('/supplier-dashboard/view-supplier-audit')
@@ -382,3 +382,12 @@ export default {
   },
 };
 </script>
+
+<style>
+.swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation{
+  z-index: 9999;
+}
+.swal2-container.swal2-center > .swal2-popup{
+  margin-top: -10%;
+}
+</style>
