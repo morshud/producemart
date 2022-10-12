@@ -438,10 +438,10 @@ export default {
       })
       .then((res) => {
         Swal.fire({
-          position: 'top-end',
+          position: 'top-center',
           icon: 'success',
           title: `You have successfully subscribe to our newsletter`,
-          showConfirmButton: false,
+          showConfirmButton: true,
           timer: 3500
         })
         this.resetForm()
@@ -462,3 +462,11 @@ export default {
   },
 };
 </script>
+<style>
+.swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation{
+  z-index: 9999;
+}
+.swal2-container.swal2-center > .swal2-popup{
+  margin-top: -10%;
+}
+</style>

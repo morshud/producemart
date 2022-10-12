@@ -128,8 +128,8 @@
                     <div class="authDiv desktopAuthDiv ml-3">
                         <div v-if="userLogin == 'buyer'">
                             <div class="profile_info nav-link" style="margin-left: 50px;">
-                              <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
-                              <img src="@/assets/img/client_img.png" alt="#" v-else />
+                              <img class="avatar" :src="user.img_url" alt="#" v-if="user.img_url" /> 
+                              <img class="avatar" src="@/assets/img/client_img.png" alt="#" v-else />
                               Hi, <span style="text-transform: capitalize; cursor: pointer">{{ user.firstname }}</span> <i class="bi bi-caret-down"></i>
                               <div class="profile_info_iner">
                                 <div class="profile_author_name">
@@ -155,8 +155,8 @@
                         </div>
                         <div v-else-if="userLogin == 'supplier'">
                             <div class="profile_info nav-link" style="margin-left: 50px;">
-                              <img :src="user.img_url" alt="#" v-if="user.img_url" /> 
-                              <img src="@/assets/img/client_img.png" alt="#" v-else />
+                              <img class="avatar" :src="user.img_url" alt="#" v-if="user.img_url" /> 
+                              <img class="avatar" src="@/assets/img/client_img.png" alt="#" v-else />
                               Hi, <span style="text-transform: capitalize; cursor: pointer">{{ user.firstname }}</span> <i class="bi bi-caret-down"></i>
                               <div class="profile_info_iner">
                                 <div class="profile_author_name">

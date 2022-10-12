@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
-const API_URL = "https://producemart.herokuapp.com/";
-//const API_URL = "http://localhost:3000/";
+//const API_URL = "https://producemart.herokuapp.com/";
+const API_URL = "http://localhost:3000/";
 const user = localStorage.getItem("user");
 //console.log(user)
 
@@ -94,13 +94,19 @@ class QUOTE {
 
   addProductQuote(data, id){
     return axios.post(API_URL + "product/" + "addQuote/" + id, data, {
-      headers: authHeader()
+      headers: {
+        "Authorization": user.token,
+        "Content-Type": "application/json"
+      }
     });
   }
 
   getQuotes() {
     return axios.get(API_URL + "product/" + "getQuotes", {
-      headers: authHeader()
+      headers: {
+        "Authorization": user.token,
+        "Content-Type": "application/json"
+      }
     });
   }
 
