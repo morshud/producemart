@@ -166,7 +166,7 @@
               <li>
                 <router-link class="bell_notification_clicker" to="/buyer-dashboard/all-notifications">
                   <img src="@/assets/img/icon/bell.svg" alt="" />
-                  <span>{{notifications}}</span>
+                  <span :class="notifications && 'ifNotification'">{{notifications}}</span>
                 </router-link>
                 <!-- <div class="Menu_NOtification_Wrap">
                   <div class="notification_Header">
