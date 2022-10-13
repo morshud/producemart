@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <!--Table-->
-                    <div class="col-lg-12">
+                    <div class="col-lg-8">
                         <div class="white_card card_height_100 mb_30">
                             <div class="white_card_header">
                                 <div class="box_header m-0">
@@ -145,14 +145,14 @@
                         </div>
                     </div>
                     <!--Recent Notification-->
-                    <!-- <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <div class="white_card card_height_100 mb_30">
                             <div class="white_card_header">
                                 <div class="box_header m-0">
                                     <div class="main-title">
                                     <h3 class="m-0">Recent Notification</h3>
                                     </div>
-                                    <div class="header_more_tool">
+                                    <!-- <div class="header_more_tool">
                                         <div class="dropdown">
                                             <span class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="bi bi-three-dots"></i>
@@ -162,44 +162,28 @@
                                                 <a class="dropdown-item" href="#"> <i class="bi bi-download"></i> Download</a>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="white_card_body">
                                 <div class="Activity_timeline">
-                                    <ul>
-                                        <li>
-                                            <div class="activity_bell"></div>
-                                            <div class="timeLine_inner d-flex align-items-center">
-                                                <div class="activity_wrap">
-                                                    <h6>5 min ago</h6>
-                                                    <p>You've gotten a new notification</p>
-                                                </div>
+                                    <ul v-for="(item, i) in notifications" :key="i">
+                                        <li style="cursor: pointer" @click="readNotice(item.type, item._id)">
+                                          <div class="activity_bell"></div>
+                                          <div class="timeLine_inner d-flex align-items-center">
+                                            <div class="activity_wrap">
+                                              <h6 style="font-size: 12px;">{{
+                                            dayDiff(item.createdAt)
+                                          }}</h6>
+                                              <p>{{ item.message }}</p>
                                             </div>
+                                          </div>
                                         </li>
-                                        <li>
-                                            <div class="activity_bell "></div>
-                                            <div class="timeLine_inner d-flex align-items-center">
-                                                <div class="activity_wrap">
-                                                    <h6>5 min ago</h6>
-                                                    <p>You've gotten a new notification</p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="activity_bell "></div>
-                                            <div class="timeLine_inner d-flex align-items-center">
-                                                <div class="activity_wrap">
-                                                    <h6>5 min ago</h6>
-                                                    <p>You've gotten a new notification</p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                      </ul>
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -213,7 +197,8 @@
     import DashSidebar from './dash-sidebar.vue'
     import DashNavbar from './dash-navbar.vue'
     import DashFooter from './dash-footer.vue'
-    import axios from 'axios'
+    import axios from "axios";
+import moment from 'moment'
     
     export default {
       name: "Produce Mart",
@@ -235,6 +220,7 @@
             items: [],
             buyerId: '',
             orderList: [],
+            notifications: [],
         }
       },
       methods: {
@@ -243,6 +229,9 @@
                 this.buyerId = this.user._id
                 this.getDashboard()
             }
+        },
+        dayDiff(value) {
+          return moment(value).fromNow();
         },
         getDate(value){
           return new Date(value).toLocaleDateString()
@@ -260,10 +249,60 @@
                 this.orderList = dashData.orderlist
                 this.orderSales = dashData.order_sales
             })
-        }
+        },
+        async getAllNotifications() {
+          const res = await fetch(
+            "https://producemart.herokuapp.com/getUserNotifications",
+            {
+              method: "GET",
+              headers: {
+                Authorization: this.user.token,
+              },
+            }
+          );
+          const { data } = await res.json();
+          let new_data = data.filter((unread) => unread.read == false)
+            //console.log(new_data)
+            this.notifications = new_data.splice(0, 4)
+          
+        },
+        async readNotice(page, id) {
+          let data = {
+            "read": true
+          }
+          axios.patch(`https://producemart.herokuapp.com/toggleRead/${id}`, data, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: this.user.token,
+            }
+          })
+          .then(() => {
+            this.getAllNotifications();
+            if (page == "order request") {
+                this.$router.push("/buyer-dashboard/view-open-order/"+id);
+            } 
+            
+          })
+        },
+        async deleteNotification(id, index) {
+          this.notifications.splice(index, 1);
+          const res = await fetch(
+            "https://producemart.herokuapp.com/deleteNotification/" + id,
+            {
+              method: "DELETE",
+              headers: {
+                Authorization: this.user.token,
+              },
+            }
+          );
+          const data = await res.json();
+          //   console.log(data);
+          //   this.loading = false;
+        },
       },
       mounted(){
         this.getUser();
+        this.getAllNotifications()
             ////Scroll To Top
             window.scrollTo(0,0)
       }
