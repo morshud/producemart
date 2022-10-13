@@ -63,13 +63,13 @@
                     </span>
                     <span
                       class="titleNotify"
-                      @click="goToPage(notification.type, notification.typeId)"
+                      @click="goToPage(notification.type, notification.typeId, i)"
                     >
                       <a class="firstTxt">{{ notification.type }}</a>
                       <a class="statusTxt" v-if="!notification.read">NEW</a>
                     </span>
                   </div>
-                  <div class="col-md-8" @click="goToPage(notification.type, notification.typeId)">
+                  <div class="col-md-8" @click="goToPage(notification.type, notification.typeId, i)">
                     <span class="detailNotify">
                       <a class="mainTxt">{{ notification.message }}</a>
                       <a class="timeTxt">{{
@@ -219,7 +219,8 @@ export default {
         return month[d.getMonth()] + " " + d.getDay();
       }
     },
-    goToPage(page, id) {
+    goToPage(page, id, index) {
+      this.markReceipt(id, index);
       if (page == "order request") {
         this.$router.push("/buyer-dashboard/view-open-order/"+id);
       } 
