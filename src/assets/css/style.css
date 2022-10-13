@@ -12313,6 +12313,45 @@ table.lms_table_active3.dataTable thead .sorting_desc::after {
   border-right: 5px solid #fb1304 !important;
   border-bottom: 5px solid #fb1304 !important;
 }
+
+@media(max-width:  2000px){
+  .user_crm_wrapper {
+    background: 0 0;
+  }
+
+  .user_crm_wrapper .crm_box {
+    background: #fff;
+    border-radius: 10px;
+    border-right: 5px solid #97f29f;
+    border-bottom: 5px solid #97f29f;
+    margin-bottom: 15px;
+    padding: 25px 17px 25px 23px;
+  }
+  .user_crm_wrapper .crm_box h4 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+  }
+  .user_crm_wrapper .crm_box p {
+    font-size: 15px;
+    color: #3f3f3f;
+    font-weight: 500;
+    margin-top: -5px;
+  }
+  .user_crm_wrapper .crm_box img {
+    width: 50px;
+    float: right;
+    margin-top: -50px;
+  }
+  .max-width-220 {
+    max-width: 220px;
+  }
+
+  .crmBoxDanger {
+    border-right: 5px solid #fb1304 !important;
+    border-bottom: 5px solid #fb1304 !important;
+  }
+}
 .alertDashMessage p {
   font-size: 16px;
   font-weight: 600;

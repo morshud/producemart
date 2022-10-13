@@ -86,7 +86,7 @@
                         </div>
                       </td> -->
                       <td>
-                        <p>{{ mail.action }}</p>
+                        <p>{{ mail.description }}</p>
                       </td>
                       <td>
                         <p>
