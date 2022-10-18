@@ -326,7 +326,7 @@
                 <router-link to="#" class="has-arrow">
                   <a aria-expanded="false">
                     <div class="nav_icon_small">
-                      <img src="@/assets/img/menu-icon/access-level.png" />
+                      <img src="@/assets/img/icon/blog.png" />
                     </div>
                     <div class="nav_title">
                       <span>Blog</span>
@@ -694,7 +694,7 @@ export default {
     );
     externalScriptCustom.setAttribute(
       "src",
-      "https://cdn.statically.io/gh/NathTimi/Mart-script/main/custom.js"
+      "https://cdn.statically.io/gh/morshud/JsFiles/main/custom.js"
     );
 
     document.head.appendChild(externalScriptJquery);

@@ -103,10 +103,7 @@ class QUOTE {
 
   getQuotes() {
     return axios.get(API_URL + "product/" + "getQuotes", {
-      headers: {
-        "Authorization": user.token,
-        "Content-Type": "application/json"
-      }
+      headers: authHeader(),
     });
   }
 

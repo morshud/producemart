@@ -14,5 +14,25 @@ import "vue-awesome-paginate/dist/style.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 
+const app = createApp(App);
 
-createApp(App).use(CKEditor).use(VueSocialSharing).use(router).use(VueAwesomePaginate).use(VueApexCharts).use(Vuex).use(store).mount("#app");
+app.config.errorHandler = function (err, vm, info) {
+  /*console.log({
+    error: err,
+    params: {info: info}
+  })*/
+}
+app.config.errorCaptured = function(err,vm,info) {
+  //console.log(`cat EC: ${err.toString()}\ninfo: ${info}`); 
+}
+
+window.onerror = function(message, source, line, column, error) {
+  /*console.log({
+    message: message,
+    source: source,
+    line: line,
+    error: error
+  })*/
+}
+
+app.use(CKEditor).use(VueSocialSharing).use(router).use(VueAwesomePaginate).use(VueApexCharts).use(Vuex).use(store).mount("#app");
