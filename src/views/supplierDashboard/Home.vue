@@ -329,6 +329,20 @@
         }
       },
       mounted(){
+            let externalScriptJquery = document.createElement("script");
+    let externalScriptMetisMenu = document.createElement("script");
+
+    externalScriptJquery.setAttribute(
+      "src",
+      "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+    );
+    externalScriptMetisMenu.setAttribute(
+      "src",
+      "https://cdn.jsdelivr.net/npm/apexcharts"
+    );
+
+    document.head.appendChild(externalScriptJquery);
+    document.head.appendChild(externalScriptMetisMenu);
             this.getUser();
           ////chartBar
           

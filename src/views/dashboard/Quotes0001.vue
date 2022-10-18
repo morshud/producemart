@@ -169,7 +169,7 @@
                                         ${{
                                           product &&
                                           quote.quantity *
-                                            product.package?.price.slice(1)
+                                            product.package?.price
                                         }}
                                       </td>
                                     </tr>
@@ -962,7 +962,7 @@ export default {
     return {
       quoteId: this.$route.params.id,
       loading: false,
-      order: null,
+      order: [],
       buyer: {},
       destination: {},
       supplier: {},
@@ -992,7 +992,7 @@ export default {
         this.buyer = result.buyer;
         this.destination = result.destination;
         this.quote = result;
-        console.log("Result", result);
+        //console.log("Result", result);
       });
     },
     async getOrder() {
@@ -1008,10 +1008,10 @@ export default {
       const data = await res.json();
       if (data.data) this.order = data.data;
       else this.order = null;
-      console.log(this.order);
+      //console.log(this.order);
     },
     async saveQuote() {
-      console.log("submitting");
+      //console.log("submitting");
       this.loading = true;
       const res = await fetch(
         "https://producemart.herokuapp.com/createOrder/" + this.quoteId,

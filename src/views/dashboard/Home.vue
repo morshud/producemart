@@ -136,7 +136,7 @@
                     </div>
                   </div>
                   <div class="QA_table mb_30">
-                    <table class="table" >
+                    <table class="table">
                       <thead>
                         <tr>
                           <th scope="col">#</th>
@@ -147,12 +147,25 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(item, i) in activeUser.slice(0, 5)" :key="item._id">
+                        <tr
+                          v-for="(item, i) in activeUser.slice(0, 5)"
+                          :key="item._id"
+                        >
                           <th scope="row">{{ i + 1 }}</th>
                           <td>{{ item.firstname }} {{ item.lastname }}</td>
                           <td>{{ item.email }}</td>
                           <td>{{ getDate(item.createdAt) }}</td>
-                          <td><a href="#" :class="[item.status == 'active' ? 'status_btn' : 'is-outlined']">{{item.status}}</a></td>
+                          <td>
+                            <a
+                              href="#"
+                              :class="[
+                                item.status == 'active'
+                                  ? 'status_btn'
+                                  : 'is-outlined',
+                              ]"
+                              >{{ item.status }}</a
+                            >
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -197,13 +210,16 @@
               <div class="white_card_body">
                 <div class="Activity_timeline">
                   <ul v-for="(item, i) in notifications" :key="i">
-                    <li style="cursor: pointer" @click="readNotice(item.type, item._id)">
+                    <li
+                      style="cursor: pointer"
+                      @click="readNotice(item.type, item._id)"
+                    >
                       <div class="activity_bell"></div>
                       <div class="timeLine_inner d-flex align-items-center">
                         <div class="activity_wrap">
-                          <h6 style="font-size: 12px;">{{
-                        dayDiff(item.createdAt)
-                      }}</h6>
+                          <h6 style="font-size: 12px">
+                            {{ dayDiff(item.createdAt) }}
+                          </h6>
                           <p>{{ item.message }}</p>
                         </div>
                       </div>
@@ -215,7 +231,7 @@
           </div>
 
           <!--Chart Bar-->
-          <div class="col-xl-7">
+          <!-- <div class="col-xl-7">
             <div class="white_card mb_30 card_height_100">
               <div class="white_card_header">
                 <div
@@ -232,26 +248,9 @@
                 <div id="chartBar"></div>
               </div>
             </div>
-          </div>
-
-          <!--Chart Pie-->
-          <div class="col-xl-5">
-            <div class="white_card card_height_100 mb_30">
-              <div class="white_card_header">
-                <div class="box_header m-0">
-                  <div class="main-title">
-                    <h3 class="m-0">Stats</h3>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div id="chartPie"></div>
-              </div>
-            </div>
-          </div>
-
+          </div> -->
           <!--New Users-->
-          <div class="col-xl-8">
+          <div class="col-xl-7">
             <div class="white_card card_height_100 mb_30">
               <div class="white_card_header">
                 <div class="row align-items-center">
@@ -314,7 +313,8 @@
               <div class="white_card_body">
                 <div
                   class="single_user_pil d-flex align-items-center justify-content-between mb-0"
-                  v-for="(user, i) in newUser.slice(0, 5)" :key="user._id"
+                  v-for="(user, i) in newUser.slice(0, 5)"
+                  :key="user._id"
                 >
                   <div class="user_pils_thumb d-flex align-items-center">
                     <div class="thumb_34 mr_15 mt-0">
@@ -324,9 +324,13 @@
                         alt=""
                       />
                     </div>
-                    <span class="f_s_14 f_w_400 text_color_11">{{user.firstname}} {{user.lastname}}</span>
+                    <span class="f_s_14 f_w_400 text_color_11"
+                      >{{ user.firstname }} {{ user.lastname }}</span
+                    >
                   </div>
-                  <div class="user_info" style="text-transform: capitalize">{{user.role}}</div>
+                  <div class="user_info" style="text-transform: capitalize">
+                    {{ user.role }}
+                  </div>
                   <div class="action_btns d-flex">
                     <a href="#" class="action_btn mr_10">
                       <i class="far fa-eye"></i>
@@ -336,12 +340,28 @@
                     </a> -->
                   </div>
                 </div>
-                
               </div>
             </div>
           </div>
+          <!--Chart Pie-->
+          <div class="col-xl-5">
+            <div class="white_card card_height_100 mb_30">
+              <div class="white_card_header">
+                <div class="box_header m-0">
+                  <div class="main-title">
+                    <h3 class="m-0">Stats</h3>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div id="chartPie"></div>
+              </div>
+            </div>
+          </div>
+
+          
           <!--Chart Circle-->
-          <div class="col-xl-4">
+          <!-- <div class="col-xl-4">
             <div class="white_card card_height_100 mb_30">
               <div class="white_card_header">
                 <div class="box_header m-0">
@@ -395,7 +415,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -411,7 +431,7 @@ import DashSidebar from "./dash-sidebar.vue";
 import DashNavbar from "./dash-navbar.vue";
 import DashFooter from "./dash-footer.vue";
 import axios from "axios";
-import moment from 'moment'
+import moment from "moment";
 export default {
   name: "Produce Mart",
   components: {
@@ -430,7 +450,7 @@ export default {
       search: "",
       notifications: [],
       activeUser: [],
-      newUser: []
+      newUser: [],
     };
   },
   computed: {
@@ -449,33 +469,33 @@ export default {
       this.$store.dispatch("auth/logout");
       this.$router.push("/admin/login");
     },
-    getDate(value){
-      return new Date(value).toLocaleDateString()
+    getDate(value) {
+      return new Date(value).toLocaleDateString();
     },
     dayDiff(value) {
       return moment(value).fromNow();
     },
-    readNotice(page, id){
+    readNotice(page, id) {
       let data = {
-        "read": true
-      }
-      axios.patch(`https://producemart.herokuapp.com/toggleRead/${id}`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: this.admin.token,
-        }
-      })
-      .then(() => {
-        this.getAllNotifications();
-        if (page == "quote") {
-          this.$router.push("/dashboard/view-quotes");
-        } else if (page == "product upload") {
-          this.$router.push("/dashboard/pending-products");
-        } else if (page == "active product") {
-          this.$router.push("/dashboard/active-products");
-        }
-        
-      })
+        read: true,
+      };
+      axios
+        .patch(`https://producemart.herokuapp.com/toggleRead/${id}`, data, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: this.admin.token,
+          },
+        })
+        .then(() => {
+          this.getAllNotifications();
+          if (page == "quote") {
+            this.$router.push("/dashboard/view-quotes");
+          } else if (page == "product upload") {
+            this.$router.push("/dashboard/pending-products");
+          } else if (page == "active product") {
+            this.$router.push("/dashboard/active-products");
+          }
+        });
     },
     dateFormat(date) {
       let d = new Date(date);
@@ -501,17 +521,19 @@ export default {
         return month[d.getMonth()] + " " + d.getDay();
       }
     },
-    getAllNotifications(){
-      axios.get(`https://producemart.herokuapp.com/getAdminNotifications`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: this.admin.token,
-        }
-      }).then(res => {
-        let new_data = res.data.data.filter((unread) => unread.read == false)
-        //console.log(new_data)
-        this.notifications = new_data.splice(0, 4)
-      })
+    getAllNotifications() {
+      axios
+        .get(`https://producemart.herokuapp.com/getAdminNotifications`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: this.admin.token,
+          },
+        })
+        .then((res) => {
+          let new_data = res.data.data.filter((unread) => unread.read == false);
+          //console.log(new_data)
+          this.notifications = new_data.splice(0, 4);
+        });
     },
     async fetchUsers() {
       //this.users = null;
@@ -524,10 +546,10 @@ export default {
               (admin) => admin.role == "supplier" || admin.role == "buyer"
             );
       //console.log(this.users[0].role);
-      let active = this.users.filter(el => el.status == 'active')
-      this.activeUser = active
+      let active = this.users.filter((el) => el.status == "active");
+      this.activeUser = active;
       //console.log(this.activeUser)
-      this.newUser = this.users
+      this.newUser = this.users;
     },
     async getDashboardParam() {
       const res = await fetch("https://producemart.herokuapp.com/getDashboard");
@@ -536,38 +558,41 @@ export default {
       this.dashboardParams = data;
     },
     getDashboard() {
-      axios.get("https://producemart.herokuapp.com/adminDashboard", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: this.admin.token,
-        },
-      })
-      .then(res => {
-        const { data } = res;
-        //console.log(data);
-        this.item = data;
-        let sales = data.sales
-        //console.log(sales.date)
-        ////chartPie
-        var options = {
-          chart: {
-            height: 280,
-            type: "pie",
-            toolbar: {
-              show: true,
-              tools: {
-                download: true,
-              },
-              autoSelected: "zoom",
-            },
+      axios
+        .get("https://producemart.herokuapp.com/adminDashboard", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: this.admin.token,
           },
-          series: Object.values(data.statistics),
-          labels: Object.keys(data.statistics),
-        };
-        var chart = new ApexCharts(document.querySelector("#chartPie"), options);
-        chart.render();
-      })
-      
+        })
+        .then((res) => {
+          const { data } = res;
+          //console.log(data);
+          this.item = data;
+          let sales = data.sales;
+          //console.log(sales.date)
+          ////chartPie
+          var options = {
+            chart: {
+              height: 280,
+              type: "pie",
+              toolbar: {
+                show: true,
+                tools: {
+                  download: true,
+                },
+                autoSelected: "zoom",
+              },
+            },
+            series: Object.values(data.statistics),
+            labels: Object.keys(data.statistics),
+          };
+          var chart = new ApexCharts(
+            document.querySelector("#chartPie"),
+            options
+          );
+          chart.render();
+        });
     },
   },
   mounted() {
@@ -575,157 +600,25 @@ export default {
     /*if (!this.currentUser) {
       this.$router.push("/login");
     }*/
+    let externalScriptJquery = document.createElement("script");
+    let externalScriptMetisMenu = document.createElement("script");
+
+    externalScriptJquery.setAttribute(
+      "src",
+      "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+    );
+    externalScriptMetisMenu.setAttribute(
+      "src",
+      "https://cdn.jsdelivr.net/npm/apexcharts"
+    );
+
+    document.head.appendChild(externalScriptJquery);
+    document.head.appendChild(externalScriptMetisMenu);
     this.getDashboardParam();
     this.getDashboard();
     this.getAllNotifications();
-    ////chartBar
-    var options = {
-      chart: {
-        type: "area",
-        height: 300,
-        foreColor: "#000",
-        stacked: true,
-        dropShadow: {
-          enabled: true,
-          enabledSeries: [0],
-          top: -2,
-          left: 2,
-          blur: 5,
-          opacity: 0.06,
-        },
-      },
-      colors: ["#00E396", "#008FFB"],
-      stroke: {
-        curve: "smooth",
-        width: 3,
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      series: [
-        {
-          name: "Total Sales",
-          data: generateDayWiseTimeSeries(0, 18),
-        },
-        {
-          name: "Total Views",
-          data: generateDayWiseTimeSeries(1, 18),
-        },
-      ],
-      markers: {
-        size: 0,
-        strokeColor: "#fff",
-        strokeWidth: 3,
-        strokeOpacity: 1,
-        fillOpacity: 1,
-        hover: {
-          size: 6,
-        },
-      },
-      xaxis: {
-        type: "datetime",
-        axisBorder: {
-          show: false,
-        },
-        axisTicks: {
-          show: false,
-        },
-      },
-      yaxis: {
-        labels: {
-          offsetX: 14,
-          offsetY: -5,
-        },
-        tooltip: {
-          enabled: true,
-        },
-      },
-      grid: {
-        padding: {
-          left: -5,
-          right: 5,
-        },
-      },
-      tooltip: {
-        x: {
-          format: "dd MMM yyyy",
-        },
-      },
-      legend: {
-        position: "top",
-        horizontalAlign: "left",
-      },
-      fill: {
-        type: "solid",
-        fillOpacity: 0.7,
-      },
-    };
-    var chart = new ApexCharts(document.querySelector("#chartBar"), options);
-    chart.render();
 
-    function generateDayWiseTimeSeries(s, count) {
-      var values = [
-        [2, 3, 8, 7, 22, 16, 23, 7, 11, 5, 12, 5, 10, 4, 15, 2, 6, 2],
-        [4, 3, 10, 9, 29, 19, 25, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5],
-      ];
-      var i = 0;
-      var series = [];
-      var x = new Date("03 Mar 2022").getTime();
-      while (i < count) {
-        series.push([x, values[s][i]]);
-        x += 86400000;
-        i++;
-      }
-      return series;
-    }
-
-    
-
-    ////chartCircle
-    var options = {
-      chart: {
-        type: "donut",
-        toolbar: {
-          show: true,
-          tools: {
-            download: true,
-          },
-          autoSelected: "zoom",
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      series: [44, 55, 13],
-      labels: ["Sales", "Bestseller", "Total Sales"],
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200,
-            },
-            legend: {
-              show: false,
-            },
-          },
-        },
-      ],
-      legend: {
-        position: "right",
-        offsetX: -40,
-        offsetY: 0,
-        height: 250,
-      },
-    };
-    var chart = new ApexCharts(document.querySelector("#chartCircle"), options);
-    chart.render();
-
-    ////Scroll To Top
     window.scrollTo(0, 0);
-
-    ////Custom JS
-    
   },
 };
 </script>

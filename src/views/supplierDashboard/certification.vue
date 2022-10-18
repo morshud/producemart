@@ -49,7 +49,7 @@
                     </div>
                     <div class="d-flex justify-content-center">
                       <button type="button" @click="cancleAudit" style="width: 15%;font-size: 13px;font-weight: bold;" class="btn btn-outline-dark mx-3">Cancel</button>
-                      <button :disabled='isDisabled' class="btn btn-dark mx-3" @click="proceedAudit" style="width: 15%;font-size: 13px;font-weight: bold;">Proceed</button>
+                      <button :disabled='isDisabled' class="btn btn-dark mx-3" @click="proceedAudit" style="width: 15%;font-size: 13px;font-weight: bold; background: #000;">Proceed</button>
                     </div>
                 </div>
               </div>

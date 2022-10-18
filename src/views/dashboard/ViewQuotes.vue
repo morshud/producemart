@@ -153,7 +153,7 @@ export default {
     getQuotes() {
       QUOTE.getQuotes().then((res) => {
         this.quotes = res.data.data;
-        console.log(res.data);
+        //console.log(res.data);
       });
     },
   },

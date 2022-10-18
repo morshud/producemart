@@ -556,7 +556,7 @@
         </div>  -->
         <div class="col-lg-8 text-center video">
           <iframe
-            width="600"
+            style="width: 80%"
             height="380"
             src="https://www.youtube.com/embed/dVsuCUrHtNI"
           >
