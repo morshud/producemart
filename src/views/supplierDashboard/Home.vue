@@ -160,7 +160,7 @@
                         </div>
                     </div>
                     <!--Chart Bar-->
-                    <div class="col-xl-7">
+                    <!-- <div class="col-xl-7">
                         <div class="white_card mb_30 card_height_100">
                             <div class="white_card_header">
                                 <div class="row align-items-center justify-content-between flex-wrap">
@@ -175,10 +175,10 @@
                                 <apexchart width="500" type="area" :options="options" :series="series"></apexchart>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!--Chart Circle-->
-                    <div class="col-xl-5">
+                    <div class="col-xl-6">
                         <div class="white_card card_height_100 mb_30">
                         <div class="white_card_header">
                             <div class="box_header m-0">
