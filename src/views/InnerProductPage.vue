@@ -1357,7 +1357,7 @@ export default {
         });
     },
     selectAirCountry(){
-      /*axios.get(`https://api.api-ninjas.com/v1/airports?country=${this.airCountry}`, {
+      axios.get(`https://api.api-ninjas.com/v1/airports?country=${this.airCountry}`, {
         headers: {
           'X-Api-Key': 'AxDNSM07mmzXWSIt2aVWuA==y3EhIDCos9HNQjqH' 
         },
@@ -1366,7 +1366,7 @@ export default {
         //console.log(res.data)
         this.airPortList = res.data
         this.airPortLoaded = false
-      });*/
+      });
       //const { data } = await ports;
       
       //this.airCountry = countryName.country_name
