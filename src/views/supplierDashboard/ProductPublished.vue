@@ -179,7 +179,7 @@ export default {
       baseURL: window.location.path,
       id: null,
       token: JSON.parse(localStorage.getItem("user")).token,
-      products: null,
+      products: [],
     };
   },
   methods: {

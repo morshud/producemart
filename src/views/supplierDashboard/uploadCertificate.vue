@@ -254,7 +254,7 @@
                     <button type="button" class="btn btn-outline-dark">Cancel</button>
                   </div>
                   <div class="col d-grid gap-2">
-                    <button type="submit" class="btn btn-dark">Proceed</button>
+                    <button type="submit" style="background: #000;" class="btn btn-dark">Proceed</button>
                   </div>
                 </div>
               </div>

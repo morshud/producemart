@@ -195,13 +195,13 @@ export default {
   data() {
     return {
       token: JSON.parse(localStorage.getItem("user")).token,
-      pendingProducts: null,
-      rejectedProducts: null,
+      pendingProducts: [],
+      rejectedProducts: [],
     };
   },
   methods: {
     async fetchPublishedProduct() {
-      this.products = null;
+      this.products = [];
       const res = await fetch(
         "https://producemart.herokuapp.com/getPendingProductByUser",
         {

@@ -38,92 +38,88 @@
                                 <div class="col-lg-12 mb-3">
                                     <h2>Choose a certification level you would like to acquire:</h2>
                                 </div>
-                                <div class="lefting">
-                                    <div class="QA_table mb_30">
-                                    <table class="table lms_table_active ">
-                                        <thead>
+                                <!-- <div class="lefting certiBox" style="margin: 10px;">
+                                    <div class="QA_table mb_30" style="">
+                                        <table border="1" class="table lms_table_active ">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">LEVEL 1</th>
+                                                    <th scope="col">LEVEL 2</th>
+                                                    <th scope="col">LEVEL 3 </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
                                             <tr>
-                                                <th scope="col"></th>
-                                                <th scope="col">LEVEL 1</th>
-                                                <th scope="col">LEVEL 2</th>
-                                                <th scope="col">LEVEL 3 </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>
+                                                <td>
 
-                                            </td>
-                                            <td><b>
-                                                SELF ASSESSMENT OF FOOD SAFETY CULTURE
-                                            </b></td>
-                                            <td><b>
-                                                2ND PARTY AUDIT AND REPORT
-                                            </b></td>
-                                            <td><b>
-                                                GFSI AUDIT E.G SQF,BRCGS,GLOBAL STANDARD, GLOBAL GAP ETC
-                                            </b></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Certificate issued <a type="" style="cursor: pointer" data-toggle="tooltip" data-html="true" title="A non-comfirmance report (NCR) is a Issued to be supplier and it explicity found in order to help inform and begin changes or repairs to the problem.">
-  <i class="bi bi-question-circle-fill"></i>
-</a></td>
-                                            <td><i class="bi bi-x-lg"></i></td>
-                                            <td><i class="bi bi-x-lg"></i></td>
-                                            <td><i class="bi bi-x-lg"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Physical site Audit <a type="" style="cursor: pointer" data-toggle="tooltip" data-html="true" title="A non-comfirmance report (NCR) is a Issued to be supplier and it explicity found in order to help inform and begin changes or repairs to the problem.">
-  <i class="bi bi-question-circle-fill"></i>
-</a>
-                                            </td>
-                                            <td><i class="bi bi-x-lg"></i></td>
-                                            <td><i class="bi bi-check-lg"></i></td>
-                                            <td><i class="bi bi-check-lg"></i></td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <td>Detailed Non Conformity Report Issued <a type="" style="cursor: pointer" data-toggle="tooltip" data-html="true" title="A non-comfirmance report (NCR) is a Issued to be supplier and it explicity found in order to help inform and begin changes or repairs to the problem.">
-  <i class="bi bi-question-circle-fill"></i>
-</a></td>
-                                            <td><i class="bi bi-check-lg"></i></td>
-                                            <td><i class="bi bi-check-lg"></i></td>
-                                            <td><i class="bi bi-check-lg"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
+                                                </td>
+                                                <td><b>
+                                                    SELF ASSESSMENT OF FOOD SAFETY CULTURE
+                                                </b></td>
+                                                <td style="width 26%"><b>
+                                                    2ND PARTY AUDIT AND REPORT
+                                                </b></td>
+                                                <td><b>
+                                                    GFSI AUDIT E.G SQF,BRCGS,GLOBAL STANDARD, GLOBAL GAP ETC
+                                                </b></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Certificate Issued</td>
+                                                <td><i class="bi bi-x-lg"></i></td>
+                                                <td><i class="bi bi-x-lg"></i></td>
+                                                <td><i class="bi bi-check-lg"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Physical Site Audit
+                                                </td>
+                                                <td><i class="bi bi-x-lg"></i></td>
+                                                <td><i class="bi bi-check-lg"></i></td>
+                                                <td><i class="bi bi-check-lg"></i></td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>Detailed Non Conformity Report Issued <a type="" style="cursor: pointer" data-toggle="tooltip" data-html="true" title="A non-comfirmance report (NCR) is a Issued to be supplier and it explicity found in order to help inform and begin changes or repairs to the problem.">
+                                                      <i class="bi bi-question-circle-fill"></i>
+                                                    </a></td>
+                                                <td><i class="bi bi-x-lg"></i></td>
+                                                <td><i class="bi bi-check-lg"></i></td>
+                                                <td><i class="bi bi-check-lg"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td><div class="btnDiv text-center">
+                                                <button>
+                                                    <a style="background: transparent" target="_blank" href="https://www.sgs.co.uk/en-gb/contact?id=850fe91e62cc456091f0c00ca15ee166">Request a quote <i class="bi bi-arrow-right"></i></a>
+                                                </button>
+                                            </div></td>
                                             <td><div class="btnDiv text-center">
-                                            <button>
-                                                <a target="_blank" href="https://www.sgs.co.uk/en-gb/contact?id=850fe91e62cc456091f0c00ca15ee166">Request a quote <i class="bi bi-arrow-right"></i></a>
-                                            </button>
-                                        </div></td>
-                                        <td><div class="btnDiv text-center">
-                                            <button>
-                                                <a target="_blank" href="https://www.sgs.co.uk/en-gb/contact?id=850fe91e62cc456091f0c00ca15ee166">Request a quote <i class="bi bi-arrow-right"></i></a>
-                                            </button>
-                                        </div></td>
-                                        <td><div class="btnDiv text-center">
-                                            <button>
-                                                <a target="_blank" href="https://www.sgs.co.uk/en-gb/contact?id=850fe91e62cc456091f0c00ca15ee166">Request a quote <i class="bi bi-arrow-right"></i></a>
-                                            </button>
-                                        </div></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                </div>
-                                <!-- <div class="col-lg-4">
+                                                <button>
+                                                    <a style="background: transparent" target="_blank" href="https://www.sgs.co.uk/en-gb/contact?id=850fe91e62cc456091f0c00ca15ee166">Request a quote <i class="bi bi-arrow-right"></i></a>
+                                                </button>
+                                            </div></td>
+                                            <td><div class="btnDiv text-center">
+                                                <button>
+                                                    <a style="background: transparent" target="_blank" href="https://www.sgs.co.uk/en-gb/contact?id=850fe91e62cc456091f0c00ca15ee166">Request a quote <i class="bi bi-arrow-right"></i></a>
+                                                </button>
+                                            </div></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div> -->
+                                <div class="col-lg-4">
                                     <div class="certiBox">
-                                        <h3>Level 1</h3>
-                                        <h3 style="font-size: 13px;">Self Assessment of food safety culture</h3>
+                                        <h3 style="padding: 0">Level 1</h3>
+                                        <h3 style="font-size: 13px;">Self Assessment of food safety <br> culture</h3>
                                         <div class="lineHr"></div>
                                         <div class="detailsBoxArea">
                                             <div class="markIcon">
                                                 <i class="bi bi-x-lg"></i>
                                             </div>
                                             <div class="textSpace">
-                                                Certificate issued.
+                                                Certificate Issued.
                                             </div>
                                             <div class="clear"></div>
                                         </div>
@@ -132,7 +128,7 @@
                                                 <i class="bi bi-x-lg"></i>
                                             </div>
                                             <div class="textSpace">
-                                                Physical site Audit.
+                                                Physical Site Audit.
                                             </div>
                                             <div class="clear"></div>
                                         </div>
@@ -141,12 +137,14 @@
                                                 <i class="bi bi-x-lg"></i>
                                             </div>
                                             <div class="textSpace">
-                                                Detailed Non Conformity Report Issued
+                                                Detailed Non Conformity Report Issued <a type="" style="cursor: pointer" data-toggle="tooltip" data-html="true" title="A non-comfirmance report (NCR) is a Issued to be supplier and it explicity found in order to help inform and begin changes or repairs to the problem.">
+                                                      <i class="bi bi-question-circle-fill"></i>
+                                                    </a>
                                             </div>
                                             <div class="clear"></div>
                                         </div>
                                         
-                                        <div class="btnDiv text-center">
+                                        <div class="btnDiv text-center" style="margin-top: 30px;">
                                             <a target="_blank" href="https://www.sgs.co.uk/en-gb/contact?id=850fe91e62cc456091f0c00ca15ee166">Request a quote <i class="bi bi-arrow-right"></i></a>
                                         </div>
                                     </div>
@@ -154,15 +152,15 @@
                                 <div class="col-lg-4">
                                     <div class="certiBox">
                                         
-                                        <h3>Level 2</h3>
-                                        <h3 style="font-size: 13px;">2nd Party Audit and report</h3>
+                                        <h3 style="padding: 0">Level 2</h3>
+                                        <h3 style="font-size: 13px;">2nd Party Audit and <br> report</h3>
                                         <div class="lineHr"></div>
                                         <div class="detailsBoxArea">
                                             <div class="markIcon">
                                                 <i class="bi bi-x-lg"></i>
                                             </div>
                                             <div class="textSpace">
-                                                Certificate issued.
+                                                Certificate Issued.
                                             </div>
                                             <div class="clear"></div>
                                         </div>
@@ -171,7 +169,7 @@
                                                 <i class="bi bi-check-lg"></i>
                                             </div>
                                             <div class="textSpace">
-                                                Physical site Audit.
+                                                Physical Site Audit.
                                             </div>
                                             <div class="clear"></div>
                                         </div>
@@ -180,12 +178,14 @@
                                                 <i class="bi bi-check-lg"></i>
                                             </div>
                                             <div class="textSpace">
-                                                Detailed Non Conformity Report Issued
+                                                Detailed Non Conformity Report Issued <a type="" style="cursor: pointer" data-toggle="tooltip" data-html="true" title="A non-comfirmance report (NCR) is a Issued to be supplier and it explicity found in order to help inform and begin changes or repairs to the problem.">
+                                                      <i class="bi bi-question-circle-fill"></i>
+                                                    </a>
                                             </div>
                                             <div class="clear"></div>
                                         </div>
                                         
-                                        <div class="btnDiv text-center">
+                                        <div class="btnDiv text-center" style="margin-top: 30px;">
                                             <a target="_blank" href="https://www.sgs.co.uk/en-gb/contact?id=850fe91e62cc456091f0c00ca15ee166">Request a quote <i class="bi bi-arrow-right"></i></a>
                                         </div>
                                     </div>
@@ -193,7 +193,7 @@
                                 <div class="col-lg-4">
                                     <div class="certiBox">
                                         
-                                        <h3>Level 3</h3>
+                                        <h3 style="padding: 0">Level 3</h3>
                                         <h3 style="font-size: 13px;">GFSI Audit e.g SQF,BRCGS,global standard, global Gap etc</h3>
                                         <div class="lineHr"></div>
                                         <div class="detailsBoxArea">
@@ -201,7 +201,7 @@
                                                 <i class="bi bi-check-lg"></i>
                                             </div>
                                             <div class="textSpace">
-                                                Certificate issued.
+                                                Certificate Issued.
                                             </div>
                                             <div class="clear"></div>
                                         </div>
@@ -210,7 +210,7 @@
                                                 <i class="bi bi-check-lg"></i>
                                             </div>
                                             <div class="textSpace">
-                                                Physical site Audit.
+                                                Physical Site Audit.
                                             </div>
                                             <div class="clear"></div>
                                         </div>
@@ -219,15 +219,17 @@
                                                 <i class="bi bi-check-lg"></i>
                                             </div>
                                             <div class="textSpace">
-                                                Detailed Non Conformity Report Issued
+                                                Detailed Non Conformity Report Issued <a type="" style="cursor: pointer" data-toggle="tooltip" data-html="true" title="A non-comfirmance report (NCR) is a Issued to be supplier and it explicity found in order to help inform and begin changes or repairs to the problem.">
+                                                      <i class="bi bi-question-circle-fill"></i>
+                                                    </a>
                                             </div>
                                             <div class="clear"></div>
                                         </div>
-                                        <div class="btnDiv text-center">
+                                        <div class="btnDiv text-center" style="margin-top: 30px;">
                                             <a target="_blank" href="https://www.sgs.co.uk/en-gb/contact?id=850fe91e62cc456091f0c00ca15ee166">Request a quote <i class="bi bi-arrow-right"></i></a>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
 
