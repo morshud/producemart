@@ -39,7 +39,7 @@
           <div class="footerCol">
             <h4>Services</h4>
             <!-- <p><router-link to="/contact"><a>Contact Us</a></router-link></p> -->
-            <p><router-link to="/products"><a>View Product</a></router-link></p>
+            <p><router-link to="/products"><a>View Products</a></router-link></p>
             <p><router-link to="/request-a-product"><a>Request a Product</a></router-link></p>
             <h4 class="mt-4">Resources</h4>
             <!-- <p><router-link to="#"><a>Ebook Download</a></router-link></p>
@@ -53,7 +53,7 @@
             <h4>Legal</h4>
             <p><router-link to="/terms"><a>Terms & Conditions</a></router-link></p>
             <p><router-link to="/privacy"><a>Privacy Policy</a></router-link></p>
-            <p><router-link to="/cookies"><a>Cookies Policy</a></router-link></p>
+            <!-- <p><router-link to="/cookies"><a>Cookies Policy</a></router-link></p> -->
           </div>
         </div>
         <div class="col-md-3">

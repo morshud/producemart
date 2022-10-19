@@ -43,10 +43,42 @@
           </div>
       </section>
 
+      <section class="videoSection">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-10 text-center mb-4">
+              <div class="textHead">
+                <p class="subhead">Produce Mart</p>
+                <h2>Why Choose Us?</h2>
+              </div>
+            </div>
+            <!-- <div class="col-lg-8 text-center">
+              <video class="video" controls controlsList="nodownload">
+                <source src="" type="video/mp4" />
+              </video>
+            </div>  -->
+            <div class="col-lg-8 text-center video">
+              <iframe
+                style="width: 100%"
+                height="380"
+                src="https://www.youtube.com/embed/6jDxjTub-eE"
+              >
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!--Our Goals-->
       <section class="aboutExplore">
           <div class="container">
               <div class="row">
+                  <div class="col-md-5">
+                      <div class="imgSec">
+                          <img src="@/assets/img/abtImg2.png" draggable="false">
+                      </div>
+                  </div>
+                  <div class="col-md-1"></div>
                   <div class="col-md-6">
                       <div class="textSec">
                           <div class="textHead">
@@ -54,12 +86,6 @@
                             <h2>Our Mission Statement</h2>
                           </div>
                           <p class="note">"Our organization exists to provide a simple and secure way to connect buyers and sellers of wholesale agricultural produce and ingredients both locally and globally by removing barriers to trade through our unique selling and purchasing process built into our online platform."</p>
-                      </div>
-                  </div>
-                  <div class="col-md-1"></div>
-                  <div class="col-md-5">
-                      <div class="imgSec">
-                          <img src="@/assets/img/abtImg2.png" draggable="false">
                       </div>
                   </div>
               </div>

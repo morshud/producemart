@@ -543,10 +543,32 @@
   <section class="videoSection">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-10 text-center mb-4">
+        <div class="col-md-6 text-center mb-4">
           <div class="textHead">
             <p class="subhead">Produce Mart</p>
-            <h2>explainer video</h2>
+            <h4 style="font-weight: 600;text-transform: uppercase; color: #000">buyer explainer video</h4>
+          </div>
+          <div class="text-center video">
+            <iframe
+              style="width: 80%"
+              height="380"
+              src="https://www.youtube.com/embed/SCpdXPkxUaY"
+            >
+            </iframe>
+          </div>
+        </div>
+        <div class="col-md-6 text-center mb-4">
+          <div class="textHead">
+            <p class="subhead">Produce Mart</p>
+            <h4 style="font-weight: 600;text-transform: uppercase; color: #000;">Supplier explainer video</h4>
+          </div>
+          <div class="text-center video">
+            <iframe
+              style="width: 80%"
+              height="380"
+              src="https://www.youtube.com/embed/tMlX2B_Un9w"
+            >
+            </iframe>
           </div>
         </div>
         <!-- <div class="col-lg-8 text-center">
@@ -554,14 +576,7 @@
             <source src="" type="video/mp4" />
           </video>
         </div>  -->
-        <div class="col-lg-8 text-center video">
-          <iframe
-            style="width: 80%"
-            height="380"
-            src="https://www.youtube.com/embed/dVsuCUrHtNI"
-          >
-          </iframe>
-        </div>
+
       </div>
     </div>
   </section>
